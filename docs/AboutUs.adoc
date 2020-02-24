@@ -28,29 +28,20 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ng Xinpei
+image::XinPei-ng.png[width="150", align="left"]
+{empty}[https://github.com/XinPei-ng[github]] [<<Ng Xinepei#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Documentation and UI
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Zheng Shaopeng
+image::sp-shaopeng.png[width="150", align="left"]
+{empty}[https://github.com/sp-shaopeng[github]] [<<Zheng Shaopeng#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
+Responsibilities: Deadline and Deliverable, Scheduling and Tracking, Backend
 
 '''
