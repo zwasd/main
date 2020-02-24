@@ -20,17 +20,17 @@ Responsibilities: Code Quality, Testing, UI
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Lim Feng Yue
+image::zwasd.png[width="150", align="left"]
+{empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Integration + Backend
 
 '''
 
 === Ng Xinpei
-image::XinPei-ng.png[width="150", align="left"]
+image::xinpei-ng.png[width="150", align="left"]
 {empty}[https://github.com/XinPei-ng[github]] [<<Ng Xinepei#, portfolio>>]
 
 Role: Developer +
