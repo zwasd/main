@@ -23,7 +23,7 @@ Role: Project Advisor
 image::portrait_placeholder.png[width="150", align="left"]
 {empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Integration + Backend
 
 '''
