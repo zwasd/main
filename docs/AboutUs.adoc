@@ -11,25 +11,27 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Jiang Jiahui
+image::jjiahui.png[width="150", align="left"]
+{empty}[https://github.com/JJiahui[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer +
+Responsibilities: Code Quality, Testing, UI
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+=== Lim Feng Yue
+image::zwasd.png[width="150", align="left"]
+{empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Integration + Backend
 
 '''
 
 === Ng Xinpei
-image::XinPei-ng.png[width="150", align="left"]
+image::xinpei-ng.png[width="150", align="left"]
 {empty}[https://github.com/XinPei-ng[github]] [<<Ng Xinepei#, portfolio>>]
 
 Role: Developer +
