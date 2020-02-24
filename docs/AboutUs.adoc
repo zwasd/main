@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Lim Feng Yue
-image::portrait_placeholder.png[width="150", align="left"]
+image::zwasd.png[width="150", align="left"]
 {empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
