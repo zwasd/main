@@ -19,12 +19,12 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Lim Feng Yue
+image::portrait_placeholder.png[width="150", align="left"]
+{empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer
+Responsibilities: Integration + Backend
 
 '''
 
@@ -43,14 +43,5 @@ image::m133225.jpg[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
 
 '''
