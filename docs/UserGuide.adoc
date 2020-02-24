@@ -34,6 +34,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+
 * **`add`**`-i chicken rice -a $4.50` : adds new expenditure and information.
 * **`delete`**`3` : deletes the 3rd expenditure shown in the current list
 * *`bye`* : exits the app
