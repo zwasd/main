@@ -130,7 +130,7 @@ delete 1` +
 Deletes the expenditure with ID 1 if it is in the results of the `find` command.
 // end::delete[]
 
-=== Set a fixed recurring ( recurs every ‘NUMBER PERIOD’ )  expenditure
+=== Set a fixed recurring ( recurs every `NUMBER PERIOD` )  expenditure: repeat
 
 Sets an expenditure that will automatically be added every interval which expires at specified date. +
 Format: `rep -i INFO -a AMT [-t TAG] [-d DATE] [-interval Number DAY/WEEK/MONTH] [-e EXPIRE_DATE]`
