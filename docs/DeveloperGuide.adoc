@@ -402,7 +402,7 @@ _{ more test cases ... }_
 
 === Deleting a expenditure
 
-. Deleting a expenditure while all expenditures are listed
+. Deleting an expenditure while all expenditures are listed
 
 .. Prerequisites: List all expenditures using the `list` command. Multiple expenditures in the list.
 .. Test case: `delete 1` +
