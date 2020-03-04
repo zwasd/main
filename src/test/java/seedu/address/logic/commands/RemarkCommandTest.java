@@ -36,7 +36,10 @@ public class RemarkCommandTest {
 
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, remark);
 
-        String expectedMessage = String.format(RemarkCommand.MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), remark);
+        String expectedMessage = String.format(
+                RemarkCommand.MESSAGE_ARGUMENTS,
+                INDEX_FIRST_PERSON.getOneBased(),
+                remark);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, remarkedPerson);

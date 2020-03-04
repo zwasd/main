@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Remark for a contact.
+ */
 public class Remark {
 
     public static final String MESSAGE_CONSTRAINTS = "Remarks can take any values.";
