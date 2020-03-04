@@ -333,7 +333,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to add a spending. Format: `Add i/info a/amount d/date [t/tag]`
+1.  User requests to add a spending. Format: `Add -i info -a amount -d date [-t tag]`
 2.  `$aveIt` will acknowledge and assign this expenditure an unique ID.
 3.  If tag is not specified during the instruction, `$aveIt` will auto assign it to be `others`
 +
@@ -352,7 +352,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to delete a spending. Format: `Delete [/r] UniqueID`
+1.  User requests to delete a spending. Format: `Delete [-r] UniqueID`
 2.  `$aveIt` will acknowledge.
 3.  If tag is not specified during the instruction, `$aveIt` will auto assign it to be `others`
 +
@@ -372,7 +372,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to add an fix spending per month. Format: `Repeat i/info a/amount d/date p/interval [t/tag]`
+1.  User requests to add an fix spending per month. Format: `Repeat -i info -a amount -d date -p interval [-t tag]`
 2.  `$aveIt` will acknowledge and assign it with unique ID.
 +
 
@@ -390,7 +390,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to edit information for a spending. Format: `Edit ID [i/info] [a/amount] [d/date] [t/tag]`
+1.  User requests to edit information for a spending. Format: `Edit ID [-i info] [-a amount] [-d date] [-t tag]`
 2.  `$aveIt` will acknowledge.
 +
 
@@ -408,7 +408,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to view other date. Format: `Go d/date(DDMMYYYY)`
+1.  User requests to view other date. Format: `Go -d date(DDMMYYYY)`
 2.  `$aveIt` will acknowledge and update the view.
 +
 
@@ -426,7 +426,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to find certain task with relevant keyword. Format: `Find keyword [t/tag]`
+1.  User requests to find certain task with relevant keyword. Format: `Find keyword [-t tag]`
 2.  `$aveIt` will acknowledge and response with a list of relevant data.
 +
 
@@ -444,7 +444,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User needs help. Format: `Help [c/command]`
+1.  User needs help. Format: `Help [-c command]`
 2.  `$aveIt` will acknowledge and list the respective command guideline.
 +
 
@@ -455,7 +455,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to set a budget for a certain month. Format: `SetBudget a/amount d/date(MMYYYY)`
+1.  User requests to set a budget for a certain month. Format: `SetBudget -a amount -d date(MMYYYY)`
 2.  `$aveIt` will acknowledge.
 +
 
@@ -541,7 +541,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to rename account or existing tag. Format: `Rename [a/oldAccountName newAccountName] [t/oldTag newTag] `.
+1.  User requests to rename account or existing tag. Format: `Rename [-a oldAccountName newAccountName] [-t oldTag newTag] `.
 2.  `$aveIt` will acknowledge.
 +
 
@@ -560,7 +560,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to view report of their spending for a specific time. Format: `ViewReport d/startDate(DDMMYYYY) d/endDate(DDMMYYYY)`.
+1.  User requests to view report of their spending for a specific time. Format: `ViewReport -sd startDate(DDMMYYYY) -ed endDate(DDMMYYYY)`.
 2.  `$aveIt` will acknowledge and generate a report for them to view.
 +
 
@@ -579,7 +579,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to export a report of their spending in a specific time. Format: Repo'Export d/startDate(DDMMYYYY) d/endDate(DDMMYYYY)`.
+1.  User requests to export a report of their spending in a specific time. Format: Repo'Export -sd startDate(DDMMYYYY) -ed endDate(DDMMYYYY)`.
 2.  `$aveIt` will acknowledge, generate a report and export it to desktop.
 +
 
