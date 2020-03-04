@@ -1,4 +1,4 @@
-= $AVE IT - User Guide
+= $aveIt - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

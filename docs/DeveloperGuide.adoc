@@ -326,33 +326,272 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `$aveIt` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a spending. Format: `Add i/info a/amount d/date [t/tag]`
+2.  `$aveIt` will acknowledge and assign this expenditure an unique ID.
+3.  If tag is not specified during the instruction, `$aveIt` will auto assign it to be `others`
 +
+
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1. Wrong Format.
 +
+Use case back to step 1.
+
+[discrete]
+=== Use case: Delete
+
+*MSS*
+
+1.  User requests to delete a spending. Format: `Delete [/r] UniqueID`
+2.  `$aveIt` will acknowledge.
+3.  If tag is not specified during the instruction, `$aveIt` will auto assign it to be `others`
++
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1. Wrong Format.
+* 2. Invalid ID.
 +
-Use case resumes at step 2.
+Use case back to step 1.
+
+[discrete]
+=== Use case: Repeat
+
+*MSS*
+
+1.  User requests to add an fix spending per month. Format: `Repeat i/info a/amount d/date p/interval [t/tag]`
+2.  `$aveIt` will acknowledge and assign it with unique ID.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. Wrong Format.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Edit
+
+*MSS*
+
+1.  User requests to edit information for a spending. Format: `Edit ID [i/info] [a/amount] [d/date] [t/tag]`
+2.  `$aveIt` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. Wrong Format.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Go
+
+*MSS*
+
+1.  User requests to view other date. Format: `Go d/date(DDMMYYYY)`
+2.  `$aveIt` will acknowledge and update the view.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. Wrong Format.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Find
+
+*MSS*
+
+1.  User requests to find certain task with relevant keyword. Format: `Find keyword [t/tag]`
+2.  `$aveIt` will acknowledge and response with a list of relevant data.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. Wrong Format.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Go
+
+*MSS*
+
+1.  User needs help. Format: `Help [c/command]`
+2.  `$aveIt` will acknowledge and list the respective command guideline.
++
+
+Use case ends.
+
+[discrete]
+=== Use case: SetBudget
+
+*MSS*
+
+1.  User requests to set a budget for a certain month. Format: `SetBudget a/amount d/date(MMYYYY)`
+2.  `$aveIt` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. Wrong Format.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: AddAcc
+
+*MSS*
+
+1.  User requests to set up a disjoint account for other purpose. Format: `AddAcc account name`
+2.  `$aveIt` will acknowledge and create a new account.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Duplicate account name.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Checkout
+
+*MSS*
+
+1.  User requests to switch between accounts. Format: `Checkout accountName`.
+2.  `$aveIt` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Invalid account name.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Acc
+
+*MSS*
+
+1.  User requests to view all accounts. Format: `acc`.
+2.  `$aveIt` will acknowledge and list out all the existing accounts.
++
+
+Use case ends.
+
+[discrete]
+=== Use case: DeleteAcc
+
+*MSS*
+
+1.  User requests to delete an accounts. Format: `DeleteAcc accountName`.
+2.  `$aveIt` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Invalid account name.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: Rename
+
+*MSS*
+
+1.  User requests to rename account or existing tag. Format: `Rename [a/oldAccountName newAccountName] [t/oldTag newTag] `.
+2.  `$aveIt` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Invalid account name.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: ViewReport
+
+*MSS*
+
+1.  User requests to view report of their spending for a specific time. Format: `ViewReport d/startDate(DDMMYYYY) d/endDate(DDMMYYYY)`.
+2.  `$aveIt` will acknowledge and generate a report for them to view.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Invalid Date.
++
+Use case back to step 1.
+
+[discrete]
+=== Use case: ExportReport
+
+*MSS*
+
+1.  User requests to export a report of their spending in a specific time. Format: Repo'Export d/startDate(DDMMYYYY) d/endDate(DDMMYYYY)`.
+2.  `$aveIt` will acknowledge, generate a report and export it to desktop.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Wrong Format.
+* 1b. Invalid account name.
++
+Use case back to step 1.
 
 _{More to be added}_
 
@@ -360,7 +599,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 expenditures without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 accounts without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
