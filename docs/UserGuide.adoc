@@ -1,4 +1,4 @@
-= $aveIt - User Guide
+= $AVEIT - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -53,7 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help [-c COMMAND]`
 
 Format: `help`
 
@@ -133,16 +133,16 @@ Deletes the expenditure with ID 1 if it is in the results of the `find` command.
 === Set a fixed recurring ( recurs every `NUMBER PERIOD` )  expenditure: repeat
 
 Sets an expenditure that will automatically be added every interval which expires at specified date. +
-Format: `rep -i INFO -a AMT [-t TAG] [-d DATE] [-interval Number DAY/WEEK/MONTH] [-e EXPIRE_DATE]`
+Format: `Repeat -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
 
 ****
 * The default interval is set to `monthly`.
 * The AMT must be positive and less than 10 million.
 ****
-=== Clearing all entries : `clear`
+=== Clearing all entries : `reset`
 
 Clears all entries from $AVE IT . Once cleared, entries cannot be recovered. +
-Format: `clear`
+Format: `reset`
 
 === Exiting the program : `bye`
 
