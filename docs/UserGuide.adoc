@@ -17,7 +17,7 @@ endif::[]
 By: `Team T10-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
-$AVE IT is a desktop budget management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+$AVEIT is a desktop budget management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 The application is aimed towards tertiary students who like to type a lot.
 As tertiary students are at a stage without a fixed income, they can use this to manage their spending.
 
@@ -25,7 +25,7 @@ As tertiary students are at a stage without a fixed income, they can use this to
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `$AVEIT.jar` coming soon.
-.  Copy the file to the folder you want to use as the home folder for $AVE IT application.
+.  Copy the file to the folder you want to use as the home folder for $AVEIT application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -59,7 +59,7 @@ Format: `help`
 
 === Adding a expenditure: `add`
 
-Adds an expenditure to $AVE IT +
+Adds an expenditure to $AVEIT +
 Format: `add -i INFO -a AMT  [-t TAG] [-d DATE]`
 
 [TIP]
@@ -75,7 +75,7 @@ Examples:
 
 === Editing a expenditure : `edit`
 
-Edits an existing expenditure in $AVE IT. +
+Edits an existing expenditure in $AVEIT. +
 Format: `edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE]`
 
 ****
@@ -113,7 +113,7 @@ Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`
 // tag::delete[]
 === Deleting a expenditure : `delete`
 
-Deletes the specified expenditure from $AVE IT. +
+Deletes the specified expenditure from $AVEIT. +
 Format: `delete ID`
 
 ****
@@ -141,7 +141,7 @@ Format: `Repeat -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
 ****
 === Clearing all entries : `reset`
 
-Clears all entries from $AVE IT . Once cleared, entries cannot be recovered. +
+Clears all entries from $AVEIT . Once cleared, entries cannot be recovered. +
 Format: `reset`
 
 === Exiting the program : `bye`
@@ -151,7 +151,7 @@ Format: `bye`
 
 === Saving the data
 
-$AVE IT data is stored in the hard disk automatically after any command that changes the data. +
+$AVEIT data is stored in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -163,17 +163,48 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVEIT folder.
 
 == Command Summary
-
-* *Add* `add -i INFO -a AMT   [-t TAG] [-d DATE].` +
-e.g.  `add -i chicken rice -a $4.50 [-t food] [-d 24/12/2020]`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE]` +
-e.g. `edit 2 [-i veg rice] [-a $4.00] [-t] [-d 20/12/2020]`
-* *Find* : `find -k KEYWORD` +
-e.g. `find James Jake`
+=== Basic operation
+* *Add* `Add -i INFO -a AMT   [-t TAG] [-d DATE(DDMMYYYY)]` +
+e.g.  `Add -i chicken rice -a $4.50 [-t food] [-d 24/12/2020]`
+* *Delete* : `Delete ID` +
+e.g. `Delete 2B4E`
+* *Edit* : `Edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE(DDMMYYYY)]` +
+e.g. `Edit 2 [-i veg rice] [-a $4.00] [-t] [-d 20/12/2020]`
+* *Find* : `Find -k KEYWORD` +
+e.g. `Find James Jake`
+* *Go* : 'Go -d DATE'` +
+e.g. `Go 31-01-2020`
 * *Help* : `help`
+* *Repeat* : `Repeat -i INFO -a AMT -d DATE(MMYYYY) -p INTERVAL MONTH [-t TAG]` +
+e.g. `Repeat -i bus concession -a 50 -d 02-2020 -p 5 -t transport`
+* *Reset* : `Reset`
+* *Redo* : `Redo`
+* *SetBudget* : `SetBudget -a AMT -d DATE(MMYYYY)`
+* *Undo* : `Undo`
+
+e.g. ` SetBudget -a 400 -d 02-2020`
+
+=== Account Operation
+* *AddAcc* : `AddAcc "ACCOUNT NAME"` +
+e.g. `AddAcc Personal`
+* *Checkout* : `Checkout "ACCOUNT NAME"` +
+e.g. `Checkout Personal`
+* *DeleteAcc* : `DeleteAcc "ACCOUNT NAME"` +
+e.g. `DeleteAcc Personal`
+* *AddAcc* : `AddAcc "ACCOUNT NAME"` +
+e.g. `AddACC Personal`
+* *ViewAcc* : `Acc` +
+* *Rename* : `Rename [-a "OLD ACCOUNT NAME" "NEW ACCOUNT NAME] [-t "OLD TAG" "NEW TAG"]` +
+e.g. `Rename -a personal non-personal` and `Rename -t transport bus`
+
+=== Report Operation
+* *ExportReport* : `ExportReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"` +
+e.g. `ExportReport -sd 01-02-2020 -ed 03-02-2020`
+* *ViewReport* : `ViewReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"` +
+e.g. `ViewReport -sd 01-02-2020 -ed 03-02-2020`
+
+
+
