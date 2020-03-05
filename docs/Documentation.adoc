@@ -1,4 +1,4 @@
-= $AVEIT - Documentation
+= $AVE IT - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

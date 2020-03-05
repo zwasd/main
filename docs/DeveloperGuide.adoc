@@ -1,4 +1,4 @@
-= $AVEIT - Developer Guide
+= $AVE IT - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -326,7 +326,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `$AVEIT` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `$AVE IT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add
@@ -334,8 +334,8 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to add a spending. Format: `Add -i INFO -a AMT [-t tag] [-d DATE] `
-2.  `$AVEIT` will acknowledge and assign this expenditure an unique ID.
-3.  If tag is not specified during the instruction, `$AVEIT` will auto assign it to be `others`
+2.  `$AVE IT` will acknowledge and assign this expenditure an unique ID.
+3.  If tag is not specified during the instruction, `$AVE IT` will auto assign it to be `others`
 +
 
 Use case ends.
@@ -353,8 +353,8 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to delete a spending. Format: `Delete UniqueID`
-2.  `$AVEIT` will acknowledge.
-3.  If tag is not specified during the instruction, `$AVEIT` will auto assign it to be `others`
+2.  `$AVE IT` will acknowledge.
+3.  If tag is not specified during the instruction, `$AVE IT` will auto assign it to be `others`
 +
 
 Use case ends.
@@ -373,7 +373,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to add an fix spending per month. Format: `Repeat -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
-2.  `$AVEIT` will acknowledge and assign it with unique ID.
+2.  `$AVE IT` will acknowledge and assign it with unique ID.
 +
 
 Use case ends.
@@ -391,7 +391,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to edit information for a spending. Format: `Edit ID [-i INFO] [-a AMT] [-t tag] [-d Date]`
-2.  `$AVEIT` will acknowledge.
+2.  `$AVE IT` will acknowledge.
 +
 
 Use case ends.
@@ -409,7 +409,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to view other date. Format: `Go -d date(DDMMYYYY)`
-2.  `$AVEIT` will acknowledge and update the view.
+2.  `$AVE IT` will acknowledge and update the view.
 +
 
 Use case ends.
@@ -427,7 +427,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to find certain task with relevant keyword. Format: `Find -k KEYWORD [-t TAG]`
-2.  `$AVEIT` will acknowledge and response with a list of relevant data.
+2.  `$AVE IT` will acknowledge and response with a list of relevant data.
 +
 
 Use case ends.
@@ -445,7 +445,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User needs help. Format: `Help [-c COMMAND]`
-2.  `$AVEIT` will acknowledge and list the respective command guideline.
+2.  `$AVE IT` will acknowledge and list the respective command guideline.
 +
 
 Use case ends.
@@ -456,7 +456,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to set a budget for a certain month. Format: `SetBudget -a AMT -d DATE(MMYYYY)`
-2.  `$AVEIT` will acknowledge.
+2.  `$AVE IT` will acknowledge.
 +
 
 Use case ends.
@@ -474,7 +474,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to set up a disjoint account for other purpose. Format: `AddAcc "ACCOUNT NAME"`
-2.  `$AVEIT` will acknowledge and create a new account.
+2.  `$AVE IT` will acknowledge and create a new account.
 +
 
 Use case ends.
@@ -493,7 +493,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to switch between accounts. Format: `Checkout "ACCOUNT NAME`.
-2.  `$AVEIT` will acknowledge.
+2.  `$AVE IT` will acknowledge.
 +
 
 Use case ends.
@@ -512,7 +512,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to view all accounts. Format: `acc`.
-2.  `$AVEIT` will acknowledge and list out all the existing accounts.
+2.  `$AVE IT` will acknowledge and list out all the existing accounts.
 +
 
 Use case ends.
@@ -523,7 +523,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to delete an accounts. Format: `DeleteAcc "ACCOUNT NAME`.
-2.  `$AVEIT` will acknowledge.
+2.  `$AVE IT` will acknowledge.
 +
 
 Use case ends.
@@ -542,7 +542,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to rename account or existing tag. Format: `Rename [-a "OLD ACCOUNT NAME" "NEW ACCOUNT NAME] [-t "OLD TAG" "NEW TAG"] `.
-2.  `$AVEIT` will acknowledge.
+2.  `$AVE IT` will acknowledge.
 +
 
 Use case ends.
@@ -561,7 +561,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to view report of their spending for a specific time. Format: `ViewReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
-2.  `$AVEIT` will acknowledge and generate a report for them to view.
+2.  `$AVE IT` will acknowledge and generate a report for them to view.
 +
 
 Use case ends.
@@ -580,7 +580,7 @@ Use case back to step 1.
 *MSS*
 
 1.  User requests to export a report of their spending in a specific time. Format: ExportReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
-2.  `$AVEIT` will acknowledge, generate a report and export it to desktop.
+2.  `$AVE IT` will acknowledge, generate a report and export it to desktop.
 +
 
 Use case ends.

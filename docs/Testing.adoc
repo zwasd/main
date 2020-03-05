@@ -1,4 +1,4 @@
-= $AVEIT - Testing
+= $AVE IT - Testing
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

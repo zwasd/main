@@ -1,4 +1,4 @@
-= $AVEIT - Setting Up
+= $AVE IT - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

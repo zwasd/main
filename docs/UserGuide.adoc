@@ -1,4 +1,4 @@
-= $AVEIT - User Guide
+= $AVE IT - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,15 +17,15 @@ endif::[]
 By: `Team T10-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
-$AVEIT is a desktop budget management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+$AVE IT is a desktop budget management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 The application is aimed towards tertiary students who like to type a lot.
 As tertiary students are at a stage without a fixed income, they can use this to manage their spending.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `$AVEIT.jar` coming soon.
-.  Copy the file to the folder you want to use as the home folder for $AVEIT application.
+.  Download the latest `$AVE IT.jar` coming soon.
+.  Copy the file to the folder you want to use as the home folder for $AVE IT application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -59,7 +59,7 @@ Format: `help`
 
 === Adding a expenditure: `add`
 
-Adds an expenditure to $AVEIT +
+Adds an expenditure to $AVE IT +
 Format: `add -i INFO -a AMT  [-t TAG] [-d DATE]`
 
 [TIP]
@@ -75,7 +75,7 @@ Examples:
 
 === Editing a expenditure : `edit`
 
-Edits an existing expenditure in $AVEIT. +
+Edits an existing expenditure in $AVE IT. +
 Format: `edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE]`
 
 ****
@@ -113,7 +113,7 @@ Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`
 // tag::delete[]
 === Deleting a expenditure : `delete`
 
-Deletes the specified expenditure from $AVEIT. +
+Deletes the specified expenditure from $AVE IT. +
 Format: `delete ID`
 
 ****
@@ -141,7 +141,7 @@ Format: `Repeat -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
 ****
 === Clearing all entries : `reset`
 
-Clears all entries from $AVEIT . Once cleared, entries cannot be recovered. +
+Clears all entries from $AVE IT . Once cleared, entries cannot be recovered. +
 Format: `reset`
 
 === Exiting the program : `bye`
@@ -151,7 +151,7 @@ Format: `bye`
 
 === Saving the data
 
-$AVEIT data is stored in the hard disk automatically after any command that changes the data. +
+$AVE IT data is stored in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -163,7 +163,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVEIT folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
 
 == Command Summary
 === Basic operation

@@ -1,4 +1,4 @@
-= $AVEIT - Dev Ops
+= $AVE IT - Dev Ops
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
