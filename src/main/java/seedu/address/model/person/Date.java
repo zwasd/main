@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -9,15 +12,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Date {
 
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (DD/MM/YYYY), "
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+
+    public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
 
-
-    // TODO: This validation is NOT FOR DATE, SP will change it to localDate.
-    public static final String VALIDATION_REGEX = "[^\\\\s].*";
-
-    //TODO: the date will change into LocalDate format.
     public final String value;
+
+    public final LocalDate localDate;
 
     /**
      * Constructs an {@code Date}.
@@ -28,18 +30,24 @@ public class Date {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
+        localDate = LocalDate.parse(date, formatter);
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        try{
+            LocalDate date = LocalDate.parse(test, formatter);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return this.value;
+        return value;
     }
 
     @Override
