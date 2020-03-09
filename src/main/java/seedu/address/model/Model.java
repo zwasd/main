@@ -45,12 +45,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code account}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAccount(ReadOnlyAccount account);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Account */
+    ReadOnlyAccount getAccount();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
