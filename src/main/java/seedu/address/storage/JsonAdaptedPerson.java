@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -102,8 +101,8 @@ class JsonAdaptedPerson {
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(date)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        if (!seedu.address.model.person.Date.isValidDate(date)) {
+            throw new IllegalValueException(seedu.address.model.person.Date.MESSAGE_CONSTRAINTS);
         }
         final Date modelDate = new Date(date);
 

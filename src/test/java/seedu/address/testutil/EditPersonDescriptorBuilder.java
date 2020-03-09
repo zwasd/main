@@ -66,7 +66,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
+    public EditPersonDescriptorBuilder withDate(String address) {
         descriptor.setDate(new Date(address));
         return this;
     }

@@ -65,7 +65,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Date} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public PersonBuilder withDate(String address) {
         this.date = new Date(address);
         return this;
     }

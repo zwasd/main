@@ -71,13 +71,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Date parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Date.isValidDate(trimmedAddress)) {
-            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!seedu.address.model.person.Date.isValidDate(trimmedDate)) {
+            throw new ParseException(seedu.address.model.person.Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedAddress);
+        return new Date(trimmedDate);
     }
 
     /**

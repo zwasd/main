@@ -14,23 +14,23 @@ public class DateTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Date(invalidAddress));
+    public void constructor_invalidDate_throwsIllegalArgumentException() {
+        String invalidDate = "";
+        assertThrows(IllegalArgumentException.class, () -> new Date(invalidDate));
     }
 
     @Test
     public void isValidDate() {
-        // null address
-        assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
+        // null date
+        assertThrows(NullPointerException.class, () -> seedu.address.model.person.Date.isValidDate(null));
 
-        // invalid addresses
-        assertFalse(Date.isValidDate("")); // empty string
-        assertFalse(Date.isValidDate(" ")); // spaces only
+        // invalid date
+        assertFalse(seedu.address.model.person.Date.isValidDate("")); // empty string
+        assertFalse(seedu.address.model.person.Date.isValidDate(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(Date.isValidDate("Blk 456, Den Road, #01-355"));
-        assertTrue(Date.isValidDate("-")); // one character
-        assertTrue(Date.isValidDate("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid date
+        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
+        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
+        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
     }
 }
