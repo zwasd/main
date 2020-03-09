@@ -5,13 +5,13 @@ import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.AccountManager;
+import seedu.address.model.ModelManager;
 import seedu.address.model.Model;
 
 
 public class HelpCommandTest {
-    private Model model = new AccountManager();
-    private Model expectedModel = new AccountManager();
+    private Model model = new ModelManager();
+    private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_help_success() {

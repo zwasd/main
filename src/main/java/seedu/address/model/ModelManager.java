@@ -16,28 +16,28 @@ import seedu.address.model.person.Person;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class AccountManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(AccountManager.class);
+public class ModelManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Account account;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a AccountManager with the given account and userPrefs.
+     * Initializes a ModelManager with the given account and userPrefs.
      */
-    public AccountManager(ReadOnlyAccount addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAccount account, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(account, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + account + " and user prefs " + userPrefs);
 
-        this.account = new Account(addressBook);
+        this.account = new Account(account);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.account.getPersonList());
     }
 
-    public AccountManager() {
+    public ModelManager() {
         this(new Account(), new UserPrefs());
     }
 
@@ -137,12 +137,12 @@ public class AccountManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof AccountManager)) {
+        if (!(obj instanceof ModelManager)) {
             return false;
         }
 
         // state check
-        AccountManager other = (AccountManager) obj;
+        ModelManager other = (ModelManager) obj;
         return account.equals(other.account)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);

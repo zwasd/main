@@ -18,20 +18,20 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
-public class AccountManagerTest {
+public class ModelManagerTest {
 
-    private AccountManager accountManager = new AccountManager();
+    private ModelManager modelManager = new ModelManager();
 
     @Test
     public void constructor() {
-        assertEquals(new UserPrefs(), accountManager.getUserPrefs());
-        assertEquals(new GuiSettings(), accountManager.getGuiSettings());
-        assertEquals(new Account(), new Account(accountManager.getAccount()));
+        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
+        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new Account(), new Account(modelManager.getAccount()));
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> accountManager.setUserPrefs(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
     }
 
     @Test
@@ -39,58 +39,58 @@ public class AccountManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        accountManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, accountManager.getUserPrefs());
+        modelManager.setUserPrefs(userPrefs);
+        assertEquals(userPrefs, modelManager.getUserPrefs());
 
-        // Modifying userPrefs should not modify accountManager's userPrefs
+        // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, accountManager.getUserPrefs());
+        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
     @Test
     public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> accountManager.setGuiSettings(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        accountManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, accountManager.getGuiSettings());
+        modelManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> accountManager.setAddressBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        accountManager.setAddressBookFilePath(path);
-        assertEquals(path, accountManager.getAddressBookFilePath());
+        modelManager.setAddressBookFilePath(path);
+        assertEquals(path, modelManager.getAddressBookFilePath());
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> accountManager.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(accountManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        accountManager.addPerson(ALICE);
-        assertTrue(accountManager.hasPerson(ALICE));
+        modelManager.addPerson(ALICE);
+        assertTrue(modelManager.hasPerson(ALICE));
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> accountManager.getFilteredPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
     }
 
     @Test
@@ -100,33 +100,33 @@ public class AccountManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        accountManager = new AccountManager(account, userPrefs);
-        AccountManager accountManagerCopy = new AccountManager(account, userPrefs);
-        assertTrue(accountManager.equals(accountManagerCopy));
+        modelManager = new ModelManager(account, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(account, userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
-        assertTrue(accountManager.equals(accountManager));
+        assertTrue(modelManager.equals(modelManager));
 
         // null -> returns false
-        assertFalse(accountManager.equals(null));
+        assertFalse(modelManager.equals(null));
 
         // different types -> returns false
-        assertFalse(accountManager.equals(5));
+        assertFalse(modelManager.equals(5));
 
         // different account -> returns false
-        assertFalse(accountManager.equals(new AccountManager(differentAccount, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAccount, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        accountManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(accountManager.equals(new AccountManager(account, userPrefs)));
+        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        assertFalse(modelManager.equals(new ModelManager(account, userPrefs)));
 
-        // resets accountManager to initial state for upcoming tests
-        accountManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(accountManager.equals(new AccountManager(account, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(account, differentUserPrefs)));
     }
 }

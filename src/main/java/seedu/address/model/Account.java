@@ -14,7 +14,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class Account implements ReadOnlyAccount {
 
-    private final UniquePersonList accounts;
+    private final UniquePersonList persons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class Account implements ReadOnlyAccount {
      *   among constructors.
      */
     {
-        accounts = new UniquePersonList();
+        persons = new UniquePersonList();
     }
 
     public Account() {}
@@ -44,7 +44,7 @@ public class Account implements ReadOnlyAccount {
      * {@code persons} must not contain duplicate persons.
      */
     public void setAccount(List<Person> persons) {
-        this.accounts.setPersons(persons);
+        this.persons.setPersons(persons);
     }
 
     /**
@@ -63,7 +63,7 @@ public class Account implements ReadOnlyAccount {
      */
     public boolean hasAccount(Person person) {
         requireNonNull(person);
-        return accounts.contains(person);
+        return persons.contains(person);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Account implements ReadOnlyAccount {
      * The person must not already exist in the address book.
      */
     public void addAccount(Person p) {
-        accounts.add(p);
+        persons.add(p);
     }
 
     /**
@@ -82,7 +82,7 @@ public class Account implements ReadOnlyAccount {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        accounts.setPerson(target, editedPerson);
+        persons.setPerson(target, editedPerson);
     }
 
     /**
@@ -90,31 +90,31 @@ public class Account implements ReadOnlyAccount {
      * {@code key} must exist in the address book.
      */
     public void removeAccount(Person key) {
-        accounts.remove(key);
+        persons.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return accounts.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return accounts.asUnmodifiableObservableList();
+        return persons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
-                && accounts.equals(((Account) other).accounts));
+                && persons.equals(((Account) other).persons));
     }
 
     @Override
     public int hashCode() {
-        return accounts.hashCode();
+        return persons.hashCode();
     }
 }
