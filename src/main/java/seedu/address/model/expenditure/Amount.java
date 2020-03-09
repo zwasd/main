@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.expenditure;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -61,7 +61,7 @@ public class Amount {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
                 && value == ((Amount) other).value); // state check
-        // TODO use value - other.value < epsilon ?
+                // TODO use value - other.value < epsilon ?
     }
 
     @Override
