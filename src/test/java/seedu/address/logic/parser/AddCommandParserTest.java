@@ -32,11 +32,11 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Id;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Address;
+import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Id;
+import seedu.address.model.expenditure.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -45,41 +45,42 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Expenditure expectedExpenditure = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + ID_DESC_BOB + AMOUNT_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpenditure));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + ID_DESC_BOB + AMOUNT_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpenditure));
 
         // multiple ids - last id accepted
         assertParseSuccess(parser, NAME_DESC_BOB + ID_DESC_AMY + ID_DESC_BOB + AMOUNT_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpenditure));
 
         // multiple amounts - last amount accepted
         assertParseSuccess(parser, NAME_DESC_BOB + ID_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpenditure));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + ID_DESC_BOB + AMOUNT_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpenditure));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Expenditure expectedExpenditureMultipleTags = new PersonBuilder(BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + ID_DESC_BOB + AMOUNT_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedExpenditureMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Expenditure expectedExpenditure = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + ID_DESC_AMY + AMOUNT_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedExpenditure));
     }
 
     @Test

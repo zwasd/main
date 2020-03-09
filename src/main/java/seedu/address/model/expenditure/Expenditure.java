@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.expenditure;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Expenditure in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Expenditure {
 
     // Identity fields
     private final Name name;
@@ -27,7 +27,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Id id, Amount amount, Address address, Set<Tag> tags) {
+    public Expenditure(Name name, Id id, Amount amount, Address address, Set<Tag> tags) {
         requireAllNonNull(name, id, amount, address, tags);
         this.name = name;
         this.id = id;
@@ -64,14 +64,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Expenditure otherExpenditure) {
+        if (otherExpenditure == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && otherPerson.getId().equals(getId());
+        return otherExpenditure != null
+                && otherExpenditure.getName().equals(getName())
+                && otherExpenditure.getId().equals(getId());
     }
 
     /**
@@ -84,16 +84,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Expenditure)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getId().equals(getId())
-                && otherPerson.getAmount().equals(getAmount())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Expenditure otherExpenditure = (Expenditure) other;
+        return otherExpenditure.getName().equals(getName())
+                && otherExpenditure.getId().equals(getId())
+                && otherExpenditure.getAmount().equals(getAmount())
+                && otherExpenditure.getAddress().equals(getAddress())
+                && otherExpenditure.getTags().equals(getTags());
     }
 
     @Override

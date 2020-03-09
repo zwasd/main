@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.expenditure;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's id number in the address book.
+ * Represents a Expenditure's id number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
 public class Id {
