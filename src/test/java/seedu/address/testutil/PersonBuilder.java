@@ -3,16 +3,16 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Id;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Address;
+import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Id;
+import seedu.address.model.expenditure.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Expenditure objects.
  */
 public class PersonBuilder {
 
@@ -36,18 +36,18 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code expenditureToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        id = personToCopy.getId();
-        amount = personToCopy.getAmount();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Expenditure expenditureToCopy) {
+        name = expenditureToCopy.getName();
+        id = expenditureToCopy.getId();
+        amount = expenditureToCopy.getAmount();
+        address = expenditureToCopy.getAddress();
+        tags = new HashSet<>(expenditureToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Expenditure} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -55,7 +55,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expenditure} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -63,7 +63,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Expenditure} that we are building.
      */
     public PersonBuilder withAddress(String address) {
         this.address = new Address(address);
@@ -71,7 +71,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Id} of the {@code Person} that we are building.
+     * Sets the {@code Id} of the {@code Expenditure} that we are building.
      */
     public PersonBuilder withId(String id) {
         this.id = new Id(id);
@@ -79,15 +79,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Amount} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Expenditure} that we are building.
      */
     public PersonBuilder withAmount(double amount) {
         this.amount = new Amount(amount);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, id, amount, address, tags);
+    public Expenditure build() {
+        return new Expenditure(name, id, amount, address, tags);
     }
 
 }
