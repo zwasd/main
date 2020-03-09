@@ -20,17 +20,17 @@ public class DateTest {
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidDate() {
         // null address
-        assertThrows(NullPointerException.class, () -> Date.isValidAddress(null));
+        assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
 
         // invalid addresses
-        assertFalse(Date.isValidAddress("")); // empty string
-        assertFalse(Date.isValidAddress(" ")); // spaces only
+        assertFalse(Date.isValidDate("")); // empty string
+        assertFalse(Date.isValidDate(" ")); // spaces only
 
         // valid addresses
-        assertTrue(Date.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(Date.isValidAddress("-")); // one character
-        assertTrue(Date.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Date.isValidDate("Blk 456, Den Road, #01-355"));
+        assertTrue(Date.isValidDate("-")); // one character
+        assertTrue(Date.isValidDate("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
     }
 }

@@ -17,7 +17,7 @@ public class Date {
     public static final String VALIDATION_REGEX = "[^\\\\s].*";
 
     //TODO: the date will change into LocalDate format.
-    public final String date;
+    public final String value;
 
     /**
      * Constructs an {@code Date}.
@@ -27,7 +27,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        this.date = date;
+        value = date;
     }
 
     /**
@@ -39,19 +39,19 @@ public class Date {
 
     @Override
     public String toString() {
-        return this.date;
+        return this.value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                && value.equals(((Date) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return date.hashCode();
+        return value.hashCode();
     }
 
 }
