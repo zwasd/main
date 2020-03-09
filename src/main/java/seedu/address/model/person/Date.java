@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -36,11 +37,11 @@ public class Date {
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidDate(String test){
         try{
             LocalDate date = LocalDate.parse(test, formatter);
             return true;
-        }catch(Exception e){
+        }catch(DateTimeException e){
             return false;
         }
     }

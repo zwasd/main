@@ -19,7 +19,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DATE = "2019-09-11";
 
     private Name name;
     private Phone phone;
@@ -31,7 +31,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        date = new Date(DEFAULT_ADDRESS);
+        date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
     }
 
@@ -65,8 +65,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Date} of the {@code Person} that we are building.
      */
-    public PersonBuilder withDate(String address) {
-        this.date = new Date(address);
+    public PersonBuilder withDate(String date) {
+        this.date = new Date(date);
         return this;
     }
 
