@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -26,7 +26,7 @@ class JsonAdaptedPerson {
 
     private final String name;
     private final String id;
-    private final String email;
+    private final double amount;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,11 +35,11 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("id") String id,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("amount") double amount, @JsonProperty("address") String address,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.id = id;
-        this.email = email;
+        this.amount = amount;
         this.address = address;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -52,7 +52,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         id = source.getId().value;
-        email = source.getEmail().value;
+        amount = source.getAmount().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -86,13 +86,15 @@ class JsonAdaptedPerson {
         }
         final Id modelId = new Id(id);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        // if (email == null) {
+        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+        //     Amount.class.getSimpleName()));
+        // }
+
+        if (!Amount.isValidAmount(amount)) {
+            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
+        final Amount modelAmount = new Amount(amount);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
@@ -103,7 +105,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelId, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelId, modelAmount, modelAddress, modelTags);
     }
 
 }
