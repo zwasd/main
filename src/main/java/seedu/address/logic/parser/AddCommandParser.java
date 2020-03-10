@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -16,7 +16,7 @@ import seedu.address.model.expenditure.Address;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,20 +31,20 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ID, PREFIX_AMOUNT, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_ID, PREFIX_AMOUNT, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_ID, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_INFO, PREFIX_ADDRESS, PREFIX_ID, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Info info = ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get());
         Id id = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expenditure expenditure = new Expenditure(name, id, amount, address, tagList);
+        Expenditure expenditure = new Expenditure(info, id, amount, address, tagList);
 
         return new AddCommand(expenditure);
     }

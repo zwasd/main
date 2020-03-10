@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -36,21 +36,21 @@ public class ExpenditureTest {
                 .withAmount(VALID_AMOUNT_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different info -> returns false
+        editedAlice = new PersonBuilder(ALICE).withInfo(VALID_INFO_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same name, same id, different attributes -> returns true
+        // same info, same id, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAmount(VALID_AMOUNT_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same name, same amount, different attributes -> returns true
+        // same info, same amount, different attributes -> returns true
         // editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB)
         //         .withTags(VALID_TAG_HUSBAND).build();
         // assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same name, same id, same amount, different attributes -> returns true
+        // same info, same id, same amount, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
@@ -73,8 +73,8 @@ public class ExpenditureTest {
         // different expenditure -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // different name -> returns false
-        Expenditure editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different info -> returns false
+        Expenditure editedAlice = new PersonBuilder(ALICE).withInfo(VALID_INFO_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different id -> returns false

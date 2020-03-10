@@ -1,11 +1,11 @@
 {
   "persons": [ {
-    "name": "Valid Person",
+    "info": "Valid Person",
     "id": "9482424",
     "amount": 3.14,
     "address": "4th street"
   }, {
-    "name": "Person With Invalid Id Field",
+    "info": "Person With Invalid Id Field",
     "id": "948asdf2424",
     "amount": 3.14,
     "address": "4th street"

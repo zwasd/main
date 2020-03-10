@@ -29,7 +29,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label info;
     @FXML
     private Label number;
     @FXML
@@ -45,7 +45,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.expenditure = expenditure;
         number.setText(displayedNumber + ". ");
-        name.setText(expenditure.getName().fullName);
+        info.setText(expenditure.getInfo().fullInfo);
         id.setText(expenditure.getId().value);
         address.setText(expenditure.getAddress().value);
         amount.setText(Double.toString(expenditure.getAmount().value));

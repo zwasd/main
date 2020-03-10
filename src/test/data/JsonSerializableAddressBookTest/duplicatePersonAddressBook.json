@@ -1,12 +1,12 @@
 {
   "persons": [ {
-    "name": "Alice Pauline",
+    "info": "Alice Pauline",
     "id": "94351253",
     "amount": 3.14,
     "address": "123, Jurong West Ave 6, #08-111",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
+    "info": "Alice Pauline",
     "id": "94351253",
     "amount": 3.14,
     "address": "4th street"

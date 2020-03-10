@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,7 +23,7 @@ import seedu.address.model.expenditure.Address;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -37,7 +37,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed expenditure list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_INFO + "INFO] "
             + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
@@ -94,13 +94,13 @@ public class EditCommand extends Command {
                                                   EditPersonDescriptor editPersonDescriptor) {
         assert expenditureToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(expenditureToEdit.getName());
+        Info updatedInfo = editPersonDescriptor.getInfo().orElse(expenditureToEdit.getInfo());
         Id updatedId = editPersonDescriptor.getId().orElse(expenditureToEdit.getId());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(expenditureToEdit.getAmount());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(expenditureToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(expenditureToEdit.getTags());
 
-        return new Expenditure(updatedName, updatedId, updatedAmount, updatedAddress, updatedTags);
+        return new Expenditure(updatedInfo, updatedId, updatedAmount, updatedAddress, updatedTags);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class EditCommand extends Command {
      * corresponding field value of the expenditure.
      */
     public static class EditPersonDescriptor {
-        private Name name;
+        private Info info;
         private Id id;
         private Amount amount;
         private Address address;
@@ -139,7 +139,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setName(toCopy.name);
+            setInfo(toCopy.info);
             setId(toCopy.id);
             setAmount(toCopy.amount);
             setAddress(toCopy.address);
@@ -150,15 +150,15 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, id, amount, address, tags);
+            return CollectionUtil.isAnyNonNull(info, id, amount, address, tags);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setInfo(Info info) {
+            this.info = info;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Info> getInfo() {
+            return Optional.ofNullable(info);
         }
 
         public void setId(Id id) {
@@ -217,7 +217,7 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getInfo().equals(e.getInfo())
                     && getId().equals(e.getId())
                     && getAmount().equals(e.getAmount())
                     && getAddress().equals(e.getAddress())

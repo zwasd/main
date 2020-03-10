@@ -52,8 +52,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Expenditure alice = new PersonBuilder().withName("Alice").build();
-        Expenditure bob = new PersonBuilder().withName("Bob").build();
+        Expenditure alice = new PersonBuilder().withInfo("Alice").build();
+        Expenditure bob = new PersonBuilder().withInfo("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
