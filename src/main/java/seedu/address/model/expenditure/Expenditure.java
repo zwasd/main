@@ -16,28 +16,29 @@ import seedu.address.model.tag.Tag;
 public class Expenditure {
 
     // Identity fields
-    private final Name name;
+    private final Info info;
     private final Id id;
     private final Amount amount;
 
     // Data fields
-    private final Address address;
+    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Expenditure(Name name, Id id, Amount amount, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, id, amount, address, tags);
-        this.name = name;
+
+    public Expenditure(Info info, Id id, Amount amount, Date date, Set<Tag> tags) {
+        requireAllNonNull(info, id, amount, date, tags);
+        this.info = info;
         this.id = id;
         this.amount = amount;
-        this.address = address;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
-    public Name getName() {
-        return name;
+    public Info getInfo() {
+        return info;
     }
 
     public Id getId() {
@@ -48,8 +49,8 @@ public class Expenditure {
         return amount;
     }
 
-    public Address getAddress() {
-        return address;
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -61,7 +62,7 @@ public class Expenditure {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same info have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Expenditure otherExpenditure) {
@@ -70,7 +71,7 @@ public class Expenditure {
         }
 
         return otherExpenditure != null
-                && otherExpenditure.getName().equals(getName())
+                && otherExpenditure.getInfo().equals(getInfo())
                 && otherExpenditure.getId().equals(getId());
     }
 
@@ -89,29 +90,29 @@ public class Expenditure {
         }
 
         Expenditure otherExpenditure = (Expenditure) other;
-        return otherExpenditure.getName().equals(getName())
+        return otherExpenditure.getInfo().equals(getInfo())
                 && otherExpenditure.getId().equals(getId())
                 && otherExpenditure.getAmount().equals(getAmount())
-                && otherExpenditure.getAddress().equals(getAddress())
+                && otherExpenditure.getDate().equals(getDate())
                 && otherExpenditure.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, id, amount, address, tags);
+        return Objects.hash(info, id, amount, date, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getInfo())
                 .append(" Id: ")
                 .append(getId())
                 .append(" Amount: ")
                 .append(getAmount())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

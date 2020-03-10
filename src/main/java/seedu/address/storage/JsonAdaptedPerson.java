@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,11 +11,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expenditure.Address;
+
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
+
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,23 +27,29 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expenditure's %s field is missing!";
 
-    private final String name;
+
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
+
+    private final String date;
+
+    private final String info;
     private final String id;
     private final double amount;
-    private final String address;
+
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given expenditure details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("id") String id,
-            @JsonProperty("amount") double amount, @JsonProperty("address") String address,
+
+    public JsonAdaptedPerson(@JsonProperty("info") String info, @JsonProperty("id") String id,
+            @JsonProperty("amount") double amount, @JsonProperty("date") String date,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.name = name;
+        this.info = info;
         this.id = id;
         this.amount = amount;
-        this.address = address;
+        this.date = date;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,11 +58,13 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Expenditure} into this class for Jackson use.
      */
+
     public JsonAdaptedPerson(Expenditure source) {
-        name = source.getName().fullName;
+        info = source.getInfo().fullInfo;
         id = source.getId().value;
         amount = source.getAmount().value;
-        address = source.getAddress().value;
+        date = source.getDate().value;
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -70,13 +81,13 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        if (info == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Info.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        if (!Info.isValidInfo(info)) {
+            throw new IllegalValueException(Info.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        final Info modelInfo = new Info(info);
 
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Id.class.getSimpleName()));
@@ -96,16 +107,18 @@ class JsonAdaptedPerson {
         }
         final Amount modelAmount = new Amount(amount);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (date == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!seedu.address.model.expenditure.Date.isValidDate(date)) {
+            throw new IllegalValueException(seedu.address.model.expenditure.Date.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Date modelDate = new Date(date);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Expenditure(modelName, modelId, modelAmount, modelAddress, modelTags);
+
+        return new Expenditure(modelInfo, modelId, modelAmount, modelDate, modelTags);
+
     }
 
 }

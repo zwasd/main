@@ -12,16 +12,16 @@ import seedu.address.model.expenditure.Expenditure;
 /**
  * An UI component that displays information of a {@code Expenditure}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ExpenditureCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ExpenditureListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Account level 4</a>
      */
 
     public final Expenditure expenditure;
@@ -29,25 +29,26 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label info;
     @FXML
     private Label number;
     @FXML
     private Label id;
     @FXML
-    private Label address;
+    private Label date;
     @FXML
     private Label amount;
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Expenditure expenditure, int displayedNumber) {
+    public ExpenditureCard(Expenditure expenditure, int displayedNumber) {
         super(FXML);
+
         this.expenditure = expenditure;
         number.setText(displayedNumber + ". ");
-        name.setText(expenditure.getName().fullName);
+        info.setText(expenditure.getInfo().fullInfo);
         id.setText(expenditure.getId().value);
-        address.setText(expenditure.getAddress().value);
+        date.setText(expenditure.getDate().value);
         amount.setText(Double.toString(expenditure.getAmount().value));
         expenditure.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -62,12 +63,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ExpenditureCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ExpenditureCard card = (ExpenditureCard) other;
         return number.getText().equals(card.number.getText())
                 && expenditure.equals(card.expenditure);
     }

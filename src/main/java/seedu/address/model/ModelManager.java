@@ -19,26 +19,28 @@ import seedu.address.model.expenditure.Expenditure;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Account account;
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given account and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAccount account, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(account, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + account + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.account = new Account(account);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExpenditures = new FilteredList<>(this.addressBook.getPersonList());
+
+        filteredExpenditures = new FilteredList<>(this.account.getPersonList());
+
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Account(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,40 +78,41 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Account ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAccount(ReadOnlyAccount account) {
+        this.account.resetData(account);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAccount getAccount() {
+        return account;
     }
 
     @Override
-    public boolean hasPerson(Expenditure expenditure) {
+
+    public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
-        return addressBook.hasPerson(expenditure);
+        return account.hasAccount(expenditure);
     }
 
     @Override
-    public void deletePerson(Expenditure target) {
-        addressBook.removePerson(target);
+    public void deleteExpenditure(Expenditure target) {
+        account.removeAccount(target);
     }
 
     @Override
-    public void addPerson(Expenditure expenditure) {
-        addressBook.addPerson(expenditure);
+    public void addExpenditure(Expenditure expenditure) {
+        account.addAccount(expenditure);
+
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Expenditure target, Expenditure editedExpenditure) {
+    public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
-
-        addressBook.setPerson(target, editedExpenditure);
+        account.setPerson(target, editedExpenditure);
     }
 
     //=========== Filtered Expenditure List Accessors =============================================================
@@ -143,7 +146,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return account.equals(other.account)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenditures.equals(other.filteredExpenditures);
     }

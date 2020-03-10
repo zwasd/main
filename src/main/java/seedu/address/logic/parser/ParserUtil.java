@@ -9,10 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expenditure.Address;
+
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
+
 import seedu.address.model.tag.Tag;
 
 /**
@@ -36,18 +38,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String info} into a {@code Info}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code info} is invalid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static Info parseInfo(String info) throws ParseException {
+        requireNonNull(info);
+        String trimmedInfo = info.trim();
+        if (!Info.isValidInfo(trimmedInfo)) {
+            throw new ParseException(Info.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Info(trimmedInfo);
     }
 
     /**
@@ -66,18 +68,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String address} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!seedu.address.model.expenditure.Date.isValidDate(trimmedDate)) {
+            throw new ParseException(seedu.address.model.expenditure.Date.MESSAGE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Date(trimmedDate);
     }
 
     /**

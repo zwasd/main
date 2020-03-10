@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.Account;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.testutil.PersonBuilder;
@@ -32,28 +32,28 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Expenditure validExpenditure = new PersonBuilder().build();
+        ModelStubAcceptingExpenditureAdded modelStub = new ModelStubAcceptingExpenditureAdded();
+        Expenditure validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validExpenditure).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpenditure), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExpenditure), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Expenditure validExpenditure = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validExpenditure);
-        ModelStub modelStub = new ModelStubWithPerson(validExpenditure);
+        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Expenditure alice = new PersonBuilder().withName("Alice").build();
-        Expenditure bob = new PersonBuilder().withName("Bob").build();
+        Expenditure alice = new PersonBuilder().withInfo("Alice").build();
+        Expenditure bob = new PersonBuilder().withInfo("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -70,7 +70,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different expenditure -> returns false
+        // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -109,32 +109,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Expenditure expenditure) {
+        public void addExpenditure(Expenditure expenditure) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAccount(ReadOnlyAccount newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAccount getAccount() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Expenditure expenditure) {
+        public boolean hasExpenditure(Expenditure person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Expenditure target) {
+        public void deleteExpenditure(Expenditure target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Expenditure target, Expenditure editedExpenditure) {
+        public void setExpenditure(Expenditure target, Expenditure editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,44 +150,44 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single expenditure.
+     * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithExpenditure extends ModelStub {
         private final Expenditure expenditure;
 
-        ModelStubWithPerson(Expenditure expenditure) {
+        ModelStubWithExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
             this.expenditure = expenditure;
         }
 
         @Override
-        public boolean hasPerson(Expenditure expenditure) {
+        public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
             return this.expenditure.isSamePerson(expenditure);
         }
     }
 
     /**
-     * A Model stub that always accept the expenditure being added.
+     * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingExpenditureAdded extends ModelStub {
         final ArrayList<Expenditure> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Expenditure expenditure) {
+        public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
             return personsAdded.stream().anyMatch(expenditure::isSamePerson);
         }
 
         @Override
-        public void addPerson(Expenditure expenditure) {
+        public void addExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
             personsAdded.add(expenditure);
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAccount getAccount() {
+            return new Account();
         }
     }
 
