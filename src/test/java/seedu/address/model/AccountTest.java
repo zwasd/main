@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -47,8 +46,7 @@ public class AccountTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two expenditures with the same identity fields
-        Expenditure editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB)
-                .build();
+        Expenditure editedAlice = new PersonBuilder(ALICE).build();
         List<Expenditure> newExpenditures = Arrays.asList(ALICE, editedAlice);
         AccountStub newData = new AccountStub(newExpenditures);
         assertThrows(DuplicatePersonException.class, () -> account.resetData(newData));
@@ -89,7 +87,7 @@ public class AccountTest {
     private static class AccountStub implements ReadOnlyAccount {
         private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();
 
-        AccountStub(Collection<Expenditure> persons) {
+        AccountStub(Collection<Expenditure> expenditures) {
             this.expenditures.setAll(expenditures);
         }
 
