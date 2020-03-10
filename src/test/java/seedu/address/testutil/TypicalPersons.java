@@ -6,8 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -23,35 +23,35 @@ import seedu.address.model.expenditure.Expenditure;
  */
 public class TypicalPersons {
 
-    public static final Expenditure ALICE = new PersonBuilder().withName("Alice Pauline")
+    public static final Expenditure ALICE = new PersonBuilder().withInfo("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withAmount(3.14)
             .withId("94351253")
             .withTags("friends").build();
-    public static final Expenditure BENSON = new PersonBuilder().withName("Benson Meier")
+    public static final Expenditure BENSON = new PersonBuilder().withInfo("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withAmount(3.14).withId("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Expenditure CARL = new PersonBuilder().withName("Carl Kurz").withId("95352563")
+    public static final Expenditure CARL = new PersonBuilder().withInfo("Carl Kurz").withId("95352563")
             .withAmount(3.14).withAddress("wall street").build();
-    public static final Expenditure DANIEL = new PersonBuilder().withName("Daniel Meier").withId("87652533")
+    public static final Expenditure DANIEL = new PersonBuilder().withInfo("Daniel Meier").withId("87652533")
             .withAmount(3.14).withAddress("10th street").withTags("friends").build();
-    public static final Expenditure ELLE = new PersonBuilder().withName("Elle Meyer").withId("9482224")
+    public static final Expenditure ELLE = new PersonBuilder().withInfo("Elle Meyer").withId("9482224")
             .withAmount(3.14).withAddress("michegan ave").build();
-    public static final Expenditure FIONA = new PersonBuilder().withName("Fiona Kunz").withId("9482427")
+    public static final Expenditure FIONA = new PersonBuilder().withInfo("Fiona Kunz").withId("9482427")
             .withAmount(3.14).withAddress("little tokyo").build();
-    public static final Expenditure GEORGE = new PersonBuilder().withName("George Best").withId("9482442")
+    public static final Expenditure GEORGE = new PersonBuilder().withInfo("George Best").withId("9482442")
             .withAmount(3.14).withAddress("4th street").build();
 
     // Manually added
-    public static final Expenditure HOON = new PersonBuilder().withName("Hoon Meier").withId("8482424")
+    public static final Expenditure HOON = new PersonBuilder().withInfo("Hoon Meier").withId("8482424")
             .withAmount(3.14).withAddress("little india").build();
-    public static final Expenditure IDA = new PersonBuilder().withName("Ida Mueller").withId("8482131")
+    public static final Expenditure IDA = new PersonBuilder().withInfo("Ida Mueller").withId("8482131")
             .withAmount(3.14).withAddress("chicago ave").build();
 
     // Manually added - Expenditure's details found in {@code CommandTestUtil}
-    public static final Expenditure AMY = new PersonBuilder().withName(VALID_NAME_AMY).withId(VALID_ID_AMY)
+    public static final Expenditure AMY = new PersonBuilder().withInfo(VALID_INFO_AMY).withId(VALID_ID_AMY)
             .withAmount(VALID_AMOUNT_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Expenditure BOB = new PersonBuilder().withName(VALID_NAME_BOB).withId(VALID_ID_BOB)
+    public static final Expenditure BOB = new PersonBuilder().withInfo(VALID_INFO_BOB).withId(VALID_ID_BOB)
             .withAmount(VALID_AMOUNT_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

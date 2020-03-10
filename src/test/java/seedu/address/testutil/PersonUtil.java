@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -30,7 +30,7 @@ public class PersonUtil {
      */
     public static String getPersonDetails(Expenditure expenditure) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + expenditure.getName().fullName + " ");
+        sb.append(PREFIX_INFO + expenditure.getInfo().fullInfo + " ");
         sb.append(PREFIX_ID + expenditure.getId().value + " ");
         sb.append(PREFIX_AMOUNT + Double.toString(expenditure.getAmount().value) + " ");
         sb.append(PREFIX_ADDRESS + expenditure.getAddress().value + " ");
@@ -45,7 +45,7 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getInfo().ifPresent(info -> sb.append(PREFIX_INFO).append(info.fullInfo).append(" "));
         descriptor.getId().ifPresent(id -> sb.append(PREFIX_ID).append(id.value).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));

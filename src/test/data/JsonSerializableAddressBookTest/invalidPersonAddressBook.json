@@ -1,6 +1,6 @@
 {
   "persons": [ {
-    "name": "Hans Muster",
+    "info": "Hans Muster",
     "id": "9482424",
     "amount": -1,
     "address": "4th street"

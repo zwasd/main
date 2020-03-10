@@ -17,17 +17,17 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Address;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_INFO = "R@chel";
     private static final String INVALID_ID = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_INFO = "Rachel Walker";
     private static final String VALID_ID = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final double VALID_AMOUNT = 3.14;
@@ -57,26 +57,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+    public void parseInfo_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseInfo((String) null));
     }
 
     @Test
-    public void parseName_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+    public void parseInfo_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseInfo(INVALID_INFO));
     }
 
     @Test
-    public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+    public void parseInfo_validValueWithoutWhitespace_returnsInfo() throws Exception {
+        Info expectedInfo = new Info(VALID_INFO);
+        assertEquals(expectedInfo, ParserUtil.parseInfo(VALID_INFO));
     }
 
     @Test
-    public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    public void parseInfo_validValueWithWhitespace_returnsTrimmedInfo() throws Exception {
+        String infoWithWhitespace = WHITESPACE + VALID_INFO + WHITESPACE;
+        Info expectedInfo = new Info(VALID_INFO);
+        assertEquals(expectedInfo, ParserUtil.parseInfo(infoWithWhitespace));
     }
 
     @Test

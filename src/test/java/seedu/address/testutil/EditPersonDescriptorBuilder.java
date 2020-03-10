@@ -9,7 +9,7 @@ import seedu.address.model.expenditure.Address;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Id;
-import seedu.address.model.expenditure.Name;
+import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +32,7 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(Expenditure expenditure) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(expenditure.getName());
+        descriptor.setInfo(expenditure.getInfo());
         descriptor.setId(expenditure.getId());
         descriptor.setAmount(expenditure.getAmount());
         descriptor.setAddress(expenditure.getAddress());
@@ -40,10 +40,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Info} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+    public EditPersonDescriptorBuilder withInfo(String info) {
+        descriptor.setInfo(new Info(info));
         return this;
     }
 
