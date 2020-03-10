@@ -532,7 +532,7 @@ Use case ends.
 
 [none]
 * 1a. Wrong Format.
-* 1b. Invalid account info.
+* 1b. Invalid account name.
 +
 Use case back to step 1.
 
