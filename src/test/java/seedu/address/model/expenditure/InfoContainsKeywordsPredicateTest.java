@@ -70,6 +70,6 @@ public class InfoContainsKeywordsPredicateTest {
         // Keywords match id, amount and address, but does not match info
         predicate = new InfoContainsKeywordsPredicate(Arrays.asList("12345", "3.14", "Main", "Street"));
         assertFalse(predicate.test(new PersonBuilder().withInfo("Alice").withId("12345")
-                .withAmount(3.14).withAddress("Main Street").build()));
+                .withAmount(3.14).withDate("2019-09-11").build()));
     }
 }

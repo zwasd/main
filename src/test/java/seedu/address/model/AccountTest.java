@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -22,74 +22,72 @@ import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class AccountTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final Account account = new Account();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), account.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> account.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        Account newData = getTypicalAddressBook();
+        account.resetData(newData);
+        assertEquals(newData, account);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two expenditures with the same identity fields
-        Expenditure editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Expenditure editedAlice = new PersonBuilder(ALICE).build();
         List<Expenditure> newExpenditures = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newExpenditures);
-
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        AccountStub newData = new AccountStub(newExpenditures);
+        assertThrows(DuplicatePersonException.class, () -> account.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> account.hasAccount(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(account.hasAccount(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        account.addAccount(ALICE);
+        assertTrue(account.hasAccount(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Expenditure editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        account.addAccount(ALICE);
+        Expenditure editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(account.hasAccount(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> account.getPersonList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose expenditures list can violate interface constraints.
+     * A stub ReadOnlyAccount whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class AccountStub implements ReadOnlyAccount {
         private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Expenditure> expenditures) {
+        AccountStub(Collection<Expenditure> expenditures) {
             this.expenditures.setAll(expenditures);
         }
 

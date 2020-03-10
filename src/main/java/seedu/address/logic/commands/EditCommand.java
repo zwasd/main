@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -19,8 +21,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.expenditure.Address;
+
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
@@ -40,7 +43,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_INFO + "INFO] "
             + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ID + "91234567 "
@@ -48,7 +51,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Expenditure: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This expenditure already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the $AVE IT.";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -77,11 +80,11 @@ public class EditCommand extends Command {
         Expenditure expenditureToEdit = lastShownList.get(index.getZeroBased());
         Expenditure editedExpenditure = createEditedPerson(expenditureToEdit, editPersonDescriptor);
 
-        if (!expenditureToEdit.isSamePerson(editedExpenditure) && model.hasPerson(editedExpenditure)) {
+        if (!expenditureToEdit.isSamePerson(editedExpenditure) && model.hasExpenditure(editedExpenditure)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(expenditureToEdit, editedExpenditure);
+        model.setExpenditure(expenditureToEdit, editedExpenditure);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedExpenditure));
     }
@@ -97,10 +100,9 @@ public class EditCommand extends Command {
         Info updatedInfo = editPersonDescriptor.getInfo().orElse(expenditureToEdit.getInfo());
         Id updatedId = editPersonDescriptor.getId().orElse(expenditureToEdit.getId());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(expenditureToEdit.getAmount());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(expenditureToEdit.getAddress());
+        Date updatedDate = editPersonDescriptor.getDate().orElse(expenditureToEdit.getDate());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(expenditureToEdit.getTags());
-
-        return new Expenditure(updatedInfo, updatedId, updatedAmount, updatedAddress, updatedTags);
+        return new Expenditure(updatedInfo, updatedId, updatedAmount, updatedDate, updatedTags);
     }
 
     @Override
@@ -129,7 +131,7 @@ public class EditCommand extends Command {
         private Info info;
         private Id id;
         private Amount amount;
-        private Address address;
+        private Date date;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -142,7 +144,7 @@ public class EditCommand extends Command {
             setInfo(toCopy.info);
             setId(toCopy.id);
             setAmount(toCopy.amount);
-            setAddress(toCopy.address);
+            setDate(toCopy.date);
             setTags(toCopy.tags);
         }
 
@@ -150,7 +152,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(info, id, amount, address, tags);
+            return CollectionUtil.isAnyNonNull(info, id, amount, date, tags);
         }
 
         public void setInfo(Info info) {
@@ -177,12 +179,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(amount);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setDate(Date date) {
+            this.date = date;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         /**
@@ -220,7 +222,7 @@ public class EditCommand extends Command {
             return getInfo().equals(e.getInfo())
                     && getId().equals(e.getId())
                     && getAmount().equals(e.getAmount())
-                    && getAddress().equals(e.getAddress())
+                    && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
         }
     }

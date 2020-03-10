@@ -12,7 +12,7 @@ import seedu.address.model.expenditure.UniquePersonList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class Account implements ReadOnlyAccount {
 
     private final UniquePersonList persons;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
     }
 
-    public AddressBook() {}
+    public Account() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an Account using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public Account(ReadOnlyAccount toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -43,17 +43,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the expenditure list with {@code expenditures}.
      * {@code expenditures} must not contain duplicate expenditures.
      */
-    public void setPersons(List<Expenditure> expenditures) {
+
+    public void setAccount(List<Expenditure> expenditures) {
         this.persons.setPersons(expenditures);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Account} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyAccount newData) {
         requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+        setAccount(newData.getPersonList());
     }
 
     //// expenditure-level operations
@@ -61,16 +61,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a expenditure with the same identity as {@code expenditure} exists in the address book.
      */
-    public boolean hasPerson(Expenditure expenditure) {
+
+    public boolean hasAccount(Expenditure expenditure) {
         requireNonNull(expenditure);
         return persons.contains(expenditure);
     }
+
 
     /**
      * Adds a expenditure to the address book.
      * The expenditure must not already exist in the address book.
      */
-    public void addPerson(Expenditure p) {
+    public void addAccount(Expenditure p) {
+
         persons.add(p);
     }
 
@@ -87,10 +90,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code Account}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Expenditure key) {
+    public void removeAccount(Expenditure key) {
         persons.remove(key);
     }
 
@@ -110,8 +113,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof Account // instanceof handles nulls
+                && persons.equals(((Account) other).persons));
     }
 
     @Override

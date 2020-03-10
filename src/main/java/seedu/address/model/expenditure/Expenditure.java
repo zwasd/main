@@ -21,18 +21,19 @@ public class Expenditure {
     private final Amount amount;
 
     // Data fields
-    private final Address address;
+    private final Date date;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Expenditure(Info info, Id id, Amount amount, Address address, Set<Tag> tags) {
-        requireAllNonNull(info, id, amount, address, tags);
+
+    public Expenditure(Info info, Id id, Amount amount, Date date, Set<Tag> tags) {
+        requireAllNonNull(info, id, amount, date, tags);
         this.info = info;
         this.id = id;
         this.amount = amount;
-        this.address = address;
+        this.date = date;
         this.tags.addAll(tags);
     }
 
@@ -48,8 +49,8 @@ public class Expenditure {
         return amount;
     }
 
-    public Address getAddress() {
-        return address;
+    public Date getDate() {
+        return date;
     }
 
     /**
@@ -92,14 +93,14 @@ public class Expenditure {
         return otherExpenditure.getInfo().equals(getInfo())
                 && otherExpenditure.getId().equals(getId())
                 && otherExpenditure.getAmount().equals(getAmount())
-                && otherExpenditure.getAddress().equals(getAddress())
+                && otherExpenditure.getDate().equals(getDate())
                 && otherExpenditure.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(info, id, amount, address, tags);
+        return Objects.hash(info, id, amount, date, tags);
     }
 
     @Override
@@ -110,8 +111,8 @@ public class Expenditure {
                 .append(getId())
                 .append(" Amount: ")
                 .append(getAmount())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
