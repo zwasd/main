@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
         }
 
         Expenditure expenditureToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(expenditureToDelete);
+        model.deleteExpenditure(expenditureToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, expenditureToDelete));
     }
 

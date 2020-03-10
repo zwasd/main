@@ -21,7 +21,7 @@ public class ExpenditureCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Account level 4</a>
      */
 
     public final Expenditure expenditure;
@@ -35,7 +35,7 @@ public class ExpenditureCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label address;
+    private Label date;
     @FXML
     private Label amount;
     @FXML
@@ -43,11 +43,12 @@ public class ExpenditureCard extends UiPart<Region> {
 
     public ExpenditureCard(Expenditure expenditure, int displayedNumber) {
         super(FXML);
+
         this.expenditure = expenditure;
         number.setText(displayedNumber + ". ");
         info.setText(expenditure.getInfo().fullInfo);
         id.setText(expenditure.getId().value);
-        address.setText(expenditure.getAddress().value);
+        date.setText(expenditure.getDate().value);
         amount.setText(Double.toString(expenditure.getAmount().value));
         expenditure.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

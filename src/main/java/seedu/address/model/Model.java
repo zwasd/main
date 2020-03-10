@@ -45,29 +45,29 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code account}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAccount(ReadOnlyAccount account);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Account */
+    ReadOnlyAccount getAccount();
 
     /**
      * Returns true if a expenditure with the same identity as {@code expenditure} exists in the address book.
      */
-    boolean hasPerson(Expenditure expenditure);
+    boolean hasExpenditure(Expenditure expenditure);
 
     /**
      * Deletes the given expenditure.
      * The expenditure must exist in the address book.
      */
-    void deletePerson(Expenditure target);
+    void deleteExpenditure(Expenditure target);
 
     /**
      * Adds the given expenditure.
      * {@code expenditure} must not already exist in the address book.
      */
-    void addPerson(Expenditure expenditure);
+    void addExpenditure(Expenditure expenditure);
 
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
@@ -75,7 +75,7 @@ public interface Model {
      * The expenditure identity of {@code editedExpenditure} must not be the same as
      * another existing expenditure in the address book.
      */
-    void setPerson(Expenditure target, Expenditure editedExpenditure);
+    void setExpenditure(Expenditure target, Expenditure editedExpenditure);
 
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<Expenditure> getFilteredPersonList();
