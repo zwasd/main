@@ -68,7 +68,7 @@ module Slim::Helpers
       %(<#{name}#{attrs_str}>)
     else
       content ||= yield if block_given?
-      %(<#{name}#{attrs_str}>#{content}</#{info}>)
+      %(<#{name}#{attrs_str}>#{content}</#{name}>)
     end
   end
 
