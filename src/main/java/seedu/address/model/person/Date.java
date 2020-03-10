@@ -1,11 +1,12 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
@@ -13,7 +14,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Date {
 
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
     public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
@@ -31,17 +32,17 @@ public class Date {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
-        localDate = LocalDate.parse(date, formatter);
+        localDate = LocalDate.parse(date, FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidDate(String test){
-        try{
-            LocalDate date = LocalDate.parse(test, formatter);
+    public static boolean isValidDate(String test) {
+        try {
+            LocalDate date = LocalDate.parse(test, FORMATTER);
             return true;
-        }catch(DateTimeException e){
+        } catch (DateTimeException e) {
             return false;
         }
     }

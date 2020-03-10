@@ -25,7 +25,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
-    public static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
     private final String name;
     private final String phone;
@@ -44,7 +44,6 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.date = date;
-//        this.date = LocalDate.parse(date, formatter);
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
