@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Expenditure;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final Account account;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Expenditure> filteredExpenditures;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
@@ -34,7 +34,9 @@ public class ModelManager implements Model {
 
         this.account = new Account(account);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.account.getPersonList());
+
+        filteredExpenditures = new FilteredList<>(this.account.getPersonList());
+
     }
 
     public ModelManager() {
@@ -89,44 +91,45 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return account.hasAccount(person);
+
+    public boolean hasExpenditure(Expenditure expenditure) {
+        requireNonNull(expenditure);
+        return account.hasAccount(expenditure);
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deleteExpenditure(Expenditure target) {
         account.removeAccount(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        account.addAccount(person);
+    public void addExpenditure(Expenditure expenditure) {
+        account.addAccount(expenditure);
+
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        account.setPerson(target, editedPerson);
+    public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
+        requireAllNonNull(target, editedExpenditure);
+        account.setPerson(target, editedExpenditure);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Expenditure List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Expenditure} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Expenditure> getFilteredPersonList() {
+        return filteredExpenditures;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredExpenditures.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +148,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return account.equals(other.account)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExpenditures.equals(other.filteredExpenditures);
     }
 
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -18,8 +19,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AccountTest {
@@ -45,12 +46,11 @@ public class AccountTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
+        // Two expenditures with the same identity fields
+        Expenditure editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AccountStub newData = new AccountStub(newPersons);
-
+        List<Expenditure> newExpenditures = Arrays.asList(ALICE, editedAlice);
+        AccountStub newData = new AccountStub(newExpenditures);
         assertThrows(DuplicatePersonException.class, () -> account.resetData(newData));
     }
 
@@ -73,7 +73,7 @@ public class AccountTest {
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         account.addAccount(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(account.hasAccount(editedAlice));
     }
@@ -87,15 +87,15 @@ public class AccountTest {
      * A stub ReadOnlyAccount whose persons list can violate interface constraints.
      */
     private static class AccountStub implements ReadOnlyAccount {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();
 
-        AccountStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AccountStub(Collection<Expenditure> persons) {
+            this.expenditures.setAll(expenditures);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Expenditure> getPersonList() {
+            return expenditures;
         }
     }
 

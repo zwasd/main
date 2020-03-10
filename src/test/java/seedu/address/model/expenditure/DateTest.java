@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.expenditure;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,15 +22,15 @@ public class DateTest {
     @Test
     public void isValidDate() {
         // null date
-        assertThrows(NullPointerException.class, () -> seedu.address.model.person.Date.isValidDate(null));
+        assertThrows(NullPointerException.class, () -> seedu.address.model.expenditure.Date.isValidDate(null));
 
         // invalid date
-        assertFalse(seedu.address.model.person.Date.isValidDate("")); // empty string
-        assertFalse(seedu.address.model.person.Date.isValidDate(" ")); // spaces only
+        assertFalse(seedu.address.model.expenditure.Date.isValidDate("")); // empty string
+        assertFalse(seedu.address.model.expenditure.Date.isValidDate(" ")); // spaces only
 
         // valid date
-        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
-        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
-        assertTrue(seedu.address.model.person.Date.isValidDate("2019-09-11"));
+        assertTrue(seedu.address.model.expenditure.Date.isValidDate("2019-09-11"));
+        assertTrue(seedu.address.model.expenditure.Date.isValidDate("2019-09-11"));
+        assertTrue(seedu.address.model.expenditure.Date.isValidDate("2019-09-11"));
     }
 }

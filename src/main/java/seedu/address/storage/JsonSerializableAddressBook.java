@@ -9,9 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+
 import seedu.address.model.Account;
 import seedu.address.model.ReadOnlyAccount;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Expenditure;
 
 /**
  * An Immutable Account that is serializable to JSON format.
@@ -19,7 +20,7 @@ import seedu.address.model.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate expenditure(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -48,11 +49,12 @@ class JsonSerializableAddressBook {
     public Account toModelType() throws IllegalValueException {
         Account account = new Account();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (account.hasAccount(person)) {
+            Expenditure expenditure = jsonAdaptedPerson.toModelType();
+            if (account.hasAccount(expenditure)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            account.addAccount(person);
+            account.addAccount(expenditure);
+
         }
         return account;
     }

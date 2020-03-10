@@ -1,13 +1,13 @@
 {
   "persons": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
+    "info": "Valid Person",
+    "id": "9482424",
+    "amount": 3.14,
     "date" : "2019-09-11"
   }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "date" : "2019-09-11"
+    "info": "Person With Invalid Id Field",
+    "id": "948asdf2424",
+    "amount": 3.14,
+    "date" : "2019-09-11",
   } ]
 }

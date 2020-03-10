@@ -3,59 +3,62 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.Date;
+import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Id;
+import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Expenditure objects.
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+
+    public static final String DEFAULT_INFO = "Alice Pauline";
+    public static final String DEFAULT_ID = "85355255";
+    public static final double DEFAULT_AMOUNT = 3.14;
     public static final String DEFAULT_DATE = "2019-09-11";
 
-    private Name name;
-    private Phone phone;
-    private Email email;
+    private Info info;
+    private Id id;
+    private Amount amount;
     private Date date;
     private Set<Tag> tags;
 
     public PersonBuilder() {
-        name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        info = new Info(DEFAULT_INFO);
+        id = new Id(DEFAULT_ID);
+        amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code expenditureToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        date = personToCopy.getDate();
-        tags = new HashSet<>(personToCopy.getTags());
+
+    public PersonBuilder(Expenditure expenditureToCopy) {
+        info = expenditureToCopy.getInfo();
+        id = expenditureToCopy.getId();
+        amount = expenditureToCopy.getAmount();
+        date = expenditureToCopy.getDate();
+        tags = new HashSet<>(expenditureToCopy.getTags());
+
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Info} of the {@code Expenditure} that we are building.
      */
-    public PersonBuilder withName(String name) {
-        this.name = new Name(name);
+    public PersonBuilder withInfo(String info) {
+        this.info = new Info(info);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expenditure} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -63,7 +66,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Expenditure} that we are building.
      */
     public PersonBuilder withDate(String date) {
         this.date = new Date(date);
@@ -71,23 +74,23 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Id} of the {@code Expenditure} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public PersonBuilder withId(String id) {
+        this.id = new Id(id);
         return this;
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Expenditure} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public PersonBuilder withAmount(double amount) {
+        this.amount = new Amount(amount);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, date, tags);
+    public Expenditure build() {
+        return new Expenditure(info, id, amount, date, tags);
     }
 
 }
