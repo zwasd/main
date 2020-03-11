@@ -20,17 +20,17 @@ public class SampleDataUtil {
 
     public static Expenditure[] getSamplePersons() {
         return new Expenditure[] {
-            new Expenditure(new Info("Alex Yeoh"), new Id("87438807"), new Amount("alexyeoh@example.com"),
+            new Expenditure(new Info("Alex Yeoh"), new Id("87438807"), new Amount(3.1),
                     new Date("2019-09-11"), getTagSet("friends")),
-            new Expenditure(new Info("Bernice Yu"), new Id("99272758"), new Amount("berniceyu@example.com"),
+            new Expenditure(new Info("Bernice Yu"), new Id("99272758"), new Amount(3.1),
                     new Date("2019-09-12"), getTagSet("colleagues", "friends")),
-            new Expenditure(new Info("Charlotte Oliveiro"), new Id("93210283"), new Amount("charlotte@example.com"),
+            new Expenditure(new Info("Charlotte Oliveiro"), new Id("93210283"), new Amount(3.1),
                     new Date("2019-09-13"), getTagSet("neighbours")),
-            new Expenditure(new Info("David Li"), new Id("91031282"), new Amount("lidavid@example.com"),
+            new Expenditure(new Info("David Li"), new Id("91031282"), new Amount(3.1),
                     new Date("2019-09-14"), getTagSet("family")),
-            new Expenditure(new Info("Irfan Ibrahim"), new Id("92492021"), new Amount("irfan@example.com"),
+            new Expenditure(new Info("Irfan Ibrahim"), new Id("92492021"), new Amount(3.1),
                     new Date("2019-09-15"), getTagSet("classmates")),
-            new Expenditure(new Info("Roy Balakrishnan"), new Id("92624417"), new Amount("royb@example.com"),
+            new Expenditure(new Info("Roy Balakrishnan"), new Id("92624417"), new Amount(3.1),
                     new Date("2019-09-11"), getTagSet("colleagues"))
         };
     }
