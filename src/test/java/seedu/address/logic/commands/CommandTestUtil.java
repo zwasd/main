@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Expenditure;
@@ -60,8 +61,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditExpenditureDescriptor DESC_AMY;
+    public static final EditExpenditureDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_AMY)
@@ -109,24 +110,23 @@ public class CommandTestUtil {
         // only do so by copying its components.
 
         Account expectedAccount = new Account(actualModel.getAccount());
-        List<Expenditure> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Expenditure> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenditureList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAccount, actualModel.getAccount());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredExpenditureList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the expenditure at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenditureList().size());
 
-        Expenditure expenditure = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Expenditure expenditure = model.getFilteredExpenditureList().get(targetIndex.getZeroBased());
         final String[] splitInfo = expenditure.getInfo().fullInfo.split("\\s+");
-        model.updateFilteredPersonList(new InfoContainsKeywordsPredicate(Arrays.asList(splitInfo[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
+        model.updateFilteredExpenditureList(new InfoContainsKeywordsPredicate(Arrays.asList(splitInfo[0])));
+        assertEquals(1, model.getFilteredExpenditureList().size());
     }
 
 }
