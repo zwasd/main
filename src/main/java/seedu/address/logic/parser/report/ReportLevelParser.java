@@ -8,12 +8,14 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.report.ExportReportCommand;
+import seedu.address.logic.commands.report.ViewReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * Parse report type commands.
- */
 public class ReportLevelParser {
+
+    public static final String COMMAND_WORD = "report";
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -35,31 +37,12 @@ public class ReportLevelParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        /*
-        case ExpAddCommand.COMMAND_WORD:
-            return new ExpAddCommandParser().parse(arguments);
 
-        case ExpEditCommand.COMMAND_WORD:
-            return new ExpEditCommandParser().parse(arguments);
+        case ViewReportCommand.COMMAND_WORD:
+            return new ViewReportCommandParser().parse(arguments);
 
-        case ExpDeleteCommand.COMMAND_WORD:
-            return new ExpDeleteCommandParser().parse(arguments);
-
-        case AccClearCommand.COMMAND_WORD:
-            return new AccClearCommand();
-
-        case ExpFindCommand.COMMAND_WORD:
-            return new ExpFindCommandParser().parse(arguments);
-
-        case AccListCommand.COMMAND_WORD:
-            return new AccListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        */
+        case ExportReportCommand.COMMAND_WORD:
+            return new ExportReportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

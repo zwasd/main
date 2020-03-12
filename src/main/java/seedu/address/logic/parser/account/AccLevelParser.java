@@ -7,13 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.account.AccAddCommand;
+import seedu.address.logic.commands.account.AccCheckoutCommand;
+import seedu.address.logic.commands.account.AccClearCommand;
+import seedu.address.logic.commands.account.AccDeleteCommand;
+import seedu.address.logic.commands.account.AccListCommand;
+import seedu.address.logic.commands.account.AccRenameCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * Parse account type commands.
- */
 public class AccLevelParser {
+
+    public static final String COMMAND_WORD = "acc";
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -35,31 +41,24 @@ public class AccLevelParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        /*
-        case ExpAddCommand.COMMAND_WORD:
-            return new ExpAddCommandParser().parse(arguments);
+        case AccAddCommand.COMMAND_WORD:
+            return new AccAddCommandParser().parse(arguments);
 
-        case ExpEditCommand.COMMAND_WORD:
-            return new ExpEditCommandParser().parse(arguments);
+        case AccDeleteCommand.COMMAND_WORD:
+            return new AccDeleteCommandParser().parse(arguments);
 
-        case ExpDeleteCommand.COMMAND_WORD:
-            return new ExpDeleteCommandParser().parse(arguments);
+        case AccCheckoutCommand.COMMAND_WORD:
+            return new AccCheckoutCommandParser().parse(arguments);
+
+        case AccRenameCommand.COMMAND_WORD:
+            return new AccRenameCommandParser().parse(arguments);
 
         case AccClearCommand.COMMAND_WORD:
             return new AccClearCommand();
 
-        case ExpFindCommand.COMMAND_WORD:
-            return new ExpFindCommandParser().parse(arguments);
-
         case AccListCommand.COMMAND_WORD:
             return new AccListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        */
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

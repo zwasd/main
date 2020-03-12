@@ -7,13 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.expenditure.ExpAddCommand;
+import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
+import seedu.address.logic.commands.expenditure.ExpEditCommand;
+import seedu.address.logic.commands.expenditure.ExpFindCommand;
+import seedu.address.logic.commands.expenditure.ExpRepeatCommand;
+import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-/**
- * Parse expenditure type commands.
- */
 public class ExpLevelParser {
+
+    public static final String COMMAND_WORD = "EXP";
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -35,7 +41,7 @@ public class ExpLevelParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        /*
+
         case ExpAddCommand.COMMAND_WORD:
             return new ExpAddCommandParser().parse(arguments);
 
@@ -45,21 +51,15 @@ public class ExpLevelParser {
         case ExpDeleteCommand.COMMAND_WORD:
             return new ExpDeleteCommandParser().parse(arguments);
 
-        case AccClearCommand.COMMAND_WORD:
-            return new AccClearCommand();
-
         case ExpFindCommand.COMMAND_WORD:
             return new ExpFindCommandParser().parse(arguments);
 
-        case AccListCommand.COMMAND_WORD:
-            return new AccListCommand();
+        case ExpRepeatCommand.COMMAND_WORD:
+            return new ExpRepeatCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+        case ExpSetBudgetCommand.COMMAND_WORD:
+            return new ExpSetBudgetCommandParser().parse(arguments);
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        */
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
