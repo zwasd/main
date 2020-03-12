@@ -10,6 +10,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse expenditure type commands.
+ */
 public class ExpLevelParser {
     /**
      * Used for initial separation of command word and args.

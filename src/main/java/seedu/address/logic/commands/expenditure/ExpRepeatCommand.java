@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Repeat expenditure.
+ */
 public class ExpRepeatCommand extends Command {
 
     public ExpRepeatCommand(){

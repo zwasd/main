@@ -4,6 +4,9 @@ import seedu.address.logic.commands.account.AccAddCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse add account.
+ */
 public class AccAddCommandParser implements Parser<AccAddCommand> {
     public AccAddCommandParser() {
 

@@ -4,6 +4,9 @@ import seedu.address.logic.commands.expenditure.ExpRepeatCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse repeat expenditure.
+ */
 public class ExpRepeatCommandParser implements Parser<ExpRepeatCommand> {
     public ExpRepeatCommandParser() {
 

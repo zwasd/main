@@ -4,6 +4,9 @@ import seedu.address.logic.commands.account.AccDeleteCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse delete account.
+ */
 public class AccDeleteCommandParser implements Parser<AccDeleteCommand> {
     public AccDeleteCommandParser() {
 

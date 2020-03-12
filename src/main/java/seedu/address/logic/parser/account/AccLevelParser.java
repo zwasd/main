@@ -10,6 +10,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse account type commands.
+ */
 public class AccLevelParser {
     /**
      * Used for initial separation of command word and args.

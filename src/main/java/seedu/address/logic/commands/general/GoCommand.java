@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Switch to a date.
+ */
 public class GoCommand extends Command {
     public GoCommand() {
 

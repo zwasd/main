@@ -31,8 +31,8 @@ public class ExpDeleteCommandTest {
         Expenditure expenditureToDelete = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
         ExpDeleteCommand expDeleteCommand = new ExpDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(seedu.address.logic.commands.expenditure.ExpDeleteCommand
-                .MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete);
+        String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,
+                        expenditureToDelete);
         ModelManager expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
         expectedModel.deleteExpenditure(expenditureToDelete);
 
@@ -54,8 +54,8 @@ public class ExpDeleteCommandTest {
         Expenditure expenditureToDelete = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
         ExpDeleteCommand expDeleteCommand = new ExpDeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(seedu.address.logic.commands.expenditure.ExpDeleteCommand
-                .MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete);
+        String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,
+                        expenditureToDelete);
         Model expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
         expectedModel.deleteExpenditure(expenditureToDelete);
         showNoPerson(expectedModel);

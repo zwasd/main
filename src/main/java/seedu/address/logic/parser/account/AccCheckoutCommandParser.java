@@ -4,6 +4,9 @@ import seedu.address.logic.commands.account.AccCheckoutCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse change account.
+ */
 public class AccCheckoutCommandParser implements Parser<AccCheckoutCommand> {
     public AccCheckoutCommandParser() {
 

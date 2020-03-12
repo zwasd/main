@@ -5,6 +5,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Add account.
+ */
 public class AccAddCommand extends Command {
     public AccAddCommand() {
 

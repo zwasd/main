@@ -4,6 +4,9 @@ import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse set budget.
+ */
 public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
     public ExpSetBudgetCommandParser() {}
     @Override

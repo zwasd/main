@@ -4,6 +4,9 @@ import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse switch to a date.
+ */
 public class GoCommandParser implements Parser<GoCommand> {
     public GoCommandParser() {
 

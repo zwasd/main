@@ -8,7 +8,7 @@ import seedu.address.model.Account;
 import seedu.address.model.Model;
 
 /**
- * Clears the address book.
+ * Clears the account.
  */
 public class AccClearCommand extends Command {
 

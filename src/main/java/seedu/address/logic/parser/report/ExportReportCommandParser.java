@@ -4,6 +4,9 @@ import seedu.address.logic.commands.expenditure.ExportReportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse export report.
+ */
 public class ExportReportCommandParser implements Parser<ExportReportCommand> {
     public ExportReportCommandParser() {
 
