@@ -49,7 +49,7 @@ public class ExpAddCommandTest {
         ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
 
         assertThrows(CommandException.class,
-                ExpAddCommand.MESSAGE_DUPLICATE_PERSON, () -> expAddCommand.execute(modelStub));
+                ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () -> expAddCommand.execute(modelStub));
     }
 
     @Test

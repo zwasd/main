@@ -14,11 +14,15 @@ import seedu.address.logic.commands.expenditure.ExpFindCommand;
 import seedu.address.logic.commands.expenditure.ExpRepeatCommand;
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class ExpLevelParser {
+/**
+ * Parse expenditure commands.
+ */
+public class ExpLevelParser extends TopLevelParser {
 
-    public static final String COMMAND_WORD = "EXP";
+    public static final String COMMAND_WORD = "exp";
 
     /**
      * Used for initial separation of command word and args.
@@ -32,7 +36,7 @@ public class ExpLevelParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command expParseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

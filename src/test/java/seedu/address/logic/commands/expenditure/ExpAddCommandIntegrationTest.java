@@ -39,7 +39,7 @@ public class ExpAddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Expenditure expenditureInList = model.getAccount().getExpenditureList().get(0);
-        assertCommandFailure(new ExpAddCommand(expenditureInList), model, ExpAddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new ExpAddCommand(expenditureInList), model, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
 
 }

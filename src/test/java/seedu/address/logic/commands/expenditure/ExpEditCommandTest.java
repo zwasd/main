@@ -109,7 +109,7 @@ public class ExpEditCommandTest {
         Expenditure firstExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(firstExpenditure).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_PERSON, descriptor);
-        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ExpEditCommandTest {
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(expenditureInList).build());
 
-        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
 
     @Test

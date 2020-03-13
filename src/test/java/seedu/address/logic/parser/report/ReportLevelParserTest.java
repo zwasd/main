@@ -18,12 +18,12 @@ public class ReportLevelParserTest {
     @Test
     public void reportParseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.reportParseCommand(""));
+            -> parser.parseCommand(""));
     }
 
     @Test
     public void reportParseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
-            -> parser.reportParseCommand("unknownCommand"));
+            -> parser.parseCommand("unknownCommand"));
     }
 }
