@@ -31,7 +31,6 @@ public class ExpAddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
         expectedModel.addExpenditure(validExpenditure);
 
-
         assertCommandSuccess(new ExpAddCommand(validExpenditure), model,
                 String.format(ExpAddCommand.MESSAGE_SUCCESS, validExpenditure), expectedModel);
     }

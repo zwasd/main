@@ -17,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
@@ -80,28 +79,6 @@ public class ParserUtilTest {
         assertEquals(expectedInfo, ParserUtil.parseInfo(infoWithWhitespace));
     }
 
-    @Test
-    public void parseId_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseId((String) null));
-    }
-
-    @Test
-    public void parseId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseId(INVALID_ID));
-    }
-
-    @Test
-    public void parseId_validValueWithoutWhitespace_returnsId() throws Exception {
-        Id expectedId = new Id(VALID_ID);
-        assertEquals(expectedId, ParserUtil.parseId(VALID_ID));
-    }
-
-    @Test
-    public void parseId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
-        String idWithWhitespace = WHITESPACE + VALID_ID + WHITESPACE;
-        Id expectedId = new Id(VALID_ID);
-        assertEquals(expectedId, ParserUtil.parseId(idWithWhitespace));
-    }
 
     @Test
     public void parseDate_null_throwsNullPointerException() {

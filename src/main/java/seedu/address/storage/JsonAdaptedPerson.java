@@ -15,7 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 
 import seedu.address.model.tag.Tag;
@@ -31,9 +30,7 @@ class JsonAdaptedPerson {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
     private final String date;
-
     private final String info;
-    private final String id;
     private final double amount;
 
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -43,11 +40,9 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
 
-    public JsonAdaptedPerson(@JsonProperty("info") String info, @JsonProperty("id") String id,
-            @JsonProperty("amount") double amount, @JsonProperty("date") String date,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
+                             @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.info = info;
-        this.id = id;
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
@@ -61,7 +56,6 @@ class JsonAdaptedPerson {
 
     public JsonAdaptedPerson(Expenditure source) {
         info = source.getInfo().fullInfo;
-        id = source.getId().value;
         amount = source.getAmount().value;
         date = source.getDate().value;
 
@@ -89,13 +83,6 @@ class JsonAdaptedPerson {
         }
         final Info modelInfo = new Info(info);
 
-        if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Id.class.getSimpleName()));
-        }
-        if (!Id.isValidId(id)) {
-            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
-        }
-        final Id modelId = new Id(id);
 
         // if (email == null) {
         //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -117,7 +104,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Expenditure(modelInfo, modelId, modelAmount, modelDate, modelTags);
+        return new Expenditure(modelInfo, modelAmount, modelDate, modelTags);
 
     }
 

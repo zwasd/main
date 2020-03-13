@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_AMY;
 
 import static seedu.address.testutil.Assert.assertThrows;
@@ -82,7 +81,7 @@ public class LogicManagerTest {
 
         // Execute add command
 
-        String addCommand = ExpAddCommand.COMMAND_WORD + INFO_DESC_AMY + ID_DESC_AMY + AMOUNT_DESC_AMY
+        String addCommand = ExpAddCommand.COMMAND_WORD + INFO_DESC_AMY + AMOUNT_DESC_AMY
                 + DATE_DESC_AMY;
         Expenditure expectedExpenditure = new PersonBuilder(AMY).withTags().build();
 

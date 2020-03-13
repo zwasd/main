@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -57,11 +56,11 @@ public class ExpEditCommandTest {
         Expenditure lastExpenditure = model.getFilteredExpenditureList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastExpenditure);
-        Expenditure editedExpenditure = personInList.withInfo(VALID_INFO_BOB).withId(VALID_ID_BOB)
+        Expenditure editedExpenditure = personInList.withInfo(VALID_INFO_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
         EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
-                .withId(VALID_ID_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withTags(VALID_TAG_HUSBAND).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);

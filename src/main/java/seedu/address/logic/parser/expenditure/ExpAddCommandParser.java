@@ -3,7 +3,6 @@ package seedu.address.logic.parser.expenditure;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -21,7 +20,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
@@ -37,21 +35,20 @@ public class ExpAddCommandParser implements Parser<ExpAddCommand> {
      */
     public ExpAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_ID, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INFO, PREFIX_ID, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_INFO, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpAddCommand.MESSAGE_USAGE));
         }
 
 
         Info info = ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get());
-        Id id = ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElseGet(() -> LocalDate.now().toString()));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expenditure expenditure = new Expenditure(info, id, amount, date, tagList);
+        Expenditure expenditure = new Expenditure(info, amount, date, tagList);
 
         return new ExpAddCommand(expenditure);
     }
