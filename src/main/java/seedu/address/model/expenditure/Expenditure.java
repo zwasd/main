@@ -98,7 +98,6 @@ public class Expenditure {
         if (other == this) {
             return true;
         }
-
         return false;
     }
 

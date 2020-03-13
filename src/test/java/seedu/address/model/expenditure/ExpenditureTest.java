@@ -26,6 +26,7 @@ public class ExpenditureTest {
         assertTrue(ALICE.isSameExpenditure(aliceCopy));
     }
 
+
     @Test
     public void equals() {
         // different object -> false
@@ -47,7 +48,6 @@ public class ExpenditureTest {
         // different object -> returns false
         Expenditure editedAlice = new PersonBuilder(ALICE).withAmount(3.00).build();
         assertFalse(ALICE.equals(editedAlice));
-
 
         // different object -> returns false
         editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).build();

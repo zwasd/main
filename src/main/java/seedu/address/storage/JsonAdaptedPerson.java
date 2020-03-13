@@ -84,6 +84,8 @@ class JsonAdaptedPerson {
         final Info modelInfo = new Info(info);
 
 
+
+
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
