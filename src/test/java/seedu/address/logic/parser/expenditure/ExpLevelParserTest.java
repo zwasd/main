@@ -35,14 +35,14 @@ public class ExpLevelParserTest {
     @Test
     public void parseExpCommand_add() throws Exception {
         Expenditure expenditure = new PersonBuilder().build();
-        ExpAddCommand command = (ExpAddCommand) parser.expParseCommand(PersonUtil.getAddCommand(expenditure));
+        ExpAddCommand command = (ExpAddCommand) parser.parseCommand(PersonUtil.getAddCommand(expenditure));
         assertEquals(new ExpAddCommand(expenditure), command);
     }
 
 
     @Test
     public void parseExpCommand_delete() throws Exception {
-        ExpDeleteCommand command = (ExpDeleteCommand) parser.expParseCommand(
+        ExpDeleteCommand command = (ExpDeleteCommand) parser.parseCommand(
                 seedu.address.logic.commands.expenditure.ExpDeleteCommand.COMMAND_WORD
                         + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ExpDeleteCommand(INDEX_FIRST_PERSON), command);
@@ -51,7 +51,7 @@ public class ExpLevelParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ExpFindCommand command = (ExpFindCommand) parser.expParseCommand(
+        ExpFindCommand command = (ExpFindCommand) parser.parseCommand(
                 ExpFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new ExpFindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
     }
@@ -60,7 +60,7 @@ public class ExpLevelParserTest {
     public void parseExpCommand_edit() throws Exception {
         Expenditure person = new PersonBuilder().build();
         EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        ExpEditCommand command = (ExpEditCommand) parser.expParseCommand(ExpEditCommand.COMMAND_WORD + " "
+        ExpEditCommand command = (ExpEditCommand) parser.parseCommand(ExpEditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new ExpEditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
@@ -68,12 +68,12 @@ public class ExpLevelParserTest {
     @Test
     public void expParseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.expParseCommand(""));
+            -> parser.parseCommand(""));
     }
 
     @Test
     public void expParseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.expParseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 
 }

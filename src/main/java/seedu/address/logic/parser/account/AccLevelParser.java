@@ -14,9 +14,13 @@ import seedu.address.logic.commands.account.AccDeleteCommand;
 import seedu.address.logic.commands.account.AccListCommand;
 import seedu.address.logic.commands.account.AccRenameCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class AccLevelParser {
+/**
+ * Parse account commands.
+ */
+public class AccLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "acc";
 
@@ -32,7 +36,7 @@ public class AccLevelParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command accParseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

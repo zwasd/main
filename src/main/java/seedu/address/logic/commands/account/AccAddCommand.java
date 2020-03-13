@@ -16,7 +16,7 @@ public class AccAddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_SUCCESS = "New account added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This account name already exists in the $AVE IT";
+    public static final String MESSAGE_DUPLICATE_ACCOUNT = "This account name already exists in the $AVE IT";
 
     private final Account toAdd;
 

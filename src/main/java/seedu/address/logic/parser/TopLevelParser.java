@@ -43,31 +43,32 @@ public class TopLevelParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case ExpLevelParser.COMMAND_WORD:
-            return new ExpLevelParser().expParseCommand(arguments);
+            return new ExpLevelParser().parseCommand(arguments);
 
         case ReportLevelParser.COMMAND_WORD:
-            return new ReportLevelParser().reportParseCommand(arguments);
+            return new ReportLevelParser().parseCommand(arguments);
 
         case AccLevelParser.COMMAND_WORD:
-            return new AccLevelParser().accParseCommand(arguments);
+            return new AccLevelParser().parseCommand(arguments);
 
         case AccClearCommand.COMMAND_WORD:
             return new AccClearCommand();
 
-        case GoCommand.COMMAND_WORD:
-            return new GoCommandParser().parse(arguments);
-
         case AccListCommand.COMMAND_WORD:
             return new AccListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
