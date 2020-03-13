@@ -3,7 +3,6 @@ package seedu.address.logic.commands.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -23,13 +22,11 @@ public class ExpAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a expenditure to the address book. "
             + "Parameters: "
             + PREFIX_INFO + "INFO "
-            + PREFIX_ID + "ID "
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INFO + "John Doe "
-            + PREFIX_ID + "98765432 "
             + PREFIX_AMOUNT + "johnd@example.com "
             + PREFIX_DATE + "2019-09-11 "
             + PREFIX_TAG + "friends "

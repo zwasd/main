@@ -12,7 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 
 import seedu.address.model.tag.Tag;
@@ -52,20 +51,6 @@ public class ParserUtil {
         return new Info(trimmedInfo);
     }
 
-    /**
-     * Parses a {@code String id} into a {@code Id}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code id} is invalid.
-     */
-    public static Id parseId(String id) throws ParseException {
-        requireNonNull(id);
-        String trimmedId = id.trim();
-        if (!Id.isValidId(trimmedId)) {
-            throw new ParseException(Id.MESSAGE_CONSTRAINTS);
-        }
-        return new Id(trimmedId);
-    }
 
     /**
      * Parses a {@code String address} into an {@code Date}.

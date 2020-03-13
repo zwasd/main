@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -27,7 +26,6 @@ import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
@@ -43,12 +41,10 @@ public class ExpEditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_INFO + "INFO] "
-            + "[" + PREFIX_ID + "ID] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ID + "91234567 "
             + PREFIX_AMOUNT + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_EXPENDITURE_SUCCESS = "Edited Expenditure: %1$s";
@@ -100,11 +96,10 @@ public class ExpEditCommand extends Command {
         assert expenditureToEdit != null;
 
         Info updatedInfo = editExpenditureDescriptor.getInfo().orElse(expenditureToEdit.getInfo());
-        Id updatedId = editExpenditureDescriptor.getId().orElse(expenditureToEdit.getId());
         Amount updatedAmount = editExpenditureDescriptor.getAmount().orElse(expenditureToEdit.getAmount());
         Date updatedDate = editExpenditureDescriptor.getDate().orElse(expenditureToEdit.getDate());
         Set<Tag> updatedTags = editExpenditureDescriptor.getTags().orElse(expenditureToEdit.getTags());
-        return new Expenditure(updatedInfo, updatedId, updatedAmount, updatedDate, updatedTags);
+        return new Expenditure(updatedInfo, updatedAmount, updatedDate, updatedTags);
     }
 
     @Override
@@ -131,7 +126,6 @@ public class ExpEditCommand extends Command {
      */
     public static class EditExpenditureDescriptor {
         private Info info;
-        private Id id;
         private Amount amount;
         private Date date;
         private Set<Tag> tags;
@@ -144,7 +138,6 @@ public class ExpEditCommand extends Command {
          */
         public EditExpenditureDescriptor(EditExpenditureDescriptor toCopy) {
             setInfo(toCopy.info);
-            setId(toCopy.id);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setTags(toCopy.tags);
@@ -154,7 +147,7 @@ public class ExpEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(info, id, amount, date, tags);
+            return CollectionUtil.isAnyNonNull(info, amount, date, tags);
         }
 
         public void setInfo(Info info) {
@@ -163,14 +156,6 @@ public class ExpEditCommand extends Command {
 
         public Optional<Info> getInfo() {
             return Optional.ofNullable(info);
-        }
-
-        public void setId(Id id) {
-            this.id = id;
-        }
-
-        public Optional<Id> getId() {
-            return Optional.ofNullable(id);
         }
 
         public void setAmount(Amount amount) {
@@ -222,7 +207,6 @@ public class ExpEditCommand extends Command {
             EditExpenditureDescriptor e = (EditExpenditureDescriptor) other;
 
             return getInfo().equals(e.getInfo())
-                    && getId().equals(e.getId())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());

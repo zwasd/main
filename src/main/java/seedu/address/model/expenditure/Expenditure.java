@@ -17,7 +17,6 @@ public class Expenditure {
 
     // Identity fields
     private final Info info;
-    private final Id id;
     private final Amount amount;
 
     // Data fields
@@ -28,10 +27,9 @@ public class Expenditure {
      * Every field must be present and not null.
      */
 
-    public Expenditure(Info info, Id id, Amount amount, Date date, Set<Tag> tags) {
-        requireAllNonNull(info, id, amount, date, tags);
+    public Expenditure(Info info, Amount amount, Date date, Set<Tag> tags) {
+        requireAllNonNull(info, amount, date, tags);
         this.info = info;
-        this.id = id;
         this.amount = amount;
         this.date = date;
         this.tags.addAll(tags);
@@ -39,10 +37,6 @@ public class Expenditure {
 
     public Info getInfo() {
         return info;
-    }
-
-    public Id getId() {
-        return id;
     }
 
     public Amount getAmount() {
@@ -71,8 +65,7 @@ public class Expenditure {
         }
 
         return otherExpenditure != null
-                && otherExpenditure.getInfo().equals(getInfo())
-                && otherExpenditure.getId().equals(getId());
+                && otherExpenditure.getInfo().equals(getInfo());
     }
 
     /**
@@ -91,7 +84,6 @@ public class Expenditure {
 
         Expenditure otherExpenditure = (Expenditure) other;
         return otherExpenditure.getInfo().equals(getInfo())
-                && otherExpenditure.getId().equals(getId())
                 && otherExpenditure.getAmount().equals(getAmount())
                 && otherExpenditure.getDate().equals(getDate())
                 && otherExpenditure.getTags().equals(getTags());
@@ -100,15 +92,13 @@ public class Expenditure {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(info, id, amount, date, tags);
+        return Objects.hash(info, amount, date, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getInfo())
-                .append(" Id: ")
-                .append(getId())
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Date: ")

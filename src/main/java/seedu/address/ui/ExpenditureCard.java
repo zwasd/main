@@ -47,7 +47,6 @@ public class ExpenditureCard extends UiPart<Region> {
         this.expenditure = expenditure;
         number.setText(displayedNumber + ". ");
         info.setText(expenditure.getInfo().fullInfo);
-        id.setText(expenditure.getId().value);
         date.setText(expenditure.getDate().value);
         amount.setText(Double.toString(expenditure.getAmount().value));
         expenditure.getTags().stream()

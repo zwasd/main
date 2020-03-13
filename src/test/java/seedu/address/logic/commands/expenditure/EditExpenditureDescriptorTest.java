@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -38,10 +37,6 @@ public class EditExpenditureDescriptorTest {
         // different info -> returns false
         EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
                 .withInfo(VALID_INFO_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different id -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withId(VALID_ID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different amount -> returns true

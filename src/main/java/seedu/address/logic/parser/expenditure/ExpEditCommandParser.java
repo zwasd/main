@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -37,7 +36,7 @@ public class ExpEditCommandParser implements Parser<ExpEditCommand> {
     public ExpEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_ID, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_TAG);
         Index index;
 
         try {
@@ -49,9 +48,6 @@ public class ExpEditCommandParser implements Parser<ExpEditCommand> {
         EditExpenditureDescriptor editExpenditureDescriptor = new EditExpenditureDescriptor();
         if (argMultimap.getValue(PREFIX_INFO).isPresent()) {
             editExpenditureDescriptor.setInfo(ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ID).isPresent()) {
-            editExpenditureDescriptor.setId(ParserUtil.parseId(argMultimap.getValue(PREFIX_ID).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             editExpenditureDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));

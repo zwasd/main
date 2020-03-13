@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -32,7 +31,7 @@ public class ExpenditureTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // different id and amount -> returns false
-        Expenditure editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB)
+        Expenditure editedAlice = new PersonBuilder(ALICE)
                 .withAmount(VALID_AMOUNT_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
@@ -77,9 +76,6 @@ public class ExpenditureTest {
         Expenditure editedAlice = new PersonBuilder(ALICE).withInfo(VALID_INFO_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different id -> returns false
-        editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
         // editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
