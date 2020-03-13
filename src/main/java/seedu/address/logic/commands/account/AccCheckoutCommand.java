@@ -9,9 +9,10 @@ import seedu.address.model.Model;
  * Change to another account.
  */
 public class AccCheckoutCommand extends Command {
-    public AccCheckoutCommand() {
 
-    }
+    public static final String COMMAND_WORD = "checkout";
+
+    public static final String MESSAGE_SUCCESS = "You are now at account: ";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

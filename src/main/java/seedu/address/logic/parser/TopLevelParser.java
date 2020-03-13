@@ -9,17 +9,14 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.account.AccClearCommand;
 import seedu.address.logic.commands.account.AccListCommand;
-import seedu.address.logic.commands.expenditure.ExpAddCommand;
-import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
-import seedu.address.logic.commands.expenditure.ExpEditCommand;
-import seedu.address.logic.commands.expenditure.ExpFindCommand;
 import seedu.address.logic.commands.general.ExitCommand;
+import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.expenditure.ExpAddCommandParser;
-import seedu.address.logic.parser.expenditure.ExpDeleteCommandParser;
-import seedu.address.logic.parser.expenditure.ExpEditCommandParser;
-import seedu.address.logic.parser.expenditure.ExpFindCommandParser;
+import seedu.address.logic.parser.expenditure.ExpLevelParser;
+import seedu.address.logic.parser.general.GoCommandParser;
+import seedu.address.logic.parser.report.ReportLevelParser;
 
 /**
  * Parses user input.
@@ -46,31 +43,32 @@ public class TopLevelParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
-        case ExpAddCommand.COMMAND_WORD:
-            return new ExpAddCommandParser().parse(arguments);
+        case ExpLevelParser.COMMAND_WORD:
+            return new ExpLevelParser().parseCommand(arguments);
 
-        case ExpEditCommand.COMMAND_WORD:
-            return new ExpEditCommandParser().parse(arguments);
+        case ReportLevelParser.COMMAND_WORD:
+            return new ReportLevelParser().parseCommand(arguments);
 
-        case ExpDeleteCommand.COMMAND_WORD:
-            return new ExpDeleteCommandParser().parse(arguments);
+        case AccLevelParser.COMMAND_WORD:
+            return new AccLevelParser().parseCommand(arguments);
 
         case AccClearCommand.COMMAND_WORD:
             return new AccClearCommand();
 
-        case ExpFindCommand.COMMAND_WORD:
-            return new ExpFindCommandParser().parse(arguments);
-
         case AccListCommand.COMMAND_WORD:
             return new AccListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+        case GoCommand.COMMAND_WORD:
+            return new GoCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

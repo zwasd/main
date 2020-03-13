@@ -9,8 +9,15 @@ import seedu.address.model.Model;
  * Rename account.
  */
 public class AccRenameCommand extends Command {
-    public AccRenameCommand() {
 
+    public static final String COMMAND_WORD = "rename";
+
+    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "The name of : %1$s has changed to : %1$s";
+
+    private final String newName;
+
+    public AccRenameCommand(String newName) {
+        this.newName = newName;
     }
 
     @Override
