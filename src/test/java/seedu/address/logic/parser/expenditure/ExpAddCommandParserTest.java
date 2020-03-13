@@ -50,10 +50,6 @@ public class ExpAddCommandParserTest {
         assertParseSuccess(parser, INFO_DESC_AMY + INFO_DESC_BOB + AMOUNT_DESC_BOB
                 + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
 
-        // multiple ids - last id accepted
-        assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
-
         // multiple amounts - last amount accepted
         assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB
                 + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
@@ -71,6 +67,7 @@ public class ExpAddCommandParserTest {
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditureMultipleTags));
 
     }
+
 
     @Test
     public void parse_optionalFieldsMissing_success() {

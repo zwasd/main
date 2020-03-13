@@ -78,7 +78,7 @@ public class ExpEditCommand extends Command {
         Expenditure expenditureToEdit = lastShownList.get(index.getZeroBased());
         Expenditure editedExpenditure = createEditedExpenditure(expenditureToEdit, editExpenditureDescriptor);
 
-        if (!expenditureToEdit.isSamePerson(editedExpenditure) && model.hasExpenditure(editedExpenditure)) {
+        if (!expenditureToEdit.equals(editedExpenditure) && model.hasExpenditure(editedExpenditure)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENDITURE);
         }
 
@@ -210,6 +210,7 @@ public class ExpEditCommand extends Command {
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
                     && getTags().equals(e.getTags());
+
         }
     }
 }

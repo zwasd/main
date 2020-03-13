@@ -84,11 +84,6 @@ class JsonAdaptedPerson {
         final Info modelInfo = new Info(info);
 
 
-        // if (email == null) {
-        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-        //     Amount.class.getSimpleName()));
-        // }
-
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }

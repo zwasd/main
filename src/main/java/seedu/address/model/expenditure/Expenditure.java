@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -59,13 +60,32 @@ public class Expenditure {
      * Returns true if both persons of the same info have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Expenditure otherExpenditure) {
+    public boolean isSameExpenditure(Expenditure otherExpenditure) {
         if (otherExpenditure == this) {
             return true;
         }
 
-        return otherExpenditure != null
-                && otherExpenditure.getInfo().equals(getInfo());
+        boolean sameInfo = otherExpenditure.info.equals(this.info);
+        boolean sameAmt = otherExpenditure.amount.equals(this.amount);
+        boolean sameDate = otherExpenditure.date.equals(this.date);
+        boolean sameTag = false;
+
+        if (otherExpenditure.tags.size() == this.tags.size()) {
+            if (otherExpenditure.tags.size() == 0) {
+                sameTag = true;
+            } else {
+
+                Iterator itr = tags.iterator();
+                Iterator itrOther = otherExpenditure.tags.iterator();
+
+                while (itr.hasNext() && itrOther.hasNext()) {
+                    sameTag = itr.next().equals(itrOther.next());
+                }
+
+            }
+        }
+
+        return sameAmt && sameDate && sameInfo && sameTag;
     }
 
     /**
@@ -74,19 +94,12 @@ public class Expenditure {
      */
     @Override
     public boolean equals(Object other) {
+
         if (other == this) {
             return true;
         }
 
-        if (!(other instanceof Expenditure)) {
-            return false;
-        }
-
-        Expenditure otherExpenditure = (Expenditure) other;
-        return otherExpenditure.getInfo().equals(getInfo())
-                && otherExpenditure.getAmount().equals(getAmount())
-                && otherExpenditure.getDate().equals(getDate())
-                && otherExpenditure.getTags().equals(getTags());
+        return false;
     }
 
     @Override

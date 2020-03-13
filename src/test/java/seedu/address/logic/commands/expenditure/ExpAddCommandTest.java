@@ -165,7 +165,7 @@ public class ExpAddCommandTest {
         @Override
         public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            return this.expenditure.isSamePerson(expenditure);
+            return this.expenditure.equals(expenditure);
         }
     }
 
@@ -178,7 +178,7 @@ public class ExpAddCommandTest {
         @Override
         public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            return personsAdded.stream().anyMatch(expenditure::isSamePerson);
+            return personsAdded.stream().anyMatch(expenditure::equals);
         }
 
         @Override
