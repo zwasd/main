@@ -30,9 +30,9 @@ public class ExpenditureTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // different id and amount -> returns false
+        // different amount -> returns false
         Expenditure editedAlice = new PersonBuilder(ALICE)
-                .withAmount(VALID_AMOUNT_BOB).build();
+                .withAmount(3.00).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different info -> returns false
