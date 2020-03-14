@@ -27,7 +27,7 @@ public class ExpAddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Expenditure validExpenditure = new PersonBuilder().build();
+        Expenditure validExpenditure = new PersonBuilder().withAmount(3.00).withInfo("chicken").build();
         Model expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
         expectedModel.addExpenditure(validExpenditure);
 

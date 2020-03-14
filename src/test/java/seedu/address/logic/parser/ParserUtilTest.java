@@ -22,13 +22,11 @@ import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_INFO = "R@chel";
-    private static final String INVALID_ID = "+651234";
     private static final String INVALID_DATE = " ";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_INFO = "Rachel Walker";
-    private static final String VALID_ID = "123456";
     private static final String VALID_DATE = "2019-09-11";
     private static final double VALID_AMOUNT = 3.14;
     private static final String VALID_TAG_1 = "friend";

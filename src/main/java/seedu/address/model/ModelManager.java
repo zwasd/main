@@ -145,6 +145,7 @@ public class ModelManager implements Model {
         }
 
         // state check
+        // The test is failing because of expenditure
         ModelManager other = (ModelManager) obj;
         return account.equals(other.account)
                 && userPrefs.equals(other.userPrefs)

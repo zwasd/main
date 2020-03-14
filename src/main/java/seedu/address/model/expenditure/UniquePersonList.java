@@ -13,9 +13,9 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A expenditure is considered unique by comparing using {@code Expenditure#isSamePerson(Expenditure)}.
+ * A expenditure is considered unique by comparing using {@code Expenditure#equals(Expenditure)}.
  * As such, adding and updating of
- * persons uses Expenditure#isSamePerson(Expenditure) for equality
+ * persons uses Expenditure#equals(Expenditure) for equality
  * so as to ensure that the expenditure being added or updated is
  * unique in terms of identity in the UniquePersonList. However,
  * the removal of a expenditure uses Expenditure#equals(Object) so
@@ -23,7 +23,7 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Expenditure#isSamePerson(Expenditure)
+ * @see Expenditure#isSameExpenditure(Expenditure)
  */
 public class UniquePersonList implements Iterable<Expenditure> {
 
@@ -36,7 +36,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
      */
     public boolean contains(Expenditure toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedExpenditure) && contains(editedExpenditure)) {
+        if (!target.equals(editedExpenditure) && contains(editedExpenditure)) {
             throw new DuplicatePersonException();
         }
 
@@ -131,7 +131,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
     private boolean personsAreUnique(List<Expenditure> expenditures) {
         for (int i = 0; i < expenditures.size() - 1; i++) {
             for (int j = i + 1; j < expenditures.size(); j++) {
-                if (expenditures.get(i).isSamePerson(expenditures.get(j))) {
+                if (expenditures.get(i).equals(expenditures.get(j))) {
                     return false;
                 }
             }
