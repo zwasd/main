@@ -23,6 +23,7 @@ import seedu.address.logic.commands.account.AccListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAccount;
@@ -59,7 +60,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String expDeleteCommand = "delete 11";
+        String expDeleteCommand = "exp delete 11";
         assertCommandException(expDeleteCommand, MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
     }
 
@@ -81,8 +82,8 @@ public class LogicManagerTest {
 
         // Execute add command
 
-        String addCommand = ExpAddCommand.COMMAND_WORD + INFO_DESC_AMY + AMOUNT_DESC_AMY
-                + DATE_DESC_AMY;
+        String addCommand = ExpLevelParser.COMMAND_WORD + " " + ExpAddCommand.COMMAND_WORD
+                + INFO_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
         Expenditure expectedExpenditure = new PersonBuilder(AMY).withTags().build();
 
         ModelManager expectedModel = new ModelManager();
