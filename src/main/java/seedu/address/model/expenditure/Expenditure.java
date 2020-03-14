@@ -57,8 +57,7 @@ public class Expenditure {
     }
 
     /**
-     * Returns true if both persons of the same info have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both expenditures have all same fields.
      */
     public boolean isSameExpenditure(Expenditure otherExpenditure) {
         if (otherExpenditure == this) {
@@ -89,15 +88,17 @@ public class Expenditure {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both expenditure refers to the same expenditure object.
      */
     @Override
     public boolean equals(Object other) {
 
-        if (other == this) {
+        if(!(other instanceof Expenditure)) { // short circuit if not same type
+            return false;
+        } else if (other == this || ((Expenditure)other).isSameExpenditure(this)) {
             return true;
         }
+
         return false;
     }
 

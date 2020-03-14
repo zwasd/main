@@ -36,7 +36,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
      */
     public boolean contains(Expenditure toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameExpenditure);
     }
 
     /**
@@ -115,6 +115,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
 
     @Override
     public boolean equals(Object other) {
+
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
                         && internalList.equals(((UniquePersonList) other).internalList));
