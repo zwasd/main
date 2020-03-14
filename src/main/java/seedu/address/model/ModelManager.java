@@ -19,28 +19,27 @@ import seedu.address.model.expenditure.Expenditure;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Account account;
+    private final AccountList accountList;
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
      */
-    public ModelManager(ReadOnlyAccount account, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAccountList accountList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(account, userPrefs);
+        requireAllNonNull(accountList, userPrefs);
 
-        logger.fine("Initializing with address book: " + account + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + accountList + " and user prefs " + userPrefs);
 
-        this.account = new Account(account);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.accountList = new AccountList(accountList);
 
-        filteredExpenditures = new FilteredList<>(this.account.getExpenditureList());
-
+        filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     public ModelManager() {
-        this(new Account(), new UserPrefs());
+        this(new AccountList(true), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -81,30 +80,30 @@ public class ModelManager implements Model {
     //=========== Account ================================================================================
 
     @Override
-    public void setAccount(ReadOnlyAccount account) {
-        this.account.resetData(account);
+    public void setAccountList(ReadOnlyAccountList accountList) {
+        this.accountList.resetData(accountList);
     }
 
     @Override
-    public ReadOnlyAccount getAccount() {
-        return account;
+    public ReadOnlyAccountList getAccountList() {
+        return accountList;
     }
 
     @Override
 
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
-        return account.hasAccount(expenditure);
+        return accountList.hasExpenditure(expenditure);
     }
 
     @Override
     public void deleteExpenditure(Expenditure target) {
-        account.removeAccount(target);
+        accountList.removeExpenditure(target);
     }
 
     @Override
     public void addExpenditure(Expenditure expenditure) {
-        account.addAccount(expenditure);
+        accountList.addExpenditure(expenditure);
 
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
     }
@@ -112,7 +111,7 @@ public class ModelManager implements Model {
     @Override
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
-        account.setPerson(target, editedExpenditure);
+        accountList.setExpenditure(target, editedExpenditure);
     }
 
     //=========== Filtered Expenditure List Accessors =============================================================
@@ -133,6 +132,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean updateActiveAccount(String accountName) {
+        if (!accountList.updateActiveAccount(accountName)) {
+            return false;
+        } else {
+            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+            return true;
+        }
+    }
+
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -147,7 +157,7 @@ public class ModelManager implements Model {
         // state check
         // The test is failing because of expenditure
         ModelManager other = (ModelManager) obj;
-        return account.equals(other.account)
+        return accountList.equals(other.accountList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpenditures.equals(other.filteredExpenditures);
     }

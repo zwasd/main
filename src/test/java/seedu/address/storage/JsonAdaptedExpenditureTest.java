@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.storage.JsonAdaptedExpenditure.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalExpenditures.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +32,21 @@ public class JsonAdaptedExpenditureTest {
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(BENSON);
+        JsonAdaptedExpenditure person = new JsonAdaptedExpenditure(BENSON);
         assertEquals(BENSON, person.toModelType());
     }
 
     @Test
     public void toModelType_invalidInfo_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_INFO, VALID_AMOUNT, VALID_DATE, VALID_TAGS);
+        JsonAdaptedExpenditure person =
+                new JsonAdaptedExpenditure(INVALID_INFO, VALID_AMOUNT, VALID_DATE, VALID_TAGS);
         String expectedMessage = Info.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullInfo_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_AMOUNT, VALID_DATE, VALID_TAGS);
+        JsonAdaptedExpenditure person = new JsonAdaptedExpenditure(null, VALID_AMOUNT, VALID_DATE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Info.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -54,31 +54,31 @@ public class JsonAdaptedExpenditureTest {
 
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_INFO, INVALID_AMOUNT, VALID_DATE, VALID_TAGS);
+        JsonAdaptedExpenditure person =
+                new JsonAdaptedExpenditure(VALID_INFO, INVALID_AMOUNT, VALID_DATE, VALID_TAGS);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_INFO, INVALID_AMOUNT, VALID_DATE, VALID_TAGS);
+        JsonAdaptedExpenditure person =
+                new JsonAdaptedExpenditure(VALID_INFO, INVALID_AMOUNT, VALID_DATE, VALID_TAGS);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_INFO, VALID_AMOUNT, INVALID_DATE, VALID_TAGS);
+        JsonAdaptedExpenditure person =
+                new JsonAdaptedExpenditure(VALID_INFO, VALID_AMOUNT, INVALID_DATE, VALID_TAGS);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_INFO, VALID_AMOUNT, null, VALID_TAGS);
+        JsonAdaptedExpenditure person = new JsonAdaptedExpenditure(VALID_INFO, VALID_AMOUNT, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -87,8 +87,8 @@ public class JsonAdaptedExpenditureTest {
     public void toModelType_invalidTags_throwsIllegalValueException() {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_INFO, VALID_AMOUNT, VALID_DATE, invalidTags);
+        JsonAdaptedExpenditure person =
+                new JsonAdaptedExpenditure(VALID_INFO, VALID_AMOUNT, VALID_DATE, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.UniquePersonList;
+import seedu.address.model.expenditure.UniqueExpenditureList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,8 @@ import seedu.address.model.expenditure.UniquePersonList;
  */
 public class Account implements ReadOnlyAccount {
 
-    private final UniquePersonList persons;
+    private final UniqueExpenditureList persons;
+    private final String accountName;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,17 +25,27 @@ public class Account implements ReadOnlyAccount {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        persons = new UniqueExpenditureList();
     }
 
-    public Account() {}
+    public Account() {
+        accountName = null;
+    }
+
+    public Account(String accountName) {
+        this.accountName = accountName;
+    }
 
     /**
      * Creates an Account using the Persons in the {@code toBeCopied}
      */
-    public Account(ReadOnlyAccount toBeCopied) {
-        this();
+    public Account(Account toBeCopied) {
+        this(toBeCopied.accountName);
         resetData(toBeCopied);
+    }
+
+    public String getAccountName() {
+        return accountName;
     }
 
     //// list overwrite operations
@@ -44,8 +55,8 @@ public class Account implements ReadOnlyAccount {
      * {@code expenditures} must not contain duplicate expenditures.
      */
 
-    public void setAccount(List<Expenditure> expenditures) {
-        this.persons.setPersons(expenditures);
+    public void setExpenditures(List<Expenditure> expenditures) {
+        this.persons.setExpenditures(expenditures);
     }
 
     /**
@@ -53,7 +64,7 @@ public class Account implements ReadOnlyAccount {
      */
     public void resetData(ReadOnlyAccount newData) {
         requireNonNull(newData);
-        setAccount(newData.getExpenditureList());
+        setExpenditures(newData.getExpenditureList());
     }
 
     //// expenditure-level operations
@@ -62,7 +73,7 @@ public class Account implements ReadOnlyAccount {
      * Returns true if a expenditure with the same identity as {@code expenditure} exists in the address book.
      */
 
-    public boolean hasAccount(Expenditure expenditure) {
+    public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
         return persons.contains(expenditure);
     }
@@ -72,9 +83,8 @@ public class Account implements ReadOnlyAccount {
      * Adds a expenditure to the address book.
      * The expenditure must not already exist in the address book.
      */
-    public void addAccount(Expenditure p) {
-
-        persons.add(p);
+    public void addExpenditure(Expenditure expenditure) {
+        persons.add(expenditure);
     }
 
     /**
@@ -83,17 +93,17 @@ public class Account implements ReadOnlyAccount {
      * The expenditure identity of {@code editedExpenditure} must not be the same as another
      * existing expenditure in the address book.
      */
-    public void setPerson(Expenditure target, Expenditure editedExpenditure) {
+    public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireNonNull(editedExpenditure);
 
-        persons.setPerson(target, editedExpenditure);
+        persons.setExpenditure(target, editedExpenditure);
     }
 
     /**
      * Removes {@code key} from this {@code Account}.
      * {@code key} must exist in the address book.
      */
-    public void removeAccount(Expenditure key) {
+    public void removeExpenditure(Expenditure key) {
         persons.remove(key);
     }
 
@@ -101,8 +111,9 @@ public class Account implements ReadOnlyAccount {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        // return persons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
+        return "Account: " + accountName;
     }
 
     @Override
@@ -114,6 +125,7 @@ public class Account implements ReadOnlyAccount {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
+                && accountName.equals(((Account) other).accountName)
                 && persons.equals(((Account) other).persons));
     }
 

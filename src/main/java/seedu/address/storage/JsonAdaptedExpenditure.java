@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Expenditure}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExpenditure {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expenditure's %s field is missing!";
 
@@ -36,12 +36,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given expenditure details.
+     * Constructs a {@code JsonAdaptedExpenditure} with the given expenditure details.
      */
     @JsonCreator
 
-    public JsonAdaptedPerson(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
-                             @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpenditure(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
+                                  @JsonProperty("date") String date, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.info = info;
         this.amount = amount;
         this.date = date;
@@ -54,7 +54,7 @@ class JsonAdaptedPerson {
      * Converts a given {@code Expenditure} into this class for Jackson use.
      */
 
-    public JsonAdaptedPerson(Expenditure source) {
+    public JsonAdaptedExpenditure(Expenditure source) {
         info = source.getInfo().fullInfo;
         amount = source.getAmount().value;
         date = source.getDate().value;
