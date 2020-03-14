@@ -57,13 +57,30 @@ public class Expenditure {
     }
 
     /**
-     * Returns true if both expenditures have all same fields.
+     * Returns true if both expenditure refers to the same expenditure object.
      */
     public boolean isSameExpenditure(Expenditure otherExpenditure) {
         if (otherExpenditure == this) {
             return true;
         }
 
+        return false;
+    }
+
+    /**
+     * Returns true if both expenditures have all same fields.
+     * Can be used for testing.
+     */
+    @Override
+    public boolean equals(Object other) {
+
+        if (!(other instanceof Expenditure)) { // short circuit if not same type
+            return false;
+        } else if (other == this) {
+            return true;
+        }
+
+        Expenditure otherExpenditure = (Expenditure) other;
         boolean sameInfo = otherExpenditure.info.equals(this.info);
         boolean sameAmt = otherExpenditure.amount.equals(this.amount);
         boolean sameDate = otherExpenditure.date.equals(this.date);
@@ -85,21 +102,6 @@ public class Expenditure {
         }
 
         return sameAmt && sameDate && sameInfo && sameTag;
-    }
-
-    /**
-     * Returns true if both expenditure refers to the same expenditure object.
-     */
-    @Override
-    public boolean equals(Object other) {
-
-        if(!(other instanceof Expenditure)) { // short circuit if not same type
-            return false;
-        } else if (other == this || ((Expenditure)other).isSameExpenditure(this)) {
-            return true;
-        }
-
-        return false;
     }
 
     @Override

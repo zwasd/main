@@ -24,6 +24,8 @@ public class AccLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "acc";
 
+    public static final String MESSGAE_USAGE = "acc add\nacc checkout\nacc clear\nacc delete\nacc list\nacc rename\n";
+
     /**
      * Used for initial separation of command word and args.
      */
