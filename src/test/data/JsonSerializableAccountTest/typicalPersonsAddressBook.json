@@ -2,43 +2,36 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "info" : "Alice Pauline",
-    "id" : "94351253",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ "friends" ]
   }, {
     "info" : "Benson Meier",
-    "id" : "98765432",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "info" : "Carl Kurz",
-    "id" : "95352563",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ ]
   }, {
     "info" : "Daniel Meier",
-    "id" : "87652533",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ "friends" ]
   }, {
     "info" : "Elle Meyer",
-    "id" : "9482224",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ ]
   }, {
     "info" : "Fiona Kunz",
-    "id" : "9482427",
     "amount" : 3.14,
     "date" : "2019-09-11",
     "tagged" : [ ]
   }, {
     "info" : "George Best",
-    "id" : "9482442",
     "amount" : 3.14,
     "date": "2019-09-11",
     "tagged" : [ ]

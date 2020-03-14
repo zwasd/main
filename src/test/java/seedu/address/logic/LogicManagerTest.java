@@ -59,7 +59,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String expDeleteCommand = "delete 9";
+        String expDeleteCommand = "delete 11";
         assertCommandException(expDeleteCommand, MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
     }
 
