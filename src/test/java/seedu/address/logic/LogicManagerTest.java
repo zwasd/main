@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.account.AccListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
+import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
@@ -66,7 +67,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = AccListCommand.COMMAND_WORD;
+        String listCommand = AccLevelParser.COMMAND_WORD + " " + AccListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, AccListCommand.MESSAGE_SUCCESS, model);
     }
 
