@@ -29,7 +29,7 @@ public class ExpenditureTest {
 
     @Test
     public void equals() {
-        // different object -> false
+        // different object but same fields -> true
         Expenditure aliceCopy = new PersonBuilder(ALICE).build();
         assertFalse(ALICE.equals(aliceCopy));
 
@@ -45,15 +45,15 @@ public class ExpenditureTest {
         // different expenditure -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // different object -> returns false
+        // different object and fields-> returns false
         Expenditure editedAlice = new PersonBuilder(ALICE).withAmount(3.00).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different object -> returns false
+        // different object and fields -> returns false
         editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different object -> returns false
+        // different object and fields-> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }

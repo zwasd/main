@@ -26,6 +26,8 @@ public class JsonSerializableAccountTest {
                 JsonSerializableAddressBook.class).get();
         Account accountFromFile = dataFromFile.toModelType();
         Account typicalPersonsAccount = TypicalPersons.getTypicalAddressBook();
+
+        System.out.println(accountFromFile.equals(typicalPersonsAccount));
         assertEquals(accountFromFile, typicalPersonsAccount);
     }
 
