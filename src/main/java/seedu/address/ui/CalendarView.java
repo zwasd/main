@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -22,15 +25,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-
-import java.time.LocalDate;
-import java.time.YearMonth;
-
+/**
+ * UI component that is displayed.
+ */
 public class CalendarView extends UiPart<Region> {
 
     private static final String FXML = "CalendarView.fxml";
-    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August",
+        "September", "October", "November", "December"};
     private static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     private int[] simulateGridPane = new int [42];
@@ -45,9 +47,9 @@ public class CalendarView extends UiPart<Region> {
     private int thisMonthBalance;
 
     private Image leftArrow = new Image(this.getClass().getResourceAsStream("/images/leftButton.png"),
-            20,15,true,true);
+             20, 15, true, true);
     private Image rightArrow = new Image(this.getClass().getResourceAsStream("/images/rightButton.png"),
-            20,15,true,true);
+             20, 15, true, true);
 
     @FXML
     private Label monthYearLabel;
@@ -94,6 +96,9 @@ public class CalendarView extends UiPart<Region> {
         generateCalender();
     }
 
+    /**
+     * Set up the left and right arrow button.
+     */
     private void setUpButton() {
         ImageView leftButtonView = new ImageView(this.leftArrow);
         ImageView rightButtonView = new ImageView(this.rightArrow);
@@ -101,17 +106,27 @@ public class CalendarView extends UiPart<Region> {
         rightButton.setGraphic(rightButtonView);
     }
 
-
-    public boolean checkLeapYear(int year) {
-        if(year % 4 == 0) {
+    /**
+     * Check if a given year is a leap year.
+     * @param year input year
+     * @return boolean, true to denote leap year else false.
+     */
+    private boolean checkLeapYear(int year) {
+        if (year % 4 == 0) {
             return true;
         }
         return false;
     }
 
+    /**
+     * Find the number of days in a month given the year and month.
+     * @param month input month
+     * @param year input year
+     * @return return the number of days.
+     */
     public int findNumberOfDays(int month, int year) {
-        if(month == 2) {
-            if(checkLeapYear(year)) {
+        if (month == 2) {
+            if (checkLeapYear(year)) {
                 return 29;
             } else {
                 return DAYS_IN_MONTH[month - 1];
@@ -121,14 +136,23 @@ public class CalendarView extends UiPart<Region> {
         }
     }
 
+    /**
+     * Find the number of days in the previous month given the year and month.
+     * @param month input month
+     * @param year input year
+     * @return return the number of days.
+     */
     public int findNumberOfDaysInPreviousMonth(int month, int year) {
-        if(month >= 2){
+        if (month >= 2) {
             return findNumberOfDays(month - 1, year);
         } else {
             return DAYS_IN_MONTH[11];
         }
     }
 
+    /**
+     * Set the monthYear Label's content.
+     */
     public void setMonthYearLabel() {
         monthYearGridPane.setBackground(new Background(
                 new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -137,51 +161,70 @@ public class CalendarView extends UiPart<Region> {
         monthYear.append("    ");
         monthYear.append(this.year);
         String output = monthYear.toString();
-        this.monthYearLabel.setMaxSize(200,60);
+        this.monthYearLabel.setMaxSize(200, 60);
         this.monthYearLabel.setText(output);
         this.monthYearLabel.setFont(Font.font("Cambria", 42));
 
     }
 
+
+    /**
+     * Fill up the simulateGridPane[] with the date in order.
+     */
     private void fill() {
-        this.thisMonthBalance = findNumberOfDays(this.month,this.year);
+        this.thisMonthBalance = findNumberOfDays(this.month, this.year);
         int firstDayOfMonth = this.firstDayOfTheMonth.getDayOfWeek().getValue();
         this.prevMonthBalance = firstDayOfMonth % 7;
-        int firstValue = findNumberOfDaysInPreviousMonth(month,year) - this.prevMonthBalance + 1;
-        for(int i = 0; i < this.prevMonthBalance; i++) {
+        int firstValue = findNumberOfDaysInPreviousMonth(month, year) - this.prevMonthBalance + 1;
+        for (int i = 0; i < this.prevMonthBalance; i++) {
             this.simulateGridPane[i] = firstValue;
             firstValue++;
         }
 
-        for(int i = 0; i < this.thisMonthBalance; i++) {
+        for (int i = 0; i < this.thisMonthBalance; i++) {
             this.simulateGridPane[this.prevMonthBalance + i] = i + 1;
         }
 
         this.nextMonthBalance = 42 - this.thisMonthBalance - prevMonthBalance;
         int newStartingPoint = this.thisMonthBalance + prevMonthBalance;
-        for(int i = 0; i < this.nextMonthBalance; i++) {
+        for (int i = 0; i < this.nextMonthBalance; i++) {
             this.simulateGridPane[newStartingPoint + i] = i + 1;
         }
 
     }
 
+    /**
+     * Generate Label for dateGridPane.
+     * @param dayNumber text for the Label
+     * @return a label with specific text and font
+     */
     private Label createLabel(int dayNumber) {
         Label label = new Label();
         label.setText("" + dayNumber);;
-        label.setFont(Font.font("system", FontWeight.BOLD,12));
+        label.setFont(Font.font("system", FontWeight.BOLD, 12));
         return label;
     }
 
+    /**
+     * Generate a VBox with specific calendar.
+     * @return a VBox for dateGridPane.
+     */
     private VBox placeHolderForLabel() {
         VBox holder = new VBox();
         holder.setFillWidth(false);
         holder.setPrefHeight(15);
         holder.setPrefWidth(15);
-        holder.setMaxSize(20,20);
+        holder.setMaxSize(20, 20);
         holder.setAlignment(Pos.CENTER);
         return holder;
     }
 
+
+    /**
+     * Assign a Vbox to each GridPane.
+     * Each Vbox contains a Label.
+     * Each label's text is correspond to the calendar.
+     */
     public void generateCalender() {
         fill();
         int i = 0;
@@ -189,15 +232,15 @@ public class CalendarView extends UiPart<Region> {
                 new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.dateGridPane.setBackground(new Background(
                 new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        for(int row = 0; row < 6; row++) {
-            for(int col = 0; col < 7; col++) {
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 7; col++) {
                 VBox holder = placeHolderForLabel();
 
-                if(i < this.prevMonthBalance || i > 42 - 1 - this.nextMonthBalance) {
+                if (i < this.prevMonthBalance || i > 42 - 1 - this.nextMonthBalance) {
                     holder.setBlendMode(BlendMode.OVERLAY);
                 }
 
-                if(i == this.prevMonthBalance + this.day - 1) {
+                if (i == this.prevMonthBalance + this.day - 1) {
 
                     holder.setBackground(new Background(
                             new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -214,10 +257,10 @@ public class CalendarView extends UiPart<Region> {
                         Label a = (Label) holder.getChildren().get(0);
                         int clickedDate = Integer.parseInt(a.getText());
 
-                        if(holder.getBlendMode() == BlendMode.OVERLAY) {
+                        if (holder.getBlendMode() == BlendMode.OVERLAY) {
                             pivotDate = getNewDate(clickedDate);
                             refreshCalenderView();
-                        }else{
+                        } else {
                             pivotDate = pivotDate.withDayOfMonth(clickedDate);
                             day = clickedDate;
                             refreshCalenderView();
@@ -227,13 +270,16 @@ public class CalendarView extends UiPart<Region> {
                 });
 
                 this.dateGridPane.add(holder, col, row);
-                GridPane.setHalignment(holder,HPos.CENTER);
+                GridPane.setHalignment(holder, HPos.CENTER);
                 GridPane.setValignment(holder, VPos.CENTER);
                 i++;
             }
         }
     }
 
+    /**
+     * Refresh the whole dateGridPane to show latest UI.
+     */
     private void refreshCalenderView() {
         dateGridPane.getChildren().clear();
         this.month = this.pivotDate.getMonthValue();
@@ -245,30 +291,40 @@ public class CalendarView extends UiPart<Region> {
         generateCalender();
     }
 
+    /**
+     *generate a new local date according to input new date.
+     * @param value date indicator.
+     * @return a new localDate object with that date.
+     */
     private LocalDate getNewDate(int value) {
-        if(value <= 31 && value >= 21){
+        if (value <= 31 && value >= 21) {
             LocalDate prevM = this.pivotDate.minusMonths(1);
             prevM.withDayOfMonth(value);
             this.day = value;
             return prevM;
-        }else{
+        } else {
             LocalDate nextM = this.pivotDate.plusMonths(1);
             nextM.withDayOfMonth(value);
             this.day = value;
             return nextM;
         }
     }
-
+    /**
+     * Initialise calendar to previous month data when the next button is clicked.
+     */
     @FXML
     public void handleToPrev() {
         this.pivotDate = pivotDate.minusMonths(1);
         refreshCalenderView();
     }
 
+    /**
+     * Initialise calendar to next month data when the next button is clicked.
+     */
     @FXML
     public void handToNext() {
-       this.pivotDate = pivotDate.plusMonths(1);
-       refreshCalenderView();
+        this.pivotDate = pivotDate.plusMonths(1);
+        refreshCalenderView();
     }
 
 }
