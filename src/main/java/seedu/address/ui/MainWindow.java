@@ -17,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -46,6 +47,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane calendar;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -110,6 +114,9 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         personListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
 
+        CalendarView cv = new CalendarView();
+        calendar.getChildren().add(cv.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -162,6 +169,11 @@ public class MainWindow extends UiPart<Stage> {
 
     public ExpenditureListPanel getExpenditureListPanel() {
         return expenditureListPanel;
+    }
+
+    @FXML
+    private void handleReport() {
+
     }
 
     /**
