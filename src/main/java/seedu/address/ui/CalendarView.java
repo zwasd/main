@@ -112,10 +112,7 @@ public class CalendarView extends UiPart<Region> {
      * @return boolean, true to denote leap year else false.
      */
     private boolean checkLeapYear(int year) {
-        if (year % 4 == 0) {
-            return true;
-        }
-        return false;
+        return this.yearMonth.isLeapYear();
     }
 
     /**
