@@ -127,7 +127,7 @@ public class ExpEditCommandTest {
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(expenditureInList).build());
 
-        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
 
     @Test
