@@ -109,10 +109,9 @@ public class CalendarView extends UiPart<Region> {
     /**
      * Find the number of days in a month given the year and month.
      * @param month input month
-     * @param year input year
      * @return return the number of days.
      */
-    public int findNumberOfDays(int month, int year) {
+    public int findNumberOfDays(int month) {
         if (month == 2) {
             if ( this.yearMonth.isLeapYear()) {
                 return 29;
@@ -127,12 +126,11 @@ public class CalendarView extends UiPart<Region> {
     /**
      * Find the number of days in the previous month given the year and month.
      * @param month input month
-     * @param year input year
      * @return return the number of days.
      */
-    public int findNumberOfDaysInPreviousMonth(int month, int year) {
+    public int findNumberOfDaysInPreviousMonth(int month) {
         if (month >= 2) {
-            return findNumberOfDays(month - 1, year);
+            return findNumberOfDays(month - 1);
         } else {
             return DAYS_IN_MONTH[11];
         }
@@ -160,10 +158,10 @@ public class CalendarView extends UiPart<Region> {
      * Fill up the simulateGridPane[] with the date in order.
      */
     private void fill() {
-        this.thisMonthBalance = findNumberOfDays(this.month, this.year);
+        this.thisMonthBalance = findNumberOfDays(this.month);
         int firstDayOfMonth = this.firstDayOfTheMonth.getDayOfWeek().getValue();
         this.prevMonthBalance = firstDayOfMonth % 7;
-        int firstValue = findNumberOfDaysInPreviousMonth(month, year) - this.prevMonthBalance + 1;
+        int firstValue = findNumberOfDaysInPreviousMonth(month) - this.prevMonthBalance + 1;
         for (int i = 0; i < this.prevMonthBalance; i++) {
             this.simulateGridPane[i] = firstValue;
             firstValue++;
