@@ -107,14 +107,6 @@ public class CalendarView extends UiPart<Region> {
     }
 
     /**
-     * Check if a given year is a leap year.
-     * @return boolean, true to denote leap year else false.
-     */
-    private boolean checkLeapYear() {
-        return this.yearMonth.isLeapYear();
-    }
-
-    /**
      * Find the number of days in a month given the year and month.
      * @param month input month
      * @param year input year
@@ -122,7 +114,7 @@ public class CalendarView extends UiPart<Region> {
      */
     public int findNumberOfDays(int month, int year) {
         if (month == 2) {
-            if (checkLeapYear()) {
+            if ( this.yearMonth.isLeapYear()) {
                 return 29;
             } else {
                 return DAYS_IN_MONTH[month - 1];
