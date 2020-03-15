@@ -1,20 +1,24 @@
 package seedu.address.ui;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -24,20 +28,21 @@ import java.time.YearMonth;
 
 public class CalendarView extends UiPart<Region> {
 
-    private static final String GREY = "#FFFFFF";
-    private static final String BLACK = "#000000";
     private static final String FXML = "CalendarView.fxml";
     private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"};
     private static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     private int[] simulateGridPane = new int [42];
-    private String[] colorCode = new String [42];
+    private int day;
     private int month;
     private int year;
     private YearMonth yearMonth;
     private LocalDate pivotDate;
     private LocalDate firstDayOfTheMonth;
+    private int prevMonthBalance;
+    private int nextMonthBalance;
+    private int thisMonthBalance;
 
     private Image leftArrow = new Image(this.getClass().getResourceAsStream("/images/leftButton.png"),
             20,15,true,true);
@@ -62,13 +67,12 @@ public class CalendarView extends UiPart<Region> {
     @FXML
     private Button rightButton;
 
-
-
     public CalendarView() {
         super(FXML);
         setUpButton();
         LocalDate now = LocalDate.now();
         this.pivotDate = now;
+        this.day = now.getDayOfMonth();
         this.month = now.getMonthValue();
         this.year = now.getYear();
         this.yearMonth = YearMonth.of(this.year, this.month);
@@ -81,6 +85,7 @@ public class CalendarView extends UiPart<Region> {
         super(FXML);
         setUpButton();
         this.pivotDate = date;
+        this.day = date.getDayOfMonth();
         this.month = date.getMonthValue();
         this.year = date.getYear();
         this.yearMonth = YearMonth.of(this.year, this.month);
@@ -104,7 +109,6 @@ public class CalendarView extends UiPart<Region> {
         return false;
     }
 
-
     public int findNumberOfDays(int month, int year) {
         if(month == 2) {
             if(checkLeapYear(year)) {
@@ -127,7 +131,7 @@ public class CalendarView extends UiPart<Region> {
 
     public void setMonthYearLabel() {
         monthYearGridPane.setBackground(new Background(
-                new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         StringBuilder monthYear = new StringBuilder();
         monthYear.append(MONTHS[this.month - 1]);
         monthYear.append("    ");
@@ -140,51 +144,91 @@ public class CalendarView extends UiPart<Region> {
     }
 
     private void fill() {
-        int days = findNumberOfDays(this.month,this.year);
+        this.thisMonthBalance = findNumberOfDays(this.month,this.year);
         int firstDayOfMonth = this.firstDayOfTheMonth.getDayOfWeek().getValue();
-        int prevMonthRemainder = firstDayOfMonth % 7;
-        int firstValue = findNumberOfDaysInPreviousMonth(month,year) - prevMonthRemainder + 1;
-        for(int i = 0; i < prevMonthRemainder; i++) {
+        this.prevMonthBalance = firstDayOfMonth % 7;
+        int firstValue = findNumberOfDaysInPreviousMonth(month,year) - this.prevMonthBalance + 1;
+        for(int i = 0; i < this.prevMonthBalance; i++) {
             this.simulateGridPane[i] = firstValue;
-            this.colorCode[i] = GREY;
             firstValue++;
         }
 
-        for(int i = 0; i < days; i++) {
-            this.simulateGridPane[prevMonthRemainder + i] = i + 1;
-            this.colorCode[prevMonthRemainder + i] = BLACK;
+        for(int i = 0; i < this.thisMonthBalance; i++) {
+            this.simulateGridPane[this.prevMonthBalance + i] = i + 1;
         }
 
-        int nextMonthDays = 42 - days - prevMonthRemainder;
-        int newStartingPoint = days + prevMonthRemainder;
-        for(int i = 0; i < nextMonthDays; i++) {
+        this.nextMonthBalance = 42 - this.thisMonthBalance - prevMonthBalance;
+        int newStartingPoint = this.thisMonthBalance + prevMonthBalance;
+        for(int i = 0; i < this.nextMonthBalance; i++) {
             this.simulateGridPane[newStartingPoint + i] = i + 1;
-            this.colorCode[newStartingPoint + i] = GREY;
         }
 
     }
 
-    public Label createLabel(int dayNumber, String colorCode) {
+    private Label createLabel(int dayNumber) {
         Label label = new Label();
         label.setText("" + dayNumber);;
         label.setFont(Font.font("system", FontWeight.BOLD,12));
-        label.setTextFill(Paint.valueOf(colorCode));
         return label;
+    }
+
+    private VBox placeHolderForLabel() {
+        VBox holder = new VBox();
+        holder.setFillWidth(false);
+        holder.setPrefHeight(15);
+        holder.setPrefWidth(15);
+        holder.setMaxSize(20,20);
+        holder.setAlignment(Pos.CENTER);
+        return holder;
     }
 
     public void generateCalender() {
         fill();
         int i = 0;
         this.weekDayGridPane.setBackground(new Background(
-                new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.dateGridPane.setBackground(new Background(
                 new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         for(int row = 0; row < 6; row++) {
             for(int col = 0; col < 7; col++) {
-                Label num = createLabel(this.simulateGridPane[i], this.colorCode[i]);
-                this.dateGridPane.add(num, col, row);
-                GridPane.setHalignment(num,HPos.CENTER);
-                GridPane.setValignment(num, VPos.CENTER);
+                VBox holder = placeHolderForLabel();
+
+                if(i < this.prevMonthBalance || i > 42 - 1 - this.nextMonthBalance) {
+                    holder.setBlendMode(BlendMode.OVERLAY);
+                }
+
+                if(i == this.prevMonthBalance + this.day - 1) {
+
+                    holder.setBackground(new Background(
+                            new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
+
+                }
+
+                Label num = createLabel(this.simulateGridPane[i]);
+
+                holder.getChildren().add(num);
+
+                holder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        Label a = (Label) holder.getChildren().get(0);
+                        int clickedDate = Integer.parseInt(a.getText());
+
+                        if(holder.getBlendMode() == BlendMode.OVERLAY) {
+                            pivotDate = getNewDate(clickedDate);
+                            refreshCalenderView();
+                        }else{
+                            pivotDate = pivotDate.withDayOfMonth(clickedDate);
+                            day = clickedDate;
+                            refreshCalenderView();
+                        }
+
+                    }
+                });
+
+                this.dateGridPane.add(holder, col, row);
+                GridPane.setHalignment(holder,HPos.CENTER);
+                GridPane.setValignment(holder, VPos.CENTER);
                 i++;
             }
         }
@@ -201,6 +245,20 @@ public class CalendarView extends UiPart<Region> {
         generateCalender();
     }
 
+    private LocalDate getNewDate(int value) {
+        if(value <= 31 && value >= 21){
+            LocalDate prevM = this.pivotDate.minusMonths(1);
+            prevM.withDayOfMonth(value);
+            this.day = value;
+            return prevM;
+        }else{
+            LocalDate nextM = this.pivotDate.plusMonths(1);
+            nextM.withDayOfMonth(value);
+            this.day = value;
+            return nextM;
+        }
+    }
+
     @FXML
     public void handleToPrev() {
         this.pivotDate = pivotDate.minusMonths(1);
@@ -212,7 +270,5 @@ public class CalendarView extends UiPart<Region> {
        this.pivotDate = pivotDate.plusMonths(1);
        refreshCalenderView();
     }
-
-
 
 }
