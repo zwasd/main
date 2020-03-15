@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.YearMonth;
 
 import javafx.event.EventHandler;
@@ -108,11 +109,10 @@ public class CalendarView extends UiPart<Region> {
 
     /**
      * Find the number of days in a month given the year and month.
-     * @param month input month
      * @return return the number of days.
      */
-    public int findNumberOfDays(int month) {
-        if (month == 2) {
+    public int findNumberOfDaysInTheMonth() {
+        if (this.month == 2) {
             if ( this.yearMonth.isLeapYear()) {
                 return 29;
             } else {
@@ -124,13 +124,28 @@ public class CalendarView extends UiPart<Region> {
     }
 
     /**
-     * Find the number of days in the previous month given the year and month.
-     * @param month input month
+     * Find the number of days in a month given the year and month.
      * @return return the number of days.
      */
-    public int findNumberOfDaysInPreviousMonth(int month) {
-        if (month >= 2) {
-            return findNumberOfDays(month - 1);
+    public int findNumberOfDaysOfAMonth(int month, int year) {
+        if (month == 2) {
+            if (Year.isLeap(year)) {
+                return 29;
+            } else {
+                return DAYS_IN_MONTH[month - 1];
+            }
+        } else {
+            return DAYS_IN_MONTH[month - 1];
+        }
+    }
+
+    /**
+     * Find the number of days in the previous month given the year and month.
+     * @return return the number of days.
+     */
+    public int findNumberOfDaysInPreviousMonth() {
+        if (this.month >= 2) {
+            return findNumberOfDaysOfAMonth(this.month - 1, this.year);
         } else {
             return DAYS_IN_MONTH[11];
         }
@@ -158,10 +173,10 @@ public class CalendarView extends UiPart<Region> {
      * Fill up the simulateGridPane[] with the date in order.
      */
     private void fill() {
-        this.thisMonthBalance = findNumberOfDays(this.month);
+        this.thisMonthBalance = findNumberOfDaysInTheMonth();
         int firstDayOfMonth = this.firstDayOfTheMonth.getDayOfWeek().getValue();
         this.prevMonthBalance = firstDayOfMonth % 7;
-        int firstValue = findNumberOfDaysInPreviousMonth(month) - this.prevMonthBalance + 1;
+        int firstValue = findNumberOfDaysInPreviousMonth() - this.prevMonthBalance + 1;
         for (int i = 0; i < this.prevMonthBalance; i++) {
             this.simulateGridPane[i] = firstValue;
             firstValue++;
