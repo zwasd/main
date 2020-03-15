@@ -1,39 +1,46 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "info" : "Alice Pauline",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ "friends" ]
-  }, {
-    "info" : "Benson Meier",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ "owesMoney", "friends" ]
-  }, {
-    "info" : "Carl Kurz",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ ]
-  }, {
-    "info" : "Daniel Meier",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ "friends" ]
-  }, {
-    "info" : "Elle Meyer",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ ]
-  }, {
-    "info" : "Fiona Kunz",
-    "amount" : 3.14,
-    "date" : "2019-09-11",
-    "tagged" : [ ]
-  }, {
-    "info" : "George Best",
-    "amount" : 3.14,
-    "date": "2019-09-11",
-    "tagged" : [ ]
+  "accounts" : [ {
+    "accountName": "school",
+    "expenditures": [ {
+      "info" : "Alice Pauline",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ "friends" ]
+    } , {
+      "info" : "Benson Meier",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ "owesMoney", "friends" ]
+    } ] }, {
+    "accountName": "work",
+    "expenditures": [ {
+      "info" : "Carl Kurz",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ ]
+    }, {
+      "info" : "Daniel Meier",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ "friends" ]
+    } ] } , {
+    "accountName": "cca",
+    "expenditures": [ {
+      "info" : "Elle Meyer",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ ]
+    }, {
+      "info" : "Fiona Kunz",
+      "amount" : 3.14,
+      "date" : "2019-09-11",
+      "tagged" : [ ]
+    }, {
+      "info" : "George Best",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tagged" : [ ]
+    }]
   } ]
 }

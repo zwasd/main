@@ -19,55 +19,55 @@ import seedu.address.model.expenditure.Expenditure;
 /**
  * A utility class containing a list of {@code Expenditure} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalExpenditures {
 
-    public static final Expenditure ALICE = new PersonBuilder().withInfo("Alice Pauline")
+    public static final Expenditure ALICE = new ExpenditureBuilder().withInfo("Alice Pauline")
             .withDate("2019-09-11").withAmount(3.14)
             .withTags("friends").build();
-    public static final Expenditure BENSON = new PersonBuilder().withInfo("Benson Meier")
+    public static final Expenditure BENSON = new ExpenditureBuilder().withInfo("Benson Meier")
             .withDate("2019-09-11")
             .withAmount(3.14)
             .withTags("owesMoney", "friends").build();
-    public static final Expenditure CARL = new PersonBuilder().withInfo("Carl Kurz")
+    public static final Expenditure CARL = new ExpenditureBuilder().withInfo("Carl Kurz")
             .withAmount(3.14).withDate("2019-09-11").build();
-    public static final Expenditure DANIEL = new PersonBuilder().withInfo("Daniel Meier")
+    public static final Expenditure DANIEL = new ExpenditureBuilder().withInfo("Daniel Meier")
             .withAmount(3.14).withDate("2019-09-11").withTags("friends").build();
-    public static final Expenditure ELLE = new PersonBuilder().withInfo("Elle Meyer")
+    public static final Expenditure ELLE = new ExpenditureBuilder().withInfo("Elle Meyer")
             .withAmount(3.14).withDate("2019-09-11").build();
-    public static final Expenditure FIONA = new PersonBuilder().withInfo("Fiona Kunz")
+    public static final Expenditure FIONA = new ExpenditureBuilder().withInfo("Fiona Kunz")
             .withAmount(3.14).withDate("2019-09-11").build();
-    public static final Expenditure GEORGE = new PersonBuilder().withInfo("George Best")
+    public static final Expenditure GEORGE = new ExpenditureBuilder().withInfo("George Best")
             .withAmount(3.14).withDate("2019-09-11").build();
 
     // Manually added
-    public static final Expenditure HOON = new PersonBuilder().withInfo("Hoon Meier")
+    public static final Expenditure HOON = new ExpenditureBuilder().withInfo("Hoon Meier")
             .withAmount(3.14).withDate("2019-09-11").build();
-    public static final Expenditure IDA = new PersonBuilder().withInfo("Ida Mueller")
+    public static final Expenditure IDA = new ExpenditureBuilder().withInfo("Ida Mueller")
             .withAmount(3.14).withDate("2019-09-11").build();
 
     // Manually added - Expenditure's details found in {@code CommandTestUtil}
-    public static final Expenditure AMY = new PersonBuilder().withInfo(VALID_INFO_AMY)
+    public static final Expenditure AMY = new ExpenditureBuilder().withInfo(VALID_INFO_AMY)
             .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Expenditure BOB = new PersonBuilder().withInfo(VALID_INFO_BOB)
+    public static final Expenditure BOB = new ExpenditureBuilder().withInfo(VALID_INFO_BOB)
             .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalExpenditures() {} // prevents instantiation
 
     /**
      * Returns an {@code Account} with all the typical persons.
      */
-    public static Account getTypicalAddressBook() {
+    public static Account getTypicalAccount() {
         Account ab = new Account();
-        for (Expenditure expenditure : getTypicalPersons()) {
-            ab.addAccount(expenditure);
+        for (Expenditure expenditure : getTypicalExpenditures()) {
+            ab.addExpenditure(expenditure);
         }
         return ab;
     }
 
-    public static List<Expenditure> getTypicalPersons() {
+    public static List<Expenditure> getTypicalExpenditures() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

@@ -5,9 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ import seedu.address.model.expenditure.Expenditure;
  */
 public class ExpDeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +34,7 @@ public class ExpDeleteCommandTest {
 
         String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,
                         expenditureToDelete);
-        ModelManager expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAccountList(), new UserPrefs());
         expectedModel.deleteExpenditure(expenditureToDelete);
 
         assertCommandSuccess(expDeleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +57,7 @@ public class ExpDeleteCommandTest {
 
         String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,
                         expenditureToDelete);
-        Model expectedModel = new ModelManager(model.getAccount(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAccountList(), new UserPrefs());
         expectedModel.deleteExpenditure(expenditureToDelete);
         showNoPerson(expectedModel);
 
@@ -69,7 +70,7 @@ public class ExpDeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAccount().getExpenditureList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAccountList().getExpenditureList().size());
 
         ExpDeleteCommand expDeleteCommand = new ExpDeleteCommand(outOfBoundIndex);
 
