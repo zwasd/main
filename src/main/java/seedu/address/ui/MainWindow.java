@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ExpenditureListPanel expenditureListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportWindow reportWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -64,6 +65,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        reportWindow = new ReportWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -158,6 +160,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        reportWindow.hide();
         primaryStage.hide();
     }
 
@@ -167,6 +170,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleReport() {
+
+        if (!reportWindow.isShowing()) {
+            reportWindow.show();
+        } else {
+            reportWindow.focus();
+        }
 
     }
 
@@ -187,6 +196,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if(commandResult.isShowReport()) {
+                handleReport();
             }
 
             return commandResult;
