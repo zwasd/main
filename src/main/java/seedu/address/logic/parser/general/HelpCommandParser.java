@@ -1,8 +1,5 @@
 package seedu.address.logic.parser.general;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
-import seedu.address.logic.commands.account.AccClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -24,23 +21,16 @@ public class HelpCommandParser implements Parser<HelpCommand> {
      */
     public HelpCommand parse(String args) throws ParseException {
 
-        if (args.trim().equals("")) {
-            return new HelpCommand();
-        }
-
-        switch (args) {
+        switch (args.trim()) {
 
         case ExpLevelParser.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(ExpLevelParser.MESSAGE_USAGE);
 
         case ReportLevelParser.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(ReportLevelParser.MESSAGE_USAGE);
 
         case AccLevelParser.COMMAND_WORD:
-            return new HelpCommand();
-
-        case AccClearCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(AccLevelParser.MESSGAE_USAGE);
 
         case GoCommand.COMMAND_WORD:
             return new HelpCommand();
@@ -52,7 +42,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand();
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            return new HelpCommand();
         }
     }
 }

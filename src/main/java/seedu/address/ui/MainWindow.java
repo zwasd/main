@@ -50,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
+    private StackPane calendar;
+
+    @FXML
     private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -112,6 +115,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         personListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
+
+        CalendarView cv = new CalendarView();
+        calendar.getChildren().add(cv.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

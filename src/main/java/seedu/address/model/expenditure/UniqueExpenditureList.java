@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.expenditure.exceptions.DuplicatePersonException;
+import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
 
 /**
@@ -17,7 +17,7 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
  * As such, adding and updating of
  * persons uses Expenditure#equals(Expenditure) for equality
  * so as to ensure that the expenditure being added or updated is
- * unique in terms of identity in the UniquePersonList. However,
+ * unique in terms of identity in the UniqueExpenditureList. However,
  * the removal of a expenditure uses Expenditure#equals(Object) so
  * as to ensure that the expenditure with exactly the same fields will be removed.
  *
@@ -25,7 +25,7 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
  *
  * @see Expenditure#isSameExpenditure(Expenditure)
  */
-public class UniquePersonList implements Iterable<Expenditure> {
+public class UniqueExpenditureList implements Iterable<Expenditure> {
 
     private final ObservableList<Expenditure> internalList = FXCollections.observableArrayList();
     private final ObservableList<Expenditure> internalUnmodifiableList =
@@ -46,7 +46,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
     public void add(Expenditure toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenditureException();
         }
         internalList.add(toAdd);
     }
@@ -57,7 +57,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
      * The expenditure identity of {@code editedExpenditure} must not be the same as another
      * existing expenditure in the list.
      */
-    public void setPerson(Expenditure target, Expenditure editedExpenditure) {
+    public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
 
         int index = internalList.indexOf(target);
@@ -66,7 +66,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
         }
 
         if (!target.equals(editedExpenditure) && contains(editedExpenditure)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenditureException();
         }
 
         internalList.set(index, editedExpenditure);
@@ -83,7 +83,7 @@ public class UniquePersonList implements Iterable<Expenditure> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setExpenditures(UniqueExpenditureList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -92,10 +92,10 @@ public class UniquePersonList implements Iterable<Expenditure> {
      * Replaces the contents of this list with {@code expenditures}.
      * {@code expenditures} must not contain duplicate expenditures.
      */
-    public void setPersons(List<Expenditure> expenditures) {
+    public void setExpenditures(List<Expenditure> expenditures) {
         requireAllNonNull(expenditures);
         if (!personsAreUnique(expenditures)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExpenditureException();
         }
 
         internalList.setAll(expenditures);
@@ -117,8 +117,8 @@ public class UniquePersonList implements Iterable<Expenditure> {
     public boolean equals(Object other) {
 
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueExpenditureList // instanceof handles nulls
+                        && internalList.equals(((UniqueExpenditureList) other).internalList));
     }
 
     @Override
