@@ -7,20 +7,13 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.account.AccClearCommand;
-import seedu.address.logic.commands.account.AccListCommand;
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
-
 import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.address.logic.commands.expenditure.ExpFindCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,13 +63,6 @@ public class TopLevelParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ExpFindCommand command = (ExpFindCommand) parser.parseCommand(
-                ExpFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ExpFindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
-    }
 
     @Test
     public void parseCommand_help() throws Exception {
@@ -84,11 +70,6 @@ public class TopLevelParserTest {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(AccListCommand.COMMAND_WORD) instanceof AccListCommand);
-        assertTrue(parser.parseCommand(AccListCommand.COMMAND_WORD + " 3") instanceof AccListCommand);
-    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
@@ -98,6 +79,7 @@ public class TopLevelParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
+            -> parser.parseCommand("unknownCommand"));
     }
 }

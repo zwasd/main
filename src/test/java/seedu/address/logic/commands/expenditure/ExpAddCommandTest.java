@@ -51,7 +51,7 @@ public class ExpAddCommandTest {
         ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
 
         assertThrows(CommandException.class,
-                ExpAddCommand.MESSAGE_DUPLICATE_PERSON, () -> expAddCommand.execute(modelStub));
+                ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () -> expAddCommand.execute(modelStub));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class ExpAddCommandTest {
         @Override
         public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            return this.expenditure.isSamePerson(expenditure);
+            return this.expenditure.equals(expenditure);
         }
     }
 
@@ -185,7 +185,7 @@ public class ExpAddCommandTest {
         @Override
         public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            return personsAdded.stream().anyMatch(expenditure::isSamePerson);
+            return personsAdded.stream().anyMatch(expenditure::equals);
         }
 
         @Override

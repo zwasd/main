@@ -9,7 +9,6 @@ import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDe
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
@@ -34,7 +33,6 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Expenditure expenditure) {
         descriptor = new EditExpenditureDescriptor();
         descriptor.setInfo(expenditure.getInfo());
-        descriptor.setId(expenditure.getId());
         descriptor.setAmount(expenditure.getAmount());
         descriptor.setDate(expenditure.getDate());
         descriptor.setTags(expenditure.getTags());
@@ -49,14 +47,6 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Id} of the {@code EditExpenditureDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withId(String id) {
-        descriptor.setId(new Id(id));
-        return this;
-    }
-
-    /**
      * Sets the {@code Amount} of the {@code EditExpenditureDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withAmount(double amount) {
@@ -67,8 +57,8 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditExpenditureDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDate(String address) {
-        descriptor.setDate(new Date(address));
+    public EditPersonDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
         return this;
     }
 

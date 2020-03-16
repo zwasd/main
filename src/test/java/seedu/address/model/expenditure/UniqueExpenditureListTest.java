@@ -75,7 +75,7 @@ public class UniqueExpenditureListTest {
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setPerson_editedPersonEquals_success() {
         uniqueExpenditureList.add(ALICE);
         uniqueExpenditureList.setExpenditure(ALICE, ALICE);
         UniqueExpenditureList expectedUniqueExpenditureList = new UniqueExpenditureList();

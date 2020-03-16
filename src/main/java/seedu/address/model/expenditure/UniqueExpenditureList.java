@@ -13,9 +13,9 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A expenditure is considered unique by comparing using {@code Expenditure#isSamePerson(Expenditure)}.
+ * A expenditure is considered unique by comparing using {@code Expenditure#equals(Expenditure)}.
  * As such, adding and updating of
- * persons uses Expenditure#isSamePerson(Expenditure) for equality
+ * persons uses Expenditure#equals(Expenditure) for equality
  * so as to ensure that the expenditure being added or updated is
  * unique in terms of identity in the UniqueExpenditureList. However,
  * the removal of a expenditure uses Expenditure#equals(Object) so
@@ -23,7 +23,7 @@ import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Expenditure#isSamePerson(Expenditure)
+ * @see Expenditure#isSameExpenditure(Expenditure)
  */
 public class UniqueExpenditureList implements Iterable<Expenditure> {
 
@@ -36,7 +36,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public boolean contains(Expenditure toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameExpenditure);
     }
 
     /**
@@ -65,7 +65,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedExpenditure) && contains(editedExpenditure)) {
+        if (!target.equals(editedExpenditure) && contains(editedExpenditure)) {
             throw new DuplicateExpenditureException();
         }
 
@@ -115,6 +115,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
 
     @Override
     public boolean equals(Object other) {
+
         return other == this // short circuit if same object
                 || (other instanceof UniqueExpenditureList // instanceof handles nulls
                         && internalList.equals(((UniqueExpenditureList) other).internalList));
@@ -131,7 +132,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
     private boolean personsAreUnique(List<Expenditure> expenditures) {
         for (int i = 0; i < expenditures.size() - 1; i++) {
             for (int j = i + 1; j < expenditures.size(); j++) {
-                if (expenditures.get(i).isSamePerson(expenditures.get(j))) {
+                if (expenditures.get(i).equals(expenditures.get(j))) {
                     return false;
                 }
             }

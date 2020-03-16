@@ -6,7 +6,6 @@ import java.util.Set;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -18,19 +17,16 @@ public class ExpenditureBuilder {
 
 
     public static final String DEFAULT_INFO = "Alice Pauline";
-    public static final String DEFAULT_ID = "85355255";
     public static final double DEFAULT_AMOUNT = 3.14;
     public static final String DEFAULT_DATE = "2019-09-11";
 
     private Info info;
-    private Id id;
     private Amount amount;
     private Date date;
     private Set<Tag> tags;
 
     public ExpenditureBuilder() {
         info = new Info(DEFAULT_INFO);
-        id = new Id(DEFAULT_ID);
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
         tags = new HashSet<>();
@@ -42,7 +38,6 @@ public class ExpenditureBuilder {
 
     public ExpenditureBuilder(Expenditure expenditureToCopy) {
         info = expenditureToCopy.getInfo();
-        id = expenditureToCopy.getId();
         amount = expenditureToCopy.getAmount();
         date = expenditureToCopy.getDate();
         tags = new HashSet<>(expenditureToCopy.getTags());
@@ -74,14 +69,6 @@ public class ExpenditureBuilder {
     }
 
     /**
-     * Sets the {@code Id} of the {@code Expenditure} that we are building.
-     */
-    public ExpenditureBuilder withId(String id) {
-        this.id = new Id(id);
-        return this;
-    }
-
-    /**
      * Sets the {@code Email} of the {@code Expenditure} that we are building.
      */
     public ExpenditureBuilder withAmount(double amount) {
@@ -90,7 +77,7 @@ public class ExpenditureBuilder {
     }
 
     public Expenditure build() {
-        return new Expenditure(info, id, amount, date, tags);
+        return new Expenditure(info, amount, date, tags);
     }
 
 }

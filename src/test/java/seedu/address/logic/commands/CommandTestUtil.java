@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,8 +31,6 @@ public class CommandTestUtil {
 
     public static final String VALID_INFO_AMY = "Amy Bee";
     public static final String VALID_INFO_BOB = "Bob Choo";
-    public static final String VALID_ID_AMY = "11111111";
-    public static final String VALID_ID_BOB = "22222222";
     public static final double VALID_AMOUNT_AMY = 3.14;
     public static final double VALID_AMOUNT_BOB = 3.14;
     public static final String VALID_DATE_AMY = "2019-09-11";
@@ -43,8 +40,6 @@ public class CommandTestUtil {
 
     public static final String INFO_DESC_AMY = " " + PREFIX_INFO + VALID_INFO_AMY;
     public static final String INFO_DESC_BOB = " " + PREFIX_INFO + VALID_INFO_BOB;
-    public static final String ID_DESC_AMY = " " + PREFIX_ID + VALID_ID_AMY;
-    public static final String ID_DESC_BOB = " " + PREFIX_ID + VALID_ID_BOB;
     public static final String AMOUNT_DESC_AMY = " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY;
     public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_BOB;
     public static final String DATE_DESC_AMY = " " + PREFIX_DATE + VALID_DATE_AMY;
@@ -53,7 +48,6 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + "James&"; // '&' not allowed in infos
-    public static final String INVALID_ID_DESC = " " + PREFIX_ID + "911a"; // 'a' not allowed in ids
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "bob!yahoo"; // a string
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE; // empty string not allowed for addresses
 
@@ -67,10 +61,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_AMY)
-                .withId(VALID_ID_AMY).withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
+               .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
-                .withId(VALID_ID_BOB).withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
+                .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
