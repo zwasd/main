@@ -55,7 +55,7 @@ public class ExpEditCommand extends Command {
     private final EditExpenditureDescriptor editExpenditureDescriptor;
 
     /**
-     * @param index of the expenditure in the filtered expenditure list to edit
+     * @param index                     of the expenditure in the filtered expenditure list to edit
      * @param editExpenditureDescriptor details to edit the expenditure with
      */
     public ExpEditCommand(Index index, EditExpenditureDescriptor editExpenditureDescriptor) {
@@ -83,7 +83,8 @@ public class ExpEditCommand extends Command {
         }
 
         model.setExpenditure(expenditureToEdit, editedExpenditure);
-        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
+        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
     }
 
     /**
@@ -129,7 +130,8 @@ public class ExpEditCommand extends Command {
         private Date date;
         private Set<Tag> tags;
 
-        public EditExpenditureDescriptor() {}
+        public EditExpenditureDescriptor() {
+        }
 
         /**
          * Copy constructor.

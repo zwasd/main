@@ -32,11 +32,11 @@ import javafx.scene.text.FontWeight;
 public class CalendarView extends UiPart<Region> {
 
     private static final String FXML = "CalendarView.fxml";
-    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August",
-        "September", "October", "November", "December"};
+    private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
     private static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    private int[] simulateGridPane = new int [42];
+    private int[] simulateGridPane = new int[42];
     private int day;
     private int month;
     private int year;
@@ -48,9 +48,9 @@ public class CalendarView extends UiPart<Region> {
     private int thisMonthBalance;
 
     private Image leftArrow = new Image(this.getClass().getResourceAsStream("/images/leftButton.png"),
-             20, 15, true, true);
+            20, 15, true, true);
     private Image rightArrow = new Image(this.getClass().getResourceAsStream("/images/rightButton.png"),
-             20, 15, true, true);
+            20, 15, true, true);
 
     @FXML
     private Label monthYearLabel;
@@ -109,11 +109,12 @@ public class CalendarView extends UiPart<Region> {
 
     /**
      * Find the number of days in a month given the year and month.
+     *
      * @return return the number of days.
      */
     public int findNumberOfDaysInTheMonth() {
         if (this.month == 2) {
-            if ( this.yearMonth.isLeapYear()) {
+            if (this.yearMonth.isLeapYear()) {
                 return 29;
             } else {
                 return DAYS_IN_MONTH[month - 1];
@@ -125,6 +126,7 @@ public class CalendarView extends UiPart<Region> {
 
     /**
      * Find the number of days in a month given the year and month.
+     *
      * @return return the number of days.
      */
     public int findNumberOfDaysOfAMonth(int month, int year) {
@@ -141,6 +143,7 @@ public class CalendarView extends UiPart<Region> {
 
     /**
      * Find the number of days in the previous month given the year and month.
+     *
      * @return return the number of days.
      */
     public int findNumberOfDaysInPreviousMonth() {
@@ -196,18 +199,21 @@ public class CalendarView extends UiPart<Region> {
 
     /**
      * Generate Label for dateGridPane.
+     *
      * @param dayNumber text for the Label
      * @return a label with specific text and font
      */
     private Label createLabel(int dayNumber) {
         Label label = new Label();
-        label.setText("" + dayNumber);;
+        label.setText("" + dayNumber);
+        ;
         label.setFont(Font.font("system", FontWeight.BOLD, 12));
         return label;
     }
 
     /**
      * Generate a VBox with specific calendar.
+     *
      * @return a VBox for dateGridPane.
      */
     private VBox placeHolderForLabel() {
@@ -293,7 +299,8 @@ public class CalendarView extends UiPart<Region> {
     }
 
     /**
-     *generate a new local date according to input new date.
+     * generate a new local date according to input new date.
+     *
      * @param value date indicator.
      * @return a new localDate object with that date.
      */
@@ -310,6 +317,7 @@ public class CalendarView extends UiPart<Region> {
             return nextM;
         }
     }
+
     /**
      * Initialise calendar to previous month data when the next button is clicked.
      */
