@@ -7,8 +7,6 @@ import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 
-import java.time.LocalDate;
-
 /**
  * Set budget.
  */
@@ -20,7 +18,7 @@ public class ExpSetBudgetCommand extends Command {
     private Date date;
     private Amount budget;
 
-    public ExpSetBudgetCommand(Date date, Amount budget){
+    public ExpSetBudgetCommand(Date date, Amount budget) {
 
         this.date = date;
         this.budget = budget;

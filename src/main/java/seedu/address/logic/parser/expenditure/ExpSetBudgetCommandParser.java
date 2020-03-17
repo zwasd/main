@@ -1,6 +1,12 @@
 package seedu.address.logic.parser.expenditure;
 
-import seedu.address.logic.commands.expenditure.ExpAddCommand;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -10,18 +16,6 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Info;
-import seedu.address.model.tag.Tag;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parse set budget.
@@ -36,7 +30,7 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_AMOUNT, PREFIX_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_AMOUNT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpSetBudgetCommand.MESSAGE_FAIL));
         }
