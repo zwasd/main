@@ -15,11 +15,11 @@ public class AccClearCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "this account's data has been cleared!";
 
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // model.setAccount(new Account());
-        // return new CommandResult(MESSAGE_SUCCESS);
-        return new CommandResult("NOT IMPLEMENTED YET");
+        model.clearActiveAccount();
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

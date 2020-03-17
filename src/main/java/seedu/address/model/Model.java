@@ -94,4 +94,6 @@ public interface Model {
     void renameAccount(String oldName, String newName);
 
     boolean updateActiveAccount(String accountName);
+
+    void clearActiveAccount();
 }

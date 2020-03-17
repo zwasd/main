@@ -146,6 +146,10 @@ public class ModelManager implements Model {
         this.accountList.renameAccount(oldName, newName);
     }
 
+    public void clearActiveAccount() {
+        accountList.clearActiveAccount();
+    }
+
 
     @Override
     public boolean equals(Object obj) {

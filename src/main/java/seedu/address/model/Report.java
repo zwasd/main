@@ -1,15 +1,15 @@
 package seedu.address.model;
 
-import seedu.address.model.expenditure.Date;
+import java.time.LocalDate;
 
 /**
  * Report.
  */
 public class Report {
-    private final Date startDate;
-    private final Date endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public Report(Date startDate, Date endDate) {
+    public Report(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

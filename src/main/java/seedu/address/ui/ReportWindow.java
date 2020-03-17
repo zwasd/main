@@ -5,17 +5,17 @@ import java.util.logging.Logger;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-
+/**
+ * The Report Window. Provides statistics on expenditure
+ * based on the user input. Supports export feature as well
+ * in the future.
+ */
 public class ReportWindow extends UiPart<Stage> {
 
     public static final String REPORT_MESSAGE = "Generating report...";
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
-
-    /* @FXML
-    private Label reportMessage;
-    */
 
     /**
      * Creates a new Report Window.

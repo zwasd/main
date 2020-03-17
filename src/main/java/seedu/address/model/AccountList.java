@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,6 +108,14 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             throw new DuplicateAccountException();
         }
         accounts.put(account.getAccountName(), account);
+    }
+
+    /**
+     * Clears all expenditures of the active account.
+     */
+    public void clearActiveAccount() {
+        activeAccount.resetData(new Account());
+        internalList.setExpenditures(new ArrayList<>());
     }
 
     //// expenditure-level operations
