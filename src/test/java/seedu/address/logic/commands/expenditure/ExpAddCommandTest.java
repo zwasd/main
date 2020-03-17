@@ -156,6 +156,11 @@ public class ExpAddCommandTest {
         public boolean updateActiveAccount(String accountName) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void clearActiveAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

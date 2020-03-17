@@ -42,6 +42,7 @@ class JsonAdaptedExpenditure {
 
     public JsonAdaptedExpenditure(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
                                   @JsonProperty("date") String date, @JsonProperty("tag") List<JsonAdaptedTag> tagged) {
+
         this.info = info;
         this.amount = amount;
         this.date = date;

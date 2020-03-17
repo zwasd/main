@@ -141,6 +141,11 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public void clearActiveAccount() {
+        accountList.clearActiveAccount();
+    }
+
 
     @Override
     public boolean equals(Object obj) {

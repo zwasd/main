@@ -25,7 +25,7 @@ public class AccClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAccountList(), new UserPrefs());
-        expectedModel.setAccountList(new AccountList(true));
+        expectedModel.clearActiveAccount();
 
         assertCommandSuccess(new AccClearCommand(), model, AccClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
