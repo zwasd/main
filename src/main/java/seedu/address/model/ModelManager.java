@@ -141,6 +141,11 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public void renameAccount(String oldName, String newName) {
+        this.accountList.renameAccount(oldName, newName);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
