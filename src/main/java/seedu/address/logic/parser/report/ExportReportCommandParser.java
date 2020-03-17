@@ -11,7 +11,6 @@ import seedu.address.logic.commands.report.ExportReportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Report;
-import seedu.address.model.expenditure.Date;
 
 /**
  * Parse export report.
@@ -49,7 +48,7 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        Report report = new Report(new Date(startDateStr), new Date(endDateStr));
+        Report report = new Report(startDate, endDate);
 
         return new ExportReportCommand(report);
     }
