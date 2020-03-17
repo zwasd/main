@@ -87,4 +87,6 @@ public interface Model {
     void updateFilteredExpenditureList(Predicate<Expenditure> predicate);
 
     boolean updateActiveAccount(String accountName);
+
+    void clearActiveAccount();
 }

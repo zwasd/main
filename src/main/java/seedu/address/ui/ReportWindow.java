@@ -1,21 +1,18 @@
 package seedu.address.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import java.util.logging.Logger;
+
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Logger;
-
-public class ReportWindow extends UiPart<Stage>{
+public class ReportWindow extends UiPart<Stage> {
 
     public static final String REPORT_MESSAGE = "Generating report...";
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
 
-   /* @FXML
+    /* @FXML
     private Label reportMessage;
     */
 

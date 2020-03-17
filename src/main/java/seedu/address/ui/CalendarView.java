@@ -113,7 +113,7 @@ public class CalendarView extends UiPart<Region> {
      */
     public int findNumberOfDaysInTheMonth() {
         if (this.month == 2) {
-            if ( this.yearMonth.isLeapYear()) {
+            if (this.yearMonth.isLeapYear()) {
                 return 29;
             } else {
                 return DAYS_IN_MONTH[month - 1];

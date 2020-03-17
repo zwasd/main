@@ -204,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if(commandResult.isShowReport()) {
+            if (commandResult.isShowReport()) {
                 handleReport();
             }
 
