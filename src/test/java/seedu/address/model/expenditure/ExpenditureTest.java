@@ -5,32 +5,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalExpenditures.ALICE;
+import static seedu.address.testutil.TypicalExpenditures.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExpenditureBuilder;
 
 public class ExpenditureTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Expenditure expenditure = new PersonBuilder().build();
+        Expenditure expenditure = new ExpenditureBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> expenditure.getTags().remove(0));
     }
 
     @Test
     public void isSameExpenditure() {
-        Expenditure aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.isSameExpenditure(aliceCopy));
+        Expenditure aliceCopy = new ExpenditureBuilder(ALICE).build();
+        assertFalse(ALICE.isSameExpenditure(aliceCopy));
     }
 
 
     @Test
     public void equals() {
         // different object but same fields -> true
-        Expenditure aliceCopy = new PersonBuilder(ALICE).build();
+        Expenditure aliceCopy = new ExpenditureBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -46,15 +46,15 @@ public class ExpenditureTest {
         assertFalse(ALICE.equals(BOB));
 
         // different object and fields-> returns false
-        Expenditure editedAlice = new PersonBuilder(ALICE).withAmount(3.00).build();
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withAmount(3.00).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields -> returns false
-        editedAlice = new PersonBuilder(ALICE).withDate(VALID_DATE_BOB).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields-> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }
