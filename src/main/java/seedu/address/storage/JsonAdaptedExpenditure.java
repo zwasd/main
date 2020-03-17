@@ -33,7 +33,7 @@ class JsonAdaptedExpenditure {
     private final String info;
     private final double amount;
 
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tag = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given expenditure details.
@@ -41,13 +41,13 @@ class JsonAdaptedExpenditure {
     @JsonCreator
 
     public JsonAdaptedExpenditure(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
-                                  @JsonProperty("date") String date,
-                                  @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                                  @JsonProperty("date") String date, @JsonProperty("tag") List<JsonAdaptedTag> tagged) {
+
         this.info = info;
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
-            this.tagged.addAll(tagged);
+            this.tag.addAll(tagged);
         }
     }
 
@@ -60,7 +60,7 @@ class JsonAdaptedExpenditure {
         amount = source.getAmount().value;
         date = source.getDate().value;
 
-        tagged.addAll(source.getTags().stream()
+        tag.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
@@ -72,7 +72,7 @@ class JsonAdaptedExpenditure {
      */
     public Expenditure toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
+        for (JsonAdaptedTag tag : tag) {
             personTags.add(tag.toModelType());
         }
 

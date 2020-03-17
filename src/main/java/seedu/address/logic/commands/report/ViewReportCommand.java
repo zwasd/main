@@ -13,8 +13,8 @@ public class ViewReportCommand extends Command {
 
 
     public static final String COMMAND_WORD = "view";
-
     public static final String MESSAGE_SUCCESS = "Report is generated";
+    public static final String MESSAGE_FAIL = "Report cannot be generated";
 
     private final Report toView;
 

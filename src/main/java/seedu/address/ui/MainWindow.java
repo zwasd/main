@@ -81,6 +81,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -174,6 +175,9 @@ public class MainWindow extends UiPart<Stage> {
         return expenditureListPanel;
     }
 
+    /**
+     * Opens a report window.
+     */
     @FXML
     private void handleReport() {
 
