@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.stage.Stage?>
+
+<fx:root fx:id="ReportWindow" title="Report" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene fx:id="Report" fill="#111111">
+            <AnchorPane prefHeight="300.0" prefWidth="400.0" />
+        </Scene>
+    </scene>
+</fx:root>
