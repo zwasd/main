@@ -26,7 +26,7 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
         String[] userInputArray = userInputTrimmed.split(" ");
 
         if (userInputArray.length < 3) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_FAIL));
         }
 
         String startDateStr = userInputArray[1];
