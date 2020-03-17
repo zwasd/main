@@ -19,7 +19,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ReportLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "report";
-
     public static final String MESSAGE_USAGE = "report view\nreport export\n";
 
     /**
