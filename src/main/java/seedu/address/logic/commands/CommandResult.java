@@ -50,7 +50,9 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isShowReport() { return showReport; }
+    public boolean isShowReport() {
+        return showReport;
+    }
 
     @Override
     public boolean equals(Object other) {
