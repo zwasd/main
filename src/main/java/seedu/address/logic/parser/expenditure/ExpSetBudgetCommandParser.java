@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
@@ -36,7 +37,25 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElseGet(() -> LocalDate.now().toString()));
+        Optional<String> dateOpt = argMultimap.getValue(PREFIX_DATE);
+        String dateStr;
+
+        if (dateOpt.isEmpty()) {
+
+            int dateNowYear = LocalDate.now().getYear();
+            int dateNowMonth = LocalDate.now().getMonthValue();
+
+            if (dateNowMonth < 10) {
+                //f month is before oct, append a 0 to dateNowMonth to get MM format
+                dateStr = dateNowYear + "-0" + dateNowMonth + "-01";
+            } else {
+                dateStr = dateNowYear + "-" + dateNowMonth + "-01";
+            }
+        } else {
+            dateStr = dateOpt.get() + "-01";
+        }
+
+        Date date = new Date(dateStr);
 
         return new ExpSetBudgetCommand(date, amount);
     }

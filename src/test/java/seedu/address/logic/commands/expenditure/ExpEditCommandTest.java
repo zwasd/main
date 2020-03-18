@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.showExpenditureAtInde
 import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENDITURE;
-import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +35,7 @@ public class ExpEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-    /*@Test
+    @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expenditure editedExpenditure = new ExpenditureBuilder().build();
         EditExpenditureDescriptor descriptor =
@@ -51,7 +50,7 @@ public class ExpEditCommandTest {
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
-     */
+
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
@@ -74,7 +73,6 @@ public class ExpEditCommandTest {
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
-    /*
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
 
@@ -88,8 +86,6 @@ public class ExpEditCommandTest {
 
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
-
-
 
     @Test
     public void execute_filteredList_success() {
@@ -116,7 +112,6 @@ public class ExpEditCommandTest {
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_EXPENDITURE, descriptor);
         assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
-    */
 
     @Test
     public void execute_duplicateExpenditureFilteredList_failure() {
