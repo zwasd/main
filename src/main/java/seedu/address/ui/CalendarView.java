@@ -18,13 +18,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  * UI component that is displayed.
@@ -41,16 +44,19 @@ public class CalendarView extends UiPart<Region> {
     private int month;
     private int year;
     private YearMonth yearMonth;
+    private LocalDate todayDate;
+    private LocalDate nonPivotDate;
     private LocalDate pivotDate;
     private LocalDate firstDayOfTheMonth;
     private int prevMonthBalance;
     private int nextMonthBalance;
     private int thisMonthBalance;
+    private final int dayOfTheMonthForToday;
 
     private Image leftArrow = new Image(this.getClass().getResourceAsStream("/images/leftButton.png"),
-            20, 15, true, true);
+            30, 20, true, true);
     private Image rightArrow = new Image(this.getClass().getResourceAsStream("/images/rightButton.png"),
-            20, 15, true, true);
+            30, 20, true, true);
 
     @FXML
     private Label monthYearLabel;
@@ -73,28 +79,35 @@ public class CalendarView extends UiPart<Region> {
     public CalendarView() {
         super(FXML);
         setUpButton();
-        LocalDate now = LocalDate.now();
-        this.pivotDate = now;
-        this.day = now.getDayOfMonth();
-        this.month = now.getMonthValue();
-        this.year = now.getYear();
+        this.todayDate = LocalDate.now();
+        this.pivotDate = todayDate;
+        this.nonPivotDate = todayDate;
+        this.day = todayDate.getDayOfMonth();
+        this.month = todayDate.getMonthValue();
+        this.year = todayDate.getYear();
+        this.dayOfTheMonthForToday = this.day;
         this.yearMonth = YearMonth.of(this.year, this.month);
         this.firstDayOfTheMonth = yearMonth.atDay(1);
         setMonthYearLabel();
         generateCalender();
     }
 
-    public CalendarView(LocalDate date) {
-        super(FXML);
-        setUpButton();
-        this.pivotDate = date;
-        this.day = date.getDayOfMonth();
-        this.month = date.getMonthValue();
+    /**
+     * It will update the attributes in the class according to the date parse in
+     * @param date the new date
+     */
+    private void updateDayMonthYear(LocalDate date) {
         this.year = date.getYear();
+        this.month = date.getMonthValue();
+        this.day = date.getDayOfMonth();
         this.yearMonth = YearMonth.of(this.year, this.month);
         this.firstDayOfTheMonth = yearMonth.atDay(1);
-        setMonthYearLabel();
-        generateCalender();
+    }
+
+    private boolean isSameMonth(LocalDate d1, LocalDate d2) {
+        LocalDate pivot = d1.withDayOfMonth(1);
+        LocalDate toCheck = d2.withDayOfMonth(1);
+        return pivot.equals(toCheck);
     }
 
     /**
@@ -103,6 +116,11 @@ public class CalendarView extends UiPart<Region> {
     private void setUpButton() {
         ImageView leftButtonView = new ImageView(this.leftArrow);
         ImageView rightButtonView = new ImageView(this.rightArrow);
+        leftButton.setPrefSize(30, 20);
+
+        leftButton.setMinSize(30, 20);
+        rightButton.setPrefSize(30, 20);
+        rightButton.setMinSize(30, 20);
         leftButton.setGraphic(leftButtonView);
         rightButton.setGraphic(rightButtonView);
     }
@@ -157,13 +175,13 @@ public class CalendarView extends UiPart<Region> {
     /**
      * Set the monthYear Label's content.
      */
-    public void setMonthYearLabel() {
+    private void setMonthYearLabel() {
         monthYearGridPane.setBackground(new Background(
-                new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
         StringBuilder monthYear = new StringBuilder();
-        monthYear.append(MONTHS[this.month - 1]);
-        monthYear.append("    ");
-        monthYear.append(this.year);
+        monthYear.append(MONTHS[this.nonPivotDate.getMonthValue() - 1]);
+        monthYear.append("  ");
+        monthYear.append(this.nonPivotDate.getYear());
         String output = monthYear.toString();
         this.monthYearLabel.setMaxSize(200, 60);
         this.monthYearLabel.setText(output);
@@ -194,7 +212,6 @@ public class CalendarView extends UiPart<Region> {
         for (int i = 0; i < this.nextMonthBalance; i++) {
             this.simulateGridPane[newStartingPoint + i] = i + 1;
         }
-
     }
 
     /**
@@ -206,8 +223,8 @@ public class CalendarView extends UiPart<Region> {
     private Label createLabel(int dayNumber) {
         Label label = new Label();
         label.setText("" + dayNumber);
-        ;
-        label.setFont(Font.font("system", FontWeight.BOLD, 12));
+        label.setStyle("-fx-text-fill: white");
+        label.setStyle("-fx-font-weight: bold");
         return label;
     }
 
@@ -236,9 +253,9 @@ public class CalendarView extends UiPart<Region> {
         fill();
         int i = 0;
         this.weekDayGridPane.setBackground(new Background(
-                new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.dateGridPane.setBackground(new Background(
-                new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
                 VBox holder = placeHolderForLabel();
@@ -247,11 +264,16 @@ public class CalendarView extends UiPart<Region> {
                     holder.setBlendMode(BlendMode.OVERLAY);
                 }
 
-                if (i == this.prevMonthBalance + this.day - 1) {
-
+                if (i == this.prevMonthBalance + this.day - 1 && isSameMonth(this.pivotDate, this.nonPivotDate)) {
                     holder.setBackground(new Background(
                             new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
 
+                if (isSameMonth(this.todayDate, this.nonPivotDate)
+                        && i == this.prevMonthBalance + this.dayOfTheMonthForToday - 1) {
+
+                    holder.setBorder(new Border(new BorderStroke(Color.valueOf("#000000"),
+                            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
                 }
 
                 Label num = createLabel(this.simulateGridPane[i]);
@@ -263,13 +285,15 @@ public class CalendarView extends UiPart<Region> {
                     public void handle(MouseEvent event) {
                         Label a = (Label) holder.getChildren().get(0);
                         int clickedDate = Integer.parseInt(a.getText());
-
                         if (holder.getBlendMode() == BlendMode.OVERLAY) {
                             pivotDate = getNewDate(clickedDate);
+                            nonPivotDate = pivotDate;
+                            updateDayMonthYear(pivotDate);
                             refreshCalenderView();
                         } else {
-                            pivotDate = pivotDate.withDayOfMonth(clickedDate);
-                            day = clickedDate;
+                            pivotDate = nonPivotDate.withDayOfMonth(clickedDate);
+                            nonPivotDate = pivotDate;
+                            updateDayMonthYear(pivotDate);
                             refreshCalenderView();
                         }
 
@@ -289,10 +313,7 @@ public class CalendarView extends UiPart<Region> {
      */
     private void refreshCalenderView() {
         dateGridPane.getChildren().clear();
-        this.month = this.pivotDate.getMonthValue();
-        this.year = this.pivotDate.getYear();
-        this.yearMonth = YearMonth.of(this.year, this.month);
-        this.firstDayOfTheMonth = yearMonth.atDay(1);
+        updateDayMonthYear(nonPivotDate);
         setUpButton();
         setMonthYearLabel();
         generateCalender();
@@ -306,14 +327,12 @@ public class CalendarView extends UiPart<Region> {
      */
     private LocalDate getNewDate(int value) {
         if (value <= 31 && value >= 21) {
-            LocalDate prevM = this.pivotDate.minusMonths(1);
-            prevM.withDayOfMonth(value);
-            this.day = value;
+            LocalDate prevM = this.nonPivotDate.minusMonths(1);
+            prevM = prevM.withDayOfMonth(value);
             return prevM;
         } else {
-            LocalDate nextM = this.pivotDate.plusMonths(1);
-            nextM.withDayOfMonth(value);
-            this.day = value;
+            LocalDate nextM = this.nonPivotDate.plusMonths(1);
+            nextM = nextM.withDayOfMonth(value);
             return nextM;
         }
     }
@@ -323,7 +342,8 @@ public class CalendarView extends UiPart<Region> {
      */
     @FXML
     public void handleToPrev() {
-        this.pivotDate = pivotDate.minusMonths(1);
+        this.nonPivotDate = nonPivotDate.minusMonths(1);
+        updateDayMonthYear(nonPivotDate);
         refreshCalenderView();
     }
 
@@ -332,14 +352,27 @@ public class CalendarView extends UiPart<Region> {
      */
     @FXML
     public void handToNext() {
-        this.pivotDate = pivotDate.plusMonths(1);
+        this.nonPivotDate = nonPivotDate.plusMonths(1);
+        updateDayMonthYear(nonPivotDate);
         refreshCalenderView();
     }
 
+    /**
+     * This method will update the pivotDate to the new active date.
+     * @param date the new pivot date
+     */
     public void updateActiveDate(LocalDate date) {
-        pivotDate = date;
-        day = pivotDate.getDayOfMonth();
-        refreshCalenderView();
+        setUpButton();
+        this.pivotDate = date;
+        this.nonPivotDate = date;
+        this.day = date.getDayOfMonth();
+        this.month = date.getMonthValue();
+        this.year = date.getYear();
+        this.yearMonth = YearMonth.of(this.year, this.month);
+        this.firstDayOfTheMonth = yearMonth.atDay(1);
+        setMonthYearLabel();
+        generateCalender();
     }
+
 
 }
