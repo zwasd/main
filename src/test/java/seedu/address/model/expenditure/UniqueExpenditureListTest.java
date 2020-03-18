@@ -131,7 +131,8 @@ public class UniqueExpenditureListTest {
 
     @Test
     public void setExpenditures_nullUniqueExpenditureList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueExpenditureList.setExpenditures((UniqueExpenditureList) null));
+        assertThrows(NullPointerException.class, () ->
+                uniqueExpenditureList.setExpenditures((UniqueExpenditureList) null));
     }
 
     @Test
@@ -161,7 +162,8 @@ public class UniqueExpenditureListTest {
     @Test
     public void setExpenditures_listWithDuplicateExpenditures_throwsDuplicateExpenditureException() {
         List<Expenditure> listWithDuplicateExpenditures = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateExpenditureException.class, () -> uniqueExpenditureList.setExpenditures(listWithDuplicateExpenditures));
+        assertThrows(DuplicateExpenditureException.class, () ->
+                uniqueExpenditureList.setExpenditures(listWithDuplicateExpenditures));
     }
 
     @Test

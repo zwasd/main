@@ -5,14 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showExpenditureAtIndex;
+// import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+// import static seedu.address.logic.commands.CommandTestUtil.showExpenditureAtIndex;
 import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENDITURE;
-import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
+// import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,13 +20,13 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.account.AccClearCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.address.model.AccountList;
+// import seedu.address.model.AccountList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.expenditure.Expenditure;
+// import seedu.address.model.expenditure.Expenditure;
 import seedu.address.testutil.EditExpenditureDescriptorBuilder;
-import seedu.address.testutil.ExpenditureBuilder;
+// import seedu.address.testutil.ExpenditureBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -80,7 +80,8 @@ public class ExpEditCommandTest {
 
     //     ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_EXPENDITURE,
     //             new EditExpenditureDescriptor());
-    //     Expenditure editedExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_EXPENDITURE.getZeroBased());
+    //     Expenditure editedExpenditure = model.getFilteredExpenditureList()
+    //             .get(INDEX_FIRST_EXPENDITURE.getZeroBased());
 
     //     String expectedMessage = String.format(ExpEditCommand.MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure);
 
@@ -97,7 +98,8 @@ public class ExpEditCommandTest {
 
     //     Expenditure expenditureInFilteredList = model.getFilteredExpenditureList()
     //             .get(INDEX_FIRST_EXPENDITURE.getZeroBased());
-    //     Expenditure editedExpenditure = new ExpenditureBuilder(expenditureInFilteredList).withInfo(VALID_INFO_BOB).build();
+    //     Expenditure editedExpenditure = new ExpenditureBuilder(expenditureInFilteredList)
+    //             .withInfo(VALID_INFO_BOB).build();
     //     ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_EXPENDITURE,
     //             new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_BOB).build());
 
@@ -112,7 +114,8 @@ public class ExpEditCommandTest {
     // TODO: update test case
     // @Test
     // public void execute_duplicateExpenditureUnfilteredList_failure() {
-    //     Expenditure firstExpenditure = model.getFilteredExpenditureList().get(INDEX_FIRST_EXPENDITURE.getZeroBased());
+    //     Expenditure firstExpenditure = model.getFilteredExpenditureList()
+    //             .get(INDEX_FIRST_EXPENDITURE.getZeroBased());
     //     EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder(firstExpenditure).build();
     //     ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_EXPENDITURE, descriptor);
     //     assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
@@ -124,7 +127,8 @@ public class ExpEditCommandTest {
     //     showExpenditureAtIndex(model, INDEX_FIRST_EXPENDITURE);
 
     //     // edit expenditure in filtered list into a duplicate in address book
-    //     Expenditure expenditureInList = model.getAccountList().getExpenditureList().get(INDEX_SECOND_EXPENDITURE.getZeroBased());
+    //     Expenditure expenditureInList = model.getAccountList().getExpenditureList()
+    //             .get(INDEX_SECOND_EXPENDITURE.getZeroBased());
     //     ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_FIRST_EXPENDITURE,
     //             new EditExpenditureDescriptorBuilder(expenditureInList).build());
 

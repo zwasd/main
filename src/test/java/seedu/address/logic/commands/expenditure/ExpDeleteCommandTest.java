@@ -3,12 +3,12 @@ package seedu.address.logic.commands.expenditure;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showExpenditureAtIndex;
+// import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+// import static seedu.address.logic.commands.CommandTestUtil.showExpenditureAtIndex;
 import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENDITURE;
-import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
+// import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.expenditure.Expenditure;
+// import seedu.address.model.expenditure.Expenditure;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -30,7 +30,8 @@ public class ExpDeleteCommandTest {
     // TODO: update test case
     // @Test
     // public void execute_validIndexUnfilteredList_success() {
-    //     Expenditure expenditureToDelete = model.getFilteredExpenditureList().get(INDEX_FIRST_EXPENDITURE.getZeroBased());
+    //     Expenditure expenditureToDelete = model.getFilteredExpenditureList()
+    //             .get(INDEX_FIRST_EXPENDITURE.getZeroBased());
     //     ExpDeleteCommand expDeleteCommand = new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE);
 
     //     String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,
@@ -54,7 +55,8 @@ public class ExpDeleteCommandTest {
     // public void execute_validIndexFilteredList_success() {
     //     showExpenditureAtIndex(model, INDEX_FIRST_EXPENDITURE);
 
-    //     Expenditure expenditureToDelete = model.getFilteredExpenditureList().get(INDEX_FIRST_EXPENDITURE.getZeroBased());
+    //     Expenditure expenditureToDelete = model.getFilteredExpenditureList()
+    //             .get(INDEX_FIRST_EXPENDITURE.getZeroBased());
     //     ExpDeleteCommand expDeleteCommand = new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE);
 
     //     String expectedMessage = String.format(ExpDeleteCommand.MESSAGE_DELETE_EXPENDITURE_SUCCESS,

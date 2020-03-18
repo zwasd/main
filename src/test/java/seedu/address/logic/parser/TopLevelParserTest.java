@@ -1,27 +1,22 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+// import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
+// import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.account.AccClearCommand;
-import seedu.address.logic.commands.expenditure.ExpAddCommand;
-import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
-import seedu.address.logic.commands.expenditure.ExpEditCommand;
-import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
-import seedu.address.testutil.EditExpenditureDescriptorBuilder;
-import seedu.address.testutil.ExpenditureBuilder;
-import seedu.address.testutil.ExpenditureUtil;
+// import seedu.address.model.expenditure.Expenditure;
+// import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
+// import seedu.address.testutil.EditExpenditureDescriptorBuilder;
+// import seedu.address.testutil.ExpenditureBuilder;
+// import seedu.address.testutil.ExpenditureUtil;
 
 public class TopLevelParserTest {
 
@@ -57,7 +52,8 @@ public class TopLevelParserTest {
     //     Expenditure expenditure = new ExpenditureBuilder().build();
     //     EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder(expenditure).build();
     //     ExpEditCommand command = (ExpEditCommand) parser.parseCommand(ExpEditCommand.COMMAND_WORD + " "
-    //             + INDEX_FIRST_EXPENDITURE.getOneBased() + " " + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
+    //             + INDEX_FIRST_EXPENDITURE.getOneBased() + " "
+    //             + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
     //     assertEquals(new ExpEditCommand(INDEX_FIRST_EXPENDITURE, descriptor), command);
     // }
 

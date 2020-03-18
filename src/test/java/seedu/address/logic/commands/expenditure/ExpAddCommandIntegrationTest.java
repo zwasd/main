@@ -1,17 +1,17 @@
 package seedu.address.logic.commands.expenditure;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+// import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+// import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.testutil.ExpenditureBuilder;
+// import seedu.address.model.expenditure.Expenditure;
+// import seedu.address.testutil.ExpenditureBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ExpAddCommand}.
@@ -40,7 +40,8 @@ public class ExpAddCommandIntegrationTest {
     // @Test
     // public void execute_duplicateExpenditure_throwsCommandException() {
     //     Expenditure expenditureInList = model.getAccountList().getExpenditureList().get(0);
-    //     assertCommandFailure(new ExpAddCommand(expenditureInList), model, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE);
+    //     assertCommandFailure(new ExpAddCommand(expenditureInList), model,
+    //             ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     // }
 
 }

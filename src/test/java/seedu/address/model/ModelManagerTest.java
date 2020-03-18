@@ -2,22 +2,22 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.ALICE;
-import static seedu.address.testutil.TypicalExpenditures.BENSON;
+// import static seedu.address.testutil.TypicalExpenditures.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+// import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
-import seedu.address.testutil.AccountBuilder;
-import seedu.address.testutil.AccountListBuilder;
+// import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
+// import seedu.address.testutil.AccountBuilder;
+// import seedu.address.testutil.AccountListBuilder;
 
 public class ModelManagerTest {
 
