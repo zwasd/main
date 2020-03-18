@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="calenderPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <GridPane fx:id="monthYearGridPane" prefHeight="73.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <columnConstraints>
@@ -24,14 +24,14 @@
             <Font name="Mongolian Baiti" size="40.0" />
           </font>
         </Label>
-        <Button fx:id="leftButton" onAction="#handleToPrev" mnemonicParsing="false" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Button fx:id="leftButton" mnemonicParsing="false" onAction="#handleToPrev" textAlignment="CENTER" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
           <GridPane.margin>
-            <Insets right="200.0" />
+            <Insets left="5.0" />
           </GridPane.margin>
         </Button>
-        <Button fx:id="rightButton" onAction="#handToNext" mnemonicParsing="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Button fx:id="rightButton" mnemonicParsing="false" onAction="#handToNext" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
           <GridPane.margin>
-            <Insets left="200.0" />
+            <Insets right="5.0" />
           </GridPane.margin>
         </Button>
       </children>
@@ -50,31 +50,31 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label alignment="CENTER" contentDisplay="CENTER" text="S" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="weekDayLabel" text="S" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="M" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="M" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="T" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="T" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="W" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="W" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="T" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="T" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="F" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="F" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
-        <Label text="S" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <Label styleClass="weekDayLabel" text="S" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
           <font>
             <Font name="System Bold" size="12.0" />
           </font></Label>
