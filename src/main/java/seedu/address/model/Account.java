@@ -47,9 +47,10 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     /**
      * Creates an Account using the Persons in the {@code toBeCopied}
      */
-    public Account(Account toBeCopied) {
-        this(toBeCopied.accountName);
+    public Account copyAccountWithNewName(String newName) {
+        Account toBeCopied = new Account(newName);
         resetData(toBeCopied);
+        return toBeCopied;
     }
 
     public String getAccountName() {

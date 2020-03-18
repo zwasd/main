@@ -14,7 +14,8 @@ import seedu.address.model.Model;
 public class AccAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+    public static final String NAME_CONTAIN_SPACE = "The account name contains space";
+    public static final String NAME_TOO_LONG = "The account name should be less than 25 characters";
     public static final String MESSAGE_SUCCESS = "New account added: %1$s";
     public static final String MESSAGE_DUPLICATE_ACCOUNT = "This account name already exists in the $AVE IT";
 

@@ -63,7 +63,7 @@ public class AccLevelParser extends TopLevelParser {
             return new AccClearCommand();
 
         case AccListCommand.COMMAND_WORD:
-            return new AccListCommand();
+            return new AccListCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
