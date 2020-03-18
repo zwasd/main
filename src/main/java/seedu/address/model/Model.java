@@ -1,18 +1,19 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Expenditure;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expenditure> PREDICATE_SHOW_ALL_EXPENDITURES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -45,43 +46,59 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code account}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAccountList(ReadOnlyAccountList accountList);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the Account */
+    ReadOnlyAccountList getAccountList();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a expenditure with the same identity as {@code expenditure} exists in the internal list.
      */
-    boolean hasPerson(Person person);
+    boolean hasExpenditure(Expenditure expenditure);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given expenditure.
+     * The expenditure must exist in the internal list.
      */
-    void deletePerson(Person target);
+    void deleteExpenditure(Expenditure target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given expenditure.
+     * {@code expenditure} must not already exist in the internal list.
      */
-    void addPerson(Person person);
+    void addExpenditure(Expenditure expenditure);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
+     * {@code target} must exist in the internal list.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as
+     * another existing expenditure in the internal list.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setExpenditure(Expenditure target, Expenditure editedExpenditure);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered expenditure list */
+    ObservableList<Expenditure> getFilteredExpenditureList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered expenditure list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredExpenditureList(Predicate<Expenditure> predicate);
+
+    /**
+     * Rename the account's name.
+     * @param oldName target account's current name
+     * @param newName target account's new name
+     */
+    void renameAccount(String oldName, String newName);
+
+    boolean updateActiveAccount(String accountName);
+
+    void clearActiveAccount();
+
+    ReportableAccount getReportableAccount();
+
+    void updateActiveDate(LocalDate date);
 }

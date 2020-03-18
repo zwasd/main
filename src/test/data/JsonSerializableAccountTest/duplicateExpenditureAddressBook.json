@@ -1,0 +1,15 @@
+{
+  "accounts" : [ {
+    "accountName": "default",
+    "expenditures": [ {
+      "info": "Alice Pauline",
+      "amount": 3.14,
+      "date": "2019-09-11",
+      "tag": [ "friends" ]
+    } , {
+      "info": "Alice Pauline",
+      "amount": 3.14,
+      "date": "2019-09-11"
+    } ]
+  } ]
+}

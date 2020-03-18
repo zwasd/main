@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -11,19 +12,41 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
+    /**
+     * Help information should be shown to the user.
+     */
     private final boolean showHelp;
 
-    /** The application should exit. */
+    /**
+     * Report stats to user
+     **/
+    private final boolean showReport;
+
+    /**
+     * The indicator of the current active date in the calendar view should change.
+     */
+    private final boolean updateCalendar;
+    private LocalDate newActiveDate = null;
+
+    /**
+     * The application should exit.
+     */
     private final boolean exit;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showReport, boolean updateCalendar) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showReport = showReport;
+        this.updateCalendar = updateCalendar;
+    }
+
+    public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
+        this(feedbackToUser, false, false, false, true);
+        this.newActiveDate = newActiveDate;
     }
 
     /**
@@ -31,7 +54,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +67,18 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowReport() {
+        return showReport;
+    }
+
+    public boolean isUpdateCalendar() {
+        return updateCalendar;
+    }
+
+    public LocalDate getNewActiveDate() {
+        return newActiveDate;
     }
 
     @Override
@@ -60,12 +95,14 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showReport == otherCommandResult.showReport
+                && updateCalendar == otherCommandResult.updateCalendar;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, showReport, updateCalendar);
     }
 
 }

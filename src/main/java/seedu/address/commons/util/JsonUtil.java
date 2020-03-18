@@ -55,8 +55,9 @@ public class JsonUtil {
      * @param classOfObjectToDeserialize Json file has to correspond to the structure in the class given here.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public static <T> Optional<T> readJsonFile(
-            Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+    public static <T> Optional<T> readJsonFile(Path filePath, Class<T> classOfObjectToDeserialize)
+            throws DataConversionException {
+
         requireNonNull(filePath);
 
         if (!Files.exists(filePath)) {

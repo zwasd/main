@@ -18,3 +18,30 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+#leftButton {
+    -fx-background-color: MEDIUMPURPLE;
+    -fx-border-width: 0;
+}
+
+#rightButton {
+    -fx-background-color: MEDIUMPURPLE;
+    -fx-border-width: 0;
+}
+
+#monthYearLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 19;
+    -fx-blend-mode: SRC_OVER;
+}
+
+.weekDayLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+}
+
+.dateGridPaneLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+}

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,7 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.expenditure.Expenditure;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -19,26 +20,27 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final AccountList accountList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Expenditure> filteredExpenditures;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given account and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAccountList accountList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(accountList, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + accountList + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.accountList = new AccountList(accountList);
+
+        filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AccountList(true), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,58 +78,89 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Account ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAccountList(ReadOnlyAccountList accountList) {
+        this.accountList.resetData(accountList);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAccountList getAccountList() {
+        return accountList;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+
+    public boolean hasExpenditure(Expenditure expenditure) {
+        requireNonNull(expenditure);
+        return accountList.hasExpenditure(expenditure);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deleteExpenditure(Expenditure target) {
+        accountList.removeExpenditure(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addExpenditure(Expenditure expenditure) {
+        accountList.addExpenditure(expenditure);
+
+        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
+        requireAllNonNull(target, editedExpenditure);
+        accountList.setExpenditure(target, editedExpenditure);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Expenditure List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Expenditure} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Expenditure> getFilteredExpenditureList() {
+        return filteredExpenditures;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredExpenditures.setPredicate(predicate);
     }
+
+    @Override
+    public boolean updateActiveAccount(String accountName) {
+        if (!accountList.updateActiveAccount(accountName)) {
+            return false;
+        } else {
+            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+            return true;
+        }
+    }
+
+    @Override
+    public void renameAccount(String oldName, String newName) {
+        this.accountList.renameAccount(oldName, newName);
+    }
+
+    public void clearActiveAccount() {
+        accountList.clearActiveAccount();
+    }
+
+    @Override
+    public ReportableAccount getReportableAccount() {
+        return accountList.getReportableAccount();
+    }
+
+    @Override
+    public void updateActiveDate(LocalDate date) {
+        accountList.updateActiveDate(date);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -142,10 +175,11 @@ public class ModelManager implements Model {
         }
 
         // state check
+        // The test is failing because of expenditure
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return accountList.equals(other.accountList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExpenditures.equals(other.filteredExpenditures);
     }
 
 }
