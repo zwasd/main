@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -22,6 +23,12 @@ public class CommandResult {
     private final boolean showReport;
 
     /**
+     * The indicator of the current active date in the calendar view should change.
+     */
+    private final boolean updateCalendar;
+    private LocalDate newActiveDate = null;
+
+    /**
      * The application should exit.
      */
     private final boolean exit;
@@ -29,11 +36,17 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showReport) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showReport, boolean updateCalendar) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showReport = showReport;
+        this.updateCalendar = updateCalendar;
+    }
+
+    public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
+        this(feedbackToUser, false, false, false, true);
+        this.newActiveDate = newActiveDate;
     }
 
     /**
@@ -41,7 +54,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -60,6 +73,14 @@ public class CommandResult {
         return showReport;
     }
 
+    public boolean isUpdateCalendar() {
+        return updateCalendar;
+    }
+
+    public LocalDate getNewActiveDate() {
+        return newActiveDate;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -75,12 +96,13 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showReport == otherCommandResult.showReport;
+                && showReport == otherCommandResult.showReport
+                && updateCalendar == otherCommandResult.updateCalendar;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showReport);
+        return Objects.hash(feedbackToUser, showHelp, exit, showReport, updateCalendar);
     }
 
 }
