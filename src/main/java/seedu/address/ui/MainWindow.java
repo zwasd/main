@@ -17,6 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -34,6 +35,9 @@ public class MainWindow extends UiPart<Stage> {
     private ExpenditureListPanel expenditureListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReportWindow reportWindow;
+
+    private CalendarView calendarView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,10 +46,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane expenditureListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private StackPane calendar;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -63,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        reportWindow = new ReportWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -75,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -108,7 +117,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
-        personListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
+        expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
+
+        calendarView = new CalendarView();
+        calendar.getChildren().add(calendarView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -157,11 +169,26 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        reportWindow.hide();
         primaryStage.hide();
     }
 
     public ExpenditureListPanel getExpenditureListPanel() {
         return expenditureListPanel;
+    }
+
+    /**
+     * Opens a report window.
+     */
+    @FXML
+    private void handleReport() {
+
+        if (!reportWindow.isShowing()) {
+            reportWindow.show();
+        } else {
+            reportWindow.focus();
+        }
+
     }
 
     /**
@@ -181,6 +208,14 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowReport()) {
+                handleReport();
+            }
+
+            if (commandResult.isUpdateCalendar()) {
+                calendarView.updateActiveDate(commandResult.getNewActiveDate());
             }
 
             return commandResult;

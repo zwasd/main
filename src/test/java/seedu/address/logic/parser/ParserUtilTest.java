@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,19 +17,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_INFO = "R@chel";
-    private static final String INVALID_ID = "+651234";
     private static final String INVALID_DATE = " ";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_INFO = "Rachel Walker";
-    private static final String VALID_ID = "123456";
     private static final String VALID_DATE = "2019-09-11";
     private static final double VALID_AMOUNT = 3.14;
     private static final String VALID_TAG_1 = "friend";
@@ -51,10 +48,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_EXPENDITURE, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_EXPENDITURE, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -80,28 +77,6 @@ public class ParserUtilTest {
         assertEquals(expectedInfo, ParserUtil.parseInfo(infoWithWhitespace));
     }
 
-    @Test
-    public void parseId_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseId((String) null));
-    }
-
-    @Test
-    public void parseId_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseId(INVALID_ID));
-    }
-
-    @Test
-    public void parseId_validValueWithoutWhitespace_returnsId() throws Exception {
-        Id expectedId = new Id(VALID_ID);
-        assertEquals(expectedId, ParserUtil.parseId(VALID_ID));
-    }
-
-    @Test
-    public void parseId_validValueWithWhitespace_returnsTrimmedId() throws Exception {
-        String idWithWhitespace = WHITESPACE + VALID_ID + WHITESPACE;
-        Id expectedId = new Id(VALID_ID);
-        assertEquals(expectedId, ParserUtil.parseId(idWithWhitespace));
-    }
 
     @Test
     public void parseDate_null_throwsNullPointerException() {

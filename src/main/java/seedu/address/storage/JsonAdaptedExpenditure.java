@@ -15,7 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.Id;
 import seedu.address.model.expenditure.Info;
 
 import seedu.address.model.tag.Tag;
@@ -23,7 +22,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Expenditure}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExpenditure {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expenditure's %s field is missing!";
 
@@ -31,27 +30,24 @@ class JsonAdaptedPerson {
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
     private final String date;
-
     private final String info;
-    private final String id;
     private final double amount;
 
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedTag> tag = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given expenditure details.
+     * Constructs a {@code JsonAdaptedExpenditure} with the given expenditure details.
      */
     @JsonCreator
 
-    public JsonAdaptedPerson(@JsonProperty("info") String info, @JsonProperty("id") String id,
-            @JsonProperty("amount") double amount, @JsonProperty("date") String date,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpenditure(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
+                                  @JsonProperty("date") String date, @JsonProperty("tag") List<JsonAdaptedTag> tagged) {
+
         this.info = info;
-        this.id = id;
         this.amount = amount;
         this.date = date;
         if (tagged != null) {
-            this.tagged.addAll(tagged);
+            this.tag.addAll(tagged);
         }
     }
 
@@ -59,13 +55,12 @@ class JsonAdaptedPerson {
      * Converts a given {@code Expenditure} into this class for Jackson use.
      */
 
-    public JsonAdaptedPerson(Expenditure source) {
+    public JsonAdaptedExpenditure(Expenditure source) {
         info = source.getInfo().fullInfo;
-        id = source.getId().value;
         amount = source.getAmount().value;
         date = source.getDate().value;
 
-        tagged.addAll(source.getTags().stream()
+        tag.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
@@ -76,9 +71,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expenditure.
      */
     public Expenditure toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+        final List<Tag> expenditureTags = new ArrayList<>();
+        for (JsonAdaptedTag tag : tag) {
+            expenditureTags.add(tag.toModelType());
         }
 
         if (info == null) {
@@ -89,18 +84,8 @@ class JsonAdaptedPerson {
         }
         final Info modelInfo = new Info(info);
 
-        if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Id.class.getSimpleName()));
-        }
-        if (!Id.isValidId(id)) {
-            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
-        }
-        final Id modelId = new Id(id);
 
-        // if (email == null) {
-        //     throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-        //     Amount.class.getSimpleName()));
-        // }
+
 
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
@@ -115,9 +100,9 @@ class JsonAdaptedPerson {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(expenditureTags);
 
-        return new Expenditure(modelInfo, modelId, modelAmount, modelDate, modelTags);
+        return new Expenditure(modelInfo, modelAmount, modelDate, modelTags);
 
     }
 

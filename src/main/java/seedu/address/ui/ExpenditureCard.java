@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -15,6 +16,8 @@ import seedu.address.model.expenditure.Expenditure;
 public class ExpenditureCard extends UiPart<Region> {
 
     private static final String FXML = "ExpenditureListCard.fxml";
+
+    private static final DecimalFormat TWO_DP = new DecimalFormat("0.00");
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,10 +36,6 @@ public class ExpenditureCard extends UiPart<Region> {
     @FXML
     private Label number;
     @FXML
-    private Label id;
-    @FXML
-    private Label date;
-    @FXML
     private Label amount;
     @FXML
     private FlowPane tags;
@@ -47,9 +46,8 @@ public class ExpenditureCard extends UiPart<Region> {
         this.expenditure = expenditure;
         number.setText(displayedNumber + ". ");
         info.setText(expenditure.getInfo().fullInfo);
-        id.setText(expenditure.getId().value);
-        date.setText(expenditure.getDate().value);
         amount.setText(Double.toString(expenditure.getAmount().value));
+        amount.setText("$" + TWO_DP.format(expenditure.getAmount().value));
         expenditure.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

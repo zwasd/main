@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -12,7 +13,7 @@ import seedu.address.model.expenditure.Expenditure;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Expenditure> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expenditure> PREDICATE_SHOW_ALL_EXPENDITURES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -47,33 +48,33 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code account}.
      */
-    void setAccount(ReadOnlyAccount account);
+    void setAccountList(ReadOnlyAccountList accountList);
 
     /** Returns the Account */
-    ReadOnlyAccount getAccount();
+    ReadOnlyAccountList getAccountList();
 
     /**
-     * Returns true if a expenditure with the same identity as {@code expenditure} exists in the address book.
+     * Returns true if a expenditure with the same identity as {@code expenditure} exists in the internal list.
      */
     boolean hasExpenditure(Expenditure expenditure);
 
     /**
      * Deletes the given expenditure.
-     * The expenditure must exist in the address book.
+     * The expenditure must exist in the internal list.
      */
     void deleteExpenditure(Expenditure target);
 
     /**
      * Adds the given expenditure.
-     * {@code expenditure} must not already exist in the address book.
+     * {@code expenditure} must not already exist in the internal list.
      */
     void addExpenditure(Expenditure expenditure);
 
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the internal list.
      * The expenditure identity of {@code editedExpenditure} must not be the same as
-     * another existing expenditure in the address book.
+     * another existing expenditure in the internal list.
      */
     void setExpenditure(Expenditure target, Expenditure editedExpenditure);
 
@@ -85,4 +86,19 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenditureList(Predicate<Expenditure> predicate);
+
+    /**
+     * Rename the account's name.
+     * @param oldName target account's current name
+     * @param newName target account's new name
+     */
+    void renameAccount(String oldName, String newName);
+
+    boolean updateActiveAccount(String accountName);
+
+    void clearActiveAccount();
+
+    ReportableAccount getReportableAccount();
+
+    void updateActiveDate(LocalDate date);
 }

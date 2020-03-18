@@ -9,10 +9,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AccClearCommandParser implements Parser<AccClearCommand> {
 
-    public AccClearCommandParser() {
-
-    }
-
     @Override
     public AccClearCommand parse(String userInput) throws ParseException {
         return null;

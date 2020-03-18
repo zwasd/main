@@ -1,0 +1,10 @@
+{
+  "accounts" : [ {
+    "accountName": "default",
+    "expenditures": [ {
+        "info": "Expenditure with invalid info field: Ha!ns Mu@ster",
+        "amount": 3.14,
+        "date" : "2019-09-11"
+    } ]
+  } ]
+}

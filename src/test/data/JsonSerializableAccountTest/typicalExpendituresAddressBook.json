@@ -1,0 +1,46 @@
+{
+  "_comment": "AddressBook save file which contains the same Expenditure values as in TypicalExpenditures#getTypicalAddressBook()",
+  "accounts" : [ {
+    "accountName": "school",
+    "expenditures": [ {
+      "info" : "Alice Pauline",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ "friends" ]
+    } , {
+      "info" : "Benson Meier",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ "owesMoney", "friends" ]
+    } ] }, {
+    "accountName": "work",
+    "expenditures": [ {
+      "info" : "Carl Kurz",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ ]
+    }, {
+      "info" : "Daniel Meier",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ "friends" ]
+    } ] } , {
+    "accountName": "cca",
+    "expenditures": [ {
+      "info" : "Elle Meyer",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ ]
+    }, {
+      "info" : "Fiona Kunz",
+      "amount" : 3.14,
+      "date" : "2019-09-11",
+      "tag" : [ ]
+    }, {
+      "info" : "George Best",
+      "amount" : 3.14,
+      "date": "2019-09-11",
+      "tag" : [ ]
+    }]
+  } ]
+}

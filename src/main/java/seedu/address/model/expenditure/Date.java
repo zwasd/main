@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Expenditure's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
@@ -62,6 +62,16 @@ public class Date {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    /**
+     * returns true if the first date is equal to or comes before the second date
+     * @param d1 the first date
+     * @param d2 the second date
+     * @return true if the first date is equal to or comes before the second date
+     */
+    public static boolean isEqualOrBefore(Date d1, Date d2) {
+        return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
     }
 
 }

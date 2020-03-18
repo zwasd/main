@@ -8,7 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.ReadOnlyAccount;
+import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.expenditure.Expenditure;
 
 /**
@@ -27,11 +27,11 @@ public interface Logic {
     /**
      * Returns the Account.
      *
-     * @see seedu.address.model.Model#getAccount()
+     * @see seedu.address.model.Model#getAccountList()
      */
-    ReadOnlyAccount getAddressBook();
+    ReadOnlyAccountList getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of expenditures */
     ObservableList<Expenditure> getFilteredExpenditureList();
 
     /**
