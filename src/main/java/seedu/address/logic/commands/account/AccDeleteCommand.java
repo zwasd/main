@@ -16,7 +16,7 @@ public class AccDeleteCommand extends Command {
 
     public static final String NAME_TOO_LONG = "The account name should be less than 25 characters";
 
-    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted Account: %1$s";
+    public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Deleted Account: ";
 
     private final String targetAccountName;
 
@@ -25,6 +25,7 @@ public class AccDeleteCommand extends Command {
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        model.deleteAccount(this.targetAccountName);
+        return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName);
     }
 }

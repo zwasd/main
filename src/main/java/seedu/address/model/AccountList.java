@@ -107,6 +107,27 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         this.accounts.remove(oldName, targetAccount);
     }
 
+    public void deleteAccount(String accName) {
+        requireAllNonNull(accName);
+        //TODO: THIS EXCEPTION HAS TO CHANGE.
+        if (!this.accounts.containsKey(accName)) {
+            throw new ExpenditureNotFoundException();
+        }
+        Account target = this.accounts.get(accName);
+        this.accounts.remove(accName, target);
+        if (this.accounts.size() == 0) {
+            Account defaultAccount = new Account("default");
+            addAccount(defaultAccount);
+            updateActiveAccount(defaultAccount.getAccountName());
+        } else {
+            if(this.activeAccount.getAccountName().equals(accName)) {
+                String firstKey = (String) (this.accounts.keySet().toArray())[0];
+                updateActiveAccount(this.accounts.get(firstKey).getAccountName());
+            }
+        }
+    }
+
+
     /**
      * Adds an account to the account list.
      * The account must not already exist in the account list.
@@ -198,6 +219,24 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     @Override
     public Map<String, Account> getAccounts() {
         return Collections.unmodifiableMap(accounts);
+    }
+
+    @Override
+    public String listAllName() {
+        StringBuilder list = new StringBuilder();
+        this.accounts.keySet().iterator().forEachRemaining(accName -> list.append(accName + " "));
+        //this is too ugly, so i turn into an array then reformat to look better.
+        //return list.toString().trim();
+        String [] allName = list.toString().trim().split(" ");
+        StringBuilder output = new StringBuilder();
+        System.out.println(allName.length + "  " + allName[0]);
+        for(int i = 1; i <= allName.length; i++) {
+            if(i % 8 == 0) {
+                output.append("\n");
+            }
+            output.append(i + ". " + allName[i - 1] + "      ");
+        }
+        return output.toString().trim();
     }
 
     @Override

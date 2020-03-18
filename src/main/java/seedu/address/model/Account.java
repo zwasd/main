@@ -44,6 +44,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         this.accountName = accountName;
     }
 
+
     /**
      * Creates an Account using the Expenditures in the {@code toBeCopied}
      */

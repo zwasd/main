@@ -19,7 +19,7 @@ public class AccAddCommandParser implements Parser<AccAddCommand> {
      */
     public AccAddCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.contains(" ")) {
+        if (trimmedArgs.contains(" ") || trimmedArgs.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_CONTAIN_SPACE));
         }
         if (trimmedArgs.length() >= 26) {

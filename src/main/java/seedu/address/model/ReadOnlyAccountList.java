@@ -10,4 +10,9 @@ public interface ReadOnlyAccountList extends ReadOnlyAccount {
      * Returns a list of accounts.
      */
     Map<String, Account> getAccounts();
+
+    /**
+     * @return a string which consists of all account name
+     */
+    String listAllName();
 }

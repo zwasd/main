@@ -29,7 +29,7 @@ public class AccRenameCommandParser implements Parser<AccRenameCommand> {
         String oldName = allName[0];
         String newName = allName[1];
 
-        if (oldName.length() >= 26 || newName.length() >= 26) {
+        if (oldName.length() >= 26 || newName.length() >= 26 || oldName.length() == 0 || newName.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AccRenameCommand.INVALID_NAME_INPUT));
         }

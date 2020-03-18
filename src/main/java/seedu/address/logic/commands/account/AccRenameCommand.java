@@ -13,7 +13,7 @@ public class AccRenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
-    public static final String MESSAGE_SUCCESS = "this account's name has changed from %1$s to %1$s";
+    public static final String MESSAGE_SUCCESS = "The account's name has changed from :";
 
     public static final String INVALID_NAME_INPUT = "Please key in the right input";
 
@@ -30,7 +30,7 @@ public class AccRenameCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         try {
             model.renameAccount(this.oldName, this.newName);
-            return new CommandResult(String.format(MESSAGE_SUCCESS));
+            return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName);
         } catch (Exception e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
         }
