@@ -36,7 +36,7 @@ public class ExpEditCommandTest {
 
     private Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-    /*@Test
+    @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expenditure editedExpenditure = new ExpenditureBuilder().build();
         EditExpenditureDescriptor descriptor =
@@ -51,7 +51,7 @@ public class ExpEditCommandTest {
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
-     */
+
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
