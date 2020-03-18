@@ -74,7 +74,6 @@ public class ExpEditCommandTest {
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
 
-    /*
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
 
@@ -88,8 +87,6 @@ public class ExpEditCommandTest {
 
         assertCommandSuccess(expEditCommand, model, expectedMessage, expectedModel);
     }
-
-
 
     @Test
     public void execute_filteredList_success() {
@@ -116,7 +113,6 @@ public class ExpEditCommandTest {
         ExpEditCommand expEditCommand = new ExpEditCommand(INDEX_SECOND_EXPENDITURE, descriptor);
         assertCommandFailure(expEditCommand, model, ExpEditCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
-    */
 
     @Test
     public void execute_duplicateExpenditureFilteredList_failure() {
