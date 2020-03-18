@@ -90,6 +90,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         return accounts.containsKey(accountName);
     }
 
+    /**
+     * Renames account by copying the account data.
+     * @param oldName The old account name.
+     * @param newName The new account name to be renamed to.
+     */
     public void renameAccount(String oldName, String newName) {
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.

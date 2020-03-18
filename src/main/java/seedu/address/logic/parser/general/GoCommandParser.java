@@ -18,6 +18,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class GoCommandParser implements Parser<GoCommand> {
 
+    /**
+     * Goes to a target date.
+     * @param args The date argument to be parsed.
+     */
     public GoCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
