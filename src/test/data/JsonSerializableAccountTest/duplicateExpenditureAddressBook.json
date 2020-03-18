@@ -5,7 +5,7 @@
       "info": "Alice Pauline",
       "amount": 3.14,
       "date": "2019-09-11",
-      "tagged": [ "friends" ]
+      "tag": [ "friends" ]
     } , {
       "info": "Alice Pauline",
       "amount": 3.14,

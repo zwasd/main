@@ -1,6 +1,9 @@
 package seedu.address.model.expenditure;
 
-public class Repeat extends Expenditure{
+/**
+ * A Repeated expenditure.
+ */
+public class Repeat extends Expenditure {
 
     private Date startDate;
     private Date endDate;
@@ -15,7 +18,7 @@ public class Repeat extends Expenditure{
         return startDate;
     }
 
-    public Date getEndDate(){
+    public Date getEndDate() {
         return endDate;
     }
 }
