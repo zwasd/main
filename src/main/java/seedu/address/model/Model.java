@@ -89,4 +89,6 @@ public interface Model {
     boolean updateActiveAccount(String accountName);
 
     void clearActiveAccount();
+
+    ReportableAccount getReportableAccount();
 }

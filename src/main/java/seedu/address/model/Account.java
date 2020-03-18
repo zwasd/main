@@ -2,9 +2,15 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 
@@ -12,7 +18,7 @@ import seedu.address.model.expenditure.UniqueExpenditureList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class Account implements ReadOnlyAccount {
+public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList persons;
     private final String accountName;
@@ -132,5 +138,42 @@ public class Account implements ReadOnlyAccount {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    @Override
+    public UniqueExpenditureList getExpByDate(String date) {
+        return new UniqueExpenditureList(
+                getExpenditureStream()
+                    .filter(exp -> exp.getDate().toString().equals(date))
+                    .collect(Collectors.toList())
+        );
+    }
+
+    @Override
+    public Map<String, UniqueExpenditureList> getExpFromToInclusive(String startDate, String endDate) {
+        return getExpFromToInclusive(new Date(startDate), new Date(endDate));
+    }
+
+    @Override
+    public Map<String, UniqueExpenditureList> getExpFromToInclusive(Date start, Date end) {
+        Map<String, UniqueExpenditureList> expMap = new HashMap<>();
+        getExpenditureStream()
+                .filter(exp -> Date.isEqualOrBefore(start, exp.getDate())
+                            && Date.isEqualOrBefore(exp.getDate(), end))
+                .forEach(exp -> {
+                    String date = exp.getDate().toString();
+                    if (!expMap.containsKey(date)) {
+                        UniqueExpenditureList expList = new UniqueExpenditureList();
+                        expList.add(exp);
+                        expMap.put(date, expList);
+                    } else {
+                        expMap.get(date).add(exp);
+                    }
+                });
+        return expMap;
+    }
+
+    private Stream<Expenditure> getExpenditureStream() {
+        return StreamSupport.stream(persons.spliterator(), false);
     }
 }

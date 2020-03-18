@@ -31,6 +31,12 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
     private final ObservableList<Expenditure> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public UniqueExpenditureList() {}
+
+    public UniqueExpenditureList(List<Expenditure> expenditures) {
+        setExpenditures(expenditures);
+    }
+
     /**
      * Returns true if the list contains an equivalent expenditure as the given argument.
      */
