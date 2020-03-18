@@ -94,19 +94,6 @@ public class CalendarView extends UiPart<Region> {
         generateCalender();
     }
 
-    public void Go(LocalDate date) {
-        setUpButton();
-        this.pivotDate = date;
-        this.nonPivotDate = date;
-        this.day = date.getDayOfMonth();
-        this.month = date.getMonthValue();
-        this.year = date.getYear();
-        this.yearMonth = YearMonth.of(this.year, this.month);
-        this.firstDayOfTheMonth = yearMonth.atDay(1);
-        setMonthYearLabel();
-        generateCalender();
-    }
-
     private void updateDayMonthYear(LocalDate date) {
         this.year = date.getYear();
         this.month = date.getMonthValue();
@@ -371,9 +358,17 @@ public class CalendarView extends UiPart<Region> {
     }
 
     public void updateActiveDate(LocalDate date) {
-        pivotDate = date;
-        day = pivotDate.getDayOfMonth();
-        refreshCalenderView();
+        setUpButton();
+        this.pivotDate = date;
+        this.nonPivotDate = date;
+        this.day = date.getDayOfMonth();
+        this.month = date.getMonthValue();
+        this.year = date.getYear();
+        this.yearMonth = YearMonth.of(this.year, this.month);
+        this.firstDayOfTheMonth = yearMonth.atDay(1);
+        setMonthYearLabel();
+        generateCalender();
     }
+
 
 }
