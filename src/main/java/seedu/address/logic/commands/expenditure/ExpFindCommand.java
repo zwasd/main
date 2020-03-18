@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 
@@ -16,10 +17,11 @@ public class ExpFindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all expenditures which contain any of "
+    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Finds all expenditures which contain any of "
             + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameter: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " alice";
+            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " alice";
 
     private final InfoContainsKeywordsPredicate predicate;
 
