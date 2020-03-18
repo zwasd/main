@@ -69,11 +69,11 @@ public class AccountTest {
     }
 
     @Test
-    public void hasExpenditure_expenditureWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasExpenditure_expenditureWithSameDifferentDate_returnsFalse() {
         account.addExpenditure(ALICE);
         Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(account.hasExpenditure(editedAlice));
+        assertFalse(account.hasExpenditure(editedAlice));
     }
 
     @Test

@@ -40,12 +40,12 @@ public class UniqueExpenditureListTest {
     }
 
     @Test
-    public void contains_expenditureWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_expenditureWithDifferentData_returnsFalse() {
         uniqueExpenditureList.add(ALICE);
 
         Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(uniqueExpenditureList.contains(editedAlice));
+        assertFalse(uniqueExpenditureList.contains(editedAlice));
     }
 
     @Test
