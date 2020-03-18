@@ -11,6 +11,7 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.UniqueExpenditureList;
+import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
 
 /**
  * Manages all accounts of the user.
@@ -79,6 +80,26 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public boolean hasAccount(Account account) {
         requireNonNull(account);
         return accounts.containsKey(account.getAccountName());
+    }
+
+    /**
+     * Returns true if a account with the same account name exists in the account list.
+     */
+    public boolean hasAccount(String accountName) {
+        requireNonNull(accountName);
+        return accounts.containsKey(accountName);
+    }
+
+    public void renameAccount(String oldName, String newName) {
+        requireAllNonNull(oldName, newName);
+        //TODO: THIS EXCEPTION HAS TO CHANGE.
+        if (!accounts.containsKey(oldName) || accounts.containsKey(newName)) {
+            throw new PersonNotFoundException();
+        }
+        Account targetAccount = accounts.get(oldName);
+        Account replaceAccount = targetAccount.copyAccountWithNewName(newName);
+        this.accounts.put(newName, replaceAccount);
+        this.accounts.remove(oldName, targetAccount);
     }
 
     /**

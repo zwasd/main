@@ -10,7 +10,6 @@ import seedu.address.commons.core.LogsCenter;
  * based on the user input. Supports export feature as well
  * in the future.
  */
-
 public class ReportWindow extends UiPart<Stage> {
 
     public static final String REPORT_MESSAGE = "Generating report...";

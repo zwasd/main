@@ -14,6 +14,8 @@ public class AccListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
+    public static final String MESSAGE_FAILURE = "Command is in wrong format.";
+
     public static final String MESSAGE_SUCCESS = "Listed all accounts";
 
 

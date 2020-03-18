@@ -86,6 +86,13 @@ public interface Model {
      */
     void updateFilteredExpenditureList(Predicate<Expenditure> predicate);
 
+    /**
+     * Rename the account's name.
+     * @param oldName target account's current name
+     * @param newName target account's new name
+     */
+    void renameAccount(String oldName, String newName);
+
     boolean updateActiveAccount(String accountName);
 
     void clearActiveAccount();
