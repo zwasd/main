@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     private Account activeAccount;
     private final UniqueExpenditureList internalList = new UniqueExpenditureList();
     private String initialAccountName = "default"; // TODO
+    private LocalDate activeDate;
 
     /**
      * Creates an AccountList using the accounts in the {@code toBeCopied}
@@ -35,7 +37,8 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         } else {
             activeAccount = accounts.get(initialAccountName);
         }
-        internalList.setExpenditures(activeAccount.getExpenditureList());
+        activeDate = LocalDate.now();
+        internalList.setExpenditures(activeAccount.getExpByDate(activeDate));
     }
 
     public AccountList(boolean createDefaultAccount) {
@@ -43,10 +46,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             activeAccount = new Account("default");
             addAccount(activeAccount);
         }
-    }
-
-    public AccountList(Account activeAccount) {
-        this.activeAccount = activeAccount;
+        activeDate = LocalDate.now();
     }
 
     //// list overwrite operations
@@ -126,7 +126,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addExpenditure(Expenditure expenditure) {
         activeAccount.addExpenditure(expenditure);
-        internalList.add(expenditure);
+        if (expenditure.getDate().localDate.equals(activeDate)) {
+            internalList.add(expenditure);
+        }
     }
 
     /**
@@ -143,6 +145,14 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     //// util methods
 
+    /**
+     * Updates the date at which the expenditures will be shown in the UI
+     * @param date the new active date
+     */
+    public void updateActiveDate(LocalDate date) {
+        internalList.setExpenditures(activeAccount.getExpByDate(date));
+        activeDate = date;
+    }
 
     /**
      * Updates the active account to the one with the specified accountName.
@@ -154,7 +164,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             return false;
         } else {
             activeAccount = accounts.get(accountName);
-            internalList.setExpenditures(activeAccount.getExpenditureList());
+            internalList.setExpenditures(activeAccount.getExpByDate(activeDate));
             return true;
         }
     }

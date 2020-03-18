@@ -33,7 +33,7 @@ public class CalendarView extends UiPart<Region> {
 
     private static final String FXML = "CalendarView.fxml";
     private static final String[] MONTHS = {"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+        "July", "August", "September", "October", "November", "December"};
     private static final int[] DAYS_IN_MONTH = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     private int[] simulateGridPane = new int[42];

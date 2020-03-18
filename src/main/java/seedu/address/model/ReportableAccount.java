@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import seedu.address.model.expenditure.Date;
@@ -14,6 +15,12 @@ public interface ReportableAccount {
      * @return a UniqueExpenditureList containing the expenditures on that date
      */
     UniqueExpenditureList getExpByDate(String date);
+
+    /**
+     * @param date the date
+     * @return a UniqueExpenditureList containing the expenditures on that date
+     */
+    UniqueExpenditureList getExpByDate(LocalDate date);
 
     /**
      * returns expenditures in the interval specified

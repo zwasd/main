@@ -73,4 +73,5 @@ public class Date {
     public static boolean isEqualOrBefore(Date d1, Date d2) {
         return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
     }
+
 }

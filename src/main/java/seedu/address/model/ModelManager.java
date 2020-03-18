@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -149,6 +150,11 @@ public class ModelManager implements Model {
     @Override
     public ReportableAccount getReportableAccount() {
         return accountList.getReportableAccount();
+    }
+
+    @Override
+    public void updateActiveDate(LocalDate date) {
+        accountList.updateActiveDate(date);
     }
 
 

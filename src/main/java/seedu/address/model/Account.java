@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,6 +149,11 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                     .filter(exp -> exp.getDate().toString().equals(date))
                     .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public UniqueExpenditureList getExpByDate(LocalDate date) {
+        return getExpByDate(date.format(DateTimeFormatter.ISO_DATE));
     }
 
     @Override
