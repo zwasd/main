@@ -12,7 +12,8 @@ import seedu.address.model.Report;
 public class ExportReportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-    public static final String MESSAGE_SUCCESS = "New exported to : %1$s";
+    public static final String MESSAGE_SUCCESS = "Report exported to : %1$s";
+    public static final String MESSAGE_FAIL = "Report cannot be exported";
 
     private final Report toExport;
 
