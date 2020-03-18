@@ -26,9 +26,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENDITURE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EXPENDITURE;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +40,7 @@ import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 
 public class ExpEditCommandParserTest {
 
@@ -100,11 +100,11 @@ public class ExpEditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
                 + AMOUNT_DESC_AMY + DATE_DESC_AMY + INFO_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_AMY)
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_AMY)
                 .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
@@ -114,10 +114,10 @@ public class ExpEditCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY;
 
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -126,40 +126,40 @@ public class ExpEditCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // info
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + INFO_DESC_AMY;
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder()
                 .withInfo(VALID_INFO_AMY).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // amount
         userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
+        descriptor = new EditExpenditureDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + DATE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withDate(VALID_DATE_AMY).build();
+        descriptor = new EditExpenditureDescriptorBuilder().withDate(VALID_DATE_AMY).build();
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        descriptor = new EditExpenditureDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + DATE_DESC_AMY + AMOUNT_DESC_AMY
                 + TAG_DESC_FRIEND + DATE_DESC_AMY + AMOUNT_DESC_AMY + TAG_DESC_FRIEND
                 + DATE_DESC_BOB + AMOUNT_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder()
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder()
                 .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
@@ -171,10 +171,10 @@ public class ExpEditCommandParserTest {
 
     @Test
     public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withTags().build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

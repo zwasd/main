@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the expenditure in the {@code model}'s expenditure list at {@code index}.
      */
-    public static Expenditure getPerson(Model model, Index index) {
+    public static Expenditure getExpenditure(Model model, Index index) {
         return model.getFilteredExpenditureList().get(index.getZeroBased());
     }
 }

@@ -15,22 +15,22 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class to help with building EditExpenditureDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditExpenditureDescriptorBuilder {
 
     private EditExpenditureDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditExpenditureDescriptorBuilder() {
         descriptor = new EditExpenditureDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditExpenditureDescriptor descriptor) {
+    public EditExpenditureDescriptorBuilder(EditExpenditureDescriptor descriptor) {
         this.descriptor = new EditExpenditureDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditExpenditureDescriptor} with fields containing {@code expenditure}'s details
      */
-    public EditPersonDescriptorBuilder(Expenditure expenditure) {
+    public EditExpenditureDescriptorBuilder(Expenditure expenditure) {
         descriptor = new EditExpenditureDescriptor();
         descriptor.setInfo(expenditure.getInfo());
         descriptor.setAmount(expenditure.getAmount());
@@ -41,7 +41,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Info} of the {@code EditExpenditureDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withInfo(String info) {
+    public EditExpenditureDescriptorBuilder withInfo(String info) {
         descriptor.setInfo(new Info(info));
         return this;
     }
@@ -49,7 +49,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Amount} of the {@code EditExpenditureDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAmount(double amount) {
+    public EditExpenditureDescriptorBuilder withAmount(double amount) {
         descriptor.setAmount(new Amount(amount));
         return this;
     }
@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditExpenditureDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDate(String date) {
+    public EditExpenditureDescriptorBuilder withDate(String date) {
         descriptor.setDate(new Date(date));
         return this;
     }
@@ -66,7 +66,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenditureDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditExpenditureDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;

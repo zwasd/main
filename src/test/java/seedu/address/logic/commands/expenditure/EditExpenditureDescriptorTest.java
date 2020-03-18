@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 
 public class EditExpenditureDescriptorTest {
 
@@ -35,20 +35,20 @@ public class EditExpenditureDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different info -> returns false
-        EditExpenditureDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY)
+        EditExpenditureDescriptor editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY)
                 .withInfo(VALID_INFO_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different amount -> returns true
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_BOB).build();
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_BOB).build();
         assertTrue(DESC_AMY.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_BOB).build();
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

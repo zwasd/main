@@ -28,7 +28,7 @@ public class AccAddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        return new CommandResult("Not implemented yet.");
     }
 
     @Override

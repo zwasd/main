@@ -56,7 +56,7 @@ public class ExpFindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noExpenditureFound() {
         String expectedMessage = String.format(MESSAGE_EXPENDITURES_LISTED_OVERVIEW, 0);
         InfoContainsKeywordsPredicate predicate = preparePredicate(" ");
         ExpFindCommand command = new ExpFindCommand(predicate);
@@ -66,7 +66,7 @@ public class ExpFindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleExpendituresFound() {
         String expectedMessage = String.format(MESSAGE_EXPENDITURES_LISTED_OVERVIEW, 3);
         InfoContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         ExpFindCommand command = new ExpFindCommand(predicate);

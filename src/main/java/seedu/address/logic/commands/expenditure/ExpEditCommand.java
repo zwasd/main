@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 
 import seedu.address.model.expenditure.Amount;
@@ -36,7 +37,8 @@ public class ExpEditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expenditure identified "
+    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Edits the details of the expenditure identified "
             + "by the index number used in the displayed expenditure list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -44,8 +46,8 @@ public class ExpEditCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_AMOUNT + "johndoe@example.com";
+            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+            + PREFIX_AMOUNT + "4.3";
 
     public static final String MESSAGE_EDIT_EXPENDITURE_SUCCESS = "Edited Expenditure: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -83,7 +85,7 @@ public class ExpEditCommand extends Command {
         }
 
         model.setExpenditure(expenditureToEdit, editedExpenditure);
-        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
     }
 

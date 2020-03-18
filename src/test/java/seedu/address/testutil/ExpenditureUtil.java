@@ -15,19 +15,19 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Expenditure.
  */
-public class PersonUtil {
+public class ExpenditureUtil {
 
     /**
      * Returns an add command string for adding the {@code expenditure}.
      */
     public static String getAddCommand(Expenditure expenditure) {
-        return ExpAddCommand.COMMAND_WORD + " " + getPersonDetails(expenditure);
+        return ExpAddCommand.COMMAND_WORD + " " + getExpenditureDetails(expenditure);
     }
 
     /**
      * Returns the part of command string for the given {@code expenditure}'s details.
      */
-    public static String getPersonDetails(Expenditure expenditure) {
+    public static String getExpenditureDetails(Expenditure expenditure) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_INFO + expenditure.getInfo().fullInfo + " ");
         sb.append(PREFIX_AMOUNT + Double.toString(expenditure.getAmount().value) + " ");
@@ -41,7 +41,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code EditExpenditureDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditExpenditureDescriptor descriptor) {
+    public static String getEditExpenditureDescriptorDetails(EditExpenditureDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getInfo().ifPresent(info -> sb.append(PREFIX_INFO).append(info.fullInfo).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));

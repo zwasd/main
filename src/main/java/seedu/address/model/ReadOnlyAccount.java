@@ -9,8 +9,8 @@ import seedu.address.model.expenditure.Expenditure;
 public interface ReadOnlyAccount {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the expenditures list.
+     * This list will not contain any duplicate expenditures.
      */
     ObservableList<Expenditure> getExpenditureList();
 

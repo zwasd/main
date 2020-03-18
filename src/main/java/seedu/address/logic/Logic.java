@@ -31,7 +31,7 @@ public interface Logic {
      */
     ReadOnlyAccountList getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of expenditures */
     ObservableList<Expenditure> getFilteredExpenditureList();
 
     /**

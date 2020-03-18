@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "AddressBook save file which contains the same Expenditure values as in TypicalExpenditures#getTypicalAddressBook()",
   "accounts" : [ {
     "accountName": "school",
     "expenditures": [ {

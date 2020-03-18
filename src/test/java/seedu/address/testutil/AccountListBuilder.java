@@ -8,7 +8,7 @@ import seedu.address.model.expenditure.Expenditure;
 /**
  * A utility class to help with building AccountList objects.
  * Example usage: <br>
- *     {@code Account ab = new AccountBuilder().withPerson("John", "Doe").build();}
+ *     {@code Account ab = new AccountBuilder().withExpenditure("John", "Doe").build();}
  */
 public class AccountListBuilder {
 

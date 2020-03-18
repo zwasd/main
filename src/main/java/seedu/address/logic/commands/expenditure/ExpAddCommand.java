@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Expenditure;
 
@@ -19,18 +20,18 @@ public class ExpAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a expenditure to the address book. "
+    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Adds a expenditure to the address book. "
             + "Parameters: "
             + PREFIX_INFO + "INFO "
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INFO + "John Doe "
-            + PREFIX_AMOUNT + "johnd@example.com "
+            + PREFIX_INFO + "Chicken rice "
+            + PREFIX_AMOUNT + "3.5 "
             + PREFIX_DATE + "2019-09-11 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "friends";
 
     public static final String MESSAGE_SUCCESS = "New expenditure added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENDITURE = "This expenditure already exists in $AVE IT.";

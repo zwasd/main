@@ -3,12 +3,12 @@
     "accountName": "default",
     "expenditures": [
       {
-        "info": "Valid Person",
+        "info": "Valid Expenditure",
         "amount": 3.14,
         "date": "2019-09-11"
       },
       {
-        "info": "Person With Invalid Id Field",
+        "info": "Expenditure With Invalid Id Field",
         "amount": 3.14,
         "date": "2019-09-11"
       }

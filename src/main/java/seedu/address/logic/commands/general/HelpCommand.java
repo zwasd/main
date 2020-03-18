@@ -14,7 +14,13 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String SHOWING_HELP_MESSAGE =
+            "acc OPTIONS - Account related commands (for more information on the OPTIONS, enter 'help acc')\n"
+            + "exp OPTIONS - Expenditure related commands (for more information on the OPTIONS, enter 'help exp')\n"
+            + "report OPTION - Report related commands (for more information on the OPTIONS, enter 'help report')\n"
+            + "go DATE - Show the expenditures for the particular date.\n"
+            + "help [COMMAND] - Shows help, or help for the given command.\n"
+            + "exit - Exits the application.";
 
     private String message;
 
@@ -28,7 +34,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
-
+        return new CommandResult(message);
     }
 }

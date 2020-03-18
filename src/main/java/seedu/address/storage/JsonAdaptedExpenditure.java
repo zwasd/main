@@ -71,9 +71,9 @@ class JsonAdaptedExpenditure {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expenditure.
      */
     public Expenditure toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> expenditureTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tag) {
-            personTags.add(tag.toModelType());
+            expenditureTags.add(tag.toModelType());
         }
 
         if (info == null) {
@@ -100,7 +100,7 @@ class JsonAdaptedExpenditure {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(expenditureTags);
 
         return new Expenditure(modelInfo, modelAmount, modelDate, modelTags);
 
