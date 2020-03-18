@@ -27,9 +27,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  * UI component that is displayed.
@@ -53,7 +51,7 @@ public class CalendarView extends UiPart<Region> {
     private int prevMonthBalance;
     private int nextMonthBalance;
     private int thisMonthBalance;
-    private final int DAYOFTHEMONTHTODAY;
+    private final int dayOfTheMonthForToday;
 
     private Image leftArrow = new Image(this.getClass().getResourceAsStream("/images/leftButton.png"),
             30, 20, true, true);
@@ -87,13 +85,17 @@ public class CalendarView extends UiPart<Region> {
         this.day = todayDate.getDayOfMonth();
         this.month = todayDate.getMonthValue();
         this.year = todayDate.getYear();
-        this.DAYOFTHEMONTHTODAY = this.day;
+        this.dayOfTheMonthForToday = this.day;
         this.yearMonth = YearMonth.of(this.year, this.month);
         this.firstDayOfTheMonth = yearMonth.atDay(1);
         setMonthYearLabel();
         generateCalender();
     }
 
+    /**
+     * It will update the attributes in the class according to the date parse in
+     * @param date the new date
+     */
     private void updateDayMonthYear(LocalDate date) {
         this.year = date.getYear();
         this.month = date.getMonthValue();
@@ -102,9 +104,9 @@ public class CalendarView extends UiPart<Region> {
         this.firstDayOfTheMonth = yearMonth.atDay(1);
     }
 
-    private boolean isSameMonth(LocalDate D1, LocalDate D2) {
-        LocalDate pivot = D1.withDayOfMonth(1);
-        LocalDate toCheck = D2.withDayOfMonth(1);
+    private boolean isSameMonth(LocalDate d1, LocalDate d2) {
+        LocalDate pivot = d1.withDayOfMonth(1);
+        LocalDate toCheck = d2.withDayOfMonth(1);
         return pivot.equals(toCheck);
     }
 
@@ -223,7 +225,6 @@ public class CalendarView extends UiPart<Region> {
         label.setText("" + dayNumber);
         label.setStyle("-fx-text-fill: white");
         label.setStyle("-fx-font-weight: bold");
-//        label.setFont(Font.font("system", FontWeight.BOLD, 12));
         return label;
     }
 
@@ -264,14 +265,13 @@ public class CalendarView extends UiPart<Region> {
                 }
 
                 if (i == this.prevMonthBalance + this.day - 1 && isSameMonth(this.pivotDate, this.nonPivotDate)) {
-
                     holder.setBackground(new Background(
                             new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
-
                 }
 
-                if(isSameMonth(this.todayDate, this.nonPivotDate) &&
-                        i == this.prevMonthBalance + this.DAYOFTHEMONTHTODAY - 1) {
+                if (isSameMonth(this.todayDate, this.nonPivotDate)
+                        && i == this.prevMonthBalance + this.dayOfTheMonthForToday - 1) {
+
                     holder.setBorder(new Border(new BorderStroke(Color.valueOf("#000000"),
                             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
                 }
@@ -357,6 +357,10 @@ public class CalendarView extends UiPart<Region> {
         refreshCalenderView();
     }
 
+    /**
+     * This method will update the pivotDate to the new active date.
+     * @param date the new pivot date
+     */
     public void updateActiveDate(LocalDate date) {
         setUpButton();
         this.pivotDate = date;
