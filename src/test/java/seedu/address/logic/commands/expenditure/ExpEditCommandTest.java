@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalAccounts.getTypicalAccountList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENDITURE;
-// import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import org.junit.jupiter.api.Test;
 

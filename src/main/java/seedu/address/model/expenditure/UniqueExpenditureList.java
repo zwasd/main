@@ -42,7 +42,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public boolean contains(Expenditure toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameExpenditure);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
