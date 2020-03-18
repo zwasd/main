@@ -69,6 +69,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     //// account-level operations
 
+    public ReportableAccount getReportableAccount() {
+        return activeAccount;
+    }
+
     /**
      * Returns true if a account with the same identity as {@code account} exists in the account list.
      */

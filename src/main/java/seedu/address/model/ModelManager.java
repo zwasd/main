@@ -146,6 +146,11 @@ public class ModelManager implements Model {
         accountList.clearActiveAccount();
     }
 
+    @Override
+    public ReportableAccount getReportableAccount() {
+        return accountList.getReportableAccount();
+    }
+
 
     @Override
     public boolean equals(Object obj) {
