@@ -36,7 +36,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         this.accountList = new AccountList(accountList);
 
-        filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_PERSONS);
+        filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
     }
 
     public ModelManager() {
@@ -106,7 +106,7 @@ public class ModelManager implements Model {
     public void addExpenditure(Expenditure expenditure) {
         accountList.addExpenditure(expenditure);
 
-        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class ModelManager implements Model {
         if (!accountList.updateActiveAccount(accountName)) {
             return false;
         } else {
-            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
             return true;
         }
     }

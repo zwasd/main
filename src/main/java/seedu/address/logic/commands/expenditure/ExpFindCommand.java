@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose info contains any of the argument keywords.
+ * Finds and lists all expenditures in address book whose info contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class ExpFindCommand extends Command {

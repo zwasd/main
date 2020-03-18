@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +19,9 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 import seedu.address.testutil.ExpenditureBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.ExpenditureUtil;
 
 public class TopLevelParserTest {
 
@@ -30,7 +30,7 @@ public class TopLevelParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Expenditure expenditure = new ExpenditureBuilder().build();
-        ExpAddCommand command = (ExpAddCommand) parser.parseCommand(PersonUtil.getAddCommand(expenditure));
+        ExpAddCommand command = (ExpAddCommand) parser.parseCommand(ExpenditureUtil.getAddCommand(expenditure));
         assertEquals(new ExpAddCommand(expenditure), command);
     }
 
@@ -44,17 +44,17 @@ public class TopLevelParserTest {
     public void parseCommand_delete() throws Exception {
         ExpDeleteCommand command = (ExpDeleteCommand) parser.parseCommand(
                 seedu.address.logic.commands.expenditure.ExpDeleteCommand.COMMAND_WORD
-                        + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new ExpDeleteCommand(INDEX_FIRST_PERSON), command);
+                        + " " + INDEX_FIRST_EXPENDITURE.getOneBased());
+        assertEquals(new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Expenditure person = new ExpenditureBuilder().build();
-        EditExpenditureDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Expenditure expenditure = new ExpenditureBuilder().build();
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder(expenditure).build();
         ExpEditCommand command = (ExpEditCommand) parser.parseCommand(ExpEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new ExpEditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_EXPENDITURE.getOneBased() + " " + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
+        assertEquals(new ExpEditCommand(INDEX_FIRST_EXPENDITURE, descriptor), command);
     }
 
     @Test

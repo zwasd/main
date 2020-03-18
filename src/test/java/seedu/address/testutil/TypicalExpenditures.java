@@ -57,7 +57,7 @@ public class TypicalExpenditures {
     private TypicalExpenditures() {} // prevents instantiation
 
     /**
-     * Returns an {@code Account} with all the typical persons.
+     * Returns an {@code Account} with all the typical expenditures.
      */
     public static Account getTypicalAccount() {
         Account ab = new Account();

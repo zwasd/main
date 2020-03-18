@@ -9,13 +9,13 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
-import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of expenditures that enforces uniqueness between its elements and does not allow nulls.
  * A expenditure is considered unique by comparing using {@code Expenditure#equals(Expenditure)}.
  * As such, adding and updating of
- * persons uses Expenditure#equals(Expenditure) for equality
+ * expenditures uses Expenditure#equals(Expenditure) for equality
  * so as to ensure that the expenditure being added or updated is
  * unique in terms of identity in the UniqueExpenditureList. However,
  * the removal of a expenditure uses Expenditure#equals(Object) so
@@ -68,7 +68,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new ExpenditureNotFoundException();
         }
 
         if (!target.equals(editedExpenditure) && contains(editedExpenditure)) {
@@ -85,7 +85,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
     public void remove(Expenditure toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new ExpenditureNotFoundException();
         }
     }
 
@@ -100,7 +100,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public void setExpenditures(List<Expenditure> expenditures) {
         requireAllNonNull(expenditures);
-        if (!personsAreUnique(expenditures)) {
+        if (!expendituresAreUnique(expenditures)) {
             throw new DuplicateExpenditureException();
         }
 
@@ -135,7 +135,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
     /**
      * Returns true if {@code expenditures} contains only unique expenditures.
      */
-    private boolean personsAreUnique(List<Expenditure> expenditures) {
+    private boolean expendituresAreUnique(List<Expenditure> expenditures) {
         for (int i = 0; i < expenditures.size() - 1; i++) {
             for (int j = i + 1; j < expenditures.size(); j++) {
                 if (expenditures.get(i).equals(expenditures.get(j))) {

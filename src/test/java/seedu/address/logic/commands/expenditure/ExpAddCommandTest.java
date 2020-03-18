@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -23,35 +24,36 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAccount;
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReportableAccount;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.testutil.ExpenditureBuilder;
 
 public class ExpAddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullExpenditure_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ExpAddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_expenditureAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenditureAdded modelStub = new ModelStubAcceptingExpenditureAdded();
-        Expenditure validPerson = new ExpenditureBuilder().build();
+        Expenditure validExpenditure = new ExpenditureBuilder().build();
 
-        CommandResult commandResult = new ExpAddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new ExpAddCommand(validExpenditure).execute(modelStub);
 
-        assertEquals(String.format(ExpAddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(ExpAddCommand.MESSAGE_SUCCESS, validExpenditure), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validExpenditure), modelStub.expendituresAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateExpenditure_throwsCommandException() {
         Expenditure validExpenditure = new ExpenditureBuilder().build();
         ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
         ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
 
-        assertThrows(CommandException.class,
-                ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () -> expAddCommand.execute(modelStub));
+        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE,
+                () -> expAddCommand.execute(modelStub));
     }
 
     @Test
@@ -74,7 +76,7 @@ public class ExpAddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different expenditure -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -128,7 +130,7 @@ public class ExpAddCommandTest {
         }
 
         @Override
-        public boolean hasExpenditure(Expenditure person) {
+        public boolean hasExpenditure(Expenditure expenditure) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -138,7 +140,7 @@ public class ExpAddCommandTest {
         }
 
         @Override
-        public void setExpenditure(Expenditure target, Expenditure editedPerson) {
+        public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -161,10 +163,25 @@ public class ExpAddCommandTest {
         public void clearActiveAccount() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void renameAccount(String oldName, String newName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReportableAccount getReportableAccount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateActiveDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single expenditure.
      */
     private class ModelStubWithExpenditure extends ModelStub {
         private final Expenditure expenditure;
@@ -182,21 +199,21 @@ public class ExpAddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the expenditure being added.
      */
     private class ModelStubAcceptingExpenditureAdded extends ModelStub {
-        final ArrayList<Expenditure> personsAdded = new ArrayList<>();
+        final ArrayList<Expenditure> expendituresAdded = new ArrayList<>();
 
         @Override
         public boolean hasExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            return personsAdded.stream().anyMatch(expenditure::equals);
+            return expendituresAdded.stream().anyMatch(expenditure::equals);
         }
 
         @Override
         public void addExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
-            personsAdded.add(expenditure);
+            expendituresAdded.add(expenditure);
         }
 
         @Override

@@ -22,7 +22,7 @@ import seedu.address.model.expenditure.UniqueExpenditureList;
  */
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
-    private final UniqueExpenditureList persons;
+    private final UniqueExpenditureList expenditures;
     private final String accountName;
 
     /*
@@ -33,7 +33,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      *   among constructors.
      */
     {
-        persons = new UniqueExpenditureList();
+        expenditures = new UniqueExpenditureList();
     }
 
     public Account() {
@@ -45,7 +45,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     /**
-     * Creates an Account using the Persons in the {@code toBeCopied}
+     * Creates an Account using the Expenditures in the {@code toBeCopied}
      */
     public Account copyAccountWithNewName(String newName) {
         Account toBeCopied = new Account(newName);
@@ -65,7 +65,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
 
     public void setExpenditures(List<Expenditure> expenditures) {
-        this.persons.setExpenditures(expenditures);
+        this.expenditures.setExpenditures(expenditures);
     }
 
     /**
@@ -84,7 +84,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
-        return persons.contains(expenditure);
+        return expenditures.contains(expenditure);
     }
 
 
@@ -93,7 +93,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * The expenditure must not already exist in the address book.
      */
     public void addExpenditure(Expenditure expenditure) {
-        persons.add(expenditure);
+        expenditures.add(expenditure);
     }
 
     /**
@@ -105,7 +105,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireNonNull(editedExpenditure);
 
-        persons.setExpenditure(target, editedExpenditure);
+        expenditures.setExpenditure(target, editedExpenditure);
     }
 
     /**
@@ -113,21 +113,21 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * {@code key} must exist in the address book.
      */
     public void removeExpenditure(Expenditure key) {
-        persons.remove(key);
+        expenditures.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        // return persons.asUnmodifiableObservableList().size() + " persons";
+        // return expenditures.asUnmodifiableObservableList().size() + " expenditures";
         // TODO: refine later
         return "Account: " + accountName;
     }
 
     @Override
     public ObservableList<Expenditure> getExpenditureList() {
-        return persons.asUnmodifiableObservableList();
+        return expenditures.asUnmodifiableObservableList();
     }
 
     @Override
@@ -135,12 +135,12 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
                 && accountName.equals(((Account) other).accountName)
-                && persons.equals(((Account) other).persons));
+                && expenditures.equals(((Account) other).expenditures));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return expenditures.hashCode();
     }
 
     @Override
@@ -182,6 +182,6 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     private Stream<Expenditure> getExpenditureStream() {
-        return StreamSupport.stream(persons.spliterator(), false);
+        return StreamSupport.stream(expenditures.spliterator(), false);
     }
 }

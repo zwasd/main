@@ -1,14 +1,14 @@
 package seedu.address.logic.commands.account;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all expenditures in the address book to the user.
  */
 public class AccListCommand extends Command {
 
@@ -22,7 +22,7 @@ public class AccListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

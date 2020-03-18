@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Expenditure's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {

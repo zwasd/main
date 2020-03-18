@@ -1,8 +1,8 @@
 package seedu.address.model;
 
 /**
- * Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same
- * identity).
+ * Signals that the operation will result in duplicate Expenditures
+ * (Expenditures are considered duplicates if they have the same identity).
  */
 public class DuplicateAccountException extends RuntimeException {
     public DuplicateAccountException() {

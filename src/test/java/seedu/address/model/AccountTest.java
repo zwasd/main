@@ -44,7 +44,7 @@ public class AccountTest {
 //    }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {
         // Two expenditures with the same identity fields
         Expenditure editedAlice = new ExpenditureBuilder(ALICE).build();
         List<Expenditure> newExpenditures = Arrays.asList(ALICE, editedAlice);
@@ -53,23 +53,23 @@ public class AccountTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExpenditure_nullExpenditure_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> account.hasExpenditure(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasExpenditure_expenditureNotInAddressBook_returnsFalse() {
         assertFalse(account.hasExpenditure(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasExpenditure_expenditureInAddressBook_returnsTrue() {
         account.addExpenditure(ALICE);
         assertTrue(account.hasExpenditure(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasExpenditure_expenditureWithSameIdentityFieldsInAddressBook_returnsTrue() {
         account.addExpenditure(ALICE);
         Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -82,7 +82,7 @@ public class AccountTest {
     }
 
     /**
-     * A stub ReadOnlyAccount whose persons list can violate interface constraints.
+     * A stub ReadOnlyAccount whose expenditures list can violate interface constraints.
      */
     private static class AccountStub implements ReadOnlyAccount {
         private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();

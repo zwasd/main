@@ -44,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane expenditureListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -115,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
-        personListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
+        expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
 
         CalendarView cv = new CalendarView();
         calendar.getChildren().add(cv.getRoot());

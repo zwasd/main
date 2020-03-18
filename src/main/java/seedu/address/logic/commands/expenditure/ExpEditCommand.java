@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -85,7 +85,7 @@ public class ExpEditCommand extends Command {
         }
 
         model.setExpenditure(expenditureToEdit, editedExpenditure);
-        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
     }
 

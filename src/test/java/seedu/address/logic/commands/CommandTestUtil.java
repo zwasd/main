@@ -22,7 +22,7 @@ import seedu.address.model.AccountList;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -60,10 +60,10 @@ public class CommandTestUtil {
     public static final EditExpenditureDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_AMY)
+        DESC_AMY = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_AMY)
                .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withInfo(VALID_INFO_BOB)
+        DESC_BOB = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_BOB)
                 .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -115,7 +115,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the expenditure at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showExpenditureAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenditureList().size());
 
         Expenditure expenditure = model.getFilteredExpenditureList().get(targetIndex.getZeroBased());

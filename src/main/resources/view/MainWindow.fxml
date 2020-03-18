@@ -55,7 +55,7 @@
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>
-                            <StackPane fx:id="personListPanelPlaceholder" prefHeight="78.0" prefWidth="130.0" VBox.vgrow="ALWAYS" />
+                            <StackPane fx:id="expenditureListPanelPlaceholder" prefHeight="78.0" prefWidth="130.0" VBox.vgrow="ALWAYS" />
                         </VBox>
                         <StackPane fx:id="report" prefHeight="100.0" prefWidth="50.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>

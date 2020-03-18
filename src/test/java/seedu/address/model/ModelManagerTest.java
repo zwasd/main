@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.ALICE;
 import static seedu.address.testutil.TypicalExpenditures.BENSON;
@@ -74,23 +74,23 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExpenditure_nullExpenditure_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasExpenditure(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasExpenditure_expenditureNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasExpenditure(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasExpenditure_expenditureInAddressBook_returnsTrue() {
         modelManager.addExpenditure(ALICE);
         assertTrue(modelManager.hasExpenditure(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredExpenditureList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExpenditureList().remove(0));
     }
 
@@ -124,7 +124,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(accountList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

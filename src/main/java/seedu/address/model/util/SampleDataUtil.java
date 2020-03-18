@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static Expenditure[] getSamplePersons() {
+    public static Expenditure[] getSampleExpenditures() {
         return new Expenditure[] {
             new Expenditure(new Info("Alex Yeoh"), new Amount(3.1),
                     new Date("2019-09-11"), getTagSet("friends")),
@@ -37,7 +37,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyAccount getSampleAddressBook() {
         Account sampleAb = new Account();
-        for (Expenditure sampleExpenditure : getSamplePersons()) {
+        for (Expenditure sampleExpenditure : getSampleExpenditures()) {
             sampleAb.addExpenditure(sampleExpenditure);
 
         }

@@ -29,7 +29,7 @@ public class TypicalAccounts {
     private TypicalAccounts() {} // prevents instantiation
 
     /**
-     * Returns an {@code Account} with all the typical persons.
+     * Returns an {@code Account} with all the typical expenditures.
      */
     public static AccountList getTypicalAccountList() {
         AccountList ab = new AccountList(false);

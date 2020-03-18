@@ -12,7 +12,7 @@ import java.util.Map;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.UniqueExpenditureList;
-import seedu.address.model.expenditure.exceptions.PersonNotFoundException;
+import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
 /**
  * Manages all accounts of the user.
@@ -99,7 +99,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!accounts.containsKey(oldName) || accounts.containsKey(newName)) {
-            throw new PersonNotFoundException();
+            throw new ExpenditureNotFoundException();
         }
         Account targetAccount = accounts.get(oldName);
         Account replaceAccount = targetAccount.copyAccountWithNewName(newName);

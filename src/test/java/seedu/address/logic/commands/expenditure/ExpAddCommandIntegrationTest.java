@@ -26,7 +26,7 @@ public class ExpAddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newExpenditure_success() {
         Expenditure validExpenditure = new ExpenditureBuilder().withAmount(3.00).withInfo("chicken").build();
         Model expectedModel = new ModelManager(model.getAccountList(), new UserPrefs());
         expectedModel.addExpenditure(validExpenditure);
@@ -36,7 +36,7 @@ public class ExpAddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateExpenditure_throwsCommandException() {
         Expenditure expenditureInList = model.getAccountList().getExpenditureList().get(0);
         assertCommandFailure(new ExpAddCommand(expenditureInList), model, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE);
     }
