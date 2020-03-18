@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.model.Account;
 import seedu.address.model.AccountList;
-import seedu.address.model.expenditure.Expenditure;
 
 
 /**

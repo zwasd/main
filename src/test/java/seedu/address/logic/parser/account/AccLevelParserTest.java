@@ -19,7 +19,6 @@ public class AccLevelParserTest {
     @Test
     public void parseAccCommand_list() throws Exception {
         assertTrue(parser.parseCommand(AccListCommand.COMMAND_WORD) instanceof AccListCommand);
-        assertTrue(parser.parseCommand(AccListCommand.COMMAND_WORD + " 3") instanceof AccListCommand);
     }
 
     @Test

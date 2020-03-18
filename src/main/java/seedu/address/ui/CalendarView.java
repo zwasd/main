@@ -370,4 +370,10 @@ public class CalendarView extends UiPart<Region> {
         refreshCalenderView();
     }
 
+    public void updateActiveDate(LocalDate date) {
+        pivotDate = date;
+        day = pivotDate.getDayOfMonth();
+        refreshCalenderView();
+    }
+
 }

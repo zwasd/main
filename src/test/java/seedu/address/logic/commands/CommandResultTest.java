@@ -32,7 +32,7 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true,false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
     }
 
     @Test

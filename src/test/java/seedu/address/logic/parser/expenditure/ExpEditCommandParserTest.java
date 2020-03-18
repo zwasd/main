@@ -117,7 +117,8 @@ public class ExpEditCommandParserTest {
         Index targetIndex = INDEX_FIRST_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + AMOUNT_DESC_AMY;
 
-        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withAmount(VALID_AMOUNT_AMY).build();
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder()
+                .withAmount(VALID_AMOUNT_AMY).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

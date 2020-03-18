@@ -6,41 +6,41 @@
       "info" : "Alice Pauline",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ "friends" ]
+      "tag" : [ "friends" ]
     } , {
       "info" : "Benson Meier",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ "owesMoney", "friends" ]
+      "tag" : [ "owesMoney", "friends" ]
     } ] }, {
     "accountName": "work",
     "expenditures": [ {
       "info" : "Carl Kurz",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ ]
+      "tag" : [ ]
     }, {
       "info" : "Daniel Meier",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ "friends" ]
+      "tag" : [ "friends" ]
     } ] } , {
     "accountName": "cca",
     "expenditures": [ {
       "info" : "Elle Meyer",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ ]
+      "tag" : [ ]
     }, {
       "info" : "Fiona Kunz",
       "amount" : 3.14,
       "date" : "2019-09-11",
-      "tagged" : [ ]
+      "tag" : [ ]
     }, {
       "info" : "George Best",
       "amount" : 3.14,
       "date": "2019-09-11",
-      "tagged" : [ ]
+      "tag" : [ ]
     }]
   } ]
 }

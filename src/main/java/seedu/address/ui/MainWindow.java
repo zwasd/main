@@ -37,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
 
+    private CalendarView calendarView;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -117,8 +119,8 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
 
-        CalendarView cv = new CalendarView();
-        calendar.getChildren().add(cv.getRoot());
+        calendarView = new CalendarView();
+        calendar.getChildren().add(calendarView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -210,6 +212,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
                 handleReport();
+            }
+
+            if (commandResult.isUpdateCalendar()) {
+                calendarView.updateActiveDate(commandResult.getNewActiveDate());
             }
 
             return commandResult;

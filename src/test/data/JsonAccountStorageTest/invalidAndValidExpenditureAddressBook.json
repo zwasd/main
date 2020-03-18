@@ -8,8 +8,8 @@
         "date": "2019-09-11"
       },
       {
-        "info": "Expenditure With Invalid Id Field",
-        "amount": 3.14,
+        "info": "Expenditure With Invalid amount Field",
+        "amount": "2.4.4",
         "date": "2019-09-11"
       }
     ]

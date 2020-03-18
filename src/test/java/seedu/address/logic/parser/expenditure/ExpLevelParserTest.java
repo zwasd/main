@@ -61,7 +61,8 @@ public class ExpLevelParserTest {
         Expenditure expenditure = new ExpenditureBuilder().build();
         EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder(expenditure).build();
         ExpEditCommand command = (ExpEditCommand) parser.parseCommand(ExpEditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_EXPENDITURE.getOneBased() + " " + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
+                + INDEX_FIRST_EXPENDITURE.getOneBased() + " "
+                + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
         assertEquals(new ExpEditCommand(INDEX_FIRST_EXPENDITURE, descriptor), command);
     }
 

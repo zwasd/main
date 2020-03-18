@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.ALICE;
-import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
+// import static seedu.address.testutil.TypicalExpenditures.getTypicalAccount;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -36,12 +36,12 @@ public class AccountTest {
         assertThrows(NullPointerException.class, () -> account.resetData(null));
     }
 
-//    @Test
-//    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-//        Account newData = getTypicalAccount();
-//        account.resetData(newData);
-//        assertEquals(newData, account);
-//    }
+    // @Test
+    // public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    //     Account newData = getTypicalAccount();
+    //     account.resetData(newData);
+    //     assertEquals(newData, account);
+    // }
 
     @Test
     public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {
@@ -69,11 +69,11 @@ public class AccountTest {
     }
 
     @Test
-    public void hasExpenditure_expenditureWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasExpenditure_expenditureWithSameDifferentDate_returnsFalse() {
         account.addExpenditure(ALICE);
         Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(account.hasExpenditure(editedAlice));
+        assertFalse(account.hasExpenditure(editedAlice));
     }
 
     @Test
