@@ -18,7 +18,7 @@ public class GoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "We are at : %1$s";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Go to a specific date"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Go to a specific date\n"
             + "the specified date format YYYY-MM-DD.\n"
             + "Example: " + COMMAND_WORD + " 2001-09-11";
 
@@ -30,7 +30,8 @@ public class GoCommand extends Command {
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        model.updateActiveDate(toDate);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate);
     }
 
 }
