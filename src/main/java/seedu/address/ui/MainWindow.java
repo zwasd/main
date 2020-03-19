@@ -119,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
 
-        calendarView = new CalendarView();
+        calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
 
         resultDisplay = new ResultDisplay();
