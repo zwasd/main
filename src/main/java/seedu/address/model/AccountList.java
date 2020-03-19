@@ -107,6 +107,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         this.accounts.remove(oldName, targetAccount);
     }
 
+    /**
+     * Delete an account for the accounts base on the input name.
+     * @param accName the target account's name
+     */
     public void deleteAccount(String accName) {
         requireAllNonNull(accName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
@@ -120,7 +124,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             addAccount(defaultAccount);
             updateActiveAccount(defaultAccount.getAccountName());
         } else {
-            if(this.activeAccount.getAccountName().equals(accName)) {
+            if (this.activeAccount.getAccountName().equals(accName)) {
                 String firstKey = (String) (this.accounts.keySet().toArray())[0];
                 updateActiveAccount(this.accounts.get(firstKey).getAccountName());
             }
@@ -230,8 +234,8 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         String [] allName = list.toString().trim().split(" ");
         StringBuilder output = new StringBuilder();
         System.out.println(allName.length + "  " + allName[0]);
-        for(int i = 1; i <= allName.length; i++) {
-            if(i % 8 == 0) {
+        for (int i = 1; i <= allName.length; i++) {
+            if (i % 8 == 0) {
                 output.append("\n");
             }
             output.append(i + ". " + allName[i - 1] + "      ");

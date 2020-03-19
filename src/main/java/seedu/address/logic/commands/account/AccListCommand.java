@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.account;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -22,7 +21,7 @@ public class AccListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-//        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        //model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         String list = model.getAccountList().listAllName();
         return new CommandResult(MESSAGE_SUCCESS + list);
     }
