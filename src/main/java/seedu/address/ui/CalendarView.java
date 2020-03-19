@@ -58,6 +58,8 @@ public class CalendarView extends UiPart<Region> {
     private Image rightArrow = new Image(this.getClass().getResourceAsStream("/images/rightButton.png"),
             30, 20, true, true);
 
+    private CommandBox.CommandExecutor commandExecutor;
+
     @FXML
     private Label monthYearLabel;
 
@@ -76,7 +78,7 @@ public class CalendarView extends UiPart<Region> {
     @FXML
     private Button rightButton;
 
-    public CalendarView() {
+    public CalendarView(CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
         setUpButton();
         this.todayDate = LocalDate.now();
@@ -88,6 +90,7 @@ public class CalendarView extends UiPart<Region> {
         this.dayOfTheMonthForToday = this.day;
         this.yearMonth = YearMonth.of(this.year, this.month);
         this.firstDayOfTheMonth = yearMonth.atDay(1);
+        this.commandExecutor = commandExecutor;
         setMonthYearLabel();
         generateCalender();
     }
@@ -296,7 +299,11 @@ public class CalendarView extends UiPart<Region> {
                             updateDayMonthYear(pivotDate);
                             refreshCalenderView();
                         }
-
+                        try {
+                            commandExecutor.execute("go " + pivotDate);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -362,7 +369,6 @@ public class CalendarView extends UiPart<Region> {
      * @param date the new pivot date
      */
     public void updateActiveDate(LocalDate date) {
-        setUpButton();
         this.pivotDate = date;
         this.nonPivotDate = date;
         this.day = date.getDayOfMonth();
@@ -370,8 +376,7 @@ public class CalendarView extends UiPart<Region> {
         this.year = date.getYear();
         this.yearMonth = YearMonth.of(this.year, this.month);
         this.firstDayOfTheMonth = yearMonth.atDay(1);
-        setMonthYearLabel();
-        generateCalender();
+        refreshCalenderView();
     }
 
 

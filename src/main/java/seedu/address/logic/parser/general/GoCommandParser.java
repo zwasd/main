@@ -31,7 +31,7 @@ public class GoCommandParser implements Parser<GoCommand> {
 
         try {
             LocalDate targetDate = LocalDate.parse(trimmedArgs, DateTimeFormatter.ISO_DATE);
-            return new GoCommand(targetDate);
+            return new GoCommand(targetDate, false);
         } catch (DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
