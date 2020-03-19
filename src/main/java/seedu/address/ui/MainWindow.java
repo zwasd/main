@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -16,6 +21,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+
 
 
 /**
@@ -57,6 +64,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    //@FXML
+    //private ImageView imageview;
+
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,6 +82,10 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
+        //imageview = new ImageView();
+
+        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
+        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
@@ -225,4 +240,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }
