@@ -15,7 +15,9 @@ public class AccListCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Command is in wrong format.";
 
-    public static final String MESSAGE_SUCCESS = "Listed all accounts: \n";
+    public static final String MESSAGE_SUCCESS = "Listed all accounts: \n1. default";
+
+    public static final String MESSAGE = "Listed all accounts: \n";
 
 
     @Override
@@ -23,6 +25,6 @@ public class AccListCommand extends Command {
         requireNonNull(model);
         //model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         String list = model.getAccountList().listAllName();
-        return new CommandResult(MESSAGE_SUCCESS + list);
+        return new CommandResult(MESSAGE + list);
     }
 }
