@@ -14,7 +14,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.image.Image?>
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="\$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="800" onCloseRequest="#handleExit" title="\$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url ="@/images/moneybag.png" />
     </icons>
