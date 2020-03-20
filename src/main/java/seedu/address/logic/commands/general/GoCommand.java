@@ -24,14 +24,20 @@ public class GoCommand extends Command {
 
 
     private final LocalDate toDate;
+    private final boolean fromUi;
 
-    public GoCommand(LocalDate toDate) {
+    public GoCommand(LocalDate toDate, boolean fromUi) {
         this.toDate = toDate;
+        this.fromUi = fromUi;
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.updateActiveDate(toDate);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate);
+        if (fromUi) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate);
+        }
     }
 
 }
