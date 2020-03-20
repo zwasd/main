@@ -227,7 +227,6 @@ public class CalendarView extends UiPart<Region> {
         Label label = new Label();
         label.setText("" + dayNumber);
         label.setStyle("-fx-text-fill: white");
-//        label.setStyle("-fx-font-weight: bold");
         return label;
     }
 
@@ -265,7 +264,7 @@ public class CalendarView extends UiPart<Region> {
                 VBox holder = placeHolderForLabel();
 
                 if (i < this.prevMonthBalance || i > 42 - 1 - this.nextMonthBalance) {
-                    holder.setBlendMode(BlendMode.OVERLAY);
+                    holder.setBlendMode(BlendMode.SOFT_LIGHT);
                 }
 
                 if (i == this.prevMonthBalance + this.day - 1 && isSameMonth(this.pivotDate, this.nonPivotDate)) {
@@ -289,7 +288,7 @@ public class CalendarView extends UiPart<Region> {
                     public void handle(MouseEvent event) {
                         Label a = (Label) holder.getChildren().get(0);
                         int clickedDate = Integer.parseInt(a.getText());
-                        if (holder.getBlendMode() == BlendMode.OVERLAY) {
+                        if (holder.getBlendMode() == BlendMode.SOFT_LIGHT) {
                             pivotDate = getNewDate(clickedDate);
                             nonPivotDate = pivotDate;
                             updateDayMonthYear(pivotDate);

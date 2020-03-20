@@ -45,6 +45,7 @@ public class UiManager implements Ui {
 
 
 
+
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
