@@ -94,6 +94,14 @@ public interface Model {
      */
     void renameAccount(String oldName, String newName);
 
+    /**
+     * Delete an account from the accountList.
+     * @param name the target account name
+     */
+    void deleteAccount(String name);
+
+    void addAccount(Account account);
+
     boolean updateActiveAccount(String accountName);
 
     void clearActiveAccount();

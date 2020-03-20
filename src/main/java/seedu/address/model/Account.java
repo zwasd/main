@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.stream.StreamSupport;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 
 /**
@@ -23,6 +25,7 @@ import seedu.address.model.expenditure.UniqueExpenditureList;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
+    private ArrayList<Repeat> repeatItem;
     private final String accountName;
 
     /*
@@ -34,6 +37,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
     {
         expenditures = new UniqueExpenditureList();
+        repeatItem = new ArrayList<>();
     }
 
     public Account() {
@@ -43,6 +47,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public Account(String accountName) {
         this.accountName = accountName;
     }
+
 
     /**
      * Creates an Account using the Expenditures in the {@code toBeCopied}

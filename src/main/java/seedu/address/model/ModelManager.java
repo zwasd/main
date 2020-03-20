@@ -91,7 +91,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
         return accountList.hasExpenditure(expenditure);
@@ -147,6 +146,11 @@ public class ModelManager implements Model {
         this.accountList.renameAccount(oldName, newName);
     }
 
+    @Override
+    public void deleteAccount(String name) {
+        this.accountList.deleteAccount(name);
+    }
+
     public void clearActiveAccount() {
         accountList.clearActiveAccount();
     }
@@ -161,6 +165,10 @@ public class ModelManager implements Model {
         accountList.updateActiveDate(date);
     }
 
+    @Override
+    public void addAccount(Account account) {
+        this.accountList.addAccount(account);
+    }
 
     @Override
     public boolean equals(Object obj) {
