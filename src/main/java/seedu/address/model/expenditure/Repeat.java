@@ -12,9 +12,17 @@ public class Repeat {
     private Info info;
     private Amount amount;
     private Tag tag;
-    private String period;
+    private Period period;
 
-    public Repeat(Info info, Amount amount, Date startDate, Date endDate, String period) {
+    /**
+     * Represents the frequency
+     * of repeat expenditure.
+     */
+    public enum Period {
+        DAY, MONTH, YEAR;
+    }
+
+    public Repeat(Info info, Amount amount, Date startDate, Date endDate, Period period) {
         this.info = info;
         this.amount = amount;
         this.startDate = startDate;
@@ -39,7 +47,7 @@ public class Repeat {
         return endDate;
     }
 
-    public String getPeriod() {
+    public Period getPeriod() {
         return period;
     }
 
@@ -59,7 +67,7 @@ public class Repeat {
         this.endDate = newEndDate;
     }
 
-    public void setPeriod(String newPeriod) {
+    public void setPeriod(Period newPeriod) {
         this.period = newPeriod;
     }
 
@@ -74,7 +82,7 @@ public class Repeat {
                 .append(" End Date: ")
                 .append(getEndDate())
                 .append(" Interval: ")
-                .append(getPeriod())
+                .append(getPeriod().toString())
                 .append(" Tags: ")
                 .append(getTag());
         return builder.toString();

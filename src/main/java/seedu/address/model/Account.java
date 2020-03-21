@@ -94,10 +94,11 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
 
     /**
-     * Adds a expenditure to the address book.
+     * Adds a expenditure to the address book and dayToDayExpenditure.
      * The expenditure must not already exist in the address book.
      */
     public void addExpenditure(Expenditure expenditure) {
+
         expenditures.add(expenditure);
     }
 

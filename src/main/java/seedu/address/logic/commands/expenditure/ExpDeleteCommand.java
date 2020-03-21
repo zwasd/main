@@ -23,7 +23,7 @@ public class ExpDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the expenditure identified by the index number used in the displayed expenditure list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted Expenditure: %1$s";
 

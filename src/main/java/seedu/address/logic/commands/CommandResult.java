@@ -3,7 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
+
+import seedu.address.model.Report;
 
 /**
  * Represents the result of a command execution.
@@ -21,6 +24,8 @@ public class CommandResult {
      * Report stats to user
      **/
     private final boolean showReport;
+    private HashMap stats;
+    private Report.GraphType graph;
 
     /**
      * The indicator of the current active date in the calendar view should change.
@@ -48,6 +53,12 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
         this(feedbackToUser, false, false, false, true);
         this.newActiveDate = newActiveDate;
+    }
+
+    public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats) {
+        this(feedbackToUser, false, false, true, false);
+        this.graph = graph;
+        this.stats = stats;
     }
 
     /**
@@ -80,6 +91,14 @@ public class CommandResult {
 
     public LocalDate getNewActiveDate() {
         return newActiveDate;
+    }
+
+    public HashMap getStats() {
+        return stats;
+    }
+
+    public Report.GraphType getGraphType() {
+        return graph;
     }
 
     @Override

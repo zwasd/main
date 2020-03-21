@@ -18,8 +18,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
-
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -59,9 +57,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    //@FXML
-    //private ImageView imageview;
-
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -76,7 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        reportWindow = new ReportWindow();
+        reportWindow = null;
         //imageview = new ImageView();
 
         //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
@@ -178,8 +173,11 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+
+        if (reportWindow != null) {
+            reportWindow.hide();
+        }
         helpWindow.hide();
-        reportWindow.hide();
         primaryStage.hide();
     }
 
@@ -192,6 +190,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleReport() {
+
+        reportWindow = new ReportWindow();
 
         if (!reportWindow.isShowing()) {
             reportWindow.show();
@@ -221,7 +221,10 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowReport()) {
-                handleReport();
+                //View command
+                reportWindow = new ReportWindow(commandResult);
+                reportWindow.showResult();
+
             }
 
             if (commandResult.isUpdateCalendar()) {

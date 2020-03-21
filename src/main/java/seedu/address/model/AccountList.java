@@ -19,7 +19,7 @@ import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
  */
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     private Map<String, Account> accounts = new HashMap<>();
-    private Account activeAccount;
+    private Account activeAccount; //TODO: make it static ?? (XP)
     private final UniqueExpenditureList internalList = new UniqueExpenditureList();
     private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
@@ -51,6 +51,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     }
 
     //// list overwrite operations
+
 
     /**
      * Resets the existing data of this {@code Account} with {@code newData}.
@@ -218,6 +219,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             internalList.setExpenditures(activeAccount.getExpByDate(activeDate));
             return true;
         }
+    }
+
+    public Account getActiveAccount() {
+        return activeAccount;
     }
 
     @Override
