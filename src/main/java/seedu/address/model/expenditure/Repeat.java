@@ -1,10 +1,9 @@
 package seedu.address.model.expenditure;
 
-import seedu.address.model.tag.Tag;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 
+import seedu.address.model.tag.Tag;
 /**
  * A Repeated expenditure.
  */
@@ -73,9 +72,9 @@ public class Repeat {
      * Update the displayDate hashSet.
      */
     private void generateDisplayDate() {
-        if(this.period.equalsIgnoreCase("weekly")) {
+        if (this.period.equalsIgnoreCase("weekly")) {
             generateWeeklyDate();
-        } else if(this.period.equalsIgnoreCase("monthly")){
+        } else if (this.period.equalsIgnoreCase("monthly")) {
             generateMonthlyDate();
         } else {
             this.displayDate.clear();
@@ -89,10 +88,10 @@ public class Repeat {
     private void generateWeeklyDate() {
         this.displayDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
-        while(true) {
+        while (true) {
             this.displayDate.add(pivotDate);
             pivotDate.plusWeeks(1);
-            if(pivotDate.isAfter(this.endDate.localDate)) {
+            if (pivotDate.isAfter(this.endDate.localDate)) {
                 break;
             }
         }
@@ -104,10 +103,10 @@ public class Repeat {
     public void generateMonthlyDate() {
         this.displayDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
-        while(true) {
+        while (true) {
             this.displayDate.add(pivotDate);
             pivotDate.plusMonths(1);
-            if(pivotDate.isAfter(this.endDate.localDate)) {
+            if (pivotDate.isAfter(this.endDate.localDate)) {
                 break;
             }
         }
@@ -119,7 +118,7 @@ public class Repeat {
      * @return true denote suppose to appear, false to denote not suppose to appear.
      */
     public boolean isOn(LocalDate targetDate) {
-        if(this.period.equalsIgnoreCase("daily")) {
+        if (this.period.equalsIgnoreCase("daily")) {
             return checkDaily(targetDate);
         } else {
             return checkWeeklyOrMonthly(targetDate);
