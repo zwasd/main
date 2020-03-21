@@ -3,7 +3,6 @@ package seedu.address.model.expenditure;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
@@ -22,18 +21,18 @@ public class Expenditure {
 
     // Data fields
     private final Date date;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Tag tag;
 
     /**
      * Every field must be present and not null.
      */
 
-    public Expenditure(Info info, Amount amount, Date date, Set<Tag> tags) {
-        requireAllNonNull(info, amount, date, tags);
+    public Expenditure(Info info, Amount amount, Date date, Tag tag) {
+        requireAllNonNull(info, amount, date, tag);
         this.info = info;
         this.amount = amount;
         this.date = date;
-        this.tags.addAll(tags);
+        this.tag = tag;
     }
 
     public Info getInfo() {
@@ -49,11 +48,11 @@ public class Expenditure {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns a immutable tag, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Tag getTag() {
+        return tag;
     }
 
     /**
@@ -84,22 +83,8 @@ public class Expenditure {
         boolean sameInfo = otherExpenditure.info.equals(this.info);
         boolean sameAmt = otherExpenditure.amount.equals(this.amount);
         boolean sameDate = otherExpenditure.date.equals(this.date);
-        boolean sameTag = false;
+        boolean sameTag = otherExpenditure.tag.equals(this.tag);
 
-        if (otherExpenditure.tags.size() == this.tags.size()) {
-            if (otherExpenditure.tags.size() == 0) {
-                sameTag = true;
-            } else {
-
-                Iterator itr = tags.iterator();
-                Iterator itrOther = otherExpenditure.tags.iterator();
-
-                while (itr.hasNext() && itrOther.hasNext()) {
-                    sameTag = itr.next().equals(itrOther.next());
-                }
-
-            }
-        }
 
         return sameAmt && sameDate && sameInfo && sameTag;
     }
@@ -107,7 +92,7 @@ public class Expenditure {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(info, amount, date, tags);
+        return Objects.hash(info, amount, date, tag);
     }
 
     @Override
@@ -118,8 +103,8 @@ public class Expenditure {
                 .append(getAmount())
                 .append(" Date: ")
                 .append(getDate())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Tag: ")
+                .append(getTag());
         return builder.toString();
     }
 

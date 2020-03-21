@@ -40,45 +40,8 @@ public class Report {
         return graph;
     }
 
-    /**
-     * Calculate expenditures under each tag.
-     * @param model model manager.
-     * @return HashMap mapping to tag to its spending.
-     */
-    public HashMap<Tag, Double> generateStatsByTags(Model model) {
+    public Date getStartDate() { return startDate; }
 
-        ReportableAccount acct = model.getReportableAccount();
-        Map expenditures = acct.getExpFromToInclusive(startDate, endDate);
-        Set keySet = expenditures.keySet();
-        HashMap<Tag, Double> output = new HashMap<>();
-
-        Iterator itr = keySet.iterator();
-
-        while (itr.hasNext()) {
-
-            UniqueExpenditureList list = (UniqueExpenditureList) expenditures.get(itr.next());
-            Iterator listItr = list.iterator();
-
-            while (listItr.hasNext()) {
-
-                Expenditure current = (Expenditure) listItr.next();
-                Set tags = current.getTags();
-
-                Iterator set = tags.iterator();
-                Tag next = (Tag) set.next();
-
-                if (output.containsKey(next)) {
-                    output.replace(next, output.get(next) + current.getAmount().value);
-                } else {
-                    output.put(next, current.getAmount().value);
-                }
-
-            }
-
-        }
-
-        return output;
-
-    }
+    public Date getEndDate() { return  endDate; }
 
 }

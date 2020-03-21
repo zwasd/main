@@ -48,9 +48,7 @@ public class ExpenditureCard extends UiPart<Region> {
         info.setText(expenditure.getInfo().fullInfo);
         amount.setText(Double.toString(expenditure.getAmount().value));
         amount.setText("$" + TWO_DP.format(expenditure.getAmount().value));
-        expenditure.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        tags.getChildren().add(new Label(expenditure.getTag().tagName));
     }
 
     @Override

@@ -29,7 +29,7 @@ public class ViewReportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        statsToDisplay = toView.generateStatsByTags(model);
+        statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         format = toView.getFormat();
         return new CommandResult(MESSAGE_SUCCESS, format, statsToDisplay);
     }

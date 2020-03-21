@@ -46,9 +46,9 @@ public class ExpAddCommandParser implements Parser<ExpAddCommand> {
         Info info = ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElseGet(() -> LocalDate.now().toString()));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).orElseGet(() -> "Others"));
 
-        Expenditure expenditure = new Expenditure(info, amount, date, tagList);
+        Expenditure expenditure = new Expenditure(info, amount, date, tag);
 
         return new ExpAddCommand(expenditure);
     }

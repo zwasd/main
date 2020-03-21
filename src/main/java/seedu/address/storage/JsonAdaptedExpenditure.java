@@ -33,7 +33,7 @@ class JsonAdaptedExpenditure {
     private final String info;
     private final double amount;
 
-    private final List<JsonAdaptedTag> tag = new ArrayList<>();
+    private JsonAdaptedTag tag;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given expenditure details.
@@ -41,13 +41,13 @@ class JsonAdaptedExpenditure {
     @JsonCreator
 
     public JsonAdaptedExpenditure(@JsonProperty("info") String info, @JsonProperty("amount") double amount,
-                                  @JsonProperty("date") String date, @JsonProperty("tag") List<JsonAdaptedTag> tagged) {
+                                  @JsonProperty("date") String date, @JsonProperty("tag") JsonAdaptedTag tag) {
 
         this.info = info;
         this.amount = amount;
         this.date = date;
-        if (tagged != null) {
-            this.tag.addAll(tagged);
+        if (tag != null) {
+            this.tag = tag;
         }
     }
 
@@ -59,10 +59,7 @@ class JsonAdaptedExpenditure {
         info = source.getInfo().fullInfo;
         amount = source.getAmount().value;
         date = source.getDate().value;
-
-        tag.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        tag = new JsonAdaptedTag(source.getTag().tagName);
     }
 
     /**
@@ -71,10 +68,6 @@ class JsonAdaptedExpenditure {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expenditure.
      */
     public Expenditure toModelType() throws IllegalValueException {
-        final List<Tag> expenditureTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tag) {
-            expenditureTags.add(tag.toModelType());
-        }
 
         if (info == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Info.class.getSimpleName()));
@@ -83,9 +76,6 @@ class JsonAdaptedExpenditure {
             throw new IllegalValueException(Info.MESSAGE_CONSTRAINTS);
         }
         final Info modelInfo = new Info(info);
-
-
-
 
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
@@ -100,9 +90,15 @@ class JsonAdaptedExpenditure {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(expenditureTags);
+        if(tag == null) {
+            tag = new JsonAdaptedTag("Others");
+        }
 
-        return new Expenditure(modelInfo, modelAmount, modelDate, modelTags);
+        if(!seedu.address.model.tag.Tag.isValidTagName(tag.getTagName())) {
+            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Expenditure(modelInfo, modelAmount, modelDate, tag.toModelType());
 
     }
 

@@ -90,7 +90,6 @@ public class ReportWindow extends UiPart<Stage> {
             pie.getData().add(data);
         }
 
-
         VBox vbox = new VBox(pie);
         Scene scene = new Scene(vbox, 400, 200);
         getRoot().setScene(scene);

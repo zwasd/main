@@ -8,10 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
@@ -55,7 +51,9 @@ public class ExpEditCommandParser implements Parser<ExpEditCommand> {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editExpenditureDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenditureDescriptor::setTags);
+        if(argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            editExpenditureDescriptor.setTag(ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get()));
+        }
 
         if (!editExpenditureDescriptor.isAnyFieldEdited()) {
             throw new ParseException(ExpEditCommand.MESSAGE_NOT_EDITED);
@@ -64,19 +62,6 @@ public class ExpEditCommandParser implements Parser<ExpEditCommand> {
         return new ExpEditCommand(index, editExpenditureDescriptor);
     }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
 
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
-    }
 
 }
