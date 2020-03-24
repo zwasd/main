@@ -36,6 +36,10 @@ public class Tag {
         return tagName;
     }
 
+    public boolean isEmpty() {
+        return this.tagName.equals("");
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

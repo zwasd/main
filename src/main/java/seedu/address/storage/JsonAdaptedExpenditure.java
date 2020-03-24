@@ -1,11 +1,6 @@
 package seedu.address.storage;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -90,11 +85,11 @@ class JsonAdaptedExpenditure {
         }
         final Date modelDate = new Date(date);
 
-        if(tag == null) {
+        if (tag == null) {
             tag = new JsonAdaptedTag("Others");
         }
 
-        if(!seedu.address.model.tag.Tag.isValidTagName(tag.getTagName())) {
+        if (!seedu.address.model.tag.Tag.isValidTagName(tag.getTagName())) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 

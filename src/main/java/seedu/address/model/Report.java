@@ -1,14 +1,6 @@
 package seedu.address.model;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.UniqueExpenditureList;
-import seedu.address.model.tag.Tag;
 
 /**
  * Report.
@@ -40,8 +32,12 @@ public class Report {
         return graph;
     }
 
-    public Date getStartDate() { return startDate; }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-    public Date getEndDate() { return  endDate; }
+    public Date getEndDate() {
+        return endDate;
+    }
 
 }

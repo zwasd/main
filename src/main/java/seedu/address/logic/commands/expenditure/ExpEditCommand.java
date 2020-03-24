@@ -5,13 +5,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import java.util.List;
 import java.util.Optional;
-
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -21,7 +19,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
-
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
@@ -175,9 +172,13 @@ public class ExpEditCommand extends Command {
             return Optional.ofNullable(date);
         }
 
-        public Optional<Tag> getTag() {return Optional.ofNullable(tag);}
+        public Optional<Tag> getTag() {
+            return Optional.ofNullable(tag);
+        }
 
-        public void setTag(Tag tag) {this.tag = tag;}
+        public void setTag(Tag tag) {
+            this.tag = tag;
+        }
 
         @Override
         public boolean equals(Object other) {
