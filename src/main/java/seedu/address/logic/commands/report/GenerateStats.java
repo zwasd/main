@@ -1,5 +1,10 @@
 package seedu.address.logic.commands.report;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import seedu.address.model.Model;
 import seedu.address.model.Report;
 import seedu.address.model.ReportableAccount;
@@ -7,11 +12,9 @@ import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
+/**
+ * Internal statistics generation command.
+ */
 public class GenerateStats {
 
     private Model model;

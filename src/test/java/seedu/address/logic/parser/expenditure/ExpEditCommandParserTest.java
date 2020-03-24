@@ -90,8 +90,6 @@ public class ExpEditCommandParserTest {
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Expenditure} being edited,
         // parsing it together with a valid tag results in error
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_INFO_DESC + INVALID_AMOUNT_DESC + VALID_DATE_AMY,
@@ -102,7 +100,7 @@ public class ExpEditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
-                + AMOUNT_DESC_AMY + DATE_DESC_AMY + INFO_DESC_AMY + TAG_DESC_FRIEND;
+                + AMOUNT_DESC_AMY + DATE_DESC_AMY + INFO_DESC_AMY;
 
         EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_AMY)
                 .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
@@ -164,18 +162,6 @@ public class ExpEditCommandParserTest {
                 .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
                 .withTag(VALID_TAG_HUSBAND)
                 .build();
-        ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_EXPENDITURE;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
-
-        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

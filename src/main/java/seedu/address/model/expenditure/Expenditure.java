@@ -2,10 +2,7 @@ package seedu.address.model.expenditure;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.tag.Tag;
 
@@ -48,8 +45,7 @@ public class Expenditure {
     }
 
     /**
-     * Returns a immutable tag, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns a tag.
      */
     public Tag getTag() {
         return tag;

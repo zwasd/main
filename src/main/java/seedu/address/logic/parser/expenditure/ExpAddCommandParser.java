@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.expenditure.ExpAddCommand;

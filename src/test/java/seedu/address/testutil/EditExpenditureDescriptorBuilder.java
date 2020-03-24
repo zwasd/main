@@ -1,9 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 
 import seedu.address.model.expenditure.Amount;

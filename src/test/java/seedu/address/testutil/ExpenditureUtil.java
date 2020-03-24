@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Expenditure.

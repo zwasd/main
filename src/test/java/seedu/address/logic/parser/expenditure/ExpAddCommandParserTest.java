@@ -18,7 +18,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalExpenditures.AMY;
@@ -60,7 +59,7 @@ public class ExpAddCommandParserTest {
 
         // multiple tags - all accepted
         Expenditure expectedExpenditureMultipleTags = new ExpenditureBuilder(BOB)
-                .withTag(VALID_TAG_HUSBAND)
+                .withTag(VALID_TAG_FRIEND)
                 .build();
 
         assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB

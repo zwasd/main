@@ -5,10 +5,6 @@ import static seedu.address.storage.JsonAdaptedExpenditure.MISSING_FIELD_MESSAGE
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.BENSON;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;

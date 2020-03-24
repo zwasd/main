@@ -76,11 +76,6 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
             throw new DuplicateExpenditureException();
         }
 
-        if (!target.getDate().equals(editedExpenditure.getDate())) {
-            // TODO: discuss if dates need to be the same
-            throw new DuplicateExpenditureException();
-        }
-
         internalList.set(index, editedExpenditure);
     }
 

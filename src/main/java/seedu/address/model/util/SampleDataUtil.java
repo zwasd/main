@@ -1,9 +1,5 @@
 package seedu.address.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.address.model.Account;
 import seedu.address.model.ReadOnlyAccount;
 import seedu.address.model.expenditure.Amount;
@@ -28,7 +24,7 @@ public class SampleDataUtil {
             new Expenditure(new Info("David Li"), new Amount(3.1),
                     new Date("2019-09-14"), new Tag("family")),
             new Expenditure(new Info("Irfan Ibrahim"), new Amount(3.1),
-                    new Date("2019-09-15"),new Tag("classmates")),
+                    new Date("2019-09-15"), new Tag("classmates")),
             new Expenditure(new Info("Roy Balakrishnan"), new Amount(3.1),
                     new Date("2019-09-11"), new Tag("colleagues"))
         };

@@ -168,7 +168,7 @@ public class UniqueExpenditureListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueExpenditureList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                uniqueExpenditureList.asUnmodifiableObservableList().remove(0));
     }
 }

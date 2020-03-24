@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class TypicalExpenditures {
 
     // Manually added - Expenditure's details found in {@code CommandTestUtil}
     public static final Expenditure AMY = new ExpenditureBuilder().withInfo(VALID_INFO_AMY)
-            .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY).withTag(VALID_TAG_FRIEND).build();
+            .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY).build();
     public static final Expenditure BOB = new ExpenditureBuilder().withInfo(VALID_INFO_BOB)
             .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
             .build();

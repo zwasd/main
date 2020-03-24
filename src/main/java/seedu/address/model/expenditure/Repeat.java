@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 
 import seedu.address.model.tag.Tag;
+
 /**
  * A Repeated expenditure.
  */
@@ -61,8 +62,8 @@ public class Repeat {
         return tag;
     }
 
-    public void setInfo(String newInfo) {
-        this.info = info;
+    public void setInfo(Info newInfo) {
+        this.info = newInfo;
     }
 
     public void setAmount(Amount newAmount) {
@@ -76,11 +77,11 @@ public class Repeat {
     public void setPeriod(String duration) {
         if (duration.equalsIgnoreCase("daily")) {
             this.period = Period.DAILY;
-        } else if( duration.equalsIgnoreCase("monthly")) {
+        } else if (duration.equalsIgnoreCase("monthly")) {
             this.period = Period.MONTHLY;
-        } else if( duration.equalsIgnoreCase("weekly")) {
+        } else if (duration.equalsIgnoreCase("weekly")) {
             this.period = Period.WEEKLY;
-        } else if( duration.equalsIgnoreCase("annually")) {
+        } else if (duration.equalsIgnoreCase("annually")) {
             this.period = Period.ANNUALLY;
         }
     }
