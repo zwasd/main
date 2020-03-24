@@ -41,7 +41,7 @@ public class ExpAddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Expenditure expectedExpenditure = new ExpenditureBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Expenditure expectedExpenditure = new ExpenditureBuilder(BOB).withTag(VALID_TAG_FRIEND).build();
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + INFO_DESC_BOB + AMOUNT_DESC_BOB
                 + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
@@ -60,7 +60,7 @@ public class ExpAddCommandParserTest {
 
         // multiple tags - all accepted
         Expenditure expectedExpenditureMultipleTags = new ExpenditureBuilder(BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withTag(VALID_TAG_HUSBAND)
                 .build();
 
         assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
@@ -72,7 +72,7 @@ public class ExpAddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).withTags().build();
+        Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).build();
         assertParseSuccess(parser, INFO_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
                 new ExpAddCommand(expectedExpenditure));
     }

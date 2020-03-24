@@ -106,7 +106,7 @@ public class ExpEditCommandParserTest {
 
         EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_AMY)
                 .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTag(VALID_TAG_HUSBAND).build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -148,7 +148,7 @@ public class ExpEditCommandParserTest {
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditExpenditureDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        descriptor = new EditExpenditureDescriptorBuilder().withTag(VALID_TAG_FRIEND).build();
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -162,7 +162,7 @@ public class ExpEditCommandParserTest {
 
         EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder()
                 .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withTag(VALID_TAG_HUSBAND)
                 .build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
@@ -175,7 +175,7 @@ public class ExpEditCommandParserTest {
         Index targetIndex = INDEX_THIRD_EXPENDITURE;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().withTags().build();
+        EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder().build();
         ExpEditCommand expectedCommand = new ExpEditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

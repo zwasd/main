@@ -17,7 +17,7 @@ public class ExpenditureTest {
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Expenditure expenditure = new ExpenditureBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> expenditure.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> expenditure.getTag());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ExpenditureTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields-> returns false
-        editedAlice = new ExpenditureBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withTag(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

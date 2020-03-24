@@ -43,7 +43,7 @@ public class UniqueExpenditureListTest {
     public void contains_expenditureWithDifferentData_returnsFalse() {
         uniqueExpenditureList.add(ALICE);
 
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(uniqueExpenditureList.contains(editedAlice));
     }
@@ -87,7 +87,7 @@ public class UniqueExpenditureListTest {
     public void setExpenditure_editedExpenditureHasSameIdentity_success() {
         uniqueExpenditureList.add(ALICE);
 
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
                 .build();
         uniqueExpenditureList.setExpenditure(ALICE, editedAlice);
         UniqueExpenditureList expectedUniqueExpenditureList = new UniqueExpenditureList();

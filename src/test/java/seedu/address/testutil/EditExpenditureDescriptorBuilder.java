@@ -35,7 +35,7 @@ public class EditExpenditureDescriptorBuilder {
         descriptor.setInfo(expenditure.getInfo());
         descriptor.setAmount(expenditure.getAmount());
         descriptor.setDate(expenditure.getDate());
-        descriptor.setTags(expenditure.getTags());
+        descriptor.setTag(expenditure.getTag());
     }
 
     /**
@@ -66,9 +66,8 @@ public class EditExpenditureDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditExpenditureDescriptor}
      * that we are building.
      */
-    public EditExpenditureDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditExpenditureDescriptorBuilder withTag(String tag) {
+        descriptor.setTag(new Tag(tag));
         return this;
     }
 

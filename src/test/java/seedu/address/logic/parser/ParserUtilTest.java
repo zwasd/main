@@ -29,9 +29,9 @@ public class ParserUtilTest {
     private static final String VALID_INFO = "Rachel Walker";
     private static final String VALID_DATE = "2019-09-11";
     private static final double VALID_AMOUNT = 3.14;
+    private static final String EMPTY_TAG = "";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
@@ -149,23 +149,23 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
     }
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+        assertTrue(ParserUtil.parseTag(EMPTY_TAG).isEmpty());
     }
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Tag actualTagSet = ParserUtil.parseTag(VALID_TAG_1);
+        Tag expectedTagSet = new Tag(VALID_TAG_1);
 
         assertEquals(expectedTagSet, actualTagSet);
     }
