@@ -17,6 +17,7 @@ import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
+import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -94,12 +95,18 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
 
     /**
-     * Adds a expenditure to the address book and dayToDayExpenditure.
+     * Adds a expenditure to the dayToDayExpenditure.
      * The expenditure must not already exist in the address book.
      */
     public void addExpenditure(Expenditure expenditure) {
-
         expenditures.add(expenditure);
+    }
+
+    /**
+     * Adds a repeat to the repeatList.
+     */
+    public void addRepeat(Repeat repeat) {
+        repeatItem.add(repeat);
     }
 
     /**
@@ -116,10 +123,19 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
     /**
      * Removes {@code key} from this {@code Account}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist.
      */
     public void removeExpenditure(Expenditure key) {
         expenditures.remove(key);
+    }
+
+    /**
+     * Removes {@code Repeat} from this {@code repeatItem}.
+     */
+    public void removeRepeat(Repeat repeat) {
+        if( !repeatItem.remove(repeat)) {
+            throw new RepeatNotFoundException();
+        }
     }
 
     //// util methods

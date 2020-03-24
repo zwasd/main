@@ -10,6 +10,8 @@ import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 
+import seedu.address.model.expenditure.Repeat;
+import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,4 +95,18 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    /**
+     * Parses a {@code String period} into a {@code Period}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code period} is invalid.
+     */
+    public static String parsePeriod(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+        if (!Repeat.isValidPeriod(trimmedPeriod)) {
+            throw new ParseException(Repeat.PERIOD_MESSAGE_CONSTRAINTS);
+        }
+        return trimmedPeriod;
+    }
 }
