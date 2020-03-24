@@ -20,7 +20,6 @@ import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 import seedu.address.testutil.ExpenditureBuilder;
 import seedu.address.testutil.ExpenditureUtil;
@@ -32,8 +31,8 @@ public class TopLevelParserTest {
     @Test
     public void parseCommand_expenditure_add() throws Exception {
         Expenditure expenditure = new ExpenditureBuilder().build();
-        ExpAddCommand command = (ExpAddCommand) parser.parseCommand(ExpLevelParser.COMMAND_WORD + " " +
-                ExpenditureUtil.getAddCommand(expenditure));
+        ExpAddCommand command = (ExpAddCommand) parser.parseCommand(ExpLevelParser.COMMAND_WORD + " "
+                + ExpenditureUtil.getAddCommand(expenditure));
         assertEquals(new ExpAddCommand(expenditure), command);
     }
 
