@@ -32,6 +32,14 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getTagName() {
+        return tagName;
+    }
+
+    public boolean isEmpty() {
+        return this.tagName.equals("");
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -48,7 +56,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return tagName;
     }
 
 }

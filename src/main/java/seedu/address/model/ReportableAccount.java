@@ -37,4 +37,5 @@ public interface ReportableAccount {
      * @return a Map of key: date string & value: UniqueExpenditureList
      */
     Map<String, UniqueExpenditureList> getExpFromToInclusive(Date startDate, Date endDate);
+
 }

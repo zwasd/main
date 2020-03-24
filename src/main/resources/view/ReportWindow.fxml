@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Scene?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.stage.Stage?>
 
 <fx:root fx:id="ReportWindow" title="Report" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <scene>
-        <Scene fx:id="Report" fill="#111111" stylesheets="@DarkTheme.css">
-            <AnchorPane prefHeight="300.0" prefWidth="400.0" style="-fx-background-color: #383838#383838;" stylesheets="@DarkTheme.css">
-            <children>
-               <PieChart fx:id="Chart" layoutX="25.0" layoutY="60.0" prefHeight="180.0" prefWidth="188.0" style="-fx-background-color: WHITE;" title="Expenditure Breakdown " />
-            </children></AnchorPane>
-        </Scene>
-    </scene>
 </fx:root>

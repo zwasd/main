@@ -5,11 +5,12 @@
       "info": "Alice Pauline",
       "amount": 3.14,
       "date": "2019-09-11",
-      "tag": [ "friends" ]
+      "tag": "friends"
     } , {
       "info": "Alice Pauline",
       "amount": 3.14,
-      "date": "2019-09-11"
+      "date": "2019-09-11",
+      "tag": "friends"
     } ]
   } ]
 }

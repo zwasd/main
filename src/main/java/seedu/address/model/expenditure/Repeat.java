@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 
 import seedu.address.model.tag.Tag;
+
 /**
  * A Repeated expenditure.
  */
@@ -14,18 +15,27 @@ public class Repeat {
     private Info info;
     private Amount amount;
     private Tag tag;
-    private String period;
+    private Period period;
+    /**
+     * Represents the frequency
+     * of repeat expenditure.
+     */
+    public enum Period {
+        DAILY, WEEKLY, MONTHLY, ANNUALLY;
+    }
+
     // displayDate is empty, size 0 means daily.
     // non empty means weekly or monthly -> cos i will at least add one day inside.
-    private HashSet<LocalDate> displayDate;
+    private HashSet<LocalDate> relevantDate;
 
     public Repeat(Info info, Amount amount, Date startDate, Date endDate, String period) {
         this.info = info;
         this.amount = amount;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.period = period;
-        displayDate = new HashSet<>();
+        setPeriod(period);
+        relevantDate = new HashSet<>();
+        generateRelevantDate();
     }
 
     public Info getInfo() {
@@ -44,7 +54,7 @@ public class Repeat {
         return endDate;
     }
 
-    public String getPeriod() {
+    public Period getPeriod() {
         return period;
     }
 
@@ -52,8 +62,8 @@ public class Repeat {
         return tag;
     }
 
-    public void setInfo(String newInfo) {
-        this.info = info;
+    public void setInfo(Info newInfo) {
+        this.info = newInfo;
     }
 
     public void setAmount(Amount newAmount) {
@@ -64,20 +74,31 @@ public class Repeat {
         this.endDate = newEndDate;
     }
 
-    public void setPeriod(String newPeriod) {
-        this.period = newPeriod;
+    public void setPeriod(String duration) {
+        if (duration.equalsIgnoreCase("daily")) {
+            this.period = Period.DAILY;
+        } else if (duration.equalsIgnoreCase("monthly")) {
+            this.period = Period.MONTHLY;
+        } else if (duration.equalsIgnoreCase("weekly")) {
+            this.period = Period.WEEKLY;
+        } else if (duration.equalsIgnoreCase("annually")) {
+            this.period = Period.ANNUALLY;
+        }
     }
+
 
     /**
      * Update the displayDate hashSet.
      */
-    private void generateDisplayDate() {
-        if (this.period.equalsIgnoreCase("weekly")) {
+    private void generateRelevantDate() {
+        if (this.period == Period.WEEKLY) {
             generateWeeklyDate();
-        } else if (this.period.equalsIgnoreCase("monthly")) {
+        } else if (this.period == Period.MONTHLY) {
             generateMonthlyDate();
+        } else if (this.period == Period.ANNUALLY) {
+            generateAnnuallyDate();
         } else {
-            this.displayDate.clear();
+            this.relevantDate.clear();
         }
 
     }
@@ -86,10 +107,10 @@ public class Repeat {
      * Update if it is a weekly repeat.
      */
     private void generateWeeklyDate() {
-        this.displayDate.clear();
+        this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
         while (true) {
-            this.displayDate.add(pivotDate);
+            this.relevantDate.add(pivotDate);
             pivotDate.plusWeeks(1);
             if (pivotDate.isAfter(this.endDate.localDate)) {
                 break;
@@ -101,14 +122,33 @@ public class Repeat {
      * Update if it is a monthly repeat.
      */
     public void generateMonthlyDate() {
-        this.displayDate.clear();
+        this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
+        int i = 0;
         while (true) {
-            this.displayDate.add(pivotDate);
-            pivotDate.plusMonths(1);
-            if (pivotDate.isAfter(this.endDate.localDate)) {
+            LocalDate toStore = pivotDate.plusMonths(i);
+            if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
+            this.relevantDate.add(pivotDate);
+            i++;
+        }
+    }
+
+    /**
+     * Update if it is a annually repeat.
+     */
+    public void generateAnnuallyDate() {
+        this.relevantDate.clear();
+        LocalDate pivotDate = this.startDate.localDate;
+        int i = 0;
+        while (true) {
+            LocalDate toStore = pivotDate.plusYears(i);
+            if (toStore.isAfter(this.endDate.localDate)) {
+                break;
+            }
+            this.relevantDate.add(toStore);
+            i++;
         }
     }
 
@@ -118,10 +158,10 @@ public class Repeat {
      * @return true denote suppose to appear, false to denote not suppose to appear.
      */
     public boolean isOn(LocalDate targetDate) {
-        if (this.period.equalsIgnoreCase("daily")) {
+        if (this.period == Period.DAILY) {
             return checkDaily(targetDate);
         } else {
-            return checkWeeklyOrMonthly(targetDate);
+            return checkWeeklyOrMonthlyOrAnnually(targetDate);
         }
     }
 
@@ -143,8 +183,8 @@ public class Repeat {
      * @param targetDate the date you want to check.
      * @return true or false.
      */
-    private boolean checkWeeklyOrMonthly(LocalDate targetDate) {
-        return this.displayDate.contains(targetDate);
+    private boolean checkWeeklyOrMonthlyOrAnnually(LocalDate targetDate) {
+        return this.relevantDate.contains(targetDate);
     }
 
 
@@ -159,7 +199,7 @@ public class Repeat {
                 .append(" End Date: ")
                 .append(getEndDate())
                 .append(" Interval: ")
-                .append(getPeriod())
+                .append(getPeriod().toString())
                 .append(" Tags: ")
                 .append(getTag());
         return builder.toString();

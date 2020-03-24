@@ -5,15 +5,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,7 +19,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
-
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
@@ -46,7 +41,7 @@ public class ExpEditCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+            + "Example: exp" + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.3";
 
     public static final String MESSAGE_EDIT_EXPENDITURE_SUCCESS = "Edited Expenditure: %1$s";
@@ -100,7 +95,7 @@ public class ExpEditCommand extends Command {
         Info updatedInfo = editExpenditureDescriptor.getInfo().orElse(expenditureToEdit.getInfo());
         Amount updatedAmount = editExpenditureDescriptor.getAmount().orElse(expenditureToEdit.getAmount());
         Date updatedDate = editExpenditureDescriptor.getDate().orElse(expenditureToEdit.getDate());
-        Set<Tag> updatedTags = editExpenditureDescriptor.getTags().orElse(expenditureToEdit.getTags());
+        Tag updatedTags = editExpenditureDescriptor.getTag().orElse(expenditureToEdit.getTag());
         return new Expenditure(updatedInfo, updatedAmount, updatedDate, updatedTags);
     }
 
@@ -130,7 +125,7 @@ public class ExpEditCommand extends Command {
         private Info info;
         private Amount amount;
         private Date date;
-        private Set<Tag> tags;
+        private Tag tag;
 
         public EditExpenditureDescriptor() {
         }
@@ -143,14 +138,14 @@ public class ExpEditCommand extends Command {
             setInfo(toCopy.info);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
+            setTag(toCopy.tag);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(info, amount, date, tags);
+            return CollectionUtil.isAnyNonNull(info, amount, date, tag);
         }
 
         public void setInfo(Info info) {
@@ -177,21 +172,12 @@ public class ExpEditCommand extends Command {
             return Optional.ofNullable(date);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public Optional<Tag> getTag() {
+            return Optional.ofNullable(tag);
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.of(new HashSet<Tag>());
+        public void setTag(Tag tag) {
+            this.tag = tag;
         }
 
         @Override
@@ -212,7 +198,7 @@ public class ExpEditCommand extends Command {
             return getInfo().equals(e.getInfo())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
-                    && getTags().equals(e.getTags());
+                    && getTag().equals(e.getTag());
 
         }
     }
