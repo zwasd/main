@@ -27,7 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * UI component that is displayed.
@@ -186,10 +185,7 @@ public class CalendarView extends UiPart<Region> {
         monthYear.append("  ");
         monthYear.append(this.nonPivotDate.getYear());
         String output = monthYear.toString();
-        this.monthYearLabel.setMaxSize(200, 60);
         this.monthYearLabel.setText(output);
-        this.monthYearLabel.setFont(Font.font("Cambria", 42));
-
     }
 
 
@@ -241,7 +237,7 @@ public class CalendarView extends UiPart<Region> {
         holder.setPrefHeight(20);
         holder.setPrefWidth(20);
         holder.setMinSize(20, 20);
-        holder.setMaxSize(23, 23);
+        holder.setMaxSize(30, 30);
         holder.setAlignment(Pos.CENTER);
         return holder;
     }

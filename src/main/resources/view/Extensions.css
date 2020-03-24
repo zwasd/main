@@ -31,14 +31,14 @@
 
 #monthYearLabel {
     -fx-text-fill: white;
-    -fx-font-size: 19;
+    -fx-font-weight: bold;
+    -fx-font-size: 28;
     -fx-blend-mode: SRC_OVER;
 }
 
 .weekDayLabel {
     -fx-text-fill: white;
-    -fx-font-size: 15;
-    -fx-font-weight: bold;
+    -fx-font-size: 20;
 }
 
 .dateGridPaneLabel {
