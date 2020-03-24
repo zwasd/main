@@ -11,4 +11,5 @@ public class Messages {
             "The expenditure index provided is invalid";
     public static final String MESSAGE_EXPENDITURES_LISTED_OVERVIEW = "%1$d expenditures listed!";
     public static final String MESSAGE_INVALID_ACCOUNT_NAME = "The account with the specified name was not found.";
+    public static final String MESSAGE_INVALID_GRAPH_TYPE = "The graph type provided is invalid";
 }
