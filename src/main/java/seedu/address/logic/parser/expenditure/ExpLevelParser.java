@@ -12,7 +12,6 @@ import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
 import seedu.address.logic.commands.expenditure.ExpFindCommand;
-import seedu.address.logic.commands.expenditure.ExpRepeatCommand;
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.TopLevelParser;
@@ -25,7 +24,7 @@ public class ExpLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "exp";
 
-    public static final String MESSAGE_USAGE = "exp add\nexp edit\nexp delete\nexp find\nexp repeat\nexp setsubget\n";
+    public static final String MESSAGE_USAGE = "exp add\nexp edit\nexp delete\nexp find\nexp setsubget\n";
 
     /**
      * Used for initial separation of command word and args.
@@ -50,6 +49,7 @@ public class ExpLevelParser extends TopLevelParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case ExpAddCommand.COMMAND_WORD:
@@ -63,9 +63,6 @@ public class ExpLevelParser extends TopLevelParser {
 
         case ExpFindCommand.COMMAND_WORD:
             return new ExpFindCommandParser().parse(arguments);
-
-        case ExpRepeatCommand.COMMAND_WORD:
-            return new ExpRepeatCommandParser().parse(arguments);
 
         case ExpSetBudgetCommand.COMMAND_WORD:
             return new ExpSetBudgetCommandParser().parse(arguments);

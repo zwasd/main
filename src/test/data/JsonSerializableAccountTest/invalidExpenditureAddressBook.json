@@ -4,7 +4,9 @@
     "expenditures": [ {
       "info": "Hans Muster",
       "amount": -1,
-      "date": "2019-09-11"
-    } ]
+      "date": "2019-09-11",
+      "tag": "Others"
+    } ],
+    "repeats": []
   } ]
 }

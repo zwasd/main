@@ -85,7 +85,7 @@ public class LogicManagerTest {
 
         String addCommand = ExpLevelParser.COMMAND_WORD + " " + ExpAddCommand.COMMAND_WORD
                 + INFO_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
-        Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).withTags().build();
+        Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).build();
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExpenditure(expectedExpenditure);

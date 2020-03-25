@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
-By: `Team T10-3`      Since: `Feb 2020`      Licence: `MIT`
+By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exp delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `exp delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -74,14 +74,28 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the Main UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The Main UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+.Structure of the Report UI Component
+
+
+The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `PieChart` etc.
+The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu.address/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/address/ui[`ReportWindow.java`]
+Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/address/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
 
 The `UI` component,
 
@@ -98,18 +112,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TopLevelParser` class to parse the user command.
+.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
+to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("exp delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `exp delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `ExpDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,8 +138,8 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `$AVE IT` data.
+* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -142,7 +158,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `$AVE IT` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -242,6 +258,66 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::calendar[]
+
+=== Calendar feature
+
+_{Coming soon}_
+
+// end::calendar[]
+
+// tag::repeat[]
+
+=== Recurring Expenditure feature
+
+_{Coming soon}_
+
+// end::repeat[]
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Proposed Implementation
+
+The autocomplete feature is facilitated by `AutoCompleteTextField.java`.
+It extends the `TextField` component of JavaFx and provides a dropdown of possible commands.
+
+To make use of the autocomplete feature. The backend will have to include the commands to be +
+added which will be shown to the users. This allows easy configuration of what commands will +
+be searched. 
+
+Given below is the example usage scenario of how the autocompletion works.
+
+Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
+The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
+
+[Note]
+For the current implementation, it checks whether the typed command matches the starting characters of any commands.
+To be improved in later versions.
+
+==== Design Consideration
+
+===== Aspect: Usage of autocompletion
+
+* **Alternative 1 (current choice):** Moving mouse over to select commands.
+** Pros: Easy to implement.
+** Cons: Does not meet target user needs who strongly prefers typing.
+* **Alternative 2:** Use of tab to simulate autocompletion like a terminal.
+** Pros: Intuitive for people used to using a terminal.
+** Cons: Will have to direct the tab keystroke to be used for autocompletion.
+
+===== Aspect: How autocompletion searches for completion items
+
+_{To be added}_
+
+===== Aspect: Data structure to support more powerful autocompletion
+
+_{To be added}_
+
+// end::autocomplete[]
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -256,6 +332,44 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Report]]
+=== Report [In progress]
+Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
+show users their expenditure breakdowns.
+
+==== Design Considerations
+
+While implementing the report feature, we had these considerations:
+
+  1. We want the report to have a graph that showcases expenditure breakdowns.
+  2. We want to have minimal changes to the current _main UI_ code.
+  3. We want to avoid cluttering the `MainWindow` as much as possible when the graph is generated.
+  4. We want the users to have a clean UI for report.
+
+
+Hence, due to the above considerations, we chose to break down the report feature into
+2 main aspects:  Logic and  UI.
+
+==== Implementation
+*UI*
+
+1.  `MainWindow` : The `MainWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`MainWindow`].
+2. `ReportWindow` : The `ReportWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`ReportWindow`].
+3. Graph is the highlight of the report feature and it is implemented in `ReportWindow` class.
+* Pie chart: Implemented using *javafx.scene.chart.PieChart*
+* Bar graph: In progress.
+* Stack Bar graph: In progress.
+
+*Logic*
+
+1. `Report` : The `Report`  object is generated to hold  users request for a report either in `MainWindow` or `ReportWindow`.
+2. `ReportCommandResult`: The `ReportCommandResult` holds the command result of commands typed in `ReportWindow`.
+
+
+
 
 [[Implementation-Configuration]]
 === Configuration
@@ -329,13 +443,144 @@ _{More to be added}_
 (For all use cases below, the *System* is the `$AVE IT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add
+=== Use case: Acc Add
 
 *MSS*
 
-1.  User requests to add a spending. Format: `Add -i INFO -a AMT [-t tag] [-d DATE] `
-2.  `$AVE IT` will acknowledge and assign this expenditure an unique ID.
-3.  If tag is not specified during the instruction, `$AVE IT` will auto assign it to be `others`
+1.  User requests to add a new account. Format: `acc add "account name"`
+2.  `$AVE IT` will acknowledge and add this account into the list.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects data is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE It` detects a duplicate account name input.
+** 1b1. `$AVE IT` will state that duplicate account name detected. Unable to add.
+** Use case resumes from step 1.
+
+[discrete]
+=== Use case: Acc Delete
+
+*MSS*
+
+1.  User requests to delete an existing account. Format: `acc delete "account name"`
+2.  `$AVE IT` will acknowledge and delete this account from the list.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects account name is non-existent.
+** 1b1. `$AVE IT` will state that account is not found. Unable to delete.
+**Use case resumes from step 1.
+* 2a. User requests to deleted the only account in the list.
+** 2a1. `$AVE IT` will create a default account to ensure there is at least an account in the list
+** Use case ends.
+* 2b. User requests to delete the account he is are viewing right now.
+** 2b1. `$AVE IT` will checkout to a random existing account.
+** Use case ends.
+
+
+[discrete]
+=== Use case: Acc Rename
+
+*MSS*
+
+1.  User requests to rename an account. Format: `acc rename "old name" "new name"`
+2.  `$AVE IT` will acknowledge and state that the account has being renamed.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
+** 1b1. `$AVE IT` will state that the account with the specified name was not found.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects existence of account with "new name".
+** 1c1. `$AVE IT` will state that duplicate account name detected. Unable to add.
+** Use case resumes from step 1.
+
+
+[discrete]
+=== Use case: Acc Checkout
+
+*MSS*
+
+1.  User requests to check out to another account. Format: `acc checkout "account name"`
+2.  `$AVE IT` will acknowledge and state that the target account is checked out.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
+** 1b1. `$AVE IT` will state that the account with the specified name was not found.
+** Use case resumes from step 1.
+
+
+
+[discrete]
+=== Use case: Acc List
+
+*MSS*
+
+1.  User requests to add a new account. Format: `acc list`
+2.  `$AVE IT` will acknowledge and state that the account has being renamed.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format..
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+
+
+[discrete]
+=== Use case: Acc Clear
+
+*MSS*
+
+1.  User requests to clear all data in an account. Format: `acc clear "account name"`
+2.  `$AVE IT` will acknowledge and state that the account's data has been cleared'.
++
+
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
+** 1b1. `$AVE IT` will state that the account with the specified name was not found.
+** Use case resumes in step 1.
+
+[discrete]
+=== Use case: Exp Add
+
+*MSS*
+
+1.  User requests to add an expenditure record in the account which they are viewing right now. +
+Format: `exp add -i info -a amount [-t tag] [-d date (YYYY-MM-DD)]`
+2.  `$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
 +
 
 Use case ends.
@@ -343,54 +588,50 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. Wrong Format.
-+
-Use case back to step 1.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that tag is not specified.
+** 1c1.`$AVE IT` will auto assign it to be `Others`
+** 1c2.`$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
+** Use case ends.
+* 1d. `$AVE IT` detects that date is not specified.
+** 1d1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 1d2: `$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
+** Use case ends.
 
 [discrete]
-=== Use case: Delete
+=== Use case: Exp Delete
 
 *MSS*
 
-1.  User requests to delete a spending. Format: `Delete UniqueID`
+1.  User requests to delete an expenditure record in the account they are viewing right now. +
+Format: `exp delete number (positive) `
 2.  `$AVE IT` will acknowledge.
-3.  If tag is not specified during the instruction, `$AVE IT` will auto assign it to be `others`
 +
-
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1. Wrong Format.
-* 2. Invalid ID.
-+
-Use case back to step 1.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that index provided is invalid.
+** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
+** Use case resumes from step 1.
+
 
 [discrete]
-=== Use case: Repeat
+=== Use case: Exp Edit
 
 *MSS*
 
-1.  User requests to add an fix spending per month. Format: `Repeat -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
-2.  `$AVE IT` will acknowledge and assign it with unique ID.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1. Wrong Format.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: Edit
-
-*MSS*
-
-1.  User requests to edit information for a spending. Format: `Edit ID [-i INFO] [-a AMT] [-t tag] [-d Date]`
+1.  User requests to edit an expenditure record in the account they are viewing right now. +
+Format: `exp edit number(positive) [-i info] [-a amount] [-t tag] [-d date (YYYY-MM-DD)]`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -399,16 +640,250 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. Wrong Format.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes in step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
+** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes in step 1.
+* 1d. `$AVE IT` detects that index provided is invalid.
+** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
+** Use case resumes in step 1.
+
+
+[discrete]
+=== Use case: Exp Find
+
+*MSS*
+
+1.  User requests to find expenditure records with certain `keyword` in the account which they are viewing right now. +
+Format: `exp find "keyword`
+2.  `$AVE IT` will acknowledge and output a list of relevant expenditure records.
 +
-Use case back to step 1.
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+
+
+[discrete]
+=== Use case: Exp SetBudget [TO BE IMPLEMENTED]
+
+*MSS*
+
+1.  User requests to set an budget for a given month in the account which they are viewing right now. +
+Format: `exp setbudget -a amount [-d date (YYYY-MM-DD)]`
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
+** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes from step 1.
+* 2a. `$AVE IT` detects that date is not specified.
+** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 2a2. `$AVE IT` will acknowledge.
+** use case end.
+
+
+
+[discrete]
+=== Use case: Repeat Add [TO BE IMPLEMENTED]
+
+*MSS*
+
+1.  User requests to add a repeating expenditure record in the account which they are viewing right now. +
+Format: `repeat add -i info -a amount -sd startDate (YYYY-MM-DD) -ed endDate(YYYY-MM-DD) -p period [-t tag] `
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that start date or end date input is invalid.
+** 1c1. `$AVE IT` will request an valid and date.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that period input is invalid.
+** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+** Use case resumes from step 1.
+* 1e. `$AVE IT` detects that tag input is unspecified.
+** 1e1. `$AVE IT` will auto assign it to be `Others`
+** 1e2. `$AVE IT` will acknowledge.
+** Use case ends.
+
+[discrete]
+=== Use case: Repeat Delete [TO BE IMPLEMENTED]
+
+*MSS*
+
+1.  User requests to delete a repeating expenditure record from the account which they are viewing right now. +
+Format: `repeat delete number (positive) `
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format'.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that index input is invalid.
+** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
+** Use case resumes from step 1.
+
+
+[discrete]
+=== Use case: Repeat Edit [TO BE IMPLEMENTED]
+
+*MSS*
+
+1.  User requests to edit a repeating expenditure record in the account which they are viewing right now. +
+Format: `repeat edit number(positive) [-i info] [-a amount] [-sd startDate (YYYY-MM-DD)] [-ed endDate(YYYY-MM-DD)] [-p period] [-t tag]`
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that start date or end date input is invalid.
+** 1c1. `$AVE IT` will request an valid and date.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that period input is invalid.
+** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+** Use case resumes from step 1.
+* 1e. `$AVE IT` detects that index input is invalid.
+** 1e1. `$AVE IT` will state that the expenditure index provided is invalid.
+** 1e2. Back to step 1.
+** use case end.
+
+[discrete]
+=== Use case: Report View [In Progress]
+
+*MSS*
+
+1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
+Format: `report view startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) graphType(PIE)`
+2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that start date or end date input is invalid.
+** 1b1. `$AVE IT` will request a valid start and end date.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that graph type input is invalid.
+** 1c1. `$AVE IT` will request a valid graph type.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that there is a report window showing and input is correct.
+** 1d1. `$AVE IT` will reflect result of input in opened report window.
+** 1d2. `$AVE IT` will acknowledge.
+** Use case ends.
+* 1e. `$AVE IT` detects that there is a report window showing and input is wrong.
+** 1e1. `$AVE IT` will reflect input is wrong.
+** Use case resumes from step 1.
+
+
+
+
+[discrete]
+=== Use case: Report Export [TO BE IMPLEMENTED]
+
+*MSS*
+
+1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
+Format: `report export startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) `
+2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Invalid command
+** 1a1. `$AVE IT` will request for correct input format.
+** 1a2. Back to step 1.
+** use case end.
+* 1b. Invalid start date or end date.
+** 1b1. `$AVE IT` will request an valid and date.
+** 1b2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
+** 1b3. Back to step 1.
+** use case end.
+
+[discrete]
+=== Use case: Generate report in report window
+
+*MSS*
+
+1. User request to generate new report.
+2. `$AVE IT` will update report window to reflect input result.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+1a. `$AVE IT` detects input is in incorrect format.
+
+** Use case resumes from step 1.
+
+1b. `$AVE IT` detects date input is invalid.
+
+** Use case resumes from step 1.
+
+1c. `$AVE IT` detects graph type input is invalid.
+
+** Use case resumes from step 1.
 
 [discrete]
 === Use case: Go
 
 *MSS*
 
-1.  User requests to view other date. Format: `Go -d date(DDMMYYYY)`
+1.  User requests to view other date. Format: `Go date(YYYY-MM-DD)`
 2.  `$AVE IT` will acknowledge and update the view.
 +
 
@@ -417,181 +892,40 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. Wrong Format.
-+
-Use case back to step 1.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that date input is invalid.
+** 1b1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes from step 1.
+
+
 
 [discrete]
-=== Use case: Find
+=== Use case: Help
 
 *MSS*
 
-1.  User requests to find certain task with relevant keyword. Format: `Find -k KEYWORD [-t TAG]`
-2.  `$AVE IT` will acknowledge and response with a list of relevant data.
+1.  User requests for help.
+2.  `$AVE IT` will acknowledge and provide help.
++
+Use case ends.
+
+[discrete]
+=== Use case: Exit
+
+*MSS*
+
+1.  User requests to exit.
+2.  `$AVE IT` will acknowledge and exit.
 +
 
 Use case ends.
 
-*Extensions*
 
-[none]
-* 1. Wrong Format.
-+
-Use case back to step 1.
 
-[discrete]
-=== Use case: Go
 
-*MSS*
 
-1.  User needs help. Format: `Help [-c COMMAND]`
-2.  `$AVE IT` will acknowledge and list the respective command guideline.
-+
-
-Use case ends.
-
-[discrete]
-=== Use case: SetBudget
-
-*MSS*
-
-1.  User requests to set a budget for a certain month. Format: `SetBudget -a AMT -d DATE(MMYYYY)`
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1. Wrong Format.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: AddAcc
-
-*MSS*
-
-1.  User requests to set up a disjoint account for other purpose. Format: `AddAcc "ACCOUNT NAME"`
-2.  `$AVE IT` will acknowledge and create a new account.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Duplicate account name.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: Checkout
-
-*MSS*
-
-1.  User requests to switch between accounts. Format: `Checkout "ACCOUNT NAME`.
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Invalid account name.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: Acc
-
-*MSS*
-
-1.  User requests to view all accounts. Format: `acc`.
-2.  `$AVE IT` will acknowledge and list out all the existing accounts.
-+
-
-Use case ends.
-
-[discrete]
-=== Use case: DeleteAcc
-
-*MSS*
-
-1.  User requests to delete an accounts. Format: `DeleteAcc "ACCOUNT NAME`.
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Invalid account name.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: Rename
-
-*MSS*
-
-1.  User requests to rename account or existing tag. Format: `Rename [-a "OLD ACCOUNT NAME" "NEW ACCOUNT NAME] [-t "OLD TAG" "NEW TAG"] `.
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Invalid account name.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: ViewReport
-
-*MSS*
-
-1.  User requests to view report of their spending for a specific time. Format: `ViewReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
-2.  `$AVE IT` will acknowledge and generate a report for them to view.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Invalid Date.
-+
-Use case back to step 1.
-
-[discrete]
-=== Use case: ExportReport
-
-*MSS*
-
-1.  User requests to export a report of their spending in a specific time. Format: ExportReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
-2.  `$AVE IT` will acknowledge, generate a report and export it to desktop.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Wrong Format.
-* 1b. Invalid account name.
-+
-Use case back to step 1.
 
 _{More to be added}_
 
@@ -667,7 +1001,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving input
 
 . Dealing with missing/corrupted data files
 

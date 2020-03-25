@@ -1,9 +1,5 @@
 package seedu.address.model.util;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import seedu.address.model.Account;
 import seedu.address.model.ReadOnlyAccount;
 import seedu.address.model.expenditure.Amount;
@@ -20,17 +16,17 @@ public class SampleDataUtil {
     public static Expenditure[] getSampleExpenditures() {
         return new Expenditure[] {
             new Expenditure(new Info("Alex Yeoh"), new Amount(3.1),
-                    new Date("2019-09-11"), getTagSet("friends")),
+                    new Date("2019-09-11"), new Tag("friends")),
             new Expenditure(new Info("Bernice Yu"), new Amount(3.1),
-                    new Date("2019-09-12"), getTagSet("colleagues", "friends")),
+                    new Date("2019-09-12"), new Tag("colleagues")),
             new Expenditure(new Info("Charlotte Oliveiro"), new Amount(3.1),
-                    new Date("2019-09-13"), getTagSet("neighbours")),
+                    new Date("2019-09-13"), new Tag("neighbours")),
             new Expenditure(new Info("David Li"), new Amount(3.1),
-                    new Date("2019-09-14"), getTagSet("family")),
+                    new Date("2019-09-14"), new Tag("family")),
             new Expenditure(new Info("Irfan Ibrahim"), new Amount(3.1),
-                    new Date("2019-09-15"), getTagSet("classmates")),
+                    new Date("2019-09-15"), new Tag("classmates")),
             new Expenditure(new Info("Roy Balakrishnan"), new Amount(3.1),
-                    new Date("2019-09-11"), getTagSet("colleagues"))
+                    new Date("2019-09-11"), new Tag("colleagues"))
         };
     }
 
@@ -42,15 +38,6 @@ public class SampleDataUtil {
 
         }
         return sampleAb;
-    }
-
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
     }
 
 }

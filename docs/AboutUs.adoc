@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Jiang Jiahui
 image::jjiahui.png[width="150", align="left"]
-{empty}[https://github.com/JJiahui[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JJiahui[github]]
 
 Role: Developer +
 Responsibilities: Code Quality, Testing, UI
@@ -21,7 +21,7 @@ Responsibilities: Code Quality, Testing, UI
 
 === Lim Feng Yue
 image::zwasd.png[width="150", align="left"]
-{empty}[http://github.com/zwasd[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/zwasd[github]]
 
 Role: Developer +
 Responsibilities: Integration + Backend
@@ -30,7 +30,7 @@ Responsibilities: Integration + Backend
 
 === Ng Xinpei
 image::xinpei-ng.png[width="150", align="left"]
-{empty}[https://github.com/XinPei-ng[github]] [<<Ng Xinepei#, portfolio>>]
+{empty}[https://github.com/XinPei-ng[github]]
 
 Role: Developer +
 Responsibilities: Documentation and UI
@@ -39,7 +39,7 @@ Responsibilities: Documentation and UI
 
 === Zheng Shaopeng
 image::sp-shaopeng.png[width="150", align="left"]
-{empty}[https://github.com/sp-shaopeng[github]] [<<Zheng Shaopeng#, portfolio>>]
+{empty}[https://github.com/sp-shaopeng[github]]
 
 Role: Developer +
 Responsibilities: Deadline and Deliverable, Scheduling and Tracking, Backend

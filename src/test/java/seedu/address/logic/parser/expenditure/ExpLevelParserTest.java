@@ -42,8 +42,7 @@ public class ExpLevelParserTest {
 
     @Test
     public void parseExpCommand_delete() throws Exception {
-        ExpDeleteCommand command = (ExpDeleteCommand) parser.parseCommand(
-                seedu.address.logic.commands.expenditure.ExpDeleteCommand.COMMAND_WORD
+        ExpDeleteCommand command = (ExpDeleteCommand) parser.parseCommand(ExpDeleteCommand.COMMAND_WORD
                         + " " + INDEX_FIRST_EXPENDITURE.getOneBased());
         assertEquals(new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
     }

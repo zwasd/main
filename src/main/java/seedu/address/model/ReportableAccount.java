@@ -3,7 +3,9 @@ package seedu.address.model;
 import java.time.LocalDate;
 import java.util.Map;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Date;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 
 /**
@@ -37,4 +39,10 @@ public interface ReportableAccount {
      * @return a Map of key: date string & value: UniqueExpenditureList
      */
     Map<String, UniqueExpenditureList> getExpFromToInclusive(Date startDate, Date endDate);
+
+    /**
+     * @param date the date
+     * @return a list containing the repeats on that date
+     */
+    ObservableList<Repeat> getRepeatByDate(LocalDate date);
 }

@@ -7,16 +7,16 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="/$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.image.Image?>
+<fx:root minHeight="300" minWidth="400" onCloseRequest="#handleExit" title="\$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/address_book_32.png" />
+        <Image url ="@/images/moneybag.png" />
     </icons>
     <scene>
         <Scene>
@@ -59,9 +59,9 @@
                         </VBox>
                         <StackPane fx:id="report" prefHeight="100.0" prefWidth="50.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                             <children>
-                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleReport" prefWidth="20.0" text="R" textAlignment="JUSTIFY" translateY="80.0" wrapText="true" StackPane.alignment="CENTER">
+                                <Button alignment="CENTER" contentDisplay="TEXT_ONLY" mnemonicParsing="false" onAction="#handleReport" style="-fx-background-color: LIGHT GREY;" text="Report" textAlignment="CENTER" translateY="80.0" wrapText="true" StackPane.alignment="CENTER">
                                     <font>
-                                        <Font size="0.5" />
+                                        <Font name="Euphemia UCAS" size="0.5" />
                                     </font>
                                 </Button>
                             </children>

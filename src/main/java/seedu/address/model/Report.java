@@ -1,18 +1,43 @@
 package seedu.address.model;
 
-import java.time.LocalDate;
+import seedu.address.model.expenditure.Date;
 
 /**
  * Report.
  */
 public class Report {
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private final Date startDate;
+    private final Date endDate;
+    private final GraphType graph;
 
-    public Report(LocalDate startDate, LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    /**
+     * Represents the different types
+     * of graph that can be generated for report.
+     */
+    public enum GraphType {
+        BAR, PIE, STACK;
     }
 
+    public Report(Date startDate, Date endDate, GraphType graph) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.graph = graph;
+    }
+
+    /**
+     * Getter method for user input graph type.
+     * @return GraphType user inpurs
+     */
+    public GraphType getFormat() {
+        return graph;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
 
 }

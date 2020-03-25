@@ -17,7 +17,7 @@ import seedu.address.model.ReadOnlyAccountList;
 /**
  * A class to access Account data stored as a json file on the hard disk.
  */
-public class JsonAccountListStorage implements AddressBookStorage {
+public class JsonAccountListStorage implements SaveItStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonAccountListStorage.class);
 

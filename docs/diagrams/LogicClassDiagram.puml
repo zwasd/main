@@ -8,7 +8,8 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class TopLevelParser
+Class SubLevelParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -35,8 +36,10 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" TopLevelParser
+TopLevelParser .down.> XYZCommandParser: creates >
+TopLevelParser .left.> SubLevelParser : refers to >
+SubLevelParser ..> XYZCommandParser : creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser

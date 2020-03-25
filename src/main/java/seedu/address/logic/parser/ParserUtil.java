@@ -2,10 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -14,6 +10,7 @@ import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -98,14 +95,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses a {@code String period} into a {@code Period}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code period} is invalid.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static String parsePeriod(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+        if (!Repeat.Period.isValidPeriod(trimmedPeriod)) {
+            throw new ParseException(Repeat.PERIOD_MESSAGE_CONSTRAINTS);
         }
-        return tagSet;
+        return trimmedPeriod;
     }
 }

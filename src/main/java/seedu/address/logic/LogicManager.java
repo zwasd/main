@@ -9,14 +9,18 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReportCommand;
+import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.report.ReportWindowParser;
 import seedu.address.model.Model;
 
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.expenditure.Expenditure;
 
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.storage.Storage;
 
 /**
@@ -29,11 +33,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final TopLevelParser topLevelParser;
+    private final ReportWindowParser reportWindowParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         topLevelParser = new TopLevelParser();
+        reportWindowParser = new ReportWindowParser();
     }
 
     @Override
@@ -54,6 +60,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException {
+        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        ReportCommandResult commandResult;
+        ReportCommand command = reportWindowParser.parse(commandText);
+        commandResult = command.execute(model);
+        return commandResult;
+    }
+
+    @Override
     public ReadOnlyAccountList getAddressBook() {
         return model.getAccountList();
     }
@@ -61,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Expenditure> getFilteredExpenditureList() {
         return model.getFilteredExpenditureList();
+    }
+
+    @Override
+    public ObservableList<Repeat> getFilteredRepeatList() {
+        return model.getFilteredRepeatList();
     }
 
     @Override

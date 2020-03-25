@@ -6,7 +6,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 
 /**
  * The API of the Model component.
@@ -14,6 +16,7 @@ import seedu.address.model.expenditure.Expenditure;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Expenditure> PREDICATE_SHOW_ALL_EXPENDITURES = unused -> true;
+    Predicate<Repeat> PREDICATE_SHOW_ALL_REPEATS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -71,6 +74,11 @@ public interface Model {
     void addExpenditure(Expenditure expenditure);
 
     /**
+     * Adds the given repeat.
+     */
+    void addRepeat(Repeat repeat);
+
+    /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
      * The expenditure identity of {@code editedExpenditure} must not be the same as
@@ -80,6 +88,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<Expenditure> getFilteredExpenditureList();
+
+    /** Returns an unmodifiable view of the filtered repeat list */
+    ObservableList<Repeat> getFilteredRepeatList();
 
     /**
      * Updates the filter of the filtered expenditure list to filter by the given {@code predicate}.
@@ -94,6 +105,14 @@ public interface Model {
      */
     void renameAccount(String oldName, String newName);
 
+    /**
+     * Delete an account from the accountList.
+     * @param name the target account name
+     */
+    void deleteAccount(String name);
+
+    void addAccount(Account account) throws CommandException;
+
     boolean updateActiveAccount(String accountName);
 
     void clearActiveAccount();
@@ -101,4 +120,5 @@ public interface Model {
     ReportableAccount getReportableAccount();
 
     void updateActiveDate(LocalDate date);
+
 }

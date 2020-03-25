@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.address.testutil.ExpenditureBuilder;
 
@@ -71,7 +72,7 @@ public class AccountTest {
     @Test
     public void hasExpenditure_expenditureWithSameDifferentDate_returnsFalse() {
         account.addExpenditure(ALICE);
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTags(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
                 .build();
         assertFalse(account.hasExpenditure(editedAlice));
     }
@@ -86,6 +87,7 @@ public class AccountTest {
      */
     private static class AccountStub implements ReadOnlyAccount {
         private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();
+        private final ObservableList<Repeat> repeats = FXCollections.observableArrayList();
 
         AccountStub(Collection<Expenditure> expenditures) {
             this.expenditures.setAll(expenditures);
@@ -94,6 +96,11 @@ public class AccountTest {
         @Override
         public ObservableList<Expenditure> getExpenditureList() {
             return expenditures;
+        }
+
+        @Override
+        public ObservableList<Repeat> getRepeatList() {
+            return repeats;
         }
     }
 

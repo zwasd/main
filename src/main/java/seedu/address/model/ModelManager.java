@@ -12,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +25,7 @@ public class ModelManager implements Model {
     private final AccountList accountList;
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
+    private final FilteredList<Repeat> filteredRepeats;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
@@ -37,6 +40,7 @@ public class ModelManager implements Model {
         this.accountList = new AccountList(accountList);
 
         filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
+        filteredRepeats = this.accountList.getRepeatList().filtered(PREDICATE_SHOW_ALL_REPEATS);
     }
 
     public ModelManager() {
@@ -91,7 +95,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
         return accountList.hasExpenditure(expenditure);
@@ -105,8 +108,12 @@ public class ModelManager implements Model {
     @Override
     public void addExpenditure(Expenditure expenditure) {
         accountList.addExpenditure(expenditure);
-
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+    }
+
+    @Override
+    public void addRepeat(Repeat repeat) {
+        accountList.addRepeat(repeat);
     }
 
     @Override
@@ -127,9 +134,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Repeat> getFilteredRepeatList() {
+        return filteredRepeats;
+    }
+
+    @Override
     public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
         filteredExpenditures.setPredicate(predicate);
+    }
+
+    /**
+     * Displays all repeats and expenditures
+     */
+    public void showAll() {
+        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        // TODO
     }
 
     @Override
@@ -147,6 +167,11 @@ public class ModelManager implements Model {
         this.accountList.renameAccount(oldName, newName);
     }
 
+    @Override
+    public void deleteAccount(String name) {
+        this.accountList.deleteAccount(name);
+    }
+
     public void clearActiveAccount() {
         accountList.clearActiveAccount();
     }
@@ -161,6 +186,15 @@ public class ModelManager implements Model {
         accountList.updateActiveDate(date);
     }
 
+    @Override
+    public void addAccount(Account account) throws CommandException {
+        try {
+            this.accountList.addAccount(account);
+        } catch (DuplicateAccountException e) {
+            throw new CommandException("Account " + account.getAccountName()
+                    + " already exists! Unable to add.");
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

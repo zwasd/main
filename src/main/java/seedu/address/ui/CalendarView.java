@@ -27,7 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * UI component that is displayed.
@@ -186,10 +185,7 @@ public class CalendarView extends UiPart<Region> {
         monthYear.append("  ");
         monthYear.append(this.nonPivotDate.getYear());
         String output = monthYear.toString();
-        this.monthYearLabel.setMaxSize(200, 60);
         this.monthYearLabel.setText(output);
-        this.monthYearLabel.setFont(Font.font("Cambria", 42));
-
     }
 
 
@@ -227,7 +223,6 @@ public class CalendarView extends UiPart<Region> {
         Label label = new Label();
         label.setText("" + dayNumber);
         label.setStyle("-fx-text-fill: white");
-        label.setStyle("-fx-font-weight: bold");
         return label;
     }
 
@@ -239,9 +234,10 @@ public class CalendarView extends UiPart<Region> {
     private VBox placeHolderForLabel() {
         VBox holder = new VBox();
         holder.setFillWidth(false);
-        holder.setPrefHeight(15);
-        holder.setPrefWidth(15);
-        holder.setMaxSize(20, 20);
+        holder.setPrefHeight(20);
+        holder.setPrefWidth(20);
+        holder.setMinSize(20, 20);
+        holder.setMaxSize(30, 30);
         holder.setAlignment(Pos.CENTER);
         return holder;
     }
@@ -264,7 +260,7 @@ public class CalendarView extends UiPart<Region> {
                 VBox holder = placeHolderForLabel();
 
                 if (i < this.prevMonthBalance || i > 42 - 1 - this.nextMonthBalance) {
-                    holder.setBlendMode(BlendMode.OVERLAY);
+                    holder.setBlendMode(BlendMode.SOFT_LIGHT);
                 }
 
                 if (i == this.prevMonthBalance + this.day - 1 && isSameMonth(this.pivotDate, this.nonPivotDate)) {
@@ -288,7 +284,7 @@ public class CalendarView extends UiPart<Region> {
                     public void handle(MouseEvent event) {
                         Label a = (Label) holder.getChildren().get(0);
                         int clickedDate = Integer.parseInt(a.getText());
-                        if (holder.getBlendMode() == BlendMode.OVERLAY) {
+                        if (holder.getBlendMode() == BlendMode.SOFT_LIGHT) {
                             pivotDate = getNewDate(clickedDate);
                             nonPivotDate = pivotDate;
                             updateDayMonthYear(pivotDate);

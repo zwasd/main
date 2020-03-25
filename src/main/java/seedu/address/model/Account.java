@@ -11,10 +11,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
+import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -23,6 +26,7 @@ import seedu.address.model.expenditure.UniqueExpenditureList;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
+    private ObservableList<Repeat> repeats;
     private final String accountName;
 
     /*
@@ -34,6 +38,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
     {
         expenditures = new UniqueExpenditureList();
+        repeats = FXCollections.observableArrayList();
     }
 
     public Account() {
@@ -44,12 +49,13 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         this.accountName = accountName;
     }
 
+
     /**
      * Creates an Account using the Expenditures in the {@code toBeCopied}
      */
     public Account copyAccountWithNewName(String newName) {
         Account toBeCopied = new Account(newName);
-        resetData(toBeCopied);
+        toBeCopied.resetData(this);
         return toBeCopied;
     }
 
@@ -89,11 +95,18 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
 
     /**
-     * Adds a expenditure to the address book.
+     * Adds a expenditure to the dayToDayExpenditure.
      * The expenditure must not already exist in the address book.
      */
     public void addExpenditure(Expenditure expenditure) {
         expenditures.add(expenditure);
+    }
+
+    /**
+     * Adds a repeat to the repeatList.
+     */
+    public void addRepeat(Repeat repeat) {
+        repeats.add(repeat);
     }
 
     /**
@@ -110,10 +123,19 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
     /**
      * Removes {@code key} from this {@code Account}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist.
      */
     public void removeExpenditure(Expenditure key) {
         expenditures.remove(key);
+    }
+
+    /**
+     * Removes {@code Repeat} from this {@code repeatItem}.
+     */
+    public void removeRepeat(Repeat repeat) {
+        if (!repeats.remove(repeat)) {
+            throw new RepeatNotFoundException();
+        }
     }
 
     //// util methods
@@ -131,6 +153,11 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     @Override
+    public ObservableList<Repeat> getRepeatList() {
+        return FXCollections.unmodifiableObservableList(repeats);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
@@ -141,6 +168,12 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     @Override
     public int hashCode() {
         return expenditures.hashCode();
+    }
+
+    @Override
+    public ObservableList<Repeat> getRepeatByDate(LocalDate date) {
+        return FXCollections.observableArrayList(
+                repeats.stream().filter(repeat -> repeat.isOn(date)).collect(Collectors.toList()));
     }
 
     @Override

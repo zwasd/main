@@ -16,15 +16,24 @@ public class AccDeleteCommand extends Command {
 
     public static final String NAME_TOO_LONG = "The account name should be less than 25 characters";
 
-    public static final String MESSAGE_DELETE_EXPENDITURE_SUCCESS = "Deleted Account: %1$s";
+    public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Deleted Account: ";
 
     private final String targetAccountName;
 
     public AccDeleteCommand(String targetAccountName) {
         this.targetAccountName = targetAccountName;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        model.deleteAccount(this.targetAccountName);
+        return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccDeleteCommand // instanceof handles nulls
+                && targetAccountName.equals(((AccDeleteCommand) other).targetAccountName));
     }
 }

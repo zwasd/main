@@ -20,7 +20,7 @@ import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
  * unique in terms of identity in the UniqueExpenditureList. However,
  * the removal of a expenditure uses Expenditure#equals(Object) so
  * as to ensure that the expenditure with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Expenditure#isSameExpenditure(Expenditure)
@@ -31,7 +31,8 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
     private final ObservableList<Expenditure> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public UniqueExpenditureList() {}
+    public UniqueExpenditureList() {
+    }
 
     public UniqueExpenditureList(List<Expenditure> expenditures) {
         setExpenditures(expenditures);
@@ -124,7 +125,7 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
 
         return other == this // short circuit if same object
                 || (other instanceof UniqueExpenditureList // instanceof handles nulls
-                        && internalList.equals(((UniqueExpenditureList) other).internalList));
+                && internalList.equals(((UniqueExpenditureList) other).internalList));
     }
 
     @Override

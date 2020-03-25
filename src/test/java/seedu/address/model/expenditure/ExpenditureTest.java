@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.ALICE;
 import static seedu.address.testutil.TypicalExpenditures.BOB;
 
@@ -13,12 +12,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.ExpenditureBuilder;
 
 public class ExpenditureTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Expenditure expenditure = new ExpenditureBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> expenditure.getTags().remove(0));
-    }
 
     @Test
     public void isSameExpenditure() {
@@ -54,7 +47,7 @@ public class ExpenditureTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields-> returns false
-        editedAlice = new ExpenditureBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withTag(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

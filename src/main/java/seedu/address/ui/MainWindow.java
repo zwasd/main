@@ -57,6 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -71,6 +72,10 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
+        //imageview = new ImageView();
+
+        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
+        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
@@ -168,8 +173,9 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
+
         reportWindow.hide();
+        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -184,7 +190,8 @@ public class MainWindow extends UiPart<Stage> {
     private void handleReport() {
 
         if (!reportWindow.isShowing()) {
-            reportWindow.show();
+            reportWindow.addLogic(logic);
+            reportWindow.showEmpty();
         } else {
             reportWindow.focus();
         }
@@ -211,7 +218,13 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowReport()) {
-                handleReport();
+
+                if (reportWindow.isShowing()) {
+                    reportWindow.hide();
+                }
+
+                reportWindow.addLogic(logic);
+                reportWindow.showResult(commandResult);
             }
 
             if (commandResult.isUpdateCalendar()) {
@@ -225,4 +238,5 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
 }
