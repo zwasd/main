@@ -2,6 +2,7 @@ package seedu.address.model.expenditure;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 
 import seedu.address.model.tag.Tag;
 
@@ -9,6 +10,8 @@ import seedu.address.model.tag.Tag;
  * A Repeated expenditure.
  */
 public class Repeat {
+
+    public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: Daily, Weekly, Monthly or Annually";
 
     private Date startDate;
     private Date endDate;
@@ -37,6 +40,37 @@ public class Repeat {
         relevantDate = new HashSet<>();
         generateRelevantDate();
     }
+
+    public Repeat(Info info, Amount amount, Date startDate, Date endDate, Tag tag, String period) {
+        this.info = info;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.tag = tag;
+        setPeriod(period);
+        relevantDate = new HashSet<>();
+        generateRelevantDate();
+    }
+
+    /**
+     * generate a Period based on input string.
+     * @param period the period in string.
+     * @return a new period.
+     */
+    public static Period generatePeriod(String period) {
+        Period p;
+        if (period.equalsIgnoreCase("daily")) {
+            p = Period.DAILY;
+        } else if (period.equalsIgnoreCase("weekly")) {
+            p = Period.WEEKLY;
+        } else if (period.equalsIgnoreCase("monthly")) {
+            p = Period.MONTHLY;
+        } else {
+            p = Period.ANNUALLY;
+        }
+        return p;
+    }
+
 
     public Info getInfo() {
         return info;
@@ -70,6 +104,10 @@ public class Repeat {
         this.amount = newAmount;
     }
 
+    public void setStartDate(Date newStartDate) {
+        this.startDate = newStartDate;
+    }
+
     public void setEndDate(Date newEndDate) {
         this.endDate = newEndDate;
     }
@@ -101,6 +139,16 @@ public class Repeat {
             this.relevantDate.clear();
         }
 
+    }
+
+    /**
+     * Check if the input string is an valid period.
+     */
+    public static boolean isValidPeriod(String period) {
+        return period.equalsIgnoreCase("daily")
+                || period.equalsIgnoreCase("monthly")
+                || period.equalsIgnoreCase("weekly")
+                || period.equalsIgnoreCase("annually");
     }
 
     /**
@@ -185,6 +233,37 @@ public class Repeat {
      */
     private boolean checkWeeklyOrMonthlyOrAnnually(LocalDate targetDate) {
         return this.relevantDate.contains(targetDate);
+    }
+
+
+    /**
+     * Returns true if both repeats have all same fields.
+     * Can be used for testing.
+     */
+    @Override
+    public boolean equals(Object other) {
+
+        if (!(other instanceof Repeat)) { // short circuit if not same type
+            return false;
+        } else if (other == this) {
+            return true;
+        }
+
+        Repeat otherRepeat = (Repeat) other;
+        boolean sameInfo = otherRepeat.info.equals(this.info);
+        boolean sameAmt = otherRepeat.amount.equals(this.amount);
+        boolean sameStartDate = otherRepeat.startDate.equals(this.startDate);
+        boolean sameEndDate = otherRepeat.endDate.equals(this.endDate);
+        boolean sameTag = otherRepeat.tag.equals(this.tag);
+        boolean samePeriod = otherRepeat.period.equals(this.period);
+
+        return sameAmt && sameStartDate && sameEndDate && sameInfo && sameTag && samePeriod;
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(info, amount, startDate, endDate, tag, period);
     }
 
 

@@ -13,7 +13,6 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.repeat.RepeatAddCommand;
 import seedu.address.logic.commands.repeat.RepeatDeleteCommand;
 import seedu.address.logic.commands.repeat.RepeatEditCommand;
-import seedu.address.logic.commands.repeat.RepeatExtendCommand;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -59,9 +58,6 @@ public class RepeatLevelParser extends TopLevelParser {
 
         case RepeatDeleteCommand.COMMAND_WORD:
             return new RepeatDeleteCommandParser().parse(arguments);
-
-        case RepeatExtendCommand.COMMAND_WORD:
-            return new RepeatExtendCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
