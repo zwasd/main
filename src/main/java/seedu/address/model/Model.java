@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 
 /**
  * The API of the Model component.
@@ -71,6 +72,11 @@ public interface Model {
     void addExpenditure(Expenditure expenditure);
 
     /**
+     * Adds the given repeat.
+     */
+    void addRepeat(Repeat repeat);
+
+    /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
      * The expenditure identity of {@code editedExpenditure} must not be the same as
@@ -109,4 +115,5 @@ public interface Model {
     ReportableAccount getReportableAccount();
 
     void updateActiveDate(LocalDate date);
+
 }

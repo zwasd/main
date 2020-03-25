@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -104,8 +105,12 @@ public class ModelManager implements Model {
     @Override
     public void addExpenditure(Expenditure expenditure) {
         accountList.addExpenditure(expenditure);
-
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+    }
+
+    @Override
+    public void addRepeat(Repeat repeat) {
+        accountList.addRepeat(repeat);
     }
 
     @Override
