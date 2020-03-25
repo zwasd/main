@@ -65,9 +65,6 @@ public class TopLevelParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case AccCheckoutCommand.COMMAND_WORD:
-            return new AccCheckoutCommandParser().parse(arguments);
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

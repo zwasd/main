@@ -17,13 +17,13 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private SaveItStorage saveItStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(SaveItStorage saveItStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.saveItStorage = saveItStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return saveItStorage.getAddressBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyAccountList> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        return readAddressBook(saveItStorage.getAddressBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyAccountList> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return saveItStorage.readAddressBook(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAccountList addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, saveItStorage.getAddressBookFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAccountList addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        saveItStorage.saveAddressBook(addressBook, filePath);
     }
 
 }
