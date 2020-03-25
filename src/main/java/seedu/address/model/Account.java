@@ -171,6 +171,12 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     @Override
+    public ObservableList<Repeat> getRepeatByDate(LocalDate date) {
+        return FXCollections.observableArrayList(
+                repeats.stream().filter(repeat -> repeat.isOn(date)).collect(Collectors.toList()));
+    }
+
+    @Override
     public UniqueExpenditureList getExpByDate(String date) {
         return new UniqueExpenditureList(
                 getExpenditureStream()

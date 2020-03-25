@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.expenditure.Expenditure;
 
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.storage.Storage;
 
 /**
@@ -75,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Expenditure> getFilteredExpenditureList() {
         return model.getFilteredExpenditureList();
+    }
+
+    @Override
+    public ObservableList<Repeat> getFilteredRepeatList() {
+        return model.getFilteredRepeatList();
     }
 
     @Override
