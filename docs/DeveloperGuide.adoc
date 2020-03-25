@@ -74,14 +74,28 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the Main UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The Main UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+.Structure of the Report UI Component
+
+
+The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `PieChart` etc.
+The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu.address/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/address/ui[`ReportWindow.java`]
+Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/address/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
 
 The `UI` component,
 
@@ -318,6 +332,44 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Report]]
+=== Report [In progress]
+Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
+show users their expenditure breakdowns.
+
+==== Design Considerations
+
+While implementing the report feature, we had these considerations:
+
+  1. We want the report to have a graph that showcases expenditure breakdowns.
+  2. We want to have minimal changes to the current _main UI_ code.
+  3. We want to avoid cluttering the `MainWindow` as much as possible when the graph is generated.
+  4. We want the users to have a clean UI for report.
+
+
+Hence, due to the above considerations, we chose to break down the report feature into
+2 main aspects:  Logic and  UI.
+
+==== Implementation
+*UI*
+
+1.  `MainWindow` : The `MainWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`MainWindow`].
+2. `ReportWindow` : The `ReportWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`ReportWindow`].
+3. Graph is the highlight of the report feature and it is implemented in `ReportWindow` class.
+* Pie chart: Implemented using *javafx.scene.chart.PieChart*
+* Bar graph: In progress.
+* Stack Bar graph: In progress.
+
+*Logic*
+
+1. `Report` : The `Report`  object is generated to hold  users request for a report either in `MainWindow` or `ReportWindow`.
+2. `ReportCommandResult`: The `ReportCommandResult` holds the command result of commands typed in `ReportWindow`.
+
+
+
 
 [[Implementation-Configuration]]
 === Configuration
