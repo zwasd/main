@@ -560,7 +560,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to view report of their spending for a specific time. Format: `ViewReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
+1.  User requests to view report of their spending for a specific time. Format: `reportview "START DATE(DDMMYYYY)" "END DATE(DDMMYYYY)" "GRAPH(PIE)""`.
 2.  `$AVE IT` will acknowledge and generate a report for them to view.
 +
 
@@ -579,7 +579,7 @@ Use case back to step 1.
 
 *MSS*
 
-1.  User requests to export a report of their spending in a specific time. Format: ExportReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"`.
+1.  User requests to export a report of their spending in a specific time. Format: reportexport "START DATE(DDMMYYYY)" "END DATE(DDMMYYYY)"`.
 2.  `$AVE IT` will acknowledge, generate a report and export it to desktop.
 +
 
