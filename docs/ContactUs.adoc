@@ -5,7 +5,7 @@
 * *Bug reports, Suggestions* : Post in our https://github.com/AY1920S2-CS2103T-T10-3/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
 * *Email us*: You can also reach any of us through our emails as stated below :
-** Jiang Jiahui : 'jiangjiahui@u.nus.edu'
-** Lim Fengyue : 'fylim@u.nus.edu'
-** Ng Xinpei : 'e0324757@u.nus.edu'
-** Zheng Shaopeng : 'e0322763@u.nus.edu'
+** Jiang Jiahui : `jiangjiahui@u.nus.edu`
+** Lim Feng Yue : `fylim@u.nus.edu`
+** Ng Xinpei : `e0324757@u.nus.edu`
+** Zheng Shaopeng : `e0322763@u.nus.edu`
