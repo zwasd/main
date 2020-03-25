@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -11,7 +12,11 @@ import seedu.address.model.tag.Tag;
  */
 public class Repeat {
 
-    public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: Daily, Weekly, Monthly or Annually";
+    public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: '"
+            + Period.DAILY.toString() + "', '"
+            + Period.WEEKLY.toString() + "', '"
+            + Period.MONTHLY.toString() + "' or '"
+            + Period.ANNUALLY.toString() + "'";
 
     private Date startDate;
     private Date endDate;
@@ -24,7 +29,30 @@ public class Repeat {
      * of repeat expenditure.
      */
     public enum Period {
-        DAILY, WEEKLY, MONTHLY, ANNUALLY;
+        DAILY("daily"),
+        WEEKLY("weekly"),
+        MONTHLY("monthly"),
+        ANNUALLY("annually");
+
+        private final String keyword;
+
+        Period(String keyword) {
+            this.keyword = keyword;
+        }
+
+        /**
+         * Check if the input string is an valid period.
+         */
+        public static boolean isValidPeriod(String period) {
+            return period.equalsIgnoreCase(Period.DAILY.toString())
+                || period.equalsIgnoreCase(Period.WEEKLY.toString())
+                || period.equalsIgnoreCase(Period.MONTHLY.toString())
+                || period.equalsIgnoreCase(Period.ANNUALLY.toString());
+        }
+
+        public String toString() {
+            return keyword;
+        }
     }
 
     // displayDate is empty, size 0 means daily.
@@ -57,16 +85,18 @@ public class Repeat {
      * @param period the period in string.
      * @return a new period.
      */
-    public static Period generatePeriod(String period) {
+    public static Period generatePeriod(String period) throws IllegalValueException {
         Period p;
-        if (period.equalsIgnoreCase("daily")) {
+        if (period.equalsIgnoreCase(Period.DAILY.toString())) {
             p = Period.DAILY;
-        } else if (period.equalsIgnoreCase("weekly")) {
+        } else if (period.equalsIgnoreCase(Period.WEEKLY.toString())) {
             p = Period.WEEKLY;
-        } else if (period.equalsIgnoreCase("monthly")) {
+        } else if (period.equalsIgnoreCase(Period.MONTHLY.toString())) {
             p = Period.MONTHLY;
-        } else {
+        } else if (period.equalsIgnoreCase(Period.ANNUALLY.toString())) {
             p = Period.ANNUALLY;
+        } else {
+            throw new IllegalValueException(PERIOD_MESSAGE_CONSTRAINTS);
         }
         return p;
     }
@@ -113,13 +143,13 @@ public class Repeat {
     }
 
     public void setPeriod(String duration) {
-        if (duration.equalsIgnoreCase("daily")) {
+        if (duration.equalsIgnoreCase(Period.DAILY.toString())) {
             this.period = Period.DAILY;
-        } else if (duration.equalsIgnoreCase("monthly")) {
-            this.period = Period.MONTHLY;
-        } else if (duration.equalsIgnoreCase("weekly")) {
+        } else if (duration.equalsIgnoreCase(Period.WEEKLY.toString())) {
             this.period = Period.WEEKLY;
-        } else if (duration.equalsIgnoreCase("annually")) {
+        } else if (duration.equalsIgnoreCase(Period.MONTHLY.toString())) {
+            this.period = Period.MONTHLY;
+        } else if (duration.equalsIgnoreCase(Period.ANNUALLY.toString())) {
             this.period = Period.ANNUALLY;
         }
     }
@@ -139,16 +169,6 @@ public class Repeat {
             this.relevantDate.clear();
         }
 
-    }
-
-    /**
-     * Check if the input string is an valid period.
-     */
-    public static boolean isValidPeriod(String period) {
-        return period.equalsIgnoreCase("daily")
-                || period.equalsIgnoreCase("monthly")
-                || period.equalsIgnoreCase("weekly")
-                || period.equalsIgnoreCase("annually");
     }
 
     /**
