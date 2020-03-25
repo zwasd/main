@@ -15,6 +15,8 @@ public class AccClearCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "this account's data has been cleared!";
 
+    public static final String MESSAGE_FAILURE = "Command is in wrong format.";
+
 
     @Override
     public CommandResult execute(Model model) {
