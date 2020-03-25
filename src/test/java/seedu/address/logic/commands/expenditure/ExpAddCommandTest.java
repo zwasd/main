@@ -157,6 +157,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public ObservableList<Repeat> getFilteredRepeatList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
             throw new AssertionError("This method should not be called.");
         }

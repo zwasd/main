@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 
 /**
  * API of the Logic component
@@ -36,6 +37,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of expenditures */
     ObservableList<Expenditure> getFilteredExpenditureList();
+
+    /** Returns an unmodifiable view of the filtered list of expenditures */
+    ObservableList<Repeat> getFilteredRepeatList();
 
     /**
      * Returns the user prefs' address book file path.
