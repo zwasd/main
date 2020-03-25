@@ -32,7 +32,7 @@
 #monthYearLabel {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 28;
+    -fx-font-size: 24;
     -fx-blend-mode: SRC_OVER;
 }
 
