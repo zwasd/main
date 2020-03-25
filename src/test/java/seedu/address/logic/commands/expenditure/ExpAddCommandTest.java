@@ -27,6 +27,7 @@ import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReportableAccount;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.testutil.ExpenditureBuilder;
 
 public class ExpAddCommandTest {
@@ -118,6 +119,11 @@ public class ExpAddCommandTest {
         @Override
         public void addExpenditure(Expenditure expenditure) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRepeat(Repeat repeat) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
@@ -174,7 +175,6 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     /**
      * Adds the given expenditure.
-     * {@code expenditure} must not already exist in the internal list.
      */
     public void addExpenditure(Expenditure expenditure) {
         activeAccount.addExpenditure(expenditure);
@@ -183,6 +183,13 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         }
     }
 
+    /**
+     * Adds the given repeat.
+     */
+    public void addRepeat(Repeat repeat) {
+        activeAccount.addRepeat(repeat);
+        //TODO: ADD INTO THE INTERNAL LIST
+    }
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
