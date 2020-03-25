@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -171,8 +172,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addAccount(Account account) {
-        this.accountList.addAccount(account);
+    public void addAccount(Account account) throws CommandException {
+        try {
+            this.accountList.addAccount(account);
+        } catch (DuplicateAccountException e) {
+            throw new CommandException("Account " + account.getAccountName() + " already exists!");
+        }
     }
 
     @Override

@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -71,7 +70,6 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing report page.");
-        getRoot().resizableProperty().setValue(false);
         getRoot().show();
     }
 
@@ -169,8 +167,6 @@ public class ReportWindow extends UiPart<Stage> {
         } else {
             PieChart pie = showPieChart(command);
             VBox vbox = new VBox(box.getRoot(), pie);
-            vbox.setVgrow(box.getRoot(), Priority.ALWAYS);
-            vbox.setVgrow(pie, Priority.ALWAYS);
             Scene scene = new Scene(vbox);
             getRoot().setScene(scene);
             getRoot().show();
