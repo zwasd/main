@@ -16,6 +16,7 @@ import seedu.address.model.expenditure.Repeat;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Expenditure> PREDICATE_SHOW_ALL_EXPENDITURES = unused -> true;
+    Predicate<Repeat> PREDICATE_SHOW_ALL_REPEATS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -87,6 +88,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<Expenditure> getFilteredExpenditureList();
+
+    /** Returns an unmodifiable view of the filtered repeat list */
+    ObservableList<Repeat> getFilteredRepeatList();
 
     /**
      * Updates the filter of the filtered expenditure list to filter by the given {@code predicate}.

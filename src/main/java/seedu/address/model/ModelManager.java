@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final AccountList accountList;
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
+    private final FilteredList<Repeat> filteredRepeats;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
@@ -39,6 +40,7 @@ public class ModelManager implements Model {
         this.accountList = new AccountList(accountList);
 
         filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
+        filteredRepeats = this.accountList.getRepeatList().filtered(PREDICATE_SHOW_ALL_REPEATS);
     }
 
     public ModelManager() {
@@ -132,9 +134,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Repeat> getFilteredRepeatList() {
+        return filteredRepeats;
+    }
+
+    @Override
     public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
         filteredExpenditures.setPredicate(predicate);
+    }
+
+    /**
+     * Displays all repeats and expenditures
+     */
+    public void showAll() {
+        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        // TODO
     }
 
     @Override

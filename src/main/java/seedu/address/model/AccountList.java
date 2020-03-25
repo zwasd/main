@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -22,6 +23,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
     private final UniqueExpenditureList internalExpenditureList = new UniqueExpenditureList();
+    private final ObservableList<Repeat> internalRepeatList = FXCollections.observableArrayList();
     private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
 
@@ -41,6 +43,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         }
         activeDate = LocalDate.now();
         internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
+        internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
     }
 
     public AccountList(boolean createDefaultAccount) {
@@ -188,7 +191,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addRepeat(Repeat repeat) {
         activeAccount.addRepeat(repeat);
-        //TODO: ADD INTO THE INTERNAL LIST
+        internalRepeatList.add(repeat);
     }
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
@@ -214,6 +217,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void updateActiveDate(LocalDate date) {
         internalExpenditureList.setExpenditures(activeAccount.getExpByDate(date));
+        internalRepeatList.setAll(activeAccount.getRepeatByDate(date));
         activeDate = date;
     }
 
@@ -228,12 +232,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         } else {
             activeAccount = accounts.get(accountName);
             internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
+            internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
             return true;
         }
-    }
-
-    public Account getActiveAccount() {
-        return activeAccount;
     }
 
     @Override
@@ -265,7 +266,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     @Override
     public ObservableList<Repeat> getRepeatList() {
-        return activeAccount.getRepeatList(); // TODO
+        return FXCollections.unmodifiableObservableList(internalRepeatList);
     }
 
     @Override
