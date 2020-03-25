@@ -3,16 +3,11 @@ package seedu.address.logic.parser.report;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
 
-import java.time.format.DateTimeParseException;
-
-import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.report.ViewReportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Report;
 import seedu.address.model.expenditure.Date;
-
-import javax.swing.text.View;
 
 /**
  * Parse view report.
@@ -37,19 +32,19 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
         Date endDate;
 
         try {
-
             startDate = new Date(startDateStr);
             endDate = new Date(endDateStr);
-        } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
+        } catch (Exception e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewReportCommand.MESSAGE_USAGE));
         }
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ViewReportCommand.MESSAGE_USAGE));
         }
 
         String graph = userInputArray[2];
-        System.out.println(graph);
         Report.GraphType graphType = null;
 
         switch (graph) {
@@ -63,7 +58,8 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
             graphType = Report.GraphType.PIE;
             break;
         default:
-                throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE, ViewReportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
+                    ViewReportCommand.MESSAGE_USAGE));
         }
         Report report = new Report(startDate, endDate, graphType);
 

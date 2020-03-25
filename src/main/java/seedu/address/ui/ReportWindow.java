@@ -7,10 +7,15 @@ import java.util.logging.Logger;
 
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReportCommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +30,8 @@ public class ReportWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
 
-    private CommandResult resultToShow;
+    private Logic logic;
+    private ReportCommandBox box;
 
     /**
      * Creates a new Report Window.
@@ -42,42 +48,39 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow() {
         this(new Stage());
+        this.box = new ReportCommandBox(this::executeReportWindowCommand);
     }
 
-    public ReportWindow (CommandResult result) {
-        this(new Stage());
-        this.resultToShow = result;
-    }
     /**
      * Shows the report window.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
+     *
+     * @throws IllegalStateException <ul>
+     *                               <li>
+     *                               if this method is called on a thread other than the JavaFX Application Thread.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called during animation or layout processing.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called on the primary stage.
+     *                               </li>
+     *                               <li>
+     *                               if {@code dialogStage} is already showing.
+     *                               </li>
+     *                               </ul>
      */
     public void show() {
         logger.fine("Showing report page.");
+        getRoot().resizableProperty().setValue(false);
         getRoot().show();
-        getRoot().centerOnScreen();
     }
 
     /**
      * Pie chart displaying
      * user expenditures.
      */
-    public void showPieChart() {
-        HashMap stats = resultToShow.getStats();
+    public PieChart showPieChart(CommandResult result) {
+        HashMap stats = result.getStats();
         PieChart pie = new PieChart();
 
         Set set = stats.keySet();
@@ -90,24 +93,46 @@ public class ReportWindow extends UiPart<Stage> {
             pie.getData().add(data);
         }
 
-        VBox vbox = new VBox(pie);
-        Scene scene = new Scene(vbox, 400, 200);
-        getRoot().setScene(scene);
-        getRoot().setHeight(300);
-        getRoot().setWidth(600);
+        return pie;
+
+    }
+
+    /**
+     * Pie chart displaying
+     * user expenditures.
+     */
+    public PieChart showPieChart(ReportCommandResult result) {
+        HashMap stats = result.getStats();
+        PieChart pie = new PieChart();
+
+        Set set = stats.keySet();
+        Iterator itr = set.iterator();
+
+        while (itr.hasNext()) {
+
+            Tag index = ((Tag) itr.next());
+            PieChart.Data data = new PieChart.Data(index.getTagName(), (double) stats.get(index));
+            pie.getData().add(data);
+        }
+
+        return pie;
+
     }
 
     /**
      * Shows the expenditure breakdown
      * in user inputted graph type.
      */
-    public void showResult() {
+    public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
-
-        //TODO : format
-        showPieChart();
+        PieChart pie = showPieChart(result);
+        VBox vbox = new VBox(box.getRoot(), pie);
+        Scene scene = new Scene(vbox);
+        getRoot().setScene(scene);
         getRoot().show();
     }
+
+
     /**
      * Returns true if the report window is currently being shown.
      */
@@ -129,5 +154,27 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public void addLogic(Logic logic) {
+        this.logic = logic;
+    }
     //TODO: add in methods for handling diff graph
+
+    /**
+     * Executor method for command box.
+     */
+    private ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException {
+        ReportCommandResult command = logic.executeReportWindowCommand(commandText);
+        if (command.getExitReport()) {
+            this.hide();
+        } else {
+            PieChart pie = showPieChart(command);
+            VBox vbox = new VBox(box.getRoot(), pie);
+            vbox.setVgrow(box.getRoot(), Priority.ALWAYS);
+            vbox.setVgrow(pie, Priority.ALWAYS);
+            Scene scene = new Scene(vbox);
+            getRoot().setScene(scene);
+            getRoot().show();
+        }
+        return command;
+    }
 }

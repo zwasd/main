@@ -9,9 +9,6 @@ import seedu.address.logic.parser.report.ReportLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.Report;
 
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
 /**
  * View report.
  */
@@ -23,11 +20,11 @@ public class ViewReportCommand extends Command {
 
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Shows the report. "
-            + "\n"+"Parameters "
+            + "\n" + "Parameters "
             + "Start Date : YYYY-MM-DD  "
             + "End Date :  YYYY-MM-DD  "
-            + "Graph Type: PIE, BAR, STACK "
-            + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + "Graph Type: PIE "
+            + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD + "\n"
             + "2020-03-22 " + "2020-03-25 " + "PIE";
 
     private final Report toView;
