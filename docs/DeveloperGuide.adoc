@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exp delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `exp delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -98,18 +98,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TopLevelParser` class to parse the user command.
+.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
+to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("exp delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `exp delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `ExpDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,8 +124,8 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `$AVE IT` data.
+* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -142,7 +144,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `$AVE IT` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -241,6 +243,66 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::calendar[]
+
+=== Calendar feature
+
+_{Coming soon}_
+
+// end::calendar[]
+
+// tag::repeat[]
+
+=== Recurring Expenditure feature
+
+_{Coming soon}_
+
+// end::repeat[]
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Proposed Implementation
+
+The autocomplete feature is facilitated by `AutoCompleteTextField.java`.
+It extends the `TextField` component of JavaFx and provides a dropdown of possible commands.
+
+To make use of the autocomplete feature. The backend will have to include the commands to be +
+added which will be shown to the users. This allows easy configuration of what commands will +
+be searched. 
+
+Given below is the example usage scenario of how the autocompletion works.
+
+Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
+The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
+
+[Note]
+For the current implementation, it checks whether the typed command matches the starting characters of any commands.
+To be improved in later versions.
+
+==== Design Consideration
+
+===== Aspect: Usage of autocompletion
+
+* **Alternative 1 (current choice):** Moving mouse over to select commands.
+** Pros: Easy to implement.
+** Cons: Does not meet target user needs who strongly prefers typing.
+* **Alternative 2:** Use of tab to simulate autocompletion like a terminal.
+** Pros: Intuitive for people used to using a terminal.
+** Cons: Will have to direct the tab keystroke to be used for autocompletion.
+
+===== Aspect: How autocompletion searches for completion items
+
+_{To be added}_
+
+===== Aspect: Data structure to support more powerful autocompletion
+
+_{To be added}_
+
+// end::autocomplete[]
+
+
 
 === Logging
 
