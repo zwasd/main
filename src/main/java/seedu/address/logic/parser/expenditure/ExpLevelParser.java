@@ -51,8 +51,6 @@ public class ExpLevelParser extends TopLevelParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        System.out.println("--" + commandWord + "--");
-
         switch (commandWord) {
 
         case ExpAddCommand.COMMAND_WORD:

@@ -32,4 +32,11 @@ public class AccCheckoutCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, accountName));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccCheckoutCommand // instanceof handles nulls
+                && accountName.equals(((AccCheckoutCommand) other).accountName));
+    }
 }
