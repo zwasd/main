@@ -10,8 +10,9 @@ import seedu.address.logic.commands.account.AccCheckoutCommand;
 
 public class AccCheckoutCommandParserTest {
 
-    private final String MESSAGE_INVALID_FORMAT =
+    private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccCheckoutCommand.MESSAGE_USAGE);
+
     private final AccCheckoutCommandParser parser = new AccCheckoutCommandParser();
 
     @Test

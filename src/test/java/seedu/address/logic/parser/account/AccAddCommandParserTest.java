@@ -17,7 +17,7 @@ public class AccAddCommandParserTest {
     @Test
     public void parse_validValue_success() {
         Account expectedAccount = new AccountBuilder("school").build();
-        
+
         assertParseSuccess(parser, "school",
                 new AccAddCommand(expectedAccount));
 
@@ -27,7 +27,7 @@ public class AccAddCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_nameContainSpace_parseException() {
+    public void parseInvalidValue_nameContainSpace_parseException() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_CONTAIN_SPACE);
 
         // contains space
@@ -38,7 +38,7 @@ public class AccAddCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_nameTooLong_parseException() {
+    public void parseInvalidValue_nameTooLong_parseException() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_TOO_LONG);
 
         assertParseFailure(parser, "thisIsAVeryLongAccountName", expectedMessage);

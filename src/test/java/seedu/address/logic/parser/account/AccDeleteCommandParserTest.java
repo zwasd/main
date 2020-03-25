@@ -17,7 +17,7 @@ public class AccDeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_nameContainSpace_parseException() {
+    public void parseInvalidArgs_nameContainSpace_parseException() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.NAME_CONTAIN_SPACE);
 
         // contains space
@@ -28,7 +28,7 @@ public class AccDeleteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_nameTooLong_parseException() {
+    public void parseInvalidArgs_nameTooLong_parseException() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.NAME_TOO_LONG);
 
         assertParseFailure(parser, "thisIsAVeryLongAccountName", expectedMessage);
