@@ -35,4 +35,12 @@ public class AccRenameCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccRenameCommand // instanceof handles nulls
+                && newName.equals(((AccRenameCommand) other).newName)
+                && oldName.equals(((AccRenameCommand) other).oldName));
+    }
 }

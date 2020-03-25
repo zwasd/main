@@ -245,7 +245,6 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         //return list.toString().trim();
         String [] allName = list.toString().trim().split(" ");
         StringBuilder output = new StringBuilder();
-        System.out.println(allName.length + "  " + allName[0]);
         for (int i = 1; i <= allName.length; i++) {
             if (i % 8 == 0) {
                 output.append("\n");

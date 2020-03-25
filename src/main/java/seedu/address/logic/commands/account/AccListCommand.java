@@ -27,4 +27,10 @@ public class AccListCommand extends Command {
         String list = model.getAccountList().listAllName();
         return new CommandResult(MESSAGE + list);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof AccListCommand;
+    }
 }
