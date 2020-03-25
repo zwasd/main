@@ -23,9 +23,17 @@ public class AccDeleteCommand extends Command {
     public AccDeleteCommand(String targetAccountName) {
         this.targetAccountName = targetAccountName;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.deleteAccount(this.targetAccountName);
         return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AccDeleteCommand // instanceof handles nulls
+                && targetAccountName.equals(((AccDeleteCommand) other).targetAccountName));
     }
 }
