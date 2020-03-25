@@ -41,7 +41,7 @@ public class ExpEditCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: exp" + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.3";
 
     public static final String MESSAGE_EDIT_EXPENDITURE_SUCCESS = "Edited Expenditure: %1$s";

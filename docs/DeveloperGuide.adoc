@@ -333,7 +333,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to add a new account. Format: `acc add "account name" `
+1.  User requests to add a new account. Format: `acc add "account name"`
 2.  `$AVE IT` will acknowledge and add this account into the list.
 +
 
@@ -341,21 +341,19 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects data is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-* 2a. Duplicate account name.
-** 2a1. `$AVE IT` will state that duplicate account name detected. Unable to add.
-** 2a2. Back to step 1.
-** Use case end.
+** Use case resumes from step 1.
+* 1b. `$AVE It` detects a duplicate account name input.
+** 1b1. `$AVE IT` will state that duplicate account name detected. Unable to add.
+** Use case resumes from step 1.
 
 [discrete]
 === Use case: Acc Delete
 
 *MSS*
 
-1.  User requests to add a new account. Format: `acc delete "account name" `
+1.  User requests to delete an existing account. Format: `acc delete "account name"`
 2.  `$AVE IT` will acknowledge and delete this account from the list.
 +
 
@@ -363,20 +361,18 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Non existent account name.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects account name is non-existent.
 ** 1b1. `$AVE IT` will state that account is not found. Unable to delete.
-** 1b2. Back to step 1.
-** Use case end.
-* 2a. Deleted the only account in the list.
+**Use case resumes from step 1.
+* 2a. User requests to deleted the only account in the list.
 ** 2a1. `$AVE IT` will create a default account to ensure there is at least an account in the list
-** Use case end.
-* 2b. Deleted the account which you are viewing right now.
-** 2b1. `$AVE IT` will randomly checkout to an existing account.
-** Use case end.
+** Use case ends.
+* 2b. User requests to delete the account he is are viewing right now.
+** 2b1. `$AVE IT` will checkout to a random existing account.
+** Use case ends.
 
 
 [discrete]
@@ -384,7 +380,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to rename an account. Format: `acc rename "old name" "new name" `
+1.  User requests to rename an account. Format: `acc rename "old name" "new name"`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -392,18 +388,15 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Non existent account.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
 ** 1b1. `$AVE IT` will state that the account with the specified name was not found.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Existence of account with "new name".
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects existence of account with "new name".
 ** 1c1. `$AVE IT` will state that duplicate account name detected. Unable to add.
-** 1c2. Back to step 1
-** Use case end.
+** Use case resumes from step 1.
 
 
 [discrete]
@@ -419,14 +412,12 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Non existent account.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
 ** 1b1. `$AVE IT` will state that the account with the specified name was not found.
-** 1b2. Back to step 1.
-** use case end.
+** Use case resumes from step 1.
 
 
 
@@ -435,7 +426,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to add a new account. Format: `acc list `
+1.  User requests to add a new account. Format: `acc list`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -443,11 +434,9 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects that input is in wrong format..
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-
+** Use case resumes in step 1.
 
 
 [discrete]
@@ -455,7 +444,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to clear all data in an account. Format: `acc clear "account name" `
+1.  User requests to clear all data in an account. Format: `acc clear "account name"`
 2.  `$AVE IT` will acknowledge and state that the account's data has been cleared'.
 +
 
@@ -463,14 +452,12 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Wrong Format.
+* 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Non existent account.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that account is non-existent.
 ** 1b1. `$AVE IT` will state that the account with the specified name was not found.
-** 1b2. Back to step 1.
-** use case end.
+** Use case resumes in step 1.
 
 [discrete]
 === Use case: Exp Add
@@ -479,7 +466,7 @@ Use case ends.
 
 1.  User requests to add an expenditure record in the account which they are viewing right now. +
 Format: `exp add -i info -a amount [-t tag] [-d date (YYYY-MM-DD)]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
 +
 
 Use case ends.
@@ -487,65 +474,27 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
 ** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 2a. Tag is not specified.
-** 2a1. `$AVE IT` will auto assign it to be `others`
-** Back to step 1.
-** use case end.
-* 2b. Date is not specified.
-** 2b1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2b2. Back to step 1.
-** use case end.
-
-[discrete]
-=== Use case: Exp Add
-
-*MSS*
-
-1.  User requests to add an expenditure record in the account which they are viewing right now. +
-Format: `exp add -i info -a amount [-t tag] [-d date (YYYY-MM-DD)]`
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
-** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Invalid date.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** 1c2. Back to step 1.
-** use case end.
-* 2a. Tag is not specified.
-** 2a1. `$AVE IT` will auto assign it to be `others`
-** Back to step 1.
-** use case end.
-* 2b. Date is not specified.
-** 2b1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2b2. Back to step 1.
-** use case end.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that tag is not specified.
+** 1c1.`$AVE IT` will auto assign it to be `Others`
+** 1c2.`$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
+** Use case ends.
+* 1d. `$AVE IT` detects that date is not specified.
+** 1d1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 1d2: `$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
+** Use case ends.
 
 [discrete]
 === Use case: Exp Delete
 
 *MSS*
 
-1.  User requests to add an expenditure record in the account which they are viewing right now. +
+1.  User requests to delete an expenditure record in the account they are viewing right now. +
 Format: `exp delete number (positive) `
 2.  `$AVE IT` will acknowledge.
 +
@@ -554,14 +503,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid number.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that index provided is invalid.
 ** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
-** 1b2. Back to step 1.
-** use case end.
+** Use case resumes from step 1.
 
 
 [discrete]
@@ -569,7 +516,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to add an expenditure record in the account which they are viewing right now. +
+1.  User requests to edit an expenditure record in the account they are viewing right now. +
 Format: `exp edit number(positive) [-i info] [-a amount] [-t tag] [-d date (YYYY-MM-DD)]`
 2.  `$AVE IT` will acknowledge.
 +
@@ -579,22 +526,18 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
 ** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Invalid date.
+** Use case resumes in step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
 ** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** 1c2. Back to step 1.
-** use case end.
-* 1d. Invalid number.
+** Use case resumes in step 1.
+* 1d. `$AVE IT` detects that index provided is invalid.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
-** 1d2. Back to step 1.
-** use case end.
+** Use case resumes in step 1.
 
 
 [discrete]
@@ -612,10 +555,9 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
 
 
 [discrete]
@@ -633,21 +575,18 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
 ** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Invalid date.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
 ** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** 1c2. Back to step 1.
-** use case end.
-* 2a. Date is not specified.
+** Use case resumes from step 1.
+* 2a. `$AVE IT` detects that date is not specified.
 ** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2a2. Back to step 1.
+** 2a2. `$AVE IT` will acknowledge.
 ** use case end.
 
 
@@ -667,27 +606,22 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
 ** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Invalid start date or end date.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that start date or end date input is invalid.
 ** 1c1. `$AVE IT` will request an valid and date.
-** 1c2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
-** 1c2. Back to step 1.
-** use case end.
-* 1d. Invalid Period.
-** 1d1. `$AVE IT` will only supports period to be `daily`, `weekly`, `monthly` and `annually`.
-** 1d2. Back to step 1.
-** Use can end.
-* 2a. Tag is not specified.
-** 2a1. `$AVE IT` will auto assign it to be `others`
-** Back to step 1.
-** use case end.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that period input is invalid.
+** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+** Use case resumes from step 1.
+* 1e. `$AVE IT` detects that tag input is unspecified.
+** 1e1. `$AVE IT` will auto assign it to be `Others`
+** 1e2. `$AVE IT` will acknowledge.
+** Use case ends.
 
 [discrete]
 === Use case: Repeat Delete [TO BE IMPLEMENTED]
@@ -704,14 +638,12 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
+* 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid number.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that index input is invalid.
 ** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
-** 1b2. Back to step 1.
-** use case end.
+** Use case resumes from step 1.
 
 
 [discrete]
@@ -729,36 +661,31 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid amount.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
 ** 1b1. `$AVE IT` will request for amount to be a double.
-** 1b2. Back to step 1.
-** use case end.
-* 1c. Invalid start date or end date.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that start date or end date input is invalid.
 ** 1c1. `$AVE IT` will request an valid and date.
-** 1c2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
-** 1c2. Back to step 1.
-** use case end.
-* 1d. Invalid Period.
-** 1d1. `$AVE IT` will only supports period to be `daily`, `weekly`, `monthly` and `annually`.
-** 1d2. Back to step 1.
-** Use can end.
-* 1e. Invalid number.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that period input is invalid.
+** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+** Use case resumes from step 1.
+* 1e. `$AVE IT` detects that index input is invalid.
 ** 1e1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** 1e2. Back to step 1.
 ** use case end.
 
 [discrete]
-=== Use case: Report View [TO BE IMPLEMENTED]
+=== Use case: Report View [In Progress]
 
 *MSS*
 
 1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) `
-2.  `$AVE IT` will acknowledge and pop up another video to show the relevant report.
+Format: `report view startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) graphType(PIE)`
+2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
 Use case ends.
@@ -766,15 +693,24 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-* 1b. Invalid start date or end date.
-** 1b1. `$AVE IT` will request an valid and date.
-** 1b2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
-** 1b3. Back to step 1.
-** use case end.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that start date or end date input is invalid.
+** 1b1. `$AVE IT` will request a valid start and end date.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that graph type input is invalid.
+** 1c1. `$AVE IT` will request a valid graph type.
+** Use case resumes from step 1.
+* 1d. `$AVE IT` detects that there is a report window showing and input is correct.
+** 1d1. `$AVE IT` will reflect result of input in opened report window.
+** 1d2. `$AVE IT` will acknowledge.
+** Use case ends.
+* 1e. `$AVE IT` detects that there is a report window showing and input is wrong.
+** 1e1. `$AVE IT` will reflect input is wrong.
+** Use case resumes from step 1.
+
+
 
 
 [discrete]
@@ -793,7 +729,7 @@ Use case ends.
 
 [none]
 * 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
+** 1a1. `$AVE IT` will request for correct input format.
 ** 1a2. Back to step 1.
 ** use case end.
 * 1b. Invalid start date or end date.
@@ -801,6 +737,32 @@ Use case ends.
 ** 1b2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
 ** 1b3. Back to step 1.
 ** use case end.
+
+[discrete]
+=== Use case: Generate report in report window
+
+*MSS*
+
+1. User request to generate new report.
+2. `$AVE IT` will update report window to reflect input result.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+1a. `$AVE IT` detects input is in incorrect format.
+
+** Use case resumes from step 1.
+
+1b. `$AVE IT` detects date input is invalid.
+
+** Use case resumes from step 1.
+
+1c. `$AVE IT` detects graph type input is invalid.
+
+** Use case resumes from step 1.
 
 [discrete]
 === Use case: Go
@@ -816,23 +778,14 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command
-** 1a1. `$AVE IT` will request for correct input format'.
-** 1a2. Back to step 1.
-** use case end.
-** use case end.
-* 1b. Invalid date.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
+* 1b. `$AVE IT` detects that date input is invalid.
 ** 1b1. `$AVE IT` WILL request an valid and non empty date.
-** 1b2. Back to step 1.
-
-+
-Use case back to step 1.
+** Use case resumes from step 1.
 
 
-at.
-* 1b. Invalid Date.
-+
-Use case back to step 1.
 
 [discrete]
 === Use case: Help
@@ -842,7 +795,6 @@ Use case back to step 1.
 1.  User requests for help.
 2.  `$AVE IT` will acknowledge and provide help.
 +
-
 Use case ends.
 
 [discrete]
@@ -855,6 +807,9 @@ Use case ends.
 +
 
 Use case ends.
+
+
+
 
 
 
@@ -932,7 +887,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving input
 
 . Dealing with missing/corrupted data files
 

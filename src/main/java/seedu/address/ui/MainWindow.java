@@ -71,7 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        reportWindow = null;
+        reportWindow = new ReportWindow();
         //imageview = new ImageView();
 
         //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
@@ -174,9 +174,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
 
-        if (reportWindow != null) {
-            reportWindow.hide();
-        }
+        reportWindow.hide();
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -191,10 +189,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleReport() {
 
-        reportWindow = new ReportWindow();
-
         if (!reportWindow.isShowing()) {
-            reportWindow.show();
+            reportWindow.addLogic(logic);
+            reportWindow.showEmpty();
         } else {
             reportWindow.focus();
         }
@@ -221,10 +218,13 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowReport()) {
-                //View command
-                reportWindow = new ReportWindow(commandResult);
-                reportWindow.showResult();
 
+                if (reportWindow.isShowing()) {
+                    reportWindow.hide();
+                }
+
+                reportWindow.addLogic(logic);
+                reportWindow.showResult(commandResult);
             }
 
             if (commandResult.isUpdateCalendar()) {

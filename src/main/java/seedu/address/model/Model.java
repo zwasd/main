@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -106,7 +107,7 @@ public interface Model {
      */
     void deleteAccount(String name);
 
-    void addAccount(Account account);
+    void addAccount(Account account) throws CommandException;
 
     boolean updateActiveAccount(String accountName);
 

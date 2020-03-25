@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Scene?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.stage.Stage?>
 
-<fx:root fx:id="ReportWindow" title="Report" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root fx:id="ReportWindow" minHeight="300" minWidth="400" title="Report" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 </fx:root>
