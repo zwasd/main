@@ -12,7 +12,7 @@ import seedu.address.model.ReadOnlyAccountList;
 /**
  * Represents a storage for {@link Account}.
  */
-public interface AddressBookStorage {
+public interface SaveItStorage {
 
     /**
      * Returns the file path of the data file.
