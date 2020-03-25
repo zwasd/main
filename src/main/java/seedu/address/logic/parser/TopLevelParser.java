@@ -7,11 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.account.AccCheckoutCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.parser.account.AccCheckoutCommandParser;
 import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
