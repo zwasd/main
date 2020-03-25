@@ -176,7 +176,8 @@ public class ModelManager implements Model {
         try {
             this.accountList.addAccount(account);
         } catch (DuplicateAccountException e) {
-            throw new CommandException("Account " + account.getAccountName() + " already exists!");
+            throw new CommandException("Account " + account.getAccountName() +
+                    " already exists! Unable to add.");
         }
     }
 
