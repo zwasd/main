@@ -199,7 +199,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         activeAccount.setExpenditure(target, editedExpenditure);
-        internalExpenditureList.setExpenditure(target, editedExpenditure);
+        if (editedExpenditure.getDate().localDate.equals(activeDate)) {
+            internalExpenditureList.setExpenditure(target, editedExpenditure);
+        } else {
+            internalExpenditureList.remove(target);
+        }
     }
 
     //// util methods
