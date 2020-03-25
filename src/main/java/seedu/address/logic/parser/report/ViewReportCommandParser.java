@@ -35,12 +35,12 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
             startDate = new Date(startDateStr);
             endDate = new Date(endDateStr);
         } catch (Exception e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format("Date should be in YYYY-MM-DD format",
                     ViewReportCommand.MESSAGE_USAGE));
         }
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format("End date should be before start date",
                     ViewReportCommand.MESSAGE_USAGE));
         }
 

@@ -25,7 +25,7 @@ public class ViewReportCommand extends Command {
             + "End Date :  YYYY-MM-DD  "
             + "Graph Type: PIE " + "\n"
             + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + "2020-03-22 " + "2020-03-25 " + "PIE";
+            + " 2020-03-22 " + "2020-03-25 " + "PIE";
 
     private final Report toView;
     private HashMap statsToDisplay;
