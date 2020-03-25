@@ -103,7 +103,7 @@ public class ParserUtil {
     public static String parsePeriod(String period) throws ParseException {
         requireNonNull(period);
         String trimmedPeriod = period.trim();
-        if (!Repeat.isValidPeriod(trimmedPeriod)) {
+        if (!Repeat.Period.isValidPeriod(trimmedPeriod)) {
             throw new ParseException(Repeat.PERIOD_MESSAGE_CONSTRAINTS);
         }
         return trimmedPeriod;

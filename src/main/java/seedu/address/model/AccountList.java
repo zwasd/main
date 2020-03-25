@@ -21,7 +21,7 @@ import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
-    private final UniqueExpenditureList internalList = new UniqueExpenditureList();
+    private final UniqueExpenditureList internalExpenditureList = new UniqueExpenditureList();
     private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
 
@@ -40,7 +40,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             activeAccount = accounts.get(initialAccountName);
         }
         activeDate = LocalDate.now();
-        internalList.setExpenditures(activeAccount.getExpByDate(activeDate));
+        internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
     }
 
     public AccountList(boolean createDefaultAccount) {
@@ -151,7 +151,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void clearActiveAccount() {
         activeAccount.resetData(new Account());
-        internalList.setExpenditures(new ArrayList<>());
+        internalExpenditureList.setExpenditures(new ArrayList<>());
     }
 
     //// expenditure-level operations
@@ -161,7 +161,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
-        return internalList.contains(expenditure);
+        return internalExpenditureList.contains(expenditure);
     }
 
     /**
@@ -170,7 +170,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void removeExpenditure(Expenditure target) {
         activeAccount.removeExpenditure(target);
-        internalList.remove(target);
+        internalExpenditureList.remove(target);
     }
 
     /**
@@ -179,7 +179,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void addExpenditure(Expenditure expenditure) {
         activeAccount.addExpenditure(expenditure);
         if (expenditure.getDate().localDate.equals(activeDate)) {
-            internalList.add(expenditure);
+            internalExpenditureList.add(expenditure);
         }
     }
 
@@ -199,7 +199,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         activeAccount.setExpenditure(target, editedExpenditure);
-        internalList.setExpenditure(target, editedExpenditure);
+        if (editedExpenditure.getDate().localDate.equals(activeDate)) {
+            internalExpenditureList.setExpenditure(target, editedExpenditure);
+        } else {
+            internalExpenditureList.remove(target);
+        }
     }
 
     //// util methods
@@ -209,7 +213,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * @param date the new active date
      */
     public void updateActiveDate(LocalDate date) {
-        internalList.setExpenditures(activeAccount.getExpByDate(date));
+        internalExpenditureList.setExpenditures(activeAccount.getExpByDate(date));
         activeDate = date;
     }
 
@@ -223,7 +227,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             return false;
         } else {
             activeAccount = accounts.get(accountName);
-            internalList.setExpenditures(activeAccount.getExpByDate(activeDate));
+            internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
             return true;
         }
     }
@@ -256,7 +260,12 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     @Override
     public ObservableList<Expenditure> getExpenditureList() {
-        return internalList.asUnmodifiableObservableList();
+        return internalExpenditureList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Repeat> getRepeatList() {
+        return activeAccount.getRepeatList(); // TODO
     }
 
     @Override
@@ -268,7 +277,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     @Override
     public String toString() {
-        return "AccountList: " + internalList.toString();
+        return "AccountList: " + internalExpenditureList.toString();
     }
 
 }

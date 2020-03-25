@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
@@ -26,7 +26,7 @@ import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
-    private ArrayList<Repeat> repeatItem;
+    private ObservableList<Repeat> repeats;
     private final String accountName;
 
     /*
@@ -38,7 +38,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
     {
         expenditures = new UniqueExpenditureList();
-        repeatItem = new ArrayList<>();
+        repeats = FXCollections.observableArrayList();
     }
 
     public Account() {
@@ -55,7 +55,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
     public Account copyAccountWithNewName(String newName) {
         Account toBeCopied = new Account(newName);
-        resetData(toBeCopied);
+        toBeCopied.resetData(this);
         return toBeCopied;
     }
 
@@ -106,7 +106,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * Adds a repeat to the repeatList.
      */
     public void addRepeat(Repeat repeat) {
-        repeatItem.add(repeat);
+        repeats.add(repeat);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * Removes {@code Repeat} from this {@code repeatItem}.
      */
     public void removeRepeat(Repeat repeat) {
-        if (!repeatItem.remove(repeat)) {
+        if (!repeats.remove(repeat)) {
             throw new RepeatNotFoundException();
         }
     }
@@ -150,6 +150,11 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     @Override
     public ObservableList<Expenditure> getExpenditureList() {
         return expenditures.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Repeat> getRepeatList() {
+        return FXCollections.unmodifiableObservableList(repeats);
     }
 
     @Override
