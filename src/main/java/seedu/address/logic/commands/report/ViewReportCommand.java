@@ -23,8 +23,8 @@ public class ViewReportCommand extends Command {
             + "\n" + "Parameters "
             + "Start Date : YYYY-MM-DD  "
             + "End Date :  YYYY-MM-DD  "
-            + "Graph Type: PIE "
-            + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD + "\n"
+            + "Graph Type: PIE " + "\n"
+            + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + "2020-03-22 " + "2020-03-25 " + "PIE";
 
     private final Report toView;

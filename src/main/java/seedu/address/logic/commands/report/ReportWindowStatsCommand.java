@@ -15,12 +15,12 @@ public class ReportWindowStatsCommand extends ReportCommand {
 
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
-    public static String MESSAGE_USAGE = "Shows the report. "
+    public static final String MESSAGE_USAGE = "Shows the report. "
             + "\n" + "Parameters "
+            + "Graph Type: PIE "
             + "Start Date : YYYY-MM-DD  "
-            + "End Date :  YYYY-MM-DD  "
-            + "Graph Type: PIE, BAR, STACK " + "\n EG"
-            + "2020-03-22 " + "2020-03-25 " + "PIE";
+            + "End Date :  YYYY-MM-DD  " + "\n EG"
+            + "PIE" + "2020-03-22 " + "2020-03-25 ";
 
     private HashMap statsToDisplay;
     private Report.GraphType format;
