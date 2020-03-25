@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
 
         if (!reportWindow.isShowing()) {
             reportWindow.addLogic(logic);
-            reportWindow.show();
+            reportWindow.showEmpty();
         } else {
             reportWindow.focus();
         }

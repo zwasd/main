@@ -68,8 +68,11 @@ public class ReportWindow extends UiPart<Stage> {
      *                               </li>
      *                               </ul>
      */
-    public void show() {
+    public void showEmpty() {
         logger.fine("Showing report page.");
+        VBox vbox = new VBox(box.getRoot());
+        Scene scene = new Scene(vbox);
+        getRoot().setScene(scene);
         getRoot().show();
     }
 
