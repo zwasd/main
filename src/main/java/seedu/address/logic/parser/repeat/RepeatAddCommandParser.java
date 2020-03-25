@@ -1,5 +1,16 @@
 package seedu.address.logic.parser.repeat;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.repeat.RepeatAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -12,19 +23,7 @@ import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.expenditure.Repeat;
-import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
-
-import java.time.LocalDate;
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parses input arguments and creates a new RepeatAddCommand object
@@ -45,8 +44,10 @@ public class RepeatAddCommandParser implements Parser<RepeatAddCommand> {
 
         Info info = ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).orElseGet(() -> LocalDate.now().toString()));
-        Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).orElseGet(() -> LocalDate.now().toString()));
+        Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE)
+                .orElseGet(() -> LocalDate.now().toString()));
+        Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE)
+                .orElseGet(() -> LocalDate.now().toString()));
         Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).orElseGet(() -> "Others"));
         String period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).orElseThrow());
         Repeat repeat = new Repeat(info, amount, startDate, endDate, tag, period);

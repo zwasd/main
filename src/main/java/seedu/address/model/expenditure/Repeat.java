@@ -27,20 +27,6 @@ public class Repeat {
         DAILY, WEEKLY, MONTHLY, ANNUALLY;
     }
 
-    public static Period generatePeriod(String period) {
-        Period p;
-        if (period.equalsIgnoreCase("daily")) {
-            p = Period.DAILY;
-        } else if (period.equalsIgnoreCase("weekly")) {
-            p = Period.WEEKLY;
-        } else if (period.equalsIgnoreCase("monthly")) {
-            p = Period.MONTHLY;
-        } else {
-            p = Period.ANNUALLY;
-        }
-        return p;
-    }
-
     // displayDate is empty, size 0 means daily.
     // non empty means weekly or monthly -> cos i will at least add one day inside.
     private HashSet<LocalDate> relevantDate;
@@ -65,6 +51,26 @@ public class Repeat {
         relevantDate = new HashSet<>();
         generateRelevantDate();
     }
+
+    /**
+     * generate a Period based on input string.
+     * @param period the period in string.
+     * @return a new period.
+     */
+    public static Period generatePeriod(String period) {
+        Period p;
+        if (period.equalsIgnoreCase("daily")) {
+            p = Period.DAILY;
+        } else if (period.equalsIgnoreCase("weekly")) {
+            p = Period.WEEKLY;
+        } else if (period.equalsIgnoreCase("monthly")) {
+            p = Period.MONTHLY;
+        } else {
+            p = Period.ANNUALLY;
+        }
+        return p;
+    }
+
 
     public Info getInfo() {
         return info;
@@ -251,7 +257,7 @@ public class Repeat {
         boolean sameTag = otherRepeat.tag.equals(this.tag);
         boolean samePeriod = otherRepeat.period.equals(this.period);
 
-        return sameAmt && sameStartDate && sameEndDate && sameInfo && sameTag  && samePeriod ;
+        return sameAmt && sameStartDate && sameEndDate && sameInfo && sameTag && samePeriod;
     }
 
     @Override

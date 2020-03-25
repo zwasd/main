@@ -133,7 +133,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * Removes {@code Repeat} from this {@code repeatItem}.
      */
     public void removeRepeat(Repeat repeat) {
-        if( !repeatItem.remove(repeat)) {
+        if (!repeatItem.remove(repeat)) {
             throw new RepeatNotFoundException();
         }
     }

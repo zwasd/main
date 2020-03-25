@@ -7,12 +7,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
+
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
@@ -21,7 +25,6 @@ import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
 
-import java.util.Optional;
 
 
 /**
@@ -78,7 +81,8 @@ public class RepeatEditCommand extends Command {
         Date updatedEndDate = editRepeatDescriptor.getEndDate().orElse(repeatToEdit.getEndDate());
         Tag updatedTags = editRepeatDescriptor.getTag().orElse(repeatToEdit.getTag());
         Period updatedPeriod = editRepeatDescriptor.getPeriod().orElse(repeatToEdit.getPeriod());
-        return new Repeat(updatedInfo, updatedAmount, updatedStartDate, updatedEndDate, updatedTags, updatedPeriod.toString());
+        return new Repeat(updatedInfo, updatedAmount, updatedStartDate, updatedEndDate, updatedTags,
+                updatedPeriod.toString());
     }
 
     @Override
@@ -160,6 +164,18 @@ public class RepeatEditCommand extends Command {
 
         public void setPeriod(Period period) {
             this.period = period;
+        }
+
+        public void setPeriod(String duration) {
+            if (duration.equalsIgnoreCase("daily")) {
+                this.period = Period.DAILY;
+            } else if (duration.equalsIgnoreCase("monthly")) {
+                this.period = Period.MONTHLY;
+            } else if (duration.equalsIgnoreCase("weekly")) {
+                this.period = Period.WEEKLY;
+            } else if (duration.equalsIgnoreCase("annually")) {
+                this.period = Period.ANNUALLY;
+            }
         }
 
         public Optional<Period> getPeriod() {

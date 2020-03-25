@@ -2,18 +2,12 @@ package seedu.address.logic.commands.repeat;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
-import seedu.address.model.expenditure.Expenditure;
-
-import java.util.List;
-
 
 /**
  * Delete repeat object.

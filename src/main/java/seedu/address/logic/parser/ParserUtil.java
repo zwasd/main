@@ -11,7 +11,6 @@ import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 
 import seedu.address.model.expenditure.Repeat;
-import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
 
 /**
