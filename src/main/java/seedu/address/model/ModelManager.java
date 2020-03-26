@@ -117,9 +117,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteRepeat(Repeat target) {
+        accountList.removeRepeat(target);
+    }
+
+    @Override
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         accountList.setExpenditure(target, editedExpenditure);
+    }
+
+    @Override
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireAllNonNull(target, editedRepeat);
+        accountList.setRepeat(target, editedRepeat);
     }
 
     //=========== Filtered Expenditure List Accessors =============================================================
