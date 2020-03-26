@@ -127,6 +127,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public void deleteRepeat(Repeat target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAccountList(ReadOnlyAccountList newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -148,6 +153,11 @@ public class ExpAddCommandTest {
 
         @Override
         public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRepeat(Repeat target, Repeat editedRepeat) {
             throw new AssertionError("This method should not be called.");
         }
 
