@@ -13,7 +13,7 @@ public class ReportCommandResult {
     private final String feedbackToUser;
 
     private HashMap stats;
-    private Report.GraphType graph;
+    private Report.GraphType graph = Report.GraphType.NULL;
 
     public ReportCommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats) {
         this(feedbackToUser, false);
@@ -38,6 +38,10 @@ public class ReportCommandResult {
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
+
+    public boolean isPieGraph() { return graph == Report.GraphType.PIE; }
+
+    public boolean isBarGraph() { return graph == Report.GraphType.BAR; }
 }
 
 
