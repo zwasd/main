@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -31,6 +34,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     private Logic logic;
     private ReportCommandBox box;
+    private ResultDisplay display;
 
     /**
      * Creates a new Report Window.
@@ -39,7 +43,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow(Stage root) {
         super(FXML, root);
-        //reportMessage.setText(REPORT_MESSAGE);
+
     }
 
     /**
@@ -47,9 +51,26 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow() {
         this(new Stage());
+         initStyle();
+         initCloseHandler();
         this.box = new ReportCommandBox(this::executeReportWindowCommand);
+        this.display = new ResultDisplay();
     }
 
+
+    public void initStyle() {
+        getRoot().initStyle(StageStyle.UTILITY);
+    }
+
+    public void initCloseHandler() {
+        getRoot().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                display.clear();
+                getRoot().hide();
+            }
+        });
+    }
     /**
      * Shows the report window.
      *
@@ -70,7 +91,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showEmpty() {
         logger.fine("Showing report page.");
-        VBox vbox = new VBox(box.getRoot());
+        VBox vbox = new VBox(box.getRoot(), display.getRoot(), new PieChart());
         Scene scene = new Scene(vbox);
         getRoot().setScene(scene);
         getRoot().show();
@@ -127,7 +148,7 @@ public class ReportWindow extends UiPart<Stage> {
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
         PieChart pie = showPieChart(result);
-        VBox vbox = new VBox(box.getRoot(), pie);
+        VBox vbox = new VBox(box.getRoot(), display.getRoot(), pie);
         Scene scene = new Scene(vbox);
         getRoot().setScene(scene);
         getRoot().show();
@@ -163,16 +184,28 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Executor method for command box.
      */
-    private ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException {
-        ReportCommandResult command = logic.executeReportWindowCommand(commandText);
-        if (command.getExitReport()) {
-            this.hide();
-        } else {
-            PieChart pie = showPieChart(command);
-            VBox vbox = new VBox(box.getRoot(), pie);
-            Scene scene = new Scene(vbox);
-            getRoot().setScene(scene);
-            getRoot().show();
+    private ReportCommandResult executeReportWindowCommand(String commandText)  {
+
+        ReportCommandResult command = null;
+        try {
+            command = logic.executeReportWindowCommand(commandText);
+            logger.info("command executed " + commandText);
+            display.setFeedbackToUser(command.getFeedbackToUser());
+
+            if (command.getExitReport()) {
+                display.clear();
+                getRoot().hide();
+            } else {
+                PieChart pie = showPieChart(command);
+                VBox vbox = new VBox(box.getRoot(), display.getRoot(), pie);
+                Scene scene = new Scene(vbox);
+                getRoot().setScene(scene);
+                getRoot().show();
+            }
+
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command :" + commandText);
+            display.setFeedbackToUser(e.getMessage());
         }
         return command;
     }

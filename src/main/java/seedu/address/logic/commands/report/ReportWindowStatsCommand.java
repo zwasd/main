@@ -15,12 +15,11 @@ public class ReportWindowStatsCommand extends ReportCommand {
 
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
-    public static final String MESSAGE_USAGE = "Shows the report. "
-            + "\n" + "Parameters "
-            + "Graph Type: PIE "
-            + "Start Date : YYYY-MM-DD  "
-            + "End Date :  YYYY-MM-DD  " + "\n EG"
-            + "PIE" + "2020-03-22 " + "2020-03-25 ";
+    public static final String MESSAGE_USAGE = "Parameters: "
+            + " graph type : PIE  "
+            + " start date : YYYY-MM-DD  "
+            + " end date :  YYYY-MM-DD  " + "\n"
+            + "eg: " + " PIE " + " 2020-03-22 " + " 2020-03-25 ";
 
     private HashMap statsToDisplay;
     private Report.GraphType format;
@@ -34,6 +33,6 @@ public class ReportWindowStatsCommand extends ReportCommand {
     public ReportCommandResult execute(Model model) throws CommandException {
         statsToDisplay = new GenerateStats(report, model).generateStatsByTags();
         format = report.getFormat();
-        return new ReportCommandResult(format, statsToDisplay);
+        return new ReportCommandResult(MESSAGE_SUCCESS, format, statsToDisplay);
     }
 }
