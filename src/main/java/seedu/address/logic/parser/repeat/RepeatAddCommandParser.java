@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.time.LocalDate;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.repeat.RepeatAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -36,9 +35,10 @@ public class RepeatAddCommandParser implements Parser<RepeatAddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_INFO, PREFIX_AMOUNT, PREFIX_START_DATE,
                         PREFIX_END_DATE, PREFIX_TAG, PREFIX_PERIOD);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INFO, PREFIX_AMOUNT, PREFIX_START_DATE, PREFIX_END_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_INFO, PREFIX_AMOUNT, PREFIX_START_DATE,
+                                PREFIX_END_DATE, PREFIX_PERIOD)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpAddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepeatAddCommand.MESSAGE_USAGE));
         }
 
 

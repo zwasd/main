@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `exp delete 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `exp delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -74,14 +74,28 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the Main UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The Main UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+.Structure of the Report UI Component
+
+
+The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `PieChart` etc.
+The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu.address/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/address/ui[`ReportWindow.java`]
+Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/address/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
 
 The `UI` component,
 
@@ -98,18 +112,20 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TopLevelParser` class to parse the user command.
+.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
+to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("exp delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `exp delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `ExpDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,8 +138,8 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `$AVE IT` data.
+* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -142,7 +158,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `$AVE IT` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -242,6 +258,66 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::calendar[]
+
+=== Calendar feature
+
+_{Coming soon}_
+
+// end::calendar[]
+
+// tag::repeat[]
+
+=== Recurring Expenditure feature
+
+_{Coming soon}_
+
+// end::repeat[]
+
+// tag::autocomplete[]
+=== Autocomplete feature
+
+==== Proposed Implementation
+
+The autocomplete feature is facilitated by `AutoCompleteTextField.java`.
+It extends the `TextField` component of JavaFx and provides a dropdown of possible commands.
+
+To make use of the autocomplete feature. The backend will have to include the commands to be +
+added which will be shown to the users. This allows easy configuration of what commands will +
+be searched. 
+
+Given below is the example usage scenario of how the autocompletion works.
+
+Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
+The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
+
+[Note]
+For the current implementation, it checks whether the typed command matches the starting characters of any commands.
+To be improved in later versions.
+
+==== Design Consideration
+
+===== Aspect: Usage of autocompletion
+
+* **Alternative 1 (current choice):** Moving mouse over to select commands.
+** Pros: Easy to implement.
+** Cons: Does not meet target user needs who strongly prefers typing.
+* **Alternative 2:** Use of tab to simulate autocompletion like a terminal.
+** Pros: Intuitive for people used to using a terminal.
+** Cons: Will have to direct the tab keystroke to be used for autocompletion.
+
+===== Aspect: How autocompletion searches for completion items
+
+_{To be added}_
+
+===== Aspect: Data structure to support more powerful autocompletion
+
+_{To be added}_
+
+// end::autocomplete[]
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -256,6 +332,44 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Report]]
+=== Report [In progress]
+Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
+show users their expenditure breakdowns.
+
+==== Design Considerations
+
+While implementing the report feature, we had these considerations:
+
+  1. We want the report to have a graph that showcases expenditure breakdowns.
+  2. We want to have minimal changes to the current _main UI_ code.
+  3. We want to avoid cluttering the `MainWindow` as much as possible when the graph is generated.
+  4. We want the users to have a clean UI for report.
+
+
+Hence, due to the above considerations, we chose to break down the report feature into
+2 main aspects:  Logic and  UI.
+
+==== Implementation
+*UI*
+
+1.  `MainWindow` : The `MainWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`MainWindow`].
+2. `ReportWindow` : The `ReportWindow` UI implementation is support by _javafx_ and _fxml_. You can
+read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`ReportWindow`].
+3. Graph is the highlight of the report feature and it is implemented in `ReportWindow` class.
+* Pie chart: Implemented using *javafx.scene.chart.PieChart*
+* Bar graph: In progress.
+* Stack Bar graph: In progress.
+
+*Logic*
+
+1. `Report` : The `Report`  object is generated to hold  users request for a report either in `MainWindow` or `ReportWindow`.
+2. `ReportCommandResult`: The `ReportCommandResult` holds the command result of commands typed in `ReportWindow`.
+
+
+
 
 [[Implementation-Configuration]]
 === Configuration
