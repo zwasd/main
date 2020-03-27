@@ -79,12 +79,24 @@ public interface Model {
     void addRepeat(Repeat repeat);
 
     /**
+     * Deletes the given repeat.
+     * The repeat must exist in the internal list.
+     */
+    void deleteRepeat(Repeat target);
+
+    /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
      * The expenditure identity of {@code editedExpenditure} must not be the same as
      * another existing expenditure in the internal list.
      */
     void setExpenditure(Expenditure target, Expenditure editedExpenditure);
+
+    /**
+     * Replaces the given repeat {@code target} with {@code editedRepeat}.
+     * {@code target} must exist in the internal list.
+     */
+    void setRepeat(Repeat target, Repeat editedRepeat);
 
     /** Returns an unmodifiable view of the filtered expenditure list */
     ObservableList<Expenditure> getFilteredExpenditureList();
