@@ -34,7 +34,7 @@ public class ExpEditCommand extends Command {
 
     public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Edits the details of the expenditure identified "
-            + "by the index number used in the displayed expenditure list. "
+            + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_INFO + "INFO] "

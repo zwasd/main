@@ -177,6 +177,15 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     }
 
     /**
+     * Deletes the given repeat.
+     * The repeat must exist in the internal list.
+     */
+    public void removeRepeat(Repeat target) {
+        activeAccount.removeRepeat(target);
+        internalRepeatList.remove(target);
+    }
+
+    /**
      * Adds the given expenditure.
      */
     public void addExpenditure(Expenditure expenditure) {
@@ -191,8 +200,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addRepeat(Repeat repeat) {
         activeAccount.addRepeat(repeat);
-        internalRepeatList.add(repeat);
+        if (repeat.isOn(activeDate)) {
+            internalRepeatList.add(repeat);
+        }
     }
+
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
@@ -206,6 +218,22 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             internalExpenditureList.setExpenditure(target, editedExpenditure);
         } else {
             internalExpenditureList.remove(target);
+        }
+    }
+
+    /**
+     * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
+     * {@code target} must exist in the internal list.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as
+     * another existing expenditure in the internal list.
+     */
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireAllNonNull(target, editedRepeat);
+        activeAccount.setRepeat(target, editedRepeat);
+        if (editedRepeat.isOn(activeDate)) {
+            internalRepeatList.set(internalRepeatList.indexOf(target), editedRepeat);
+        } else {
+            internalRepeatList.remove(target);
         }
     }
 

@@ -122,6 +122,17 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     /**
+     * Replaces the given expenditure {@code target} in the list with {@code editedExpenditure}.
+     * {@code target} must exist in the address book.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as another
+     * existing expenditure in the address book.
+     */
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireNonNull(editedRepeat);
+        repeats.set(repeats.indexOf(target), editedRepeat);
+    }
+
+    /**
      * Removes {@code key} from this {@code Account}.
      * {@code key} must exist.
      */
