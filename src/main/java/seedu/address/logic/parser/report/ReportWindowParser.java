@@ -40,9 +40,6 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
         case "BAR":
             graphType = Report.GraphType.BAR;
             break;
-        case "STACK":
-            graphType = Report.GraphType.STACK;
-            break;
         case "PIE":
             graphType = Report.GraphType.PIE;
             break;

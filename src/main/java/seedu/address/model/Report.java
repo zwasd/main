@@ -15,7 +15,7 @@ public class Report {
      * of graph that can be generated for report.
      */
     public enum GraphType {
-        BAR, PIE, STACK;
+        BAR, PIE, NULL;
     }
 
     public Report(Date startDate, Date endDate, GraphType graph) {
@@ -26,7 +26,7 @@ public class Report {
 
     /**
      * Getter method for user input graph type.
-     * @return GraphType user inpurs
+     * @return GraphType user inputs
      */
     public GraphType getFormat() {
         return graph;
