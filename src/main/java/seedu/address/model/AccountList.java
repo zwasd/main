@@ -237,6 +237,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         }
     }
 
+    public void setBudget(Budget budget) {
+        activeAccount.setBudget(budget);
+        //TODO need to add in UI.
+    }
+
     //// util methods
 
     /**

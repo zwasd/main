@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.stream.StreamSupport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -26,6 +29,7 @@ import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
+    private HashMap<YearMonth, Budget> budgetList = new HashMap<>();
     private ObservableList<Repeat> repeats;
     private final String accountName;
 
@@ -149,6 +153,49 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         }
     }
 
+    /**
+     * Add or reset a budget to the budgetList.
+     * @param budget contains amount and the yearMonth.
+     */
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+        //This can use to reset the budget too.
+        this.budgetList.put(budget.getYearMonth(), budget);
+    }
+
+    /**
+     * Obtain the budget object for a given yearMonth.
+     * @param yearMonth the target month you are looking for.
+     * @return If the budget is within the [@code budgetList], return it.
+     *         Else return a budget object with 0 amount.
+     */
+    public Budget getBudget(YearMonth yearMonth) {
+        requireNonNull(yearMonth);
+        if (this.budgetList.containsKey(yearMonth)) {
+            return this.budgetList.get(yearMonth);
+        } else {
+            // If the budget is not being set for that given yearMonth.
+            // Return a new budget with 0 amount.
+            return new Budget(yearMonth, 0);
+        }
+
+    }
+
+    /**
+     * Obtain the budget object for a given yearMonth.
+     * @param yearMonth the target month you are looking for.
+     * @return If the budget is within the [@code budgetList], return it.
+     *         Else return a budget object with 0 amount.
+     */
+    public Budget getBudget(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        try {
+            YearMonth targetYearMonth = ParserUtil.parseYearMonth(yearMonth);
+            return getBudget(yearMonth);
+        } catch (Exception e) {
+            throw new ParseException("Year Month need to be in a format of : YYYY-MM");
+        }
+    }
     //// util methods
 
     @Override

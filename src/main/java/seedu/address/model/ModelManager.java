@@ -198,6 +198,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setBudget(Budget budget) {
+        this.accountList.setBudget(budget);
+    }
+
+    @Override
     public void addAccount(Account account) throws CommandException {
         try {
             this.accountList.addAccount(account);

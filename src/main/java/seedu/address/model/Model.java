@@ -133,4 +133,6 @@ public interface Model {
 
     void updateActiveDate(LocalDate date);
 
+    void setBudget (Budget budget);
+
 }
