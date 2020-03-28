@@ -20,11 +20,11 @@ public class ViewReportCommand extends Command {
 
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Shows the report. "
-            + "\n" + "Parameters "
-            + "Start Date : YYYY-MM-DD  "
-            + "End Date :  YYYY-MM-DD  "
-            + "Graph Type: PIE " + "\n"
-            + "Example : " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + "\n" + "Parameters: "
+            + "start date : YYYY-MM-DD  "
+            + "end date :  YYYY-MM-DD  "
+            + "graph type: PIE " + "\n"
+            + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " 2020-03-22 " + "2020-03-25 " + "PIE";
 
     private final Report toView;

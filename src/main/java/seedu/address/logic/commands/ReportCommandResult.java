@@ -9,18 +9,21 @@ import seedu.address.model.Report;
  */
 public class ReportCommandResult {
 
-
     private final boolean exitReport;
-    private HashMap stats;
-    private Report.GraphType graph;
+    private final String feedbackToUser;
 
-    public ReportCommandResult(Report.GraphType graph, HashMap stats) {
-        this(false);
+    private HashMap stats;
+    private Report.GraphType graph = Report.GraphType.NULL;
+
+    public ReportCommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats) {
+        this(feedbackToUser, false);
         this.graph = graph;
         this.stats = stats;
+  ;
     }
 
-    public ReportCommandResult(boolean exitReport) {
+    public ReportCommandResult(String feedbackToUser, boolean exitReport) {
+        this.feedbackToUser = feedbackToUser;
         this.exitReport = exitReport;
     }
 
@@ -30,6 +33,18 @@ public class ReportCommandResult {
 
     public boolean getExitReport() {
         return exitReport;
+    }
+
+    public String getFeedbackToUser() {
+        return feedbackToUser;
+    }
+
+    public boolean isPieGraph() {
+        return graph == Report.GraphType.PIE;
+    }
+
+    public boolean isBarGraph() {
+        return graph == Report.GraphType.BAR;
     }
 }
 

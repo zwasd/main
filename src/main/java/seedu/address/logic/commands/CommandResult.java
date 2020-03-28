@@ -25,7 +25,7 @@ public class CommandResult {
      **/
     private final boolean showReport;
     private HashMap stats;
-    private Report.GraphType graph;
+    private Report.GraphType graph = Report.GraphType.NULL;
 
     /**
      * The indicator of the current active date in the calendar view should change.
@@ -83,6 +83,14 @@ public class CommandResult {
 
     public boolean isShowReport() {
         return showReport;
+    }
+
+    public boolean isPieGraph() {
+        return graph == Report.GraphType.PIE;
+    }
+
+    public boolean isBarGraph() {
+        return graph == Report.GraphType.BAR;
     }
 
     public boolean isUpdateCalendar() {
