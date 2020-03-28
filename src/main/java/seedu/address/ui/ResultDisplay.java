@@ -25,7 +25,7 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setText(feedbackToUser);
     }
 
-    public void clear(){
+    public void clear() {
         resultDisplay.clear();
     }
 

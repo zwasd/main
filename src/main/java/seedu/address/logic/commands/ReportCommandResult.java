@@ -39,9 +39,13 @@ public class ReportCommandResult {
         return feedbackToUser;
     }
 
-    public boolean isPieGraph() { return graph == Report.GraphType.PIE; }
+    public boolean isPieGraph() {
+        return graph == Report.GraphType.PIE;
+    }
 
-    public boolean isBarGraph() { return graph == Report.GraphType.BAR; }
+    public boolean isBarGraph() {
+        return graph == Report.GraphType.BAR;
+    }
 }
 
 

@@ -1,8 +1,5 @@
 package seedu.address.ui;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
@@ -19,7 +16,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
 
 /**
  * The Report Window. Provides statistics on expenditure
@@ -53,8 +49,8 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow() {
         this(new Stage());
-         initStyle();
-         initCloseHandler();
+        initStyle();
+        initCloseHandler();
         this.box = new ReportCommandBox(this::executeReportWindowCommand);
         this.display = new ResultDisplay();
         this.graph = new Graph();
@@ -65,6 +61,9 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().initStyle(StageStyle.UTILITY);
     }
 
+    /**
+     * TODO: ADD DOC
+     */
     public void initCloseHandler() {
         getRoot().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -108,7 +107,7 @@ public class ReportWindow extends UiPart<Stage> {
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
 
-        if(result.isPieGraph()) {
+        if (result.isPieGraph()) {
 
             PieChart pie = graph.getPieChart(result);
             VBox vbox = new VBox(box.getRoot(), display.getRoot(), pie);
@@ -158,7 +157,7 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Executor method for command box.
      */
-    private ReportCommandResult executeReportWindowCommand(String commandText)  {
+    private ReportCommandResult executeReportWindowCommand(String commandText) {
 
         ReportCommandResult result = null;
         try {
