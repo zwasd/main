@@ -10,7 +10,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.commands.repeat.RepeatAddCommand;
 import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
