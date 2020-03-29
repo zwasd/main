@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 
@@ -23,6 +24,8 @@ public class Date {
 
     public final LocalDate localDate;
 
+    private final YearMonth yearMonth;
+
     /**
      * Constructs an {@code Date}.
      *
@@ -33,6 +36,7 @@ public class Date {
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
         localDate = LocalDate.parse(date, FORMATTER);
+        this.yearMonth = YearMonth.of(localDate.getYear(), localDate.getMonthValue());
     }
 
     /**
@@ -45,6 +49,15 @@ public class Date {
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Check if the date fall on a given YearMonth.
+     * @param givenYearMonth the given year month which we want to check.
+     * @return a boolean.
+     */
+    public boolean isOn (YearMonth givenYearMonth) {
+        return this.yearMonth.equals(givenYearMonth);
     }
 
     @Override

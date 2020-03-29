@@ -196,6 +196,39 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
             throw new ParseException("Year Month need to be in a format of : YYYY-MM");
         }
     }
+
+    /**
+     * Calculate total expenditure amount for a given YearMonth.
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount for all the expenditure.
+     */
+    private double calculateMonthlyExpenditure(YearMonth givenYearMonth) {
+        return this.expenditures.calculateExpenditureAmount(givenYearMonth);
+    }
+
+    /**
+     * Calculate total repeat amount for a given YearMonth.
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount for all the repeat.
+     */
+    private double calculateMonthlyRepeat(YearMonth givenYearMonth) {
+        double total = 0;
+        for (int i = 0; i < repeats.size(); i++) {
+            total += this.repeats.get(i).calculateForGivenYearMonth(givenYearMonth);
+        }
+        return total;
+    }
+
+    /**
+     * Calculate total amount of a given YearMonth.
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount.
+     */
+    public double getTotalMonthlySpending(YearMonth givenYearMonth) {
+        return calculateMonthlyExpenditure(givenYearMonth) + calculateMonthlyExpenditure(givenYearMonth);
+    }
+
+
     //// util methods
 
     @Override
