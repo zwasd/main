@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -34,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ExpenditureListPanel expenditureListPanel;
+    private ExpenditureListPanel repeatListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
@@ -70,14 +70,9 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-        primaryStage.initStyle(StageStyle.UTILITY);
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
-        //imageview = new ImageView();
-
-        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
-        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
@@ -123,9 +118,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        repeatListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
-
+        expenditureListPanelPlaceholder.getChildren().add(repeatListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
 

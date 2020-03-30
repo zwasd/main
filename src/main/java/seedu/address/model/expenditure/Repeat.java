@@ -1,7 +1,10 @@
 package seedu.address.model.expenditure;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -53,6 +56,7 @@ public class Repeat {
         public String toString() {
             return keyword;
         }
+
     }
 
     // displayDate is empty, size 0 means daily.
@@ -254,6 +258,82 @@ public class Repeat {
     private boolean checkWeeklyOrMonthlyOrAnnually(LocalDate targetDate) {
         return this.relevantDate.contains(targetDate);
     }
+
+
+    /**
+     * Do note that this method will only be call if period is not daily.
+     * Get all the date from the relevantDate that falls in the given YearMonth.
+     * @param givenYearMonth target YearMonth.
+     * @return an arrayList of all the dates that follows within the YearMonth.
+     */
+    private ArrayList<LocalDate> isOnYearMonth(YearMonth givenYearMonth) {
+        ArrayList <LocalDate> allDateWithinGivenYearMonth = new ArrayList<>();
+        Iterator iterator = relevantDate.iterator();
+        while (iterator.hasNext()) {
+            LocalDate temp = (LocalDate) iterator.next();
+            if (YearMonth.from(temp).equals(givenYearMonth)) {
+                allDateWithinGivenYearMonth.add(temp);
+            }
+        }
+        return allDateWithinGivenYearMonth;
+    }
+
+    /**
+     * Calculate the total value for the given YearMonth and period is "DAILY".
+     * @param givenYearMonth the target YearMonth
+     * @return the total value of that period.
+     */
+    private double calculateDaily(YearMonth givenYearMonth) {
+        if (YearMonth.from(startDate.localDate).isAfter(givenYearMonth)
+                || YearMonth.from(endDate.localDate).isBefore(givenYearMonth)) {
+            return 0;
+        } else {
+            double total;
+            if (YearMonth.from(startDate.localDate).equals((givenYearMonth))) {
+                // Start date is in the same month of the given year month.
+                if (YearMonth.from(endDate.localDate).equals((givenYearMonth))) {
+                    // End date is in the same month of the given year month.
+                    int totalDays = this.startDate.localDate.until(this.endDate.localDate).getDays();
+                    total = totalDays * this.amount.value;
+                } else {
+                    // End date is not in the same month of the given year month.
+                    int totalNumberOfDaysInTheMonth = givenYearMonth.lengthOfMonth();
+                    int totalNumberOfCountableDays = totalNumberOfDaysInTheMonth
+                            - this.startDate.localDate.getDayOfMonth() + 1;
+                    total = totalNumberOfCountableDays * this.amount.value;
+                }
+                return total;
+            } else {
+                // Start date is before the given YearMonth
+                if (YearMonth.from(endDate.localDate).isAfter(givenYearMonth)) {
+                    // End date is after the given YearMonth
+                    total = givenYearMonth.lengthOfMonth() * this.amount.value;
+                } else {
+                    // End date is within the given YearMonth
+                    int countableDays = this.endDate.localDate.getDayOfMonth();
+                    total = countableDays * this.amount.value;
+                }
+                return total;
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public double calculateForGivenYearMonth(YearMonth givenYearMonth) {
+        if (this.period == Period.DAILY) {
+            return calculateDaily(givenYearMonth);
+        } else {
+            int totalNumOfDays = isOnYearMonth(givenYearMonth).size();
+            double total = totalNumOfDays * this.amount.value;
+            return total;
+        }
+    }
+
+
+
+
 
 
     /**

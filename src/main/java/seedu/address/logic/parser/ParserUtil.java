@@ -2,8 +2,11 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.YearMonth;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.expenditure.Amount;
@@ -107,5 +110,26 @@ public class ParserUtil {
             throw new ParseException(Repeat.PERIOD_MESSAGE_CONSTRAINTS);
         }
         return trimmedPeriod;
+    }
+
+    /**
+     * Parses a {@code String yearMonth} into a {@code YearMonth}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code yearMonth} is invalid.
+     */
+    public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        String [] trimmedYearMonth = yearMonth.trim().split("-");
+        try {
+            if (trimmedYearMonth.length >= 3) {
+                throw new ParseException("YearMonth should be in a format of YYYY-MM: E.g 2019-02");
+            }
+            int year = Integer.parseInt(trimmedYearMonth[0]);
+            int month = Integer.parseInt(trimmedYearMonth[1]);
+            return YearMonth.of(year, month);
+        } catch (Exception e) {
+            throw new ParseException("YearMonth should be in a format of YYYY-MM: E.g 2019-02");
+        }
     }
 }

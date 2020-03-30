@@ -22,13 +22,23 @@
 }
 
 #leftButton {
-    -fx-background-color: MEDIUMPURPLE;
     -fx-border-width: 0;
+    -fx-background-radius: 26em;
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+    -fx-background-color: #ffffff;
 }
 
 #rightButton {
-    -fx-background-color: MEDIUMPURPLE;
     -fx-border-width: 0;
+    -fx-background-radius: 26em;
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+    -fx-background-color: #ffffff;
 }
 
 #monthYearLabel {

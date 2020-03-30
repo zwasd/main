@@ -21,7 +21,7 @@ public class ExpAddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a expenditure to the address book. "
+            + ": Adds a expenditure to the $AVE IT. "
             + "\n" + "Parameters: "
             + PREFIX_INFO + "INFO "
             + PREFIX_AMOUNT + "AMOUNT "
