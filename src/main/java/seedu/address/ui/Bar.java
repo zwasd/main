@@ -55,7 +55,6 @@ public class Bar extends Graph {
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Tag");
-
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Expenditures");
 

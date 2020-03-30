@@ -12,7 +12,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -32,6 +31,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * in the future.
  */
 public class ReportWindow extends UiPart<Stage> {
+
+    //TODO: extract out the change scene code and make it a method
 
     public static final String REPORT_MESSAGE = "Generating report...";
 
@@ -121,7 +122,7 @@ public class ReportWindow extends UiPart<Stage> {
         logger.fine("Showing empty report page.");
         PieChart emptyPie = new PieChart();
         VBox topBox = new VBox(menuBar, box.getRoot());
-        VBox vbox = new VBox(topBox, display.getRoot());
+        VBox vbox = new VBox(topBox, display.getRoot(), emptyPie);
         Scene scene = new Scene(vbox);
         scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
@@ -148,9 +149,10 @@ public class ReportWindow extends UiPart<Stage> {
         }
 
         assert graph != null;
-        VBox vBox = new VBox(box.getRoot(), display.getRoot(), (Node) graph.getGraph(result));
-        this.currentVBox = vBox;
-        Scene scene = new Scene(vBox);
+        VBox topBox = new VBox(menuBar, box.getRoot());
+        VBox vbox = new VBox(topBox, display.getRoot(), (Node) graph.getGraph(result));
+        this.currentVBox = vbox;
+        Scene scene = new Scene(vbox);
         scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
         getRoot().show();
@@ -210,9 +212,11 @@ public class ReportWindow extends UiPart<Stage> {
                 }
 
                 assert graph != null;
-                VBox vBox = new VBox(box.getRoot(), display.getRoot(), (Node)graph.getGraph(result));
-                this.currentVBox =  vBox;
-                Scene scene = new Scene(vBox);
+                VBox topBox = new VBox(menuBar, box.getRoot());
+                VBox vbox = new VBox(topBox, display.getRoot(), (Node) graph.getGraph(result));
+                this.currentVBox =  vbox;
+                Scene scene = new Scene(vbox);
+                scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
                 getRoot().setScene(scene);
                 getRoot().show();
             }
@@ -223,4 +227,5 @@ public class ReportWindow extends UiPart<Stage> {
         }
         return result;
     }
+
 }
