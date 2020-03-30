@@ -20,7 +20,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.Repeat.Period;
@@ -64,13 +66,18 @@ public class RepeatEditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Repeat> lastShownList = model.getFilteredRepeatList();
+        requireNonNull(model);
+        List<BaseExp> lastShownList = model.getFilteredBaseExpList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
         }
 
-        Repeat repeatToEdit = lastShownList.get(index.getZeroBased());
+        BaseExp baseExp = lastShownList.get(index.getZeroBased());
+        if (!(baseExp instanceof Repeat)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Repeat.class.getSimpleName()));
+        }
+        Repeat repeatToEdit = (Repeat)baseExp;
         Repeat editedRepeat = createEditedRepeat(repeatToEdit, editRepeatDescriptor);
 
         model.setRepeat(repeatToEdit, editedRepeat);

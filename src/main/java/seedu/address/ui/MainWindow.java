@@ -117,8 +117,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        expenditureListPanel = new ExpenditureListPanel(logic.getHasUiCardList());
-//        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList()); TODO
+        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredBaseExpList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());

@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import javafx.scene.layout.Region;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.HasUiCard;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.RepeatCard;
 import seedu.address.ui.UiPart;
@@ -17,7 +16,7 @@ import seedu.address.ui.UiPart;
 /**
  * A Repeated expenditure.
  */
-public class Repeat extends HasUiCard {
+public class Repeat extends BaseExp {
 
     public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: '"
             + Period.DAILY.toString() + "', '"
@@ -27,9 +26,6 @@ public class Repeat extends HasUiCard {
 
     private Date startDate;
     private Date endDate;
-    private Info info;
-    private Amount amount;
-    private Tag tag;
     private Period period;
 
     @Override
@@ -116,14 +112,6 @@ public class Repeat extends HasUiCard {
     }
 
 
-    public Info getInfo() {
-        return info;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -134,10 +122,6 @@ public class Repeat extends HasUiCard {
 
     public Period getPeriod() {
         return period;
-    }
-
-    public Tag getTag() {
-        return tag;
     }
 
     public void setInfo(Info newInfo) {

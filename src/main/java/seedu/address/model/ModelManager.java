@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
     private final FilteredList<Repeat> filteredRepeats;
+    private final FilteredList<BaseExp> filteredBaseExp;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
@@ -41,6 +43,7 @@ public class ModelManager implements Model {
 
         filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
         filteredRepeats = this.accountList.getRepeatList().filtered(PREDICATE_SHOW_ALL_REPEATS);
+        filteredBaseExp = this.accountList.getBaseExpList().filtered(PREDICATE_SHOW_ALL_BASEEXP);
     }
 
     public ModelManager() {
@@ -108,12 +111,13 @@ public class ModelManager implements Model {
     @Override
     public void addExpenditure(Expenditure expenditure) {
         accountList.addExpenditure(expenditure);
-        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        showAll();
     }
 
     @Override
     public void addRepeat(Repeat repeat) {
         accountList.addRepeat(repeat);
+        showAll();
     }
 
     @Override
@@ -150,8 +154,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<HasUiCard> getHasUiCardList() {
-        return accountList.getHasUiCardList();
+    public ObservableList<BaseExp> getFilteredBaseExpList() {
+        return filteredBaseExp;
     }
 
     @Override
@@ -160,11 +164,18 @@ public class ModelManager implements Model {
         filteredExpenditures.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredBaseExpList(Predicate<BaseExp> predicate) {
+        requireNonNull(predicate);
+        filteredBaseExp.setPredicate(predicate);
+    }
+
     /**
      * Displays all repeats and expenditures
      */
-    public void showAll() {
+    private void showAll() {
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        updateFilteredBaseExpList(PREDICATE_SHOW_ALL_BASEEXP);
         // TODO
     }
 
@@ -173,7 +184,7 @@ public class ModelManager implements Model {
         if (!accountList.updateActiveAccount(accountName)) {
             return false;
         } else {
-            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+            showAll();
             return true;
         }
     }

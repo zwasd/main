@@ -20,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Info;
@@ -66,13 +67,17 @@ public class ExpEditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expenditure> lastShownList = model.getFilteredExpenditureList();
+        List<BaseExp> lastShownList = model.getFilteredBaseExpList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
         }
 
-        Expenditure expenditureToEdit = lastShownList.get(index.getZeroBased());
+        BaseExp baseExp = lastShownList.get(index.getZeroBased());
+        if (!(baseExp instanceof Expenditure)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Expenditure.class.getSimpleName()));
+        }
+        Expenditure expenditureToEdit = (Expenditure) baseExp;
         Expenditure editedExpenditure = createEditedExpenditure(expenditureToEdit, editExpenditureDescriptor);
 
         if (!expenditureToEdit.equals(editedExpenditure) && model.hasExpenditure(editedExpenditure)) {
@@ -80,7 +85,6 @@ public class ExpEditCommand extends Command {
         }
 
         model.setExpenditure(expenditureToEdit, editedExpenditure);
-        model.updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
     }
 

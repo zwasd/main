@@ -18,7 +18,7 @@ public class ExpFindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Finds all expenditures which contain any of "
+            + ": Finds all expenditures and repeats which contain any of "
             + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameter: KEYWORD \n"
             + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " alice";
@@ -32,10 +32,10 @@ public class ExpFindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredExpenditureList(predicate);
+        model.updateFilteredBaseExpList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EXPENDITURES_LISTED_OVERVIEW,
-                        model.getFilteredExpenditureList().size()));
+                        model.getFilteredBaseExpList().size()));
     }
 
     @Override
