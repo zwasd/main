@@ -104,6 +104,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered repeat list */
     ObservableList<Repeat> getFilteredRepeatList();
 
+    ObservableList<HasUiCard> getHasUiCardList();
+
     /**
      * Updates the filter of the filtered expenditure list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

@@ -150,6 +150,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<HasUiCard> getHasUiCardList() {
+        return accountList.getHasUiCardList();
+    }
+
+    @Override
     public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
         filteredExpenditures.setPredicate(predicate);

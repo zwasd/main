@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.HasUiCard;
 import seedu.address.model.expenditure.Expenditure;
 
 /**
@@ -18,9 +19,9 @@ public class ExpenditureListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ExpenditureListPanel.class);
 
     @FXML
-    private ListView<Expenditure> expenditureListView;
+    private ListView<HasUiCard> expenditureListView;
 
-    public ExpenditureListPanel(ObservableList<Expenditure> expenditureList) {
+    public ExpenditureListPanel(ObservableList<HasUiCard> expenditureList) {
         super(FXML);
         expenditureListView.setItems(expenditureList);
         expenditureListView.setCellFactory(listView -> new ExpenditureListViewCell());
@@ -29,16 +30,16 @@ public class ExpenditureListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Expenditure} using a {@code ExpenditureCard}.
      */
-    class ExpenditureListViewCell extends ListCell<Expenditure> {
+    class ExpenditureListViewCell extends ListCell<HasUiCard> {
         @Override
-        protected void updateItem(Expenditure expenditure, boolean empty) {
-            super.updateItem(expenditure, empty);
+        protected void updateItem(HasUiCard hasUiCard, boolean empty) {
+            super.updateItem(hasUiCard, empty);
 
-            if (empty || expenditure == null) {
+            if (empty || hasUiCard == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExpenditureCard(expenditure, getIndex() + 1).getRoot());
+                setGraphic(hasUiCard.getUiCard(getIndex() + 1).getRoot());
             }
         }
     }
