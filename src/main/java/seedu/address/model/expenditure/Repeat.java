@@ -4,13 +4,17 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 
+import javafx.scene.layout.Region;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.HasUiCard;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.RepeatCard;
+import seedu.address.ui.UiPart;
 
 /**
  * A Repeated expenditure.
  */
-public class Repeat {
+public class Repeat extends HasUiCard {
 
     public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: '"
             + Period.DAILY.toString() + "', '"
@@ -24,6 +28,12 @@ public class Repeat {
     private Amount amount;
     private Tag tag;
     private Period period;
+
+    @Override
+    public UiPart<Region> getUiCard(int displayedNumber) {
+        return new RepeatCard(this, displayedNumber);
+    }
+
     /**
      * Represents the frequency
      * of repeat expenditure.

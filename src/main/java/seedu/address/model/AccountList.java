@@ -24,6 +24,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     private Account activeAccount; //TODO: make it static ?? (XP)
     private final UniqueExpenditureList internalExpenditureList = new UniqueExpenditureList();
     private final ObservableList<Repeat> internalRepeatList = FXCollections.observableArrayList();
+    private final ObservableList<HasUiCard> internalAllList = FXCollections.observableArrayList();
     private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
 
@@ -44,6 +45,8 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         activeDate = LocalDate.now();
         internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
         internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
+        internalAllList.addAll(internalExpenditureList.asUnmodifiableObservableList());
+        internalAllList.addAll(internalRepeatList);
     }
 
     public AccountList(boolean createDefaultAccount) {
@@ -155,6 +158,8 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void clearActiveAccount() {
         activeAccount.resetData(new Account());
         internalExpenditureList.setExpenditures(new ArrayList<>());
+        internalRepeatList.setAll(new ArrayList<>());
+        internalAllList.setAll(new ArrayList<>());
     }
 
     //// expenditure-level operations
@@ -174,6 +179,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void removeExpenditure(Expenditure target) {
         activeAccount.removeExpenditure(target);
         internalExpenditureList.remove(target);
+        internalAllList.remove(target);
     }
 
     /**
@@ -183,6 +189,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void removeRepeat(Repeat target) {
         activeAccount.removeRepeat(target);
         internalRepeatList.remove(target);
+        internalAllList.remove(target);
     }
 
     /**
@@ -192,6 +199,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         activeAccount.addExpenditure(expenditure);
         if (expenditure.getDate().localDate.equals(activeDate)) {
             internalExpenditureList.add(expenditure);
+            internalAllList.add(expenditure);
         }
     }
 
@@ -202,6 +210,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         activeAccount.addRepeat(repeat);
         if (repeat.isOn(activeDate)) {
             internalRepeatList.add(repeat);
+            internalAllList.add(repeat);
         }
     }
 
@@ -216,8 +225,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         activeAccount.setExpenditure(target, editedExpenditure);
         if (editedExpenditure.getDate().localDate.equals(activeDate)) {
             internalExpenditureList.setExpenditure(target, editedExpenditure);
+            internalAllList.set(internalAllList.indexOf(target), editedExpenditure);
         } else {
             internalExpenditureList.remove(target);
+            internalAllList.remove(target);
         }
     }
 
@@ -232,8 +243,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         activeAccount.setRepeat(target, editedRepeat);
         if (editedRepeat.isOn(activeDate)) {
             internalRepeatList.set(internalRepeatList.indexOf(target), editedRepeat);
+            internalAllList.set(internalAllList.indexOf(target), editedRepeat);
         } else {
             internalRepeatList.remove(target);
+            internalAllList.remove(target);
         }
     }
 
@@ -246,6 +259,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void updateActiveDate(LocalDate date) {
         internalExpenditureList.setExpenditures(activeAccount.getExpByDate(date));
         internalRepeatList.setAll(activeAccount.getRepeatByDate(date));
+        internalAllList.setAll(new ArrayList<>());
+        internalAllList.addAll(internalExpenditureList.asUnmodifiableObservableList());
+        internalAllList.addAll(internalRepeatList);
         activeDate = date;
     }
 
@@ -261,6 +277,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             activeAccount = accounts.get(accountName);
             internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
             internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
+            internalAllList.setAll(new ArrayList<>());
+            internalAllList.addAll(internalExpenditureList.asUnmodifiableObservableList());
+            internalAllList.addAll(internalRepeatList);
             return true;
         }
     }
@@ -295,6 +314,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     @Override
     public ObservableList<Repeat> getRepeatList() {
         return FXCollections.unmodifiableObservableList(internalRepeatList);
+    }
+
+    public ObservableList<HasUiCard> getHasUiCardList() {
+        return FXCollections.unmodifiableObservableList(internalAllList);
     }
 
     @Override

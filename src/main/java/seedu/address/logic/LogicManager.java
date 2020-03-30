@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.report.ReportWindowParser;
+import seedu.address.model.HasUiCard;
 import seedu.address.model.Model;
 
 import seedu.address.model.ReadOnlyAccountList;
@@ -81,6 +82,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Repeat> getFilteredRepeatList() {
         return model.getFilteredRepeatList();
+    }
+
+    @Override
+    public ObservableList<HasUiCard> getHasUiCardList() {
+        return model.getHasUiCardList();
     }
 
     @Override
