@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 // import seedu.address.model.Account;
 // import seedu.address.model.AccountList;
 import seedu.address.model.Account;
+import seedu.address.model.Budget;
 import seedu.address.model.Model;
 // import seedu.address.model.ReadOnlyAccount;
 import seedu.address.model.ReadOnlyAccountList;
@@ -208,6 +209,11 @@ public class ExpAddCommandTest {
 
         @Override
         public void updateActiveDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
     }

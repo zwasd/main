@@ -17,6 +17,6 @@ public class ReportWindowExitCommand extends ReportCommand {
 
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
-        return new ReportCommandResult(MESSAGE_EXIT,true);
+        return new ReportCommandResult(MESSAGE_EXIT, true);
     }
 }

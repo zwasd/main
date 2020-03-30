@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -10,10 +14,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
-
+/**
+ * Generate respective graph.
+ */
 public class Graph {
 
 
