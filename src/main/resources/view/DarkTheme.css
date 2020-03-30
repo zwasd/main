@@ -327,6 +327,13 @@
     -fx-font-size: 13pt;
     -fx-text-fill: white;
 }
+.chart {
+  -fx-background-color: rgb(113,116,141);
+  -fx-border-color: rgb(56,56,56) rgb(56,56,56)
+  -fx-border-width 1;
+  -fx-background-radius: 0;
+  -fx-background-position: left center;
+}
 
 #filterField, #expenditureListPanel, #expenditureWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);

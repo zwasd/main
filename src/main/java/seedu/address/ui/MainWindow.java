@@ -71,10 +71,10 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-        primaryStage.initStyle(StageStyle.UTILITY);
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
+        reportWindow.addLogic(logic);
         //imageview = new ImageView();
 
         //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
@@ -194,11 +194,13 @@ public class MainWindow extends UiPart<Stage> {
     private void handleReport() {
 
         if (!reportWindow.isShowing()) {
-            reportWindow.addLogic(logic);
             reportWindow.showEmpty();
-        } else {
+        }
+
+        /*else {
             reportWindow.focus();
         }
+        */
 
     }
 
@@ -223,11 +225,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
 
-                if (reportWindow.isShowing()) {
+              /*  if (reportWindow.isShowing()) {
                     reportWindow.hide();
                 }
 
-                reportWindow.addLogic(logic);
+               */
+
                 reportWindow.showResult(commandResult);
             }
 

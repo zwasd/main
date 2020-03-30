@@ -1,14 +1,21 @@
 package seedu.address.ui;
 
 
-import java.awt.*;
+
+import java.io.File;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -34,8 +41,8 @@ public class ReportWindow extends UiPart<Stage> {
     private Logic logic;
     private ReportCommandBox box;
     private ResultDisplay display;
-    private Graph graph;
-
+    private MenuBar menuBar;
+    private VBox currentVBox;
     /**
      * Creates a new Report Window.
      *
@@ -43,6 +50,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow(Stage root) {
         super(FXML, root);
+        root.initModality(Modality.APPLICATION_MODAL);
 
     }
 
@@ -51,27 +59,36 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow() {
         this(new Stage());
-         initStyle();
-         initCloseHandler();
-         initButton();
+        init();
+    }
+
+    private void init() {
         this.box = new ReportCommandBox(this::executeReportWindowCommand);
         this.display = new ResultDisplay();
-        this.graph = new Graph();
+        this.menuBar = new MenuBar();
+        initMenu();
+        initStyle();
+        initCloseHandler();
     }
 
-    public void initButton() {
-        Button b = new Button();
+    private void initMenu() {
+        Label label = new Label("Export");
+        label.setFont(new Font("Segoe UI Light", 14 ));
+        label.setOnMouseClicked(click -> {
 
+        });
+        Menu menu = new Menu("", label);
+        menuBar.getMenus().add(menu);
     }
 
-    public void initStyle() {
+   private void initStyle() {
         getRoot().initStyle(StageStyle.UTILITY);
     }
 
     /**
      * TODO: ADD DOC
      */
-    public void initCloseHandler() {
+    private void initCloseHandler() {
         getRoot().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -82,6 +99,8 @@ public class ReportWindow extends UiPart<Stage> {
     }
     /**
      * Shows the report window.
+     * Method is called when the report
+     * button in Main Window in clicked.
      *
      * @throws IllegalStateException <ul>
      *                               <li>
@@ -99,9 +118,12 @@ public class ReportWindow extends UiPart<Stage> {
      *                               </ul>
      */
     public void showEmpty() {
-        logger.fine("Showing report page.");
-        VBox vbox = new VBox(box.getRoot(), display.getRoot(), new PieChart());
+        logger.fine("Showing empty report page.");
+        PieChart emptyPie = new PieChart();
+        VBox topBox = new VBox(menuBar, box.getRoot());
+        VBox vbox = new VBox(topBox, display.getRoot());
         Scene scene = new Scene(vbox);
+        scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
         getRoot().show();
     }
@@ -110,27 +132,28 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Shows the expenditure breakdown
      * in user inputted graph type.
+     * Method is called when input is from
+     * Main Window.
      */
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
 
-        if (result.isPieGraph()) {
+        Graph graph = null;
 
-            PieChart pie = graph.getPieChart(result);
-            VBox vbox = new VBox(box.getRoot(), display.getRoot(), pie);
-            Scene scene = new Scene(vbox);
-            getRoot().setScene(scene);
-            getRoot().show();
+        if (result.isPieGraph()) {
+            graph = new Pie();
 
         } else if (result.isBarGraph()) {
-
-            BarChart bar = graph.getBarChart(result);
-            VBox vbox = new VBox(box.getRoot(), display.getRoot(), bar);
-            Scene scene = new Scene(vbox);
-            getRoot().setScene(scene);
-            getRoot().show();
-
+            graph = new Bar();
         }
+
+        assert graph != null;
+        VBox vBox = new VBox(box.getRoot(), display.getRoot(), (Node) graph.getGraph(result));
+        this.currentVBox = vBox;
+        Scene scene = new Scene(vBox);
+        scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
+        getRoot().setScene(scene);
+        getRoot().show();
 
     }
 
@@ -162,7 +185,7 @@ public class ReportWindow extends UiPart<Stage> {
     //TODO: add in methods for handling diff graph
 
     /**
-     * Executor method for command box.
+     * Executor method for report command box.
      */
     private ReportCommandResult executeReportWindowCommand(String commandText) {
 
@@ -175,24 +198,24 @@ public class ReportWindow extends UiPart<Stage> {
             if (result.getExitReport()) {
                 display.clear();
                 getRoot().hide();
-            } else if (result.isPieGraph()) {
+            } else {
 
-                PieChart pie = graph.getPieChart(result);
-                VBox vbox = new VBox(box.getRoot(), display.getRoot(), pie);
-                Scene scene = new Scene(vbox);
+                Graph graph = null;
+
+                if (result.isPieGraph()) {
+                    graph = new Pie();
+
+                } else if (result.isBarGraph()) {
+                    graph = new Bar();
+                }
+
+                assert graph != null;
+                VBox vBox = new VBox(box.getRoot(), display.getRoot(), (Node)graph.getGraph(result));
+                this.currentVBox =  vBox;
+                Scene scene = new Scene(vBox);
                 getRoot().setScene(scene);
                 getRoot().show();
-
-            } else if (result.isBarGraph()) {
-
-                BarChart bar = graph.getBarChart(result);
-                VBox vbox = new VBox(box.getRoot(), display.getRoot(), bar);
-                Scene scene = new Scene(vbox);
-                getRoot().setScene(scene);
-                getRoot().show();
-
             }
-
 
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command :" + commandText);
