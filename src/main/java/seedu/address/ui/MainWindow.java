@@ -71,14 +71,9 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-        primaryStage.initStyle(StageStyle.UTILITY);
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
-        //imageview = new ImageView();
-
-        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
-        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
