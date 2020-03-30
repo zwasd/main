@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -55,11 +56,16 @@ public class ReportWindow extends UiPart<Stage> {
         this(new Stage());
          initStyle();
          initCloseHandler();
+         initButton();
         this.box = new ReportCommandBox(this::executeReportWindowCommand);
         this.display = new ResultDisplay();
         this.graph = new Graph();
     }
 
+    public void initButton() {
+        Button b = new Button();
+
+    }
 
     public void initStyle() {
         getRoot().initStyle(StageStyle.UTILITY);
