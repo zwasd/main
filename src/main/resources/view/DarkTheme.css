@@ -344,7 +344,7 @@
 
 .chart-pie-label {
     -fx-fill: #FDFDFD;
-    -fx-font-size: 2em;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Light";
 }
 .axis {

@@ -8,8 +8,10 @@ import seedu.address.logic.commands.ReportCommandResult;
  */
 public abstract class Graph<T> {
 
-    public abstract T getGraph(CommandResult result);
+    public abstract void constructGraph(CommandResult result);
 
-    public abstract T getGraph(ReportCommandResult result);
+    public abstract void constructGraph(ReportCommandResult result);
+
+    public abstract  T getGraph();
 
 }

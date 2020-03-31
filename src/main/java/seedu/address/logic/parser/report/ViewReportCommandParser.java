@@ -56,7 +56,7 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
-                    ViewReportCommand.MESSAGE_USAGE));
+                ViewReportCommand.MESSAGE_USAGE));
         }
         Report report = new Report(startDate, endDate, graphType);
 

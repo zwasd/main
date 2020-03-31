@@ -234,6 +234,10 @@ public class MainWindow extends UiPart<Stage> {
                 reportWindow.showResult(commandResult);
             }
 
+            if (commandResult.isExportReport()) {
+                reportWindow.export(commandResult);
+            }
+
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
             }

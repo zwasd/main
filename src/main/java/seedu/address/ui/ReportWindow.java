@@ -42,7 +42,7 @@ public class ReportWindow extends UiPart<Stage> {
     private ReportCommandBox box;
     private ResultDisplay display;
     private MenuBar menuBar;
-    private VBox currentVBox;
+    private Graph currentGraphDisplay;
 
     /**
      * Creates a new Report Window.
@@ -84,7 +84,6 @@ public class ReportWindow extends UiPart<Stage> {
         Label label = new Label("Export");
         label.setFont(new Font("Segoe UI Light", 14));
         label.setOnMouseClicked(click -> {
-
         });
         Menu menu = new Menu("", label);
         menuBar.getMenus().add(menu);
@@ -129,9 +128,9 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showEmpty() {
         logger.fine("Showing empty report page.");
-        PieChart emptyPie = new PieChart();
+        this.currentGraphDisplay = new Pie();
         VBox topBox = new VBox(menuBar, box.getRoot());
-        VBox vbox = new VBox(topBox, display.getRoot(), emptyPie);
+        VBox vbox = new VBox(topBox, display.getRoot(), (Node) currentGraphDisplay.getGraph());
         Scene scene = new Scene(vbox);
         scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
@@ -148,19 +147,18 @@ public class ReportWindow extends UiPart<Stage> {
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
 
-        Graph graph = null;
 
         if (result.isPieGraph()) {
-            graph = new Pie();
+            this.currentGraphDisplay = new Pie();
 
         } else if (result.isBarGraph()) {
-            graph = new Bar();
+            this.currentGraphDisplay = new Bar();
         }
 
-        assert graph != null;
+        assert currentGraphDisplay != null;
+        currentGraphDisplay.constructGraph(result);
         VBox topBox = new VBox(menuBar, box.getRoot());
-        VBox vbox = new VBox(topBox, display.getRoot(), (Node) graph.getGraph(result));
-        this.currentVBox = vbox;
+        VBox vbox = new VBox(topBox, display.getRoot(), (Node) currentGraphDisplay.getGraph());
         Scene scene = new Scene(vbox);
         scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
@@ -168,7 +166,38 @@ public class ReportWindow extends UiPart<Stage> {
 
     }
 
+    /**
+     * Shows the expenditure breakdown
+     * in user inputted graph type.
+     * Method is called when input is from
+     * Report Window.
+     */
+    public void showResult (ReportCommandResult result) {
+        logger.fine("Showing report page.");
 
+        if (result.isPieGraph()) {
+            this.currentGraphDisplay = new Pie();
+
+        } else if (result.isBarGraph()) {
+            this.currentGraphDisplay = new Bar();
+        }
+
+        assert currentGraphDisplay != null;
+        currentGraphDisplay.constructGraph(result);
+        VBox topBox = new VBox(menuBar, box.getRoot());
+        VBox vbox = new VBox(topBox, display.getRoot(), (Node) currentGraphDisplay.getGraph());
+        Scene scene = new Scene(vbox);
+        scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
+        getRoot().setScene(scene);
+        getRoot().show();
+    }
+
+
+    public void export(CommandResult result)  {
+        logger.fine("Exporting");
+
+
+    }
     /**
      * Returns true if the report window is currently being shown.
      */
@@ -193,7 +222,6 @@ public class ReportWindow extends UiPart<Stage> {
     public void addLogic(Logic logic) {
         this.logic = logic;
     }
-    //TODO: add in methods for handling diff graph
 
     /**
      * Executor method for report command box.
@@ -210,24 +238,7 @@ public class ReportWindow extends UiPart<Stage> {
                 display.clear();
                 getRoot().hide();
             } else {
-
-                Graph graph = null;
-
-                if (result.isPieGraph()) {
-                    graph = new Pie();
-
-                } else if (result.isBarGraph()) {
-                    graph = new Bar();
-                }
-
-                assert graph != null;
-                VBox topBox = new VBox(menuBar, box.getRoot());
-                VBox vbox = new VBox(topBox, display.getRoot(), (Node) graph.getGraph(result));
-                this.currentVBox = vbox;
-                Scene scene = new Scene(vbox);
-                scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
-                getRoot().setScene(scene);
-                getRoot().show();
+                showResult(result);
             }
 
         } catch (CommandException | ParseException e) {

@@ -23,7 +23,7 @@ public class ViewReportCommand extends Command {
             + "\n" + "Parameters: "
             + "start date : YYYY-MM-DD  "
             + "end date :  YYYY-MM-DD  "
-            + "graph type: PIE " + "\n"
+            + "graph type: PIE/BAR " + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " 2020-03-22 " + "2020-03-25 " + "PIE";
 
@@ -40,6 +40,6 @@ public class ViewReportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         format = toView.getFormat();
-        return new CommandResult(MESSAGE_SUCCESS, format, statsToDisplay);
+        return new CommandResult(MESSAGE_SUCCESS, format, statsToDisplay, false, true);
     }
 }

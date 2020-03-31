@@ -1,9 +1,9 @@
 package seedu.address.logic.parser.report;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
 
 import java.time.format.DateTimeParseException;
-import java.util.InvalidPropertiesFormatException;
 
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.report.ExportReportCommand;
@@ -59,11 +59,8 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
             graphType = Report.GraphType.PIE;
             break;
         default:
-            try {
-                throw new InvalidPropertiesFormatException("Available graph types are : BAR, STACK, PIE");
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+            throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
+                    ExportReportCommand.MESSAGE_USAGE));
         }
         Report report = new Report(startDate, endDate, graphType);
 

@@ -18,8 +18,27 @@ import seedu.address.model.tag.Tag;
  */
 public class Bar extends Graph {
 
+    BarChart bar;
+
     @Override
-    public BarChart getGraph(CommandResult command) {
+    public BarChart getGraph() {
+
+        if(bar == null) {
+
+            CategoryAxis xAxis = new CategoryAxis();
+            xAxis.setLabel("");
+
+            NumberAxis yAxis = new NumberAxis();
+            yAxis.setLabel("");
+
+            bar = new BarChart(xAxis, yAxis);
+        }
+
+        return bar;
+    }
+
+    @Override
+    public void constructGraph(CommandResult command) {
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Tag");
@@ -44,13 +63,12 @@ public class Bar extends Graph {
         }
         bar.getData().add(dataSeries);
 
-
-        return bar;
+        this.bar = bar;
 
     }
 
     @Override
-    public BarChart getGraph(ReportCommandResult command) {
+    public void constructGraph(ReportCommandResult command) {
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Tag");
@@ -73,7 +91,7 @@ public class Bar extends Graph {
         }
         bar.getData().add(dataSeries);
 
-        return bar;
+        this.bar = bar;
 
     }
 }
