@@ -11,13 +11,11 @@ import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -29,6 +27,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exceptions.PrinterException;
 
 /**
  * The Report Window. Provides statistics on expenditure
@@ -178,7 +177,7 @@ public class ReportWindow extends UiPart<Stage> {
      * Method is called when input is from
      * Report Window.
      */
-    public void showResult (ReportCommandResult result) {
+    public void showResult(ReportCommandResult result) {
         logger.fine("Showing report page.");
 
         if (result.isPieGraph()) {
@@ -199,39 +198,47 @@ public class ReportWindow extends UiPart<Stage> {
     }
 
 
-    public void export(CommandResult result)  {
+    /**
+     * Sends a print job of report to printer.
+     * @param result command result of user input.
+     * @throws PrinterException is thrown when printer cannot
+     * successfully finish a job.
+     */
+    public void print(CommandResult result) throws PrinterException {
         logger.fine("Exporting");
-        Graph toExport = null;
+        Graph toPrint = null;
         Node graph;
 
         if (result.isPieGraph()) {
-            toExport = new Pie();
+            toPrint = new Pie();
         } else if (result.isBarGraph()) {
-            toExport = new Bar();
+            toPrint = new Bar();
         }
 
-        assert toExport != null;
-        toExport.constructGraph(result);
-        graph = (Node) toExport.getGraph();
+        assert toPrint != null;
+        toPrint.constructGraph(result);
+        graph = (Node) toPrint.getGraph();
         Printer printer = Printer.getDefaultPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A6, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
-        double scaleX = pageLayout.getPrintableWidth() / graph.getBoundsInParent().getWidth();
-        double scaleY = pageLayout.getPrintableHeight() / graph.getBoundsInParent().getHeight();
-        graph.getTransforms().add(new Scale(scaleX, scaleY));
-
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4,
+                PageOrientation.LANDSCAPE, Printer.MarginType.EQUAL);
         PrinterJob printerJob = PrinterJob.createPrinterJob();
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(graph);
-            if(jobStatus) {
+            boolean jobStatus = printerJob.printPage(pageLayout, graph);
+            if (jobStatus) {
                 printerJob.endJob();
             } else {
                 printerJob.cancelJob();
+                throw new PrinterException("Set available printer as default printer");
             }
         }
 
+    }
+
+    public void export(CommandResult result) {
 
     }
+
     /**
      * Returns true if the report window is currently being shown.
      */
@@ -260,7 +267,7 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Executor method for report command box.
      */
-    private ReportCommandResult executeReportWindowCommand(String commandText) {
+    private ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException {
 
         ReportCommandResult result = null;
         try {
@@ -278,6 +285,7 @@ public class ReportWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command :" + commandText);
             display.setFeedbackToUser(e.getMessage());
+            throw e;
         }
         return result;
     }

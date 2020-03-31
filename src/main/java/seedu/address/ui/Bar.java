@@ -18,12 +18,12 @@ import seedu.address.model.tag.Tag;
  */
 public class Bar extends Graph {
 
-    BarChart bar;
+    private BarChart bar;
 
     @Override
     public BarChart getGraph() {
 
-        if(bar == null) {
+        if (bar == null) {
 
             CategoryAxis xAxis = new CategoryAxis();
             xAxis.setLabel("");

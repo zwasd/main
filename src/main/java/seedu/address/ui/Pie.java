@@ -16,16 +16,17 @@ import seedu.address.model.tag.Tag;
  */
 public class Pie extends Graph {
 
-   PieChart pie = null;
+    private PieChart pie = null;
 
     /**
      * Returns pie.
-      * @return empty pie if pie is not constructed.
+     *
+     * @return empty pie if pie is not constructed.
      */
-   @Override
+    @Override
     public PieChart getGraph() {
 
-        if(pie == null) {
+        if (pie == null) {
             pie = new PieChart();
         }
 
@@ -42,7 +43,6 @@ public class Pie extends Graph {
 
         Set set = stats.keySet();
         Iterator itr = set.iterator();
-
 
 
         while (itr.hasNext()) {

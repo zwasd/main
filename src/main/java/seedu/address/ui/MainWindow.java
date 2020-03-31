@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exceptions.PrinterException;
 
 
 /**
@@ -136,7 +137,6 @@ public class MainWindow extends UiPart<Stage> {
         activeAccountNamePlaceHolder.getChildren().add(activeAccountNameView.getRoot());
 
 
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -215,7 +215,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, PrinterException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -238,6 +238,10 @@ public class MainWindow extends UiPart<Stage> {
                 reportWindow.export(commandResult);
             }
 
+            if (commandResult.isPrintReport()) {
+                reportWindow.print(commandResult);
+            }
+
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
             }
@@ -247,8 +251,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
+        } catch (CommandException | ParseException | PrinterException e) {
+
+            if (e instanceof CommandException || e instanceof ParseException) {
+                logger.info("Invalid command: " + commandText);
+            } else {
+                assert e instanceof ParseException;
+                logger.info("Invalid Printer Settings");
+
+            }
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

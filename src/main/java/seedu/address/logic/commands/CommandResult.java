@@ -21,10 +21,11 @@ public class CommandResult {
     private final boolean showHelp;
 
     /**
-     * Report/export stats to user
+     * Indicates the action of report command.
      **/
     private final boolean showReport;
     private final boolean exportReport;
+    private final boolean printReport;
     private HashMap stats;
     private Report.GraphType graph = Report.GraphType.NULL;
 
@@ -48,30 +49,34 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean showReport, boolean exportReport, boolean updateCalendar, boolean updateAccountName) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showReport,
+                         boolean exportReport, boolean printReport, boolean updateCalendar, boolean updateAccountName) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showReport = showReport;
         this.exportReport = exportReport;
+        this.printReport = printReport;
         this.updateCalendar = updateCalendar;
         this.updateAccountName = updateAccountName;
     }
 
     public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
-        this(feedbackToUser, false, false, false, false, true, false);
+        this(feedbackToUser, false, false, false,
+                false, false, true, false);
         this.newActiveDate = newActiveDate;
     }
 
-    public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats, boolean exportReport, boolean showReport) {
-        this(feedbackToUser, false, false, showReport, exportReport, false, false);
+    public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats,
+                         boolean exportReport, boolean showReport, boolean printReport) {
+        this(feedbackToUser, false, false, showReport,
+                exportReport, printReport, false, false);
         this.graph = graph;
         this.stats = stats;
     }
 
     public CommandResult(String feedbackToUser, String newAccountName) {
-        this(feedbackToUser, false, false, false, false, false, true);
+        this(feedbackToUser, false, false, false, false, false, false, true);
         this.activeAccountName = newAccountName;
     }
 
@@ -81,7 +86,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false, false, false,
-                false, false);
+                false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -100,7 +105,13 @@ public class CommandResult {
         return showReport;
     }
 
-    public boolean isExportReport() {return exportReport; }
+    public boolean isExportReport() {
+        return exportReport;
+    }
+
+    public boolean isPrintReport() {
+        return printReport;
+    }
 
     public boolean isPieGraph() {
         return graph == Report.GraphType.PIE;
@@ -151,13 +162,15 @@ public class CommandResult {
                 && exit == otherCommandResult.exit
                 && showReport == otherCommandResult.showReport
                 && exportReport == exportReport
+                && printReport == printReport
                 && updateCalendar == otherCommandResult.updateCalendar
                 && updateAccountName == otherCommandResult.updateAccountName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showReport, exportReport, updateCalendar, updateAccountName);
+        return Objects.hash(feedbackToUser, showHelp, exit, showReport, exportReport,
+                printReport, updateCalendar, updateAccountName);
     }
 
 }

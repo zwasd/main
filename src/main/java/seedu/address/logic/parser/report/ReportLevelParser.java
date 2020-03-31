@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.report.ExportReportCommand;
+import seedu.address.logic.commands.report.PrintReportCommand;
 import seedu.address.logic.commands.report.ViewReportCommand;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ReportLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "report";
-    public static final String MESSAGE_USAGE = "report view\nreport export\n";
+    public static final String MESSAGE_USAGE = "report view\nreport export\nreport print\n";
 
     /**
      * Used for initial separation of command word and args.
@@ -51,6 +52,9 @@ public class ReportLevelParser extends TopLevelParser {
 
         case ExportReportCommand.COMMAND_WORD:
             return new ExportReportCommandParser().parse(arguments);
+
+        case PrintReportCommand.COMMAND_WORD:
+            return new PrintReportCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

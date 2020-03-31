@@ -10,36 +10,34 @@ import seedu.address.model.Model;
 import seedu.address.model.Report;
 
 /**
- * Views report.
+ * Prints report.
  */
-public class ViewReportCommand extends Command {
+public class PrintReportCommand extends Command {
 
-
-    public static final String COMMAND_WORD = "view";
-    public static final String MESSAGE_SUCCESS = "Report is generated";
-
+    public static final String COMMAND_WORD = "print";
+    public static final String MESSAGE_SUCCESS = "Printing report.";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Shows the report. "
+            + ": Prints the report. "
             + "\n" + "Parameters: "
             + "start date : YYYY-MM-DD  "
             + "end date :  YYYY-MM-DD  "
-            + "graph type: PIE/BAR " + "\n"
+            + "graph type: PIE/BAR" + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " 2020-03-22 " + "2020-03-25 " + "PIE";
 
-    private final Report toView;
-    private HashMap statsToDisplay;
+
+    private final Report toPrint;
+    private HashMap statsToPrint;
     private Report.GraphType format;
 
-    public ViewReportCommand(Report toView) {
-        this.toView = toView;
+    public PrintReportCommand(Report toPrint) {
+        this.toPrint = toPrint;
     }
-
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
-        format = toView.getFormat();
-        return new CommandResult(MESSAGE_SUCCESS, format, statsToDisplay, false, true, false);
+        statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
+        format = toPrint.getFormat();
+        return new CommandResult(MESSAGE_SUCCESS, format, statsToPrint, false, false, true);
     }
 }

@@ -67,7 +67,7 @@ public class AutoCompleteTextField extends TextField {
         entries.addAll(Arrays.asList(
             "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
             "exp add", "exp delete", "exp edit", "exp find", "exp repeat", "exp setbudget",
-            "report view", "report export", "go", "help", "exit"
+            "report view", "report export", "report print", "go", "help", "exit"
         ));
     }
 

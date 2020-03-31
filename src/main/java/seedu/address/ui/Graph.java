@@ -12,6 +12,6 @@ public abstract class Graph<T> {
 
     public abstract void constructGraph(ReportCommandResult result);
 
-    public abstract  T getGraph();
+    public abstract T getGraph();
 
 }

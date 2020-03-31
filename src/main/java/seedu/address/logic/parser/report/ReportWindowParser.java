@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.report;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
 
 import java.time.format.DateTimeParseException;
@@ -14,7 +15,7 @@ import seedu.address.model.Report;
 import seedu.address.model.expenditure.Date;
 
 /**
- * Parser for commands typed in report window.
+ * Parses commands typed in report window.
  */
 public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
 
@@ -57,7 +58,7 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
             startDate = new Date(startDateStr);
             endDate = new Date(endDateStr);
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE,
                     ReportWindowStatsCommand.MESSAGE_USAGE));
         }
 
