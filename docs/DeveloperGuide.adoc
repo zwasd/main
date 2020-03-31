@@ -655,13 +655,13 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Exp Find
+=== Use case: Find
 
 *MSS*
 
-1.  User requests to find expenditure records with certain `keyword` in the account which they are viewing right now. +
-Format: `exp find "keyword`
-2.  `$AVE IT` will acknowledge and output a list of relevant expenditure records.
+1.  User requests to find expenditure & repeat records with certain `keyword`(s) in the account which they are viewing right now. +
+Format: `find [keyword...]`
+2.  `$AVE IT` will acknowledge and output a list of relevant records.
 +
 
 Use case ends.
