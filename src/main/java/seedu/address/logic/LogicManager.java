@@ -16,10 +16,9 @@ import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.report.ReportWindowParser;
 import seedu.address.model.Model;
-
 import seedu.address.model.ReadOnlyAccountList;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
-
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.storage.Storage;
 
@@ -81,6 +80,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Repeat> getFilteredRepeatList() {
         return model.getFilteredRepeatList();
+    }
+
+    @Override
+    public ObservableList<BaseExp> getFilteredBaseExpList() {
+        return model.getFilteredBaseExpList();
     }
 
     @Override

@@ -7,10 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
@@ -18,11 +14,9 @@ import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.address.logic.commands.expenditure.ExpFindCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Expenditure;
-import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenditureDescriptorBuilder;
 import seedu.address.testutil.ExpenditureBuilder;
 import seedu.address.testutil.ExpenditureUtil;
@@ -47,13 +41,15 @@ public class ExpLevelParserTest {
         assertEquals(new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
     }
 
+    /*
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        ExpFindCommand command = (ExpFindCommand) parser.parseCommand(
-                ExpFindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new ExpFindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
-    }
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
+        }
+     */
 
     @Test
     public void parseExpCommand_edit() throws Exception {

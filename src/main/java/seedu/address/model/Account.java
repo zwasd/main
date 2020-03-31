@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +85,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public void resetData(ReadOnlyAccount newData) {
         requireNonNull(newData);
         setExpenditures(newData.getExpenditureList());
+        repeats.setAll(new ArrayList<>());
     }
 
     //// expenditure-level operations
@@ -253,7 +255,8 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
                 && accountName.equals(((Account) other).accountName)
-                && expenditures.equals(((Account) other).expenditures));
+                && expenditures.equals(((Account) other).expenditures)
+                && repeats.equals(((Account) other).repeats));
     }
 
     @Override

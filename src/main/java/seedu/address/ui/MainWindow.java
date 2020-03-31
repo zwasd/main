@@ -34,7 +34,6 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ExpenditureListPanel expenditureListPanel;
-    private ExpenditureListPanel repeatListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
@@ -125,10 +124,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        repeatListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
-        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
+        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredBaseExpList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
-        expenditureListPanelPlaceholder.getChildren().add(repeatListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
         activeAccountNameView = new ActiveAccountNameView(this.accountName);

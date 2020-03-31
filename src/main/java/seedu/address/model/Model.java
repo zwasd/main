@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -17,6 +18,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Expenditure> PREDICATE_SHOW_ALL_EXPENDITURES = unused -> true;
     Predicate<Repeat> PREDICATE_SHOW_ALL_REPEATS = unused -> true;
+    Predicate<BaseExp> PREDICATE_SHOW_ALL_BASEEXP = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -104,11 +106,19 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered repeat list */
     ObservableList<Repeat> getFilteredRepeatList();
 
+    ObservableList<BaseExp> getFilteredBaseExpList();
+
     /**
      * Updates the filter of the filtered expenditure list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredExpenditureList(Predicate<Expenditure> predicate);
+
+    /**
+     * Updates the filter of the filtered baseExp list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredBaseExpList(Predicate<BaseExp> predicate);
 
     /**
      * Rename the account's name.
