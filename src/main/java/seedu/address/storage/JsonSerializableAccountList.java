@@ -22,13 +22,16 @@ public class JsonSerializableAccountList {
     public static final String MESSAGE_DUPLICATE_ACCOUNT = "Accounts list contains duplicate account(s).";
 
     private final List<JsonSerializableAccount> accounts = new ArrayList<>();
+    private final String currentAccount;
 
     /**
      * Constructs a {@code JsonSerializableAccountList} with the given accounts.
      */
     @JsonCreator
-    public JsonSerializableAccountList(@JsonProperty("accounts") List<JsonSerializableAccount> accounts) {
+    public JsonSerializableAccountList(@JsonProperty("accounts") List<JsonSerializableAccount> accounts,
+                                       @JsonProperty("current") String currentAccount) {
         this.accounts.addAll(accounts);
+        this.currentAccount = currentAccount;
     }
 
     /**
@@ -39,6 +42,7 @@ public class JsonSerializableAccountList {
     public JsonSerializableAccountList(ReadOnlyAccountList source) {
         accounts.addAll(source.getAccounts().values().stream()
                 .map(JsonSerializableAccount::new).collect(Collectors.toList()));
+        currentAccount = source.getActiveAccount();
     }
 
     /**
@@ -55,6 +59,7 @@ public class JsonSerializableAccountList {
             }
             accountList.addAccount(account);
         }
+        accountList.updateActiveAccount(currentAccount);
         return accountList;
     }
 }
