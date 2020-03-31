@@ -50,7 +50,8 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowReport,
-                         boolean isExportReport, boolean isPrintReport, boolean updateCalendar, boolean updateAccountName) {
+                         boolean isExportReport, boolean isPrintReport,
+                         boolean updateCalendar, boolean updateAccountName) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

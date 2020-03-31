@@ -5,6 +5,10 @@ import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Prints the report.
+ */
+
 public class ReportWindowPrintCommand extends ReportCommand {
 
     public static final String MESSAGE_SUCCESS = "Printing report.";

@@ -18,21 +18,6 @@ public class Pie extends Graph {
 
     private PieChart pie = null;
 
-    /**
-     * Returns pie.
-     *
-     * @return empty pie if pie is not constructed.
-     */
-    @Override
-    public PieChart getGraph() {
-
-        if (pie == null) {
-            pie = new PieChart();
-        }
-
-        return pie;
-    }
-
     @Override
     public void constructGraph(ReportCommandResult result) {
         HashMap stats = result.getStats();
@@ -63,6 +48,9 @@ public class Pie extends Graph {
     public void constructGraph(CommandResult result) {
         HashMap stats = result.getStats();
         PieChart pie = new PieChart();
+        pie.setTitle("Expenditure Breakdown");
+        pie.setLabelLineLength(10);
+        pie.setLegendSide(Side.RIGHT);
 
         Set set = stats.keySet();
         Iterator itr = set.iterator();
@@ -73,8 +61,15 @@ public class Pie extends Graph {
             PieChart.Data data = new PieChart.Data(index.getTagName(), (double) stats.get(index));
             pie.getData().add(data);
         }
-
         this.pie = pie;
 
+    }
+
+    @Override
+    public PieChart getGraph() {
+        if (pie == null) {
+            pie = new PieChart();
+        }
+        return pie;
     }
 }

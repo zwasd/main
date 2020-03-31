@@ -70,7 +70,8 @@ public class ReportCommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException, PrinterException;
+        ReportCommandResult executeReportWindowCommand(String commandText)
+                throws CommandException, ParseException, PrinterException;
     }
 
 

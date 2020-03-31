@@ -21,10 +21,11 @@ public class ReportCommandResult {
         this(feedbackToUser, false, false, false);
         this.graph = graph;
         this.stats = stats;
-  ;
+        ;
     }
 
-    public ReportCommandResult(String feedbackToUser, boolean isExitReport, boolean isExportReport, boolean isPrintReport) {
+    public ReportCommandResult(String feedbackToUser, boolean isExitReport,
+                               boolean isExportReport, boolean isPrintReport) {
         this.feedbackToUser = feedbackToUser;
         this.isExitReport = isExitReport;
         this.isExportReport = isExportReport;
@@ -39,9 +40,13 @@ public class ReportCommandResult {
         return isExitReport;
     }
 
-    public boolean isExportReport() { return isExportReport; }
+    public boolean isExportReport() {
+        return isExportReport;
+    }
 
-    public boolean isPrintReport() { return isPrintReport; }
+    public boolean isPrintReport() {
+        return isPrintReport;
+    }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
