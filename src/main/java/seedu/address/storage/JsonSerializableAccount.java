@@ -72,9 +72,7 @@ class JsonSerializableAccount {
             Repeat repeat = jsonAdaptedRepeat.toModelType();
             account.addRepeat(repeat);
         }
-        System.out.println(budgets);
         for (YearMonth yearMonth : budgets.keySet()) {
-            System.out.println(budgets.get(yearMonth));
             account.setBudget(yearMonth, new Amount(budgets.get(yearMonth)));
         }
         return account;
