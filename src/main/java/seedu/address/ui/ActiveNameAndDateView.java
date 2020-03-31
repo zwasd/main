@@ -15,7 +15,7 @@ public class ActiveNameAndDateView extends UiPart<Region> {
 
     //TODO: store this active account name in jason.
     // need change.
-    private String activeAccountName = "whatever";
+    private String activeAccountName = "Whatever";
 
     private String activeAccountDate;
 
