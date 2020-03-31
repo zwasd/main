@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 
 import seedu.address.logic.commands.ReportCommand;
 import seedu.address.logic.commands.report.ReportWindowExitCommand;
+import seedu.address.logic.commands.report.ReportWindowPrintCommand;
 import seedu.address.logic.commands.report.ReportWindowStatsCommand;
 import seedu.address.logic.parser.ParserReportWindow;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,6 +28,10 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
 
         if (userInput.equals("exit")) {
             return new ReportWindowExitCommand();
+        }
+
+        if (userInput.equals("print")) {
+            return new ReportWindowPrintCommand();
         }
 
         if (userInputArray.length < 3) {

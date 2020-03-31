@@ -23,9 +23,9 @@ public class CommandResult {
     /**
      * Indicates the action of report command.
      **/
-    private final boolean showReport;
-    private final boolean exportReport;
-    private final boolean printReport;
+    private final boolean isShowReport;
+    private final boolean isExportReport;
+    private final boolean isPrintReport;
     private HashMap stats;
     private Report.GraphType graph = Report.GraphType.NULL;
 
@@ -49,14 +49,14 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showReport,
-                         boolean exportReport, boolean printReport, boolean updateCalendar, boolean updateAccountName) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowReport,
+                         boolean isExportReport, boolean isPrintReport, boolean updateCalendar, boolean updateAccountName) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.showReport = showReport;
-        this.exportReport = exportReport;
-        this.printReport = printReport;
+        this.isShowReport = isShowReport;
+        this.isExportReport = isExportReport;
+        this.isPrintReport = isPrintReport;
         this.updateCalendar = updateCalendar;
         this.updateAccountName = updateAccountName;
     }
@@ -102,15 +102,15 @@ public class CommandResult {
     }
 
     public boolean isShowReport() {
-        return showReport;
+        return isShowReport;
     }
 
     public boolean isExportReport() {
-        return exportReport;
+        return isExportReport;
     }
 
     public boolean isPrintReport() {
-        return printReport;
+        return isPrintReport;
     }
 
     public boolean isPieGraph() {
@@ -160,17 +160,17 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && showReport == otherCommandResult.showReport
-                && exportReport == exportReport
-                && printReport == printReport
+                && isShowReport == otherCommandResult.isShowReport
+                && isExportReport == isExportReport
+                && isPrintReport == isPrintReport
                 && updateCalendar == otherCommandResult.updateCalendar
                 && updateAccountName == otherCommandResult.updateAccountName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showReport, exportReport,
-                printReport, updateCalendar, updateAccountName);
+        return Objects.hash(feedbackToUser, showHelp, exit, isShowReport, isExportReport,
+                isPrintReport, updateCalendar, updateAccountName);
     }
 
 }

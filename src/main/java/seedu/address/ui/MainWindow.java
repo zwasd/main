@@ -253,9 +253,8 @@ public class MainWindow extends UiPart<Stage> {
             if (e instanceof CommandException || e instanceof ParseException) {
                 logger.info("Invalid command: " + commandText);
             } else {
-                assert e instanceof ParseException;
-                logger.info("Invalid Printer Settings");
-
+                assert e instanceof PrinterException;
+                logger.info("Invalid printer.");
             }
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

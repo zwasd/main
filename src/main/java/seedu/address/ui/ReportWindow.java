@@ -89,9 +89,24 @@ public class ReportWindow extends UiPart<Stage> {
         Label label = new Label("Export");
         label.setFont(new Font("Segoe UI Light", 14));
         label.setOnMouseClicked(click -> {
+
         });
         Menu menu = new Menu("", label);
         menuBar.getMenus().add(menu);
+
+        Label label1 = new Label("Print");
+        label.setFont(new Font("Segoe UI Light", 14));
+        label1.setOnMouseClicked(click -> {
+            try {
+                print();
+            } catch (PrinterException e) {
+                logger.info("Invalid printer");
+                display.setFeedbackToUser(e.getMessage());
+            }
+        });
+
+        Menu menu1 = new Menu("", label1);
+        menuBar.getMenus().add(menu1);
     }
 
     private void initStyle() {
@@ -206,7 +221,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void print(CommandResult result) throws PrinterException {
         logger.fine("Exporting");
-        Graph toPrint = null;
+        Graph toPrint = currentGraphDisplay;
         Node graph;
 
         if (result.isPieGraph()) {
@@ -217,6 +232,35 @@ public class ReportWindow extends UiPart<Stage> {
 
         assert toPrint != null;
         toPrint.constructGraph(result);
+        graph = (Node) toPrint.getGraph();
+        Printer printer = Printer.getDefaultPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4,
+                PageOrientation.LANDSCAPE, Printer.MarginType.EQUAL);
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+
+        if (printerJob != null) {
+            boolean jobStatus = printerJob.printPage(pageLayout, graph);
+            if (jobStatus) {
+                printerJob.endJob();
+            } else {
+                printerJob.cancelJob();
+                throw new PrinterException("Set available printer as default printer");
+            }
+        }
+
+    }
+
+    /**
+     * Sends a print job of report to printer.
+     * @throws PrinterException is thrown when printer cannot
+     * successfully finish a job.
+     */
+    public void print() throws PrinterException {
+        logger.fine("Exporting");
+        Graph toPrint = currentGraphDisplay;
+        Node graph;
+
+        assert toPrint != null;
         graph = (Node) toPrint.getGraph();
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4,
@@ -267,7 +311,7 @@ public class ReportWindow extends UiPart<Stage> {
     /**
      * Executor method for report command box.
      */
-    private ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException {
+    private ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException, PrinterException {
 
         ReportCommandResult result = null;
         try {
@@ -275,15 +319,24 @@ public class ReportWindow extends UiPart<Stage> {
             logger.info("command executed " + commandText);
             display.setFeedbackToUser(result.getFeedbackToUser());
 
-            if (result.getExitReport()) {
+            if (result.isExitReport()) {
                 display.clear();
                 getRoot().hide();
+            } else if (result.isPrintReport()) {
+                print();
             } else {
                 showResult(result);
             }
 
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command :" + commandText);
+        } catch (CommandException | ParseException | PrinterException e) {
+
+            if(e instanceof CommandException || e instanceof ParseException) {
+                logger.info("Invalid command :" + commandText);
+            } else {
+                assert e instanceof PrinterException;
+                logger.info("Invalid printer");
+            }
+
             display.setFeedbackToUser(e.getMessage());
             throw e;
         }

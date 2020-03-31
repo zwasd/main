@@ -6,6 +6,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exceptions.PrinterException;
 
 /**
  * Command box for report window.
@@ -34,7 +35,7 @@ public class ReportCommandBox extends UiPart<Region> {
         try {
             commandExecutor.executeReportWindowCommand(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | PrinterException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -69,7 +70,7 @@ public class ReportCommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException;
+        ReportCommandResult executeReportWindowCommand(String commandText) throws CommandException, ParseException, PrinterException;
     }
 
 
