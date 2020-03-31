@@ -15,4 +15,9 @@ public interface ReadOnlyAccountList extends ReadOnlyAccount {
      * @return a string which consists of all account name
      */
     String listAllName();
+
+    /**
+     * Returns the active account in the account list.
+     */
+    String getActiveAccount();
 }
