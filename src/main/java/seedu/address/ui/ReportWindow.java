@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-
-
 import java.io.File;
 import java.util.logging.Logger;
 
@@ -18,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -44,6 +43,7 @@ public class ReportWindow extends UiPart<Stage> {
     private ResultDisplay display;
     private MenuBar menuBar;
     private VBox currentVBox;
+
     /**
      * Creates a new Report Window.
      *
@@ -74,7 +74,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     private void initMenu() {
         Label label = new Label("Export");
-        label.setFont(new Font("Segoe UI Light", 14 ));
+        label.setFont(new Font("Segoe UI Light", 14));
         label.setOnMouseClicked(click -> {
 
         });
@@ -82,7 +82,7 @@ public class ReportWindow extends UiPart<Stage> {
         menuBar.getMenus().add(menu);
     }
 
-   private void initStyle() {
+    private void initStyle() {
         getRoot().initStyle(StageStyle.UTILITY);
     }
 
@@ -98,6 +98,7 @@ public class ReportWindow extends UiPart<Stage> {
             }
         });
     }
+
     /**
      * Shows the report window.
      * Method is called when the report
@@ -214,7 +215,7 @@ public class ReportWindow extends UiPart<Stage> {
                 assert graph != null;
                 VBox topBox = new VBox(menuBar, box.getRoot());
                 VBox vbox = new VBox(topBox, display.getRoot(), (Node) graph.getGraph(result));
-                this.currentVBox =  vbox;
+                this.currentVBox = vbox;
                 Scene scene = new Scene(vbox);
                 scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
                 getRoot().setScene(scene);

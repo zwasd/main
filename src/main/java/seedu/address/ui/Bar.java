@@ -1,21 +1,18 @@
 package seedu.address.ui;
 
-import javafx.geometry.Insets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Bar extends Graph {
 

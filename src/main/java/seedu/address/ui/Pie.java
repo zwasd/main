@@ -1,20 +1,16 @@
 package seedu.address.ui;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
 
 public class Pie extends Graph {
 
