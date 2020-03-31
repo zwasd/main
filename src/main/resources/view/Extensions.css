@@ -64,7 +64,7 @@
     -fx-font-size: 12;
 }
 
-#activeName {
+.activeNameAndDate {
     -fx-text-fill: white;
     -fx-font-size: 20;
     -fx-font-weight: bold;
