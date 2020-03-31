@@ -102,7 +102,7 @@ public class BudgetWindowView extends UiPart<Node> {
         budgetWindow.getChildren().add(spending);
         budgetWindow.getChildren().add(leftOver);
 
-        if(isSaving) {
+        if (isSaving) {
             ImageView pig = new ImageView(feedingPiggy);
             budgetWindow.getChildren().add(pig);
         } else {
