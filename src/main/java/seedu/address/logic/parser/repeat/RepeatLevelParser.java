@@ -23,7 +23,7 @@ public class RepeatLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "repeat";
 
-    public static final String MESSAGE_USAGE = "exp add\nexp edit\nexp delete\nexp find\nexp repeat\nexp setsubget\n";
+    public static final String MESSAGE_USAGE = "repeat add\nrepeat edit\nrepeat delete\n";
 
     /**
      * Used for initial separation of command word and args.

@@ -7,13 +7,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 
+import javafx.scene.layout.Region;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.RepeatCard;
+import seedu.address.ui.UiPart;
 
 /**
  * A Repeated expenditure.
  */
-public class Repeat {
+public class Repeat extends BaseExp {
 
     public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: '"
             + Period.DAILY.toString() + "', '"
@@ -23,10 +26,11 @@ public class Repeat {
 
     private Date startDate;
     private Date endDate;
-    private Info info;
-    private Amount amount;
-    private Tag tag;
+    // displayDate is empty, size 0 means daily.
+    // non empty means weekly or monthly -> cos i will at least add one day inside.
+    private HashSet<LocalDate> relevantDate;
     private Period period;
+
     /**
      * Represents the frequency
      * of repeat expenditure.
@@ -59,20 +63,6 @@ public class Repeat {
 
     }
 
-    // displayDate is empty, size 0 means daily.
-    // non empty means weekly or monthly -> cos i will at least add one day inside.
-    private HashSet<LocalDate> relevantDate;
-
-    public Repeat(Info info, Amount amount, Date startDate, Date endDate, String period) {
-        this.info = info;
-        this.amount = amount;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        setPeriod(period);
-        relevantDate = new HashSet<>();
-        generateRelevantDate();
-    }
-
     public Repeat(Info info, Amount amount, Date startDate, Date endDate, Tag tag, String period) {
         this.info = info;
         this.amount = amount;
@@ -82,6 +72,11 @@ public class Repeat {
         setPeriod(period);
         relevantDate = new HashSet<>();
         generateRelevantDate();
+    }
+
+    @Override
+    public UiPart<Region> getUiCard(int displayedNumber) {
+        return new RepeatCard(this, displayedNumber);
     }
 
     /**
@@ -106,14 +101,6 @@ public class Repeat {
     }
 
 
-    public Info getInfo() {
-        return info;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -124,10 +111,6 @@ public class Repeat {
 
     public Period getPeriod() {
         return period;
-    }
-
-    public Tag getTag() {
-        return tag;
     }
 
     public void setInfo(Info newInfo) {

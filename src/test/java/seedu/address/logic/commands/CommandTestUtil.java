@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.address.model.AccountList;
 import seedu.address.model.Model;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenditureDescriptorBuilder;
@@ -114,12 +115,12 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showExpenditureAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenditureList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBaseExpList().size());
 
-        Expenditure expenditure = model.getFilteredExpenditureList().get(targetIndex.getZeroBased());
-        final String[] splitInfo = expenditure.getInfo().fullInfo.split("\\s+");
-        model.updateFilteredExpenditureList(new InfoContainsKeywordsPredicate(Arrays.asList(splitInfo[0])));
-        assertEquals(1, model.getFilteredExpenditureList().size());
+        BaseExp baseExp = model.getFilteredBaseExpList().get(targetIndex.getZeroBased());
+        final String[] splitInfo = baseExp.getInfo().fullInfo.split("\\s+");
+        model.updateFilteredBaseExpList(new InfoContainsKeywordsPredicate(Arrays.asList(splitInfo[0])));
+        assertEquals(1, model.getFilteredBaseExpList().size());
     }
 
 }
