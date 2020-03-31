@@ -190,13 +190,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void renameAccount(String oldName, String newName) {
-        this.accountList.renameAccount(oldName, newName);
+    public String renameAccount(String oldName, String newName) {
+        return this.accountList.renameAccount(oldName, newName);
     }
 
     @Override
-    public void deleteAccount(String name) {
-        this.accountList.deleteAccount(name);
+    public String deleteAccount(String name) {
+        return this.accountList.deleteAccount(name);
     }
 
     public void clearActiveAccount() {

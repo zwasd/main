@@ -99,8 +99,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * Renames account by copying the account data.
      * @param oldName The old account name.
      * @param newName The new account name to be renamed to.
+     * @String a string to denote the current active account name.
      */
-    public void renameAccount(String oldName, String newName) {
+    public String renameAccount(String oldName, String newName) {
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!accounts.containsKey(oldName) || accounts.containsKey(newName)) {
@@ -110,13 +111,19 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         Account replaceAccount = targetAccount.copyAccountWithNewName(newName);
         this.accounts.put(newName, replaceAccount);
         this.accounts.remove(oldName, targetAccount);
+        if (this.activeAccount.getAccountName().equals(oldName)) {
+            return newName;
+        } else {
+            return this.activeAccount.getAccountName();
+        }
     }
 
     /**
      * Delete an account for the accounts base on the input name.
      * @param accName the target account's name
+     * @return a new account name which is to replace
      */
-    public void deleteAccount(String accName) {
+    public String deleteAccount(String accName) {
         requireAllNonNull(accName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!this.accounts.containsKey(accName)) {
@@ -128,11 +135,15 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             Account defaultAccount = new Account("default");
             addAccount(defaultAccount);
             updateActiveAccount(defaultAccount.getAccountName());
+            return defaultAccount.getAccountName();
         } else {
             if (this.activeAccount.getAccountName().equals(accName)) {
                 String firstKey = (String) (this.accounts.keySet().toArray())[0];
                 updateActiveAccount(this.accounts.get(firstKey).getAccountName());
+                return this.accounts.get(firstKey).getAccountName();
             }
+            //no change
+            return this.activeAccount.getAccountName();
         }
     }
 

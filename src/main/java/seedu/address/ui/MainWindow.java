@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -36,8 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-
+    private ActiveAccountNameView activeAccountNameView;
     private CalendarView calendarView;
+    private String accountName;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -53,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane calendar;
+
+    @FXML
+    private StackPane activeAccountNamePlaceHolder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -72,6 +77,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
+        reportWindow.addLogic(logic);
+
     }
 
     public Stage getPrimaryStage() {
@@ -121,6 +128,11 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
+        activeAccountNameView = new ActiveAccountNameView(this.accountName);
+
+        activeAccountNamePlaceHolder.getChildren().add(activeAccountNameView.getRoot());
+
+
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -185,11 +197,13 @@ public class MainWindow extends UiPart<Stage> {
     private void handleReport() {
 
         if (!reportWindow.isShowing()) {
-            reportWindow.addLogic(logic);
             reportWindow.showEmpty();
-        } else {
+        }
+
+        /*else {
             reportWindow.focus();
         }
+        */
 
     }
 
@@ -214,16 +228,15 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
 
-                if (reportWindow.isShowing()) {
-                    reportWindow.hide();
-                }
-
-                reportWindow.addLogic(logic);
                 reportWindow.showResult(commandResult);
             }
 
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
+            }
+
+            if (commandResult.isUpdateAccountName()) {
+                activeAccountNameView.setActiveAccountName(commandResult.getActiveAccountName());
             }
 
             return commandResult;

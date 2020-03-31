@@ -34,6 +34,12 @@ public class CommandResult {
     private LocalDate newActiveDate = null;
 
     /**
+     *
+     */
+    private boolean updateAccountName;
+    private String activeAccountName;
+
+    /**
      * The application should exit.
      */
     private final boolean exit;
@@ -42,23 +48,29 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean showReport, boolean updateCalendar) {
+                         boolean showReport, boolean updateCalendar, boolean updateAccountName) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showReport = showReport;
         this.updateCalendar = updateCalendar;
+        this.updateAccountName = updateAccountName;
     }
 
     public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
-        this(feedbackToUser, false, false, false, true);
+        this(feedbackToUser, false, false, false, true, false);
         this.newActiveDate = newActiveDate;
     }
 
     public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats) {
-        this(feedbackToUser, false, false, true, false);
+        this(feedbackToUser, false, false, true, false, false);
         this.graph = graph;
         this.stats = stats;
+    }
+
+    public CommandResult(String feedbackToUser, String newAccountName) {
+        this(feedbackToUser, false, false, false, false, true);
+        this.activeAccountName = newAccountName;
     }
 
     /**
@@ -66,7 +78,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false,
+                false, false);
     }
 
     public String getFeedbackToUser() {
@@ -97,6 +110,14 @@ public class CommandResult {
         return updateCalendar;
     }
 
+    public boolean isUpdateAccountName() {
+        return updateAccountName;
+    }
+
+    public String getActiveAccountName() {
+        return this.activeAccountName;
+    }
+
     public LocalDate getNewActiveDate() {
         return newActiveDate;
     }
@@ -125,12 +146,13 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && showReport == otherCommandResult.showReport
-                && updateCalendar == otherCommandResult.updateCalendar;
+                && updateCalendar == otherCommandResult.updateCalendar
+                && updateAccountName == otherCommandResult.updateAccountName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showReport, updateCalendar);
+        return Objects.hash(feedbackToUser, showHelp, exit, showReport, updateCalendar, updateAccountName);
     }
 
 }

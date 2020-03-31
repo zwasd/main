@@ -199,12 +199,12 @@ public class ExpAddCommandTest {
         }
 
         @Override
-        public void renameAccount(String oldName, String newName) {
+        public String renameAccount(String oldName, String newName) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteAccount(String name) {
+        public String deleteAccount(String name) {
             throw new AssertionError("This method should not be called");
         }
 

@@ -124,14 +124,16 @@ public interface Model {
      * Rename the account's name.
      * @param oldName target account's current name
      * @param newName target account's new name
+     * @return a string to denote the current active account name.
      */
-    void renameAccount(String oldName, String newName);
+    String renameAccount(String oldName, String newName);
 
     /**
      * Delete an account from the accountList.
      * @param name the target account name
+     * @return a string to denote the current active account name.
      */
-    void deleteAccount(String name);
+    String deleteAccount(String name);
 
     void addAccount(Account account) throws CommandException;
 
