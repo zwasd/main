@@ -288,6 +288,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     }
 
     @Override
+    public String getActiveAccount() {
+        return activeAccount.getAccountName();
+    }
+
+    @Override
     public Map<String, Account> getAccounts() {
         return Collections.unmodifiableMap(accounts);
     }
