@@ -11,7 +11,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
-
+/**
+ * Constructs pie chart.
+ */
 public class Pie extends Graph {
 
     @Override

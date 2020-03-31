@@ -13,7 +13,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
-
+/**
+ * Constructs bar graph.
+ */
 public class Bar extends Graph {
 
     @Override

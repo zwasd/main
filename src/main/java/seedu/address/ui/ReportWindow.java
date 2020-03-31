@@ -63,6 +63,10 @@ public class ReportWindow extends UiPart<Stage> {
         init();
     }
 
+    /**
+     * Initialise the report window
+     * with necessary components.
+     */
     private void init() {
         this.box = new ReportCommandBox(this::executeReportWindowCommand);
         this.display = new ResultDisplay();
@@ -72,6 +76,10 @@ public class ReportWindow extends UiPart<Stage> {
         initCloseHandler();
     }
 
+    /**
+     * Initialise the menu
+     * component of the report window.
+     */
     private void initMenu() {
         Label label = new Label("Export");
         label.setFont(new Font("Segoe UI Light", 14));
