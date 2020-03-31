@@ -118,11 +118,13 @@ public class CalendarView extends UiPart<Region> {
     private void setUpButton() {
         ImageView leftButtonView = new ImageView(this.leftArrow);
         ImageView rightButtonView = new ImageView(this.rightArrow);
-        leftButton.setPrefSize(30, 20);
+        leftButton.setPrefSize(26, 26);
+        leftButton.setMinSize(26, 26);
+        leftButton.setMaxSize(26, 26);
+        rightButton.setPrefSize(26, 26);
+        rightButton.setMinSize(26, 26);
+        rightButton.setMaxSize(26, 26);
 
-        leftButton.setMinSize(30, 20);
-        rightButton.setPrefSize(30, 20);
-        rightButton.setMinSize(30, 20);
         leftButton.setGraphic(leftButtonView);
         rightButton.setGraphic(rightButtonView);
     }

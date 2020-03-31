@@ -29,8 +29,8 @@ public class AccRenameCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            model.renameAccount(this.oldName, this.newName);
-            return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName);
+            String accountName = model.renameAccount(this.oldName, this.newName);
+            return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName, accountName);
         } catch (Exception e) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
         }
