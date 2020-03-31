@@ -2,15 +2,14 @@ package seedu.address.logic.commands.general;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.BaseExp;
-import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
-
-import java.util.function.Predicate;
 
 /**
  * Finds and lists all expenditures in address book whose info contains any of the argument keywords.

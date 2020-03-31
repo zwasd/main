@@ -1,14 +1,14 @@
 package seedu.address.ui;
 
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.expenditure.Repeat;
-
-import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
 
 /**
  * An UI component that displays information of a {@code Repeat}.

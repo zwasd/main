@@ -22,7 +22,6 @@ import seedu.address.model.Model;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
-import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.Repeat.Period;
@@ -75,9 +74,10 @@ public class RepeatEditCommand extends Command {
 
         BaseExp baseExp = lastShownList.get(index.getZeroBased());
         if (!(baseExp instanceof Repeat)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Repeat.class.getSimpleName()));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Repeat.class.getSimpleName()));
         }
-        Repeat repeatToEdit = (Repeat)baseExp;
+        Repeat repeatToEdit = (Repeat) baseExp;
         Repeat editedRepeat = createEditedRepeat(repeatToEdit, editRepeatDescriptor);
 
         model.setRepeat(repeatToEdit, editedRepeat);

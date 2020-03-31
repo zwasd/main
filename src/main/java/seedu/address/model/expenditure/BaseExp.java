@@ -1,15 +1,18 @@
 package seedu.address.model.expenditure;
 
+import java.time.LocalDate;
+
 import javafx.scene.layout.Region;
 import seedu.address.model.tag.Tag;
 import seedu.address.ui.UiPart;
 
-import java.time.LocalDate;
-
+/**
+ * A base class for the Expenditure and Repeat classes
+ */
 public abstract class BaseExp {
-    Info info;
-    Amount amount;
-    Tag tag;
+    protected Info info;
+    protected Amount amount;
+    protected Tag tag;
 
     public abstract UiPart<Region> getUiCard(int displayedNumber);
 

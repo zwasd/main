@@ -11,12 +11,10 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.expenditure.ExpAddCommand;
 import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
-import seedu.address.logic.commands.general.FindCommand;
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.general.FindCommandParser;
 
 /**
  * Parse expenditure commands.

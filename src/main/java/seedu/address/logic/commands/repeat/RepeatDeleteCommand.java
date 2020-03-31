@@ -12,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.BaseExp;
-import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
 /**
@@ -49,9 +48,10 @@ public class RepeatDeleteCommand extends Command {
 
         BaseExp baseExp = lastShownList.get(targetIndex.getZeroBased());
         if (!(baseExp instanceof Repeat)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Repeat.class.getSimpleName()));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Repeat.class.getSimpleName()));
         }
-        Repeat repeatToDelete = (Repeat)baseExp;
+        Repeat repeatToDelete = (Repeat) baseExp;
         model.deleteRepeat(repeatToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_REPEAT_SUCCESS, repeatToDelete));
     }

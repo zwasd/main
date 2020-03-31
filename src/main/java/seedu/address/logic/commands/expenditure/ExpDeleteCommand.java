@@ -45,7 +45,8 @@ public class ExpDeleteCommand extends Command {
 
         BaseExp baseExp = lastShownList.get(targetIndex.getZeroBased());
         if (!(baseExp instanceof Expenditure)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Expenditure.class.getSimpleName()));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Expenditure.class.getSimpleName()));
         }
         Expenditure expenditureToDelete = (Expenditure) baseExp;
         model.deleteExpenditure(expenditureToDelete);

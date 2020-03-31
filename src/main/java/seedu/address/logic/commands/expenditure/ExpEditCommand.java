@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENDITURES;
 
 import java.util.List;
 import java.util.Optional;
@@ -75,7 +74,8 @@ public class ExpEditCommand extends Command {
 
         BaseExp baseExp = lastShownList.get(index.getZeroBased());
         if (!(baseExp instanceof Expenditure)) {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX, Expenditure.class.getSimpleName()));
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Expenditure.class.getSimpleName()));
         }
         Expenditure expenditureToEdit = (Expenditure) baseExp;
         Expenditure editedExpenditure = createEditedExpenditure(expenditureToEdit, editExpenditureDescriptor);

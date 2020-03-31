@@ -26,12 +26,10 @@ public class Repeat extends BaseExp {
 
     private Date startDate;
     private Date endDate;
+    // displayDate is empty, size 0 means daily.
+    // non empty means weekly or monthly -> cos i will at least add one day inside.
+    private HashSet<LocalDate> relevantDate;
     private Period period;
-
-    @Override
-    public UiPart<Region> getUiCard(int displayedNumber) {
-        return new RepeatCard(this, displayedNumber);
-    }
 
     /**
      * Represents the frequency
@@ -65,20 +63,6 @@ public class Repeat extends BaseExp {
 
     }
 
-    // displayDate is empty, size 0 means daily.
-    // non empty means weekly or monthly -> cos i will at least add one day inside.
-    private HashSet<LocalDate> relevantDate;
-
-    public Repeat(Info info, Amount amount, Date startDate, Date endDate, String period) {
-        this.info = info;
-        this.amount = amount;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        setPeriod(period);
-        relevantDate = new HashSet<>();
-        generateRelevantDate();
-    }
-
     public Repeat(Info info, Amount amount, Date startDate, Date endDate, Tag tag, String period) {
         this.info = info;
         this.amount = amount;
@@ -88,6 +72,11 @@ public class Repeat extends BaseExp {
         setPeriod(period);
         relevantDate = new HashSet<>();
         generateRelevantDate();
+    }
+
+    @Override
+    public UiPart<Region> getUiCard(int displayedNumber) {
+        return new RepeatCard(this, displayedNumber);
     }
 
     /**

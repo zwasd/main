@@ -292,6 +292,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         return output.toString().trim();
     }
 
+    /**
+     * resets the data in the displayed list and gets data from the active account
+     */
     private void resetFromActiveAccount() {
         displayedBaseExpList.setAll(new ArrayList<>());
         displayedBaseExpList.addAll(activeAccount.getExpByDate(activeDate).asUnmodifiableObservableList());
@@ -304,7 +307,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         return FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(displayedBaseExpList.stream()
                 .filter(baseExp -> baseExp instanceof Expenditure)
-                .map(exp -> (Expenditure)exp).collect(Collectors.toList())));
+                .map(exp -> (Expenditure) exp).collect(Collectors.toList())));
     }
 
     @Override
@@ -312,7 +315,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         return FXCollections.unmodifiableObservableList(
                 FXCollections.observableArrayList(displayedBaseExpList.stream()
                 .filter(baseExp -> baseExp instanceof Repeat)
-                .map(exp -> (Repeat)exp).collect(Collectors.toList())));
+                .map(exp -> (Repeat) exp).collect(Collectors.toList())));
     }
 
     public ObservableList<BaseExp> getBaseExpList() {
