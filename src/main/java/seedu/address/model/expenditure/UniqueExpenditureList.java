@@ -3,6 +3,7 @@ package seedu.address.model.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.YearMonth;
 import java.util.Iterator;
 import java.util.List;
 
@@ -113,6 +114,22 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public ObservableList<Expenditure> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * calculate total amount of expenditure for a given yearMonth.
+     * @param givenYearMonth the given period of time.
+     * @return a double which denotes the total amount.
+     */
+    public double calculateExpenditureAmount(YearMonth givenYearMonth) {
+        double total = 0;
+        int size = internalList.size();
+        for (int i = 0; i < size; i++) {
+            if (internalList.get(i).getDate().isOn(givenYearMonth)) {
+                total += internalList.get(i).getAmount().value;
+            }
+        }
+        return total;
     }
 
     @Override

@@ -26,8 +26,10 @@ public class AccDeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.deleteAccount(this.targetAccountName);
-        return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName);
+
+        String newActiveAccountName = model.deleteAccount(this.targetAccountName);
+        return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName,
+                newActiveAccountName);
     }
 
     @Override

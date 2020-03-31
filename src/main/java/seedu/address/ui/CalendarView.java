@@ -118,11 +118,13 @@ public class CalendarView extends UiPart<Region> {
     private void setUpButton() {
         ImageView leftButtonView = new ImageView(this.leftArrow);
         ImageView rightButtonView = new ImageView(this.rightArrow);
-        leftButton.setPrefSize(30, 20);
+        leftButton.setPrefSize(26, 26);
+        leftButton.setMinSize(26, 26);
+        leftButton.setMaxSize(26, 26);
+        rightButton.setPrefSize(26, 26);
+        rightButton.setMinSize(26, 26);
+        rightButton.setMaxSize(26, 26);
 
-        leftButton.setMinSize(30, 20);
-        rightButton.setPrefSize(30, 20);
-        rightButton.setMinSize(30, 20);
         leftButton.setGraphic(leftButtonView);
         rightButton.setGraphic(rightButtonView);
     }
@@ -179,7 +181,7 @@ public class CalendarView extends UiPart<Region> {
      */
     private void setMonthYearLabel() {
         monthYearGridPane.setBackground(new Background(
-                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.valueOf("383838"), CornerRadii.EMPTY, Insets.EMPTY)));
         StringBuilder monthYear = new StringBuilder();
         monthYear.append(MONTHS[this.nonPivotDate.getMonthValue() - 1]);
         monthYear.append("  ");
@@ -252,9 +254,9 @@ public class CalendarView extends UiPart<Region> {
         fill();
         int i = 0;
         this.weekDayGridPane.setBackground(new Background(
-                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.valueOf("383838"), CornerRadii.EMPTY, Insets.EMPTY)));
         this.dateGridPane.setBackground(new Background(
-                new BackgroundFill(Color.MEDIUMPURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.valueOf("383838"), CornerRadii.EMPTY, Insets.EMPTY)));
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 7; col++) {
                 VBox holder = placeHolderForLabel();
@@ -271,7 +273,7 @@ public class CalendarView extends UiPart<Region> {
                 if (isSameMonth(this.todayDate, this.nonPivotDate)
                         && i == this.prevMonthBalance + this.dayOfTheMonthForToday - 1) {
 
-                    holder.setBorder(new Border(new BorderStroke(Color.valueOf("#000000"),
+                    holder.setBorder(new Border(new BorderStroke(Color.valueOf("#FFFFFF"),
                             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
                 }
 

@@ -38,8 +38,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-
+    private ActiveAccountNameView activeAccountNameView;
     private CalendarView calendarView;
+    private String accountName;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane calendar;
+
+    @FXML
+    private StackPane activeAccountNamePlaceHolder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -75,10 +79,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
         reportWindow.addLogic(logic);
-        //imageview = new ImageView();
 
-        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
-        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
@@ -130,6 +131,11 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanelPlaceholder.getChildren().add(repeatListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
+        activeAccountNameView = new ActiveAccountNameView(this.accountName);
+
+        activeAccountNamePlaceHolder.getChildren().add(activeAccountNameView.getRoot());
+
+
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -230,6 +236,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
+            }
+
+            if (commandResult.isUpdateAccountName()) {
+                activeAccountNameView.setActiveAccountName(commandResult.getActiveAccountName());
             }
 
             return commandResult;
