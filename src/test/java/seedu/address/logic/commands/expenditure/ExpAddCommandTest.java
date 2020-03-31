@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 // import seedu.address.model.Account;
 // import seedu.address.model.AccountList;
 import seedu.address.model.Account;
@@ -50,15 +49,17 @@ public class ExpAddCommandTest {
         assertEquals(Arrays.asList(validExpenditure), modelStub.expendituresAdded);
     }
 
-//    @Test
-//    public void execute_duplicateExpenditure_throwsCommandException() {
-//        Expenditure validExpenditure = new ExpenditureBuilder().build();
-//        ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
-//        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
-//
-//        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
-//                expAddCommand.execute(modelStub));
-//    }
+    /*
+    @Test
+    public void execute_duplicateExpenditure_throwsCommandException() {
+        Expenditure validExpenditure = new ExpenditureBuilder().build();
+        ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
+        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
+
+        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
+                expAddCommand.execute(modelStub));
+        }
+     */
 
     @Test
     public void equals() {
