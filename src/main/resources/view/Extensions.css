@@ -9,7 +9,6 @@
 }
 
 
-
 .tag-selector {
     -fx-border-width: 1;
     -fx-border-color: white;
@@ -65,3 +64,14 @@
     -fx-font-size: 12;
 }
 
+#activeName {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#reportButton {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
