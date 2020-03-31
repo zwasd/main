@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.expenditure;
+package seedu.address.logic.commands.general;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -16,15 +16,16 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.general.FindCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code ExpFindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class ExpFindCommandTest {
+public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
@@ -35,14 +36,14 @@ public class ExpFindCommandTest {
         InfoContainsKeywordsPredicate secondPredicate =
                 new InfoContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        ExpFindCommand findFirstCommand = new ExpFindCommand(firstPredicate);
-        ExpFindCommand findSecondCommand = new ExpFindCommand(secondPredicate);
+        FindCommand findFirstCommand = new FindCommand(firstPredicate);
+        FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        ExpFindCommand findFirstCommandCopy = new ExpFindCommand(firstPredicate);
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -59,7 +60,7 @@ public class ExpFindCommandTest {
     public void execute_zeroKeywords_noExpenditureFound() {
         String expectedMessage = String.format(MESSAGE_EXPENDITURES_LISTED_OVERVIEW, 0);
         InfoContainsKeywordsPredicate predicate = preparePredicate(" ");
-        ExpFindCommand command = new ExpFindCommand(predicate);
+        FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredExpenditureList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredExpenditureList());
@@ -70,7 +71,7 @@ public class ExpFindCommandTest {
     // public void execute_multipleKeywords_multipleExpendituresFound() {
     //     String expectedMessage = String.format(MESSAGE_EXPENDITURES_LISTED_OVERVIEW, 3);
     //     InfoContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-    //     ExpFindCommand command = new ExpFindCommand(predicate);
+    //     FindCommand command = new FindCommand(predicate);
     //     expectedModel.updateFilteredExpenditureList(predicate);
     //     assertCommandSuccess(command, model, expectedMessage, expectedModel);
     //     assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredExpenditureList());
