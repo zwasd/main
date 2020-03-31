@@ -166,45 +166,63 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
 
 == Command Summary
-=== Basic operation
-* *Add* `Add -i INFO -a AMT   [-t TAG] [-d DATE(DDMMYYYY)]` +
-e.g.  `Add -i chicken rice -a $4.50 [-t food] [-d 24/12/2020]`
-* *Delete* : `Delete ID` +
-e.g. `Delete 2B4E`
-* *Edit* : `Edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE(DDMMYYYY)]` +
-e.g. `Edit 2 [-i veg rice] [-a $4.00] [-t] [-d 20/12/2020]`
-* *Find* : `Find -k KEYWORD` +
-e.g. `Find James Jake`
-* *Go* : 'Go -d DATE'` +
-e.g. `Go 31-01-2020`
-* *Help* : `help`
-* *Repeat* : `Repeat -i INFO -a AMT -d DATE(MMYYYY) -p INTERVAL MONTH [-t TAG]` +
-e.g. `Repeat -i bus concession -a 50 -d 02-2020 -p 5 -t transport`
-* *Reset* : `Reset`
-* *Redo* : `Redo`
-* *SetBudget* : `SetBudget -a AMT -d DATE(MMYYYY)`
-* *Undo* : `Undo`
+=== General operation
+* *Exit* : `exit`
 
-e.g. ` SetBudget -a 400 -d 02-2020`
+* *Help* : `help`
+
+* *Go* : `go "DATE(YYYY-MM-DD)"` +
+e.g `go 2020-04-01`
 
 === Account Operation
-* *AddAcc* : `AddAcc "ACCOUNT NAME"` +
-e.g. `AddAcc Personal`
-* *Checkout* : `Checkout "ACCOUNT NAME"` +
-e.g. `Checkout Personal`
-* *DeleteAcc* : `DeleteAcc "ACCOUNT NAME"` +
-e.g. `DeleteAcc Personal`
-* *AddAcc* : `AddAcc "ACCOUNT NAME"` +
-e.g. `AddACC Personal`
-* *ViewAcc* : `Acc` +
-* *Rename* : `Rename [-a "OLD ACCOUNT NAME" "NEW ACCOUNT NAME] [-t "OLD TAG" "NEW TAG"]` +
-e.g. `Rename -a personal non-personal` and `Rename -t transport bus`
+* *acc add* : `acc add "ACCOUNT NAME"` +
+e.g. `acc add Personal`
+
+* *acc checkout* : `Checkout "ACCOUNT NAME"` +
+e.g. `acc checkout Personal`
+
+* *acc clear* : `acc clear` +
+
+* *acc list* : `acc list` +
+
+* *acc delete* : `acc delete "ACCOUNT NAME"` +
+e.g. `acc delete Personal`
+
+* *acc rename* : `acc rename "OLD ACCOUNT NAME" "NEW ACCOUNT NAME` +
+e.g. `acc rename Personal non-personal`
+
+=== Expenditure Operation
+* *exp add* : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE(YYYY-MM-DD)]` +
+e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`
+
+* *exp edit* : `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE(YYYY-MM-DD)]` +
+e.g `exp edit 1 -i duck rice -a 4.50 -d 2020-04-02`
+
+* *exp delete* : `exp delete INDEX` +
+e.g `exp delete 1`
+
+* *exp find* : `exp find Keyword` +
+e.g `exp find chicken`
+
+* *exp setBudget* : `exp setBudget -a AMOUNT [-d DATE (YYYY-MM-DD)]` +
+e.g `exp setBudget -a 1000 -d 2020-04-01`
+
+=== Repeat Operation
+
+* *repeat add* : `repeat add -i INFO -a AMOUNT -sd STARTDATE (YYYY-MM-DD) -ed ENDDATE(YYYY-MM-DD) -p PERIOD [-t TAG]` +
+e.g `repeat add -i bus fare -a 1.50 -sd 2020-03-01 -ed 2020-04-01 -p daily -t transport`
+
+* *repeat edit* : `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd STARTDATE (YYYY-MM-DD)] [-ed ENDDATE(YYYY-MM-DD)] [-p PERIOD] [-t TAG]` +
+e.g `repeat edit 2 -a 1.20 -ed 2020-04-02`
+
+* *repeat delete* : `repeat delete INDEX` +
+e.g `repeat delete INDEX`
 
 === Report Operation
-* *ExportReport* : `ExportReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"` +
-e.g. `ExportReport -sd 01-02-2020 -ed 03-02-2020`
-* *ViewReport* : `ViewReport -sd "START DATE(DDMMYYYY)" -ed "END DATE(DDMMYYYY)"` +
-e.g. `ViewReport -sd 01-02-2020 -ed 03-02-2020`
+* *report export* : `report export "START DATE(YYYY-MM-DD)" "END DATE(YYYY-MM-DD)"` +
+e.g. `report export 01-02-2020 03-02-2020`
+* *report view* : `report view "START DATE(YYYY-MM-DD)" "END DATE(YYYY-MM-DD)"` +
+e.g. `report view 01-02-2020 03-02-2020`
 
 
 

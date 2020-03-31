@@ -37,9 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-    private ActiveAccountNameView activeAccountNameView;
+    private ActiveNameAndDateView activeNameAndDateView;
     private CalendarView calendarView;
-    private String accountName;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -128,9 +127,9 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
-        activeAccountNameView = new ActiveAccountNameView(this.accountName);
+        activeNameAndDateView = new ActiveNameAndDateView();
 
-        activeAccountNamePlaceHolder.getChildren().add(activeAccountNameView.getRoot());
+        activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
 
 
 
@@ -142,6 +141,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
     }
 
     /**
@@ -227,16 +227,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowReport()) {
-
                 reportWindow.showResult(commandResult);
             }
 
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
+                activeNameAndDateView.setActiveDate(commandResult.getNewActiveDate().toString());
             }
 
             if (commandResult.isUpdateAccountName()) {
-                activeAccountNameView.setActiveAccountName(commandResult.getActiveAccountName());
+                activeNameAndDateView.setActiveAccountName(commandResult.getActiveAccountName());
             }
 
             return commandResult;
