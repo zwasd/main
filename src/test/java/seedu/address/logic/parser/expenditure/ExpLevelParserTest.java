@@ -47,13 +47,13 @@ public class ExpLevelParserTest {
         assertEquals(new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
     }
 
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
-    }
+//    @Test
+//    public void parseCommand_find() throws Exception {
+//        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+//        FindCommand command = (FindCommand) parser.parseCommand(
+//                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+//        assertEquals(new FindCommand(new InfoContainsKeywordsPredicate(keywords)), command);
+//    }
 
     @Test
     public void parseExpCommand_edit() throws Exception {

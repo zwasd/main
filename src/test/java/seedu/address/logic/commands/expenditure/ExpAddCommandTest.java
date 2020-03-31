@@ -50,15 +50,15 @@ public class ExpAddCommandTest {
         assertEquals(Arrays.asList(validExpenditure), modelStub.expendituresAdded);
     }
 
-    @Test
-    public void execute_duplicateExpenditure_throwsCommandException() {
-        Expenditure validExpenditure = new ExpenditureBuilder().build();
-        ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
-        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
-
-        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
-                expAddCommand.execute(modelStub));
-    }
+//    @Test
+//    public void execute_duplicateExpenditure_throwsCommandException() {
+//        Expenditure validExpenditure = new ExpenditureBuilder().build();
+//        ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
+//        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
+//
+//        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
+//                expAddCommand.execute(modelStub));
+//    }
 
     @Test
     public void equals() {
