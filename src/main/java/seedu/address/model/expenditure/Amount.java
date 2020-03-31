@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount should be a double";
+    public static final String MESSAGE_CONSTRAINTS = "Amount should be positive and up to 2 decimal point.";
     // TODO potentially can change to BigDecimal to represent money.
     public final double value;
 
@@ -37,13 +37,15 @@ public class Amount {
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(double test) {
-        return test >= 0;
+        requireNonNull(test);
+        return test >= 0 && Math.floor(test * 100) / 100 == test;
     }
 
     /**
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
+        requireNonNull(test);
         try {
             return isValidAmount(Double.parseDouble(test));
         } catch (Exception e) {

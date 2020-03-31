@@ -20,6 +20,9 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
 
+    public static final String YEARMONTH_MESSAGE_CONSTRAINTS = "Year and Month should be in the format of (YYYY-MM), "
+                                                                + "and it should not be blank";
+
     public final String value;
 
     public final LocalDate localDate;
@@ -40,11 +43,23 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
         try {
             LocalDate date = LocalDate.parse(test, FORMATTER);
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid year month.
+     */
+    public static boolean isValidYearMonth(String test) {
+        try {
+            LocalDate date = LocalDate.parse(test + "-01", FORMATTER);
             return true;
         } catch (DateTimeException e) {
             return false;

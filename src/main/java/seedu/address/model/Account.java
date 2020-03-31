@@ -17,6 +17,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
+import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -30,7 +33,7 @@ import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
-    private HashMap<YearMonth, Budget> budgetList = new HashMap<>();
+    private final BudgetMap budgetList;
     private ObservableList<Repeat> repeats;
     private final String accountName;
 
@@ -44,6 +47,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     {
         expenditures = new UniqueExpenditureList();
         repeats = FXCollections.observableArrayList();
+        budgetList = new BudgetMap();
     }
 
     public Account() {
@@ -162,25 +166,13 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public void setBudget(Budget budget) {
         requireNonNull(budget);
         //This can use to reset the budget too.
-        this.budgetList.put(budget.getYearMonth(), budget);
+        this.budgetList.setBudget(budget);
     }
 
-    /**
-     * Obtain the budget object for a given yearMonth.
-     * @param yearMonth the target month you are looking for.
-     * @return If the budget is within the [@code budgetList], return it.
-     *         Else return a budget object with 0 amount.
-     */
-    public Budget getBudget(YearMonth yearMonth) {
+    public void setBudget(YearMonth yearMonth, Amount amount) {
         requireNonNull(yearMonth);
-        if (this.budgetList.containsKey(yearMonth)) {
-            return this.budgetList.get(yearMonth);
-        } else {
-            // If the budget is not being set for that given yearMonth.
-            // Return a new budget with 0 amount.
-            return new Budget(yearMonth, 0);
-        }
-
+        requireNonNull(amount);
+        this.budgetList.setBudget(new Budget(yearMonth, amount));
     }
 
     /**
@@ -189,14 +181,29 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * @return If the budget is within the [@code budgetList], return it.
      *         Else return a budget object with 0 amount.
      */
-    public Budget getBudget(String yearMonth) throws ParseException {
+    public double getBudget(YearMonth yearMonth) {
+        requireNonNull(yearMonth);
+        return budgetList.get(yearMonth);
+    }
+
+    /**
+     * Obtain the budget object for a given yearMonth.
+     * @param yearMonth the target month you are looking for.
+     * @return If the budget is within the [@code budgetList], return it.
+     *         Else return a budget object with 0 amount.
+     */
+    public double getBudget(String yearMonth) throws ParseException {
         requireNonNull(yearMonth);
         try {
             YearMonth targetYearMonth = ParserUtil.parseYearMonth(yearMonth);
-            return getBudget(yearMonth);
+            return getBudget(targetYearMonth);
         } catch (Exception e) {
             throw new ParseException("Year Month need to be in a format of : YYYY-MM");
         }
+    }
+
+    public BudgetMap getBudgetList() {
+        return budgetList;
     }
 
     /**

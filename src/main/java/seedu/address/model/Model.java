@@ -7,6 +7,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -145,6 +147,11 @@ public interface Model {
 
     void updateActiveDate(LocalDate date);
 
-    void setBudget (Budget budget);
+    void setBudget(Budget budget);
+
+    /**
+     * Obtains the hashmap of the budget.
+     */
+    BudgetMap getBudgets();
 
 }
