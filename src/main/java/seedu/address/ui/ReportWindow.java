@@ -4,6 +4,11 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -12,6 +17,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -195,6 +201,34 @@ public class ReportWindow extends UiPart<Stage> {
 
     public void export(CommandResult result)  {
         logger.fine("Exporting");
+        Graph toExport = null;
+        Node graph;
+
+        if (result.isPieGraph()) {
+            toExport = new Pie();
+        } else if (result.isBarGraph()) {
+            toExport = new Bar();
+        }
+
+        assert toExport != null;
+        toExport.constructGraph(result);
+        graph = (Node) toExport.getGraph();
+        Printer printer = Printer.getDefaultPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A6, PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
+        double scaleX = pageLayout.getPrintableWidth() / graph.getBoundsInParent().getWidth();
+        double scaleY = pageLayout.getPrintableHeight() / graph.getBoundsInParent().getHeight();
+        graph.getTransforms().add(new Scale(scaleX, scaleY));
+
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+
+        if (printerJob != null) {
+            boolean jobStatus = printerJob.printPage(graph);
+            if(jobStatus) {
+                printerJob.endJob();
+            } else {
+                printerJob.cancelJob();
+            }
+        }
 
 
     }
