@@ -30,8 +30,7 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_AMOUNT, PREFIX_YEARMONTH);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpSetBudgetCommand.MESSAGE_FAIL));
         }
 
@@ -42,7 +41,7 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
                         .append("-")
                         .append(LocalDate.now().getMonthValue())
                         .toString()));
-        return new ExpSetBudgetCommand(yearMonth, amount.value);
+        return new ExpSetBudgetCommand(yearMonth, amount);
     }
 
     /**
