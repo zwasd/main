@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 
 /**
@@ -36,13 +37,18 @@ public class ExpDeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Expenditure> lastShownList = model.getFilteredExpenditureList();
+        List<BaseExp> lastShownList = model.getFilteredBaseExpList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
         }
 
-        Expenditure expenditureToDelete = lastShownList.get(targetIndex.getZeroBased());
+        BaseExp baseExp = lastShownList.get(targetIndex.getZeroBased());
+        if (!(baseExp instanceof Expenditure)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Expenditure.class.getSimpleName()));
+        }
+        Expenditure expenditureToDelete = (Expenditure) baseExp;
         model.deleteExpenditure(expenditureToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete));
     }
