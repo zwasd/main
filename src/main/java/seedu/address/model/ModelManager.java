@@ -13,6 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -216,6 +218,11 @@ public class ModelManager implements Model {
     @Override
     public void setBudget(Budget budget) {
         this.accountList.setBudget(budget);
+    }
+
+    @Override
+    public BudgetMap getBudgets() {
+        return this.accountList.getBudgets();
     }
 
     @Override

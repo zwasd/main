@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -253,6 +255,10 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void setBudget(Budget budget) {
         activeAccount.setBudget(budget);
         //TODO need to add in UI.
+    }
+
+    public BudgetMap getBudgets() {
+        return activeAccount.getBudgetList();
     }
 
     //// util methods
