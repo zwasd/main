@@ -68,7 +68,7 @@ public class AutoCompleteTextField extends TextField {
             "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
             "exp add", "exp delete", "exp edit", "exp setbudget",
             "repeat add", "repeat edit", "repeat delete",
-            "report view", "report export", "go", "help", "exit", "find"
+            "report view", "report export", "go", "go today", "help", "exit", "find"
         ));
     }
 

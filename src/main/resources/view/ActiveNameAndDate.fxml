@@ -31,6 +31,9 @@
                </padding>
             </Label>
          </children>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
       </GridPane>
    </children>
 </AnchorPane>
