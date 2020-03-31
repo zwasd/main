@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -77,6 +78,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
+        reportWindow.addLogic(logic);
+
     }
 
     public Stage getPrimaryStage() {
@@ -197,11 +200,13 @@ public class MainWindow extends UiPart<Stage> {
     private void handleReport() {
 
         if (!reportWindow.isShowing()) {
-            reportWindow.addLogic(logic);
             reportWindow.showEmpty();
-        } else {
+        }
+
+        /*else {
             reportWindow.focus();
         }
+        */
 
     }
 
@@ -226,11 +231,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
 
-                if (reportWindow.isShowing()) {
-                    reportWindow.hide();
-                }
-
-                reportWindow.addLogic(logic);
                 reportWindow.showResult(commandResult);
             }
 
