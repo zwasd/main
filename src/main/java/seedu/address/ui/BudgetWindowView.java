@@ -15,7 +15,7 @@ import javafx.scene.text.TextAlignment;
  */
 public class BudgetWindowView extends UiPart<Node> {
 
-    private static final String FXML = "BudgetWindowView.fxml";
+    private static final String FXML = "BudgetView.fxml";
 
     private boolean budgetExist;
 
