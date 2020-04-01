@@ -93,13 +93,13 @@ Clears tag of expenditure with ID.
 
 === Locating expenditure by keyword: `find`
 
-Find expenditures which contain the keyword. +
-Format: `find -k KEYWORD`
+Find expenditures which contain the keyword(s). +
+Format: `find [KEYWORD...]`
 
 ****
 * The search is case insensitive. e.g `chickens` will match `Chickens`
 * The order of the keywords does not matter. e.g. `Chicken Rice` will match `Rice Chicken`
-* Only full words will be matched e.g. `Chicken` will not match `Chickens`
+* Substrings will be matched e.g. `Chicken` will match `Chickens`
 * Expenditures matching at least one keyword will be returned (i.e. `OR` search). e.g. `Chicken Rice` will return `Fried Chicken`, `Steam Chicken`
 ****
 

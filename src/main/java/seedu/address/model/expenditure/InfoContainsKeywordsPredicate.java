@@ -18,7 +18,8 @@ public class InfoContainsKeywordsPredicate implements Predicate<BaseExp> {
     @Override
     public boolean test(BaseExp expenditure) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expenditure.getInfo().fullInfo, keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsSubstringInWordIgnoreCase(expenditure.getInfo().fullInfo, keyword));
     }
 
     @Override
