@@ -132,7 +132,8 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
-        activeNameAndDateView = new ActiveNameAndDateView();
+        activeNameAndDateView = new ActiveNameAndDateView(logic.getAddressBook().getActiveAccount(),
+                logic.getAddressBook().getActiveDate());
         activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
         budgetView = new BudgetView();
         budgetPlaceHolder.getChildren().add(budgetView.getRoot());
@@ -244,7 +245,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
-                activeNameAndDateView.setActiveDate(commandResult.getNewActiveDate().toString());
+                activeNameAndDateView.setActiveDate(commandResult.getNewActiveDate());
             }
 
             if (commandResult.isUpdateAccountName()) {

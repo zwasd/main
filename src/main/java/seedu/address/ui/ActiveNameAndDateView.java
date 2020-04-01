@@ -13,32 +13,24 @@ public class ActiveNameAndDateView extends UiPart<Region> {
 
     private static final String FXML = "ActiveNameAndDate.fxml";
 
-    //TODO: store this active account name in jason.
-    // need change.
-    private String activeAccountName = "Whatever";
-
-    private String activeAccountDate;
-
     @FXML
     private Label activeName;
 
     @FXML
     private Label activeDate;
 
-    public ActiveNameAndDateView() {
+    public ActiveNameAndDateView(String accountName, LocalDate activeDate) {
         super(FXML);
-        setActiveAccountName(this.activeAccountName);
-        setActiveDate(LocalDate.now().toString());
+        setActiveAccountName(accountName);
+        setActiveDate(activeDate);
     }
 
     public void setActiveAccountName(String activeAccountName) {
-        this.activeAccountName = activeAccountName;
         this.activeName.setText(activeAccountName);
     }
 
-    public void setActiveDate(String activeAccountDate) {
-        this.activeAccountDate = activeAccountDate;
-        this.activeDate.setText(activeAccountDate);
+    public void setActiveDate(LocalDate activeAccountDate) {
+        this.activeDate.setText(activeAccountDate.toString());
     }
 
 }
