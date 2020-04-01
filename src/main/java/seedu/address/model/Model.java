@@ -147,6 +147,8 @@ public interface Model {
 
     void updateActiveDate(LocalDate date);
 
+    LocalDate getActiveDate();
+
     void setBudget(Budget budget);
 
     /**

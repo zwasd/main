@@ -204,7 +204,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addExpenditure(Expenditure expenditure) {
         activeAccount.addExpenditure(expenditure);
-        if (expenditure.getDate().localDate.equals(activeDate)) {
+        if (expenditure.isOn(activeDate)) {
             displayedBaseExpList.add(expAddIndex, expenditure);
             expAddIndex++;
         }
@@ -229,7 +229,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         activeAccount.setExpenditure(target, editedExpenditure);
-        if (editedExpenditure.getDate().localDate.equals(activeDate)) {
+        if (editedExpenditure.isOn(activeDate)) {
             displayedBaseExpList.set(displayedBaseExpList.indexOf(target), editedExpenditure);
         } else {
             displayedBaseExpList.remove(target);
@@ -270,6 +270,14 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void updateActiveDate(LocalDate date) {
         activeDate = date;
         resetFromActiveAccount();
+    }
+
+    /**
+     * Returns the active date
+     * @return the active date
+     */
+    public LocalDate getActiveDate() {
+        return activeDate;
     }
 
     /**

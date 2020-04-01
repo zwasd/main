@@ -18,7 +18,8 @@ public class InfoContainsKeywordsPredicate implements Predicate<BaseExp> {
     @Override
     public boolean test(BaseExp expenditure) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(expenditure.getInfo().fullInfo, keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsSubstringInWordIgnoreCase(expenditure.getInfo().fullInfo, keyword));
     }
 
     @Override
@@ -26,6 +27,10 @@ public class InfoContainsKeywordsPredicate implements Predicate<BaseExp> {
         return other == this // short circuit if same object
                 || (other instanceof InfoContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((InfoContainsKeywordsPredicate) other).keywords)); // state check
+    }
+
+    public String getKeywordsString() {
+        return String.join(", ", keywords);
     }
 
 }

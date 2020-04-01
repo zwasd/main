@@ -216,6 +216,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public LocalDate getActiveDate() {
+        return accountList.getActiveDate();
+    }
+
+    @Override
     public void setBudget(Budget budget) {
         this.accountList.setBudget(budget);
     }

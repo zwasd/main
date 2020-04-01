@@ -223,6 +223,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public LocalDate getActiveDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
