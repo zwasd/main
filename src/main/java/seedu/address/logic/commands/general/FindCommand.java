@@ -24,7 +24,7 @@ public class FindCommand extends Command {
             + ": Finds all expenditures and repeats which contain any of "
             + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameter: KEYWORD \n"
-            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " alice";
+            + "Example: " + COMMAND_WORD + " alice";
 
     private final Predicate<BaseExp> predicate;
 

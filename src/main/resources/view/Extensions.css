@@ -70,6 +70,10 @@
     -fx-font-weight: bold;
 }
 
+.vBoxBackground {
+    -fx-background: #383838;
+}
+
 #reportButton {
     -fx-text-fill: white;
     -fx-font-size: 20;

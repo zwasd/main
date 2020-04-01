@@ -27,8 +27,8 @@ class JsonSerializableAccount {
 
     private final List<JsonAdaptedExpenditure> expenditures = new ArrayList<>();
     private final List<JsonAdaptedRepeat> repeats = new ArrayList<>();
+    private final HashMap<YearMonth, Double> budgets = new HashMap<>();
     private final String accountName;
-    private final HashMap<YearMonth, Double> budgets;
 
     /**
      * Constructs a {@code JsonSerializableAccount} with the given expenditures and accountName.
@@ -41,7 +41,7 @@ class JsonSerializableAccount {
         this.accountName = accountName;
         this.expenditures.addAll(expenditures);
         this.repeats.addAll(repeats);
-        this.budgets = budgets;
+        this.budgets.putAll(budgets);
     }
 
     /**
@@ -54,7 +54,7 @@ class JsonSerializableAccount {
                 .collect(Collectors.toList()));
         repeats.addAll(source.getRepeatList().stream().map(JsonAdaptedRepeat::new).collect(Collectors.toList()));
         accountName = source.getAccountName();
-        budgets = source.getBudgetList().getBudgets();
+        budgets.putAll(source.getBudgetList().getBudgets());
     }
 
     /**
