@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="300" minWidth="400" onCloseRequest="#handleExit" title="\$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="500" minWidth="1000" onCloseRequest="#handleExit" title="\$AVE IT" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/moneybag.png" />
     </icons>
@@ -37,13 +37,13 @@
                     </Menu>
                 </MenuBar>
 
-                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="command-box-pane" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="resultDisplayPlaceholder" alignment="TOP_CENTER" maxHeight="101.0" minHeight="87.0" prefHeight="100.0" prefWidth="200.0" styleClass="pane-with-border">
+                <StackPane fx:id="resultDisplayPlaceholder" alignment="TOP_CENTER" maxHeight="101.0" minHeight="87.0" prefHeight="100.0" prefWidth="200.0" styleClass="result-display-pane">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>

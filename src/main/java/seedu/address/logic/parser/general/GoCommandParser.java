@@ -29,6 +29,10 @@ public class GoCommandParser implements Parser<GoCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
         }
 
+        if (trimmedArgs.equals("today")) {
+            return new GoCommand(LocalDate.now(), false);
+        }
+
         try {
             LocalDate targetDate = LocalDate.parse(trimmedArgs, DateTimeFormatter.ISO_DATE);
             return new GoCommand(targetDate, false);
