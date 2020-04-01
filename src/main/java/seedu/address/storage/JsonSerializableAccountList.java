@@ -29,7 +29,7 @@ public class JsonSerializableAccountList {
      */
     @JsonCreator
     public JsonSerializableAccountList(@JsonProperty("accounts") List<JsonSerializableAccount> accounts,
-                                       @JsonProperty("current") String currentAccount) {
+                                       @JsonProperty("currentAccount") String currentAccount) {
         this.accounts.addAll(accounts);
         this.currentAccount = currentAccount;
     }
@@ -52,13 +52,22 @@ public class JsonSerializableAccountList {
      */
     public AccountList toModelType() throws IllegalValueException {
         AccountList accountList = new AccountList(false);
+
+        // set default account name first
+        accountList.updateActiveAccount(AccountList.DEFAULT_ACCOUNT_NAME);
+
         for (JsonSerializableAccount jsonAdaptedAccount: accounts) {
             Account account = jsonAdaptedAccount.toModelType();
             if (accountList.hasAccount(account)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ACCOUNT);
             }
             accountList.addAccount(account);
+
+            // set the last account as active account
+            accountList.updateActiveAccount(account.getAccountName());
         }
+
+        // if specified, set the active account to it
         accountList.updateActiveAccount(currentAccount);
         return accountList;
     }
