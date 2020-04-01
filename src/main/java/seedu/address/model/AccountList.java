@@ -26,10 +26,12 @@ import seedu.address.model.expenditure.Repeat;
  * Manages all accounts of the user.
  */
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
+
+    public static final String DEFAULT_ACCOUNT_NAME = "default";
+
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
     private final ObservableList<BaseExp> displayedBaseExpList = FXCollections.observableArrayList();
-    private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
     private int expAddIndex = 0;
 
@@ -38,25 +40,28 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public AccountList(ReadOnlyAccountList toBeCopied) {
         resetData(toBeCopied);
-        activeAccount = accounts.get(initialAccountName);
+
+        // create new account
         if (accounts.size() == 0) {
-            activeAccount = new Account("default");
-            accounts.put("default", activeAccount);
-        } else if (!accounts.containsKey(initialAccountName)) {
-            activeAccount = accounts.values().iterator().next();
+            createDefaultAccount();
         } else {
-            activeAccount = accounts.get(initialAccountName);
+            activeAccount = accounts.get(toBeCopied.getActiveAccount());
         }
+
         activeDate = LocalDate.now();
         resetFromActiveAccount();
     }
 
     public AccountList(boolean createDefaultAccount) {
         if (createDefaultAccount) {
-            activeAccount = new Account("default");
-            addAccount(activeAccount);
+            createDefaultAccount();
         }
         activeDate = LocalDate.now();
+    }
+
+    private void createDefaultAccount() {
+        activeAccount = new Account(DEFAULT_ACCOUNT_NAME);
+        addAccount(activeAccount);
     }
 
     //// list overwrite operations
@@ -136,7 +141,6 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public String deleteAccount(String accName) throws CommandException {
         requireAllNonNull(accName);
-        //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!this.accounts.containsKey(accName)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, accName) + "\n"
