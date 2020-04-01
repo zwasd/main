@@ -20,6 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 // import seedu.address.model.Account;
 // import seedu.address.model.AccountList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
 // import seedu.address.model.ReadOnlyAccount;
@@ -200,12 +201,12 @@ public class ExpAddCommandTest {
         }
 
         @Override
-        public String renameAccount(String oldName, String newName) {
+        public String renameAccount(String oldName, String newName) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public String deleteAccount(String name) {
+        public String deleteAccount(String name) throws CommandException {
             throw new AssertionError("This method should not be called");
         }
 

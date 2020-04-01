@@ -99,6 +99,7 @@ public class AutoCompleteTextField extends TextField {
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
                     entriesPopup.hide();
+                    AutoCompleteTextField.this.end();
                 }
             });
             menuItems.add(item);

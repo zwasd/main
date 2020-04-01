@@ -193,12 +193,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String renameAccount(String oldName, String newName) {
+    public String renameAccount(String oldName, String newName) throws CommandException {
         return this.accountList.renameAccount(oldName, newName);
     }
 
     @Override
-    public String deleteAccount(String name) {
+    public String deleteAccount(String name) throws CommandException {
         return this.accountList.deleteAccount(name);
     }
 

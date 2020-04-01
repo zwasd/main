@@ -15,11 +15,14 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE =
-            "acc OPTIONS - Account related commands (for more information on the OPTIONS, enter 'help acc')\n"
+            "help [COMMAND] - Shows help, or help for the given command.\n"
+            + "acc OPTIONS - Account related commands (for more information on the OPTIONS, enter 'help acc')\n"
             + "exp OPTIONS - Expenditure related commands (for more information on the OPTIONS, enter 'help exp')\n"
-            + "report OPTION - Report related commands (for more information on the OPTIONS, enter 'help report')\n"
+            + "repeat OPTIONS - Expenditure related commands "
+            + "(for more information on the OPTIONS, enter 'help repeat')\n"
+            + "report OPTIONS - Report related commands (for more information on the OPTIONS, enter 'help report')\n"
+            + "find OPTIONS - Searches for expenditures (for more information on the OPTIONS, enter 'help find')\n"
             + "go DATE - Show the expenditures for the particular date.\n"
-            + "help [COMMAND] - Shows help, or help for the given command.\n"
             + "exit - Exits the application.";
 
     private String message;
@@ -30,6 +33,12 @@ public class HelpCommand extends Command {
 
     public HelpCommand(String message) {
         this.message = message;
+    }
+
+    public HelpCommand(String message, boolean unknown) {
+        this.message = !unknown ? message
+                : (message.isEmpty() ? "" : "Unknown command \"" + message + "\"\n")
+                        + SHOWING_HELP_MESSAGE;
     }
 
     @Override

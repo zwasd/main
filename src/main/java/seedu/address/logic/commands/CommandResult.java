@@ -16,11 +16,6 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /**
-     * Help information should be shown to the user.
-     */
-    private final boolean showHelp;
-
-    /**
      * Indicates the action of report command.
      **/
     private final boolean isShowReport;
@@ -59,7 +54,6 @@ public class CommandResult {
                          boolean isExportReport, boolean isPrintReport, boolean updateCalendar,
                          boolean updateAccountName, boolean updateBudgetView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
         this.exit = exit;
         this.isShowReport = isShowReport;
         this.isExportReport = isExportReport;
@@ -122,10 +116,6 @@ public class CommandResult {
 
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public boolean isShowHelp() {
-        return showHelp;
     }
 
     public boolean isExit() {
@@ -201,11 +191,10 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && isShowReport == otherCommandResult.isShowReport
-                && isExportReport == isExportReport
-                && isPrintReport == isPrintReport
+                && isExportReport == otherCommandResult.isExportReport
+                && isPrintReport == otherCommandResult.isPrintReport
                 && updateCalendar == otherCommandResult.updateCalendar
                 && updateAccountName == otherCommandResult.updateAccountName
                 && updateBudgetView == otherCommandResult.updateBudgetView;
@@ -213,7 +202,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, isShowReport, isExportReport,
+        return Objects.hash(feedbackToUser, exit, isShowReport, isExportReport,
                 isPrintReport, updateCalendar, updateAccountName);
     }
 

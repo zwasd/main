@@ -14,8 +14,8 @@ public class ExpSetBudgetCommandTest {
         // both null
         assertThrows(NullPointerException.class, () -> new ExpSetBudgetCommand(null, null));
 
-        // yearMonth null
-        assertThrows(NullPointerException.class, () -> new ExpSetBudgetCommand(null, new Amount(1)));
+        // yearMonth null TODO THIS PART NEED CHANGE, I ALLOW THE YEARMONTH TO BE NULL.
+        //assertThrows(NullPointerException.class, () -> new ExpSetBudgetCommand(null, new Amount(1)));
 
         // amount null
         assertThrows(NullPointerException.class, () ->

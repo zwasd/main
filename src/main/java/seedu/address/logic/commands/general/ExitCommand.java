@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": saves data and closes the application";
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting $AVE IT as requested ...";
 
     @Override
