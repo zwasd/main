@@ -164,12 +164,14 @@ public class Repeat extends BaseExp {
     private void generateWeeklyDate() {
         this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
+        int i = 0;
         while (true) {
-            this.relevantDate.add(pivotDate);
-            pivotDate.plusWeeks(1);
-            if (pivotDate.isAfter(this.endDate.localDate)) {
+            LocalDate toStore = pivotDate.plusWeeks(i);
+            if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
+            this.relevantDate.add(toStore);
+            i++;
         }
     }
 
