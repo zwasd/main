@@ -1,0 +1,15 @@
+@startuml
+start
+:User types in  command;
+if () then ([command is correct])
+    :Executes command;
+     if() then ([report command])
+     :Pops up report window and shows graph;
+     else ([print/export command])
+     :Prints/export the graph.;
+     endif
+else ([else])
+    :Throw error message;
+endif
+stop
+@enduml

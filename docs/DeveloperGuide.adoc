@@ -16,6 +16,21 @@ endif::[]
 
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
+== Introduction
+This section will introduce the intended use of the document and how to navigate it.
+[[Introduction-Purpose]]
+=== Purpose
+The purpose of this document is to give insight to the implementation of the app, $AVE IT. This
+will give developers a better understanding on how they can work on the app in the future.
+
+[[Introduction-Usage]]
+=== Usage
+==== Navigate
+Navigate the document by using `control - f` for Windows User or
+`command - f` for Mac Users. Alternatively, there is a clickable content page
+at the start of the document which you can click and bring you to the relevant sections.
+
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -338,37 +353,44 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
 
-==== Design Considerations
+==== Rationale
+The report feature is an important feature that allows users to see their
+expenditure breakdowns within a certain time period. Currently, the expenditure
+are categorise in terms of tags and this will give users a clear overview of
+what they are spending on over this period of time.
 
-While implementing the report feature, we had these considerations:
-
-  1. We want the report to have a graph that showcases expenditure breakdowns.
-  2. We want to have minimal changes to the current _main UI_ code.
-  3. We want to avoid cluttering the `MainWindow` as much as possible when the graph is generated.
-  4. We want the users to have a clean UI for report.
-
-
-Hence, due to the above considerations, we chose to break down the report feature into
-2 main aspects:  Logic and  UI.
 
 ==== Implementation
-*UI*
+The report feature can be accessed from 2 platforms either *Main Window* or *Report Window*
 
-1.  `MainWindow` : The `MainWindow` UI implementation is support by _javafx_ and _fxml_. You can
-read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`MainWindow`].
-2. `ReportWindow` : The `ReportWindow` UI implementation is support by _javafx_ and _fxml_. You can
-read up more at : https://github.com/AY1920S2-CS2103T-T10-3/main/blob/master/docs/DeveloperGuide.adoc#Design-Ui[`ReportWindow`].
-3. Graph is the highlight of the report feature and it is implemented in `ReportWindow` class.
-* Pie chart: Implemented using *javafx.scene.chart.PieChart*
-* Bar graph: In progress.
-* Stack Bar graph: In progress.
+* *Main Window*
 
-*Logic*
+The input from user is parsed using a specific command parser
+depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
-1. `Report` : The `Report`  object is generated to hold  users request for a report either in `MainWindow` or `ReportWindow`.
-2. `ReportCommandResult`: The `ReportCommandResult` holds the command result of commands typed in `ReportWindow`.
+If a `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
+start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
+and _Report.GraphType_ objects are used to create _ViewReportCommand_ object which will be
+executed. The execution will pop out the _ReportWindow_ which will showcase a expenditure breakdown report.
 
+==== Design Considerations
 
+*Consideration : Minimal changes to current UI implementation, especially Main Window*
+
+** Pros:  Less dependency with current working code for Main Window. Hence, even if report feature fails, it is
+likely that Main Window can continue running.
+
+** Cons: It could be more complicated to implement.
+
+*Consideration : Avoid cluttering the Main Window UI*
+
+** Pros: Better user experience.
+** Pros: As report is not using any space in Main Window,
+we could introduce and showcase other smaller and useful features in
+the Main Winow UI.
+** Cons: It could be more different to implement
+
+Due to the above considerations ,we implemented report viewing in a pop up window.
 
 
 [[Implementation-Configuration]]
