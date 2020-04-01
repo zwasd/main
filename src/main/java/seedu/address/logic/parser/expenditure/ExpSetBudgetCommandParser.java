@@ -37,9 +37,6 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEARMONTH)
                 .orElseGet(() -> new StringBuilder()
-                        .append(LocalDate.now().getYear())
-                        .append("-")
-                        .append(LocalDate.now().getMonthValue())
                         .toString()));
         return new ExpSetBudgetCommand(yearMonth, amount);
     }

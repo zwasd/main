@@ -26,7 +26,6 @@ public class ExpSetBudgetCommand extends Command {
     private Amount budgetAmount;
 
     public ExpSetBudgetCommand(YearMonth yearMonth, Amount budgetAmount) {
-        requireNonNull(yearMonth);
         requireNonNull(budgetAmount);
         this.yearMonth = yearMonth;
         this.budgetAmount = budgetAmount;
@@ -35,8 +34,11 @@ public class ExpSetBudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (this.yearMonth == null) {
+            this.yearMonth = YearMonth.of(model.getActiveDate().getYear(), model.getActiveDate().getMonthValue());
+        }
         model.setBudget(new Budget(yearMonth, budgetAmount));
-        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(yearMonth);
         return new CommandResult(String.format(MESSAGE_SUCCESS, yearMonth.toString(), budgetAmount.value),
                 monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
