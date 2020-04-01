@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount should be positive and up to 2 decimal point.";
+    public static final String MESSAGE_CONSTRAINTS = "Amount should be positive, "
+            + "less than 1 billion and up to 2 decimal point.";
     // TODO potentially can change to BigDecimal to represent money.
     public final double value;
 
@@ -38,7 +39,7 @@ public class Amount {
      */
     public static boolean isValidAmount(double test) {
         requireNonNull(test);
-        return test >= 0 && Math.floor(test * 100) / 100 == test;
+        return test >= 0 && test < 1000000000 && Math.floor(test * 100) / 100 == test;
     }
 
     /**

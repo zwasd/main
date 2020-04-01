@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.expenditure.Expenditure;
@@ -37,7 +36,7 @@ public class ExpenditureCard extends UiPart<Region> {
     @FXML
     private Label amount;
     @FXML
-    private FlowPane tags;
+    private Label tag;
 
     public ExpenditureCard(Expenditure expenditure, int displayedNumber) {
         super(FXML);
@@ -46,7 +45,7 @@ public class ExpenditureCard extends UiPart<Region> {
         number.setText(displayedNumber + ". ");
         info.setText(expenditure.getInfo().fullInfo);
         amount.setText("$" + TWO_DP.format(expenditure.getAmount().value));
-        tags.getChildren().add(new Label(expenditure.getTag().tagName));
+        tag.setText(expenditure.getTag().tagName);
     }
 
     @Override

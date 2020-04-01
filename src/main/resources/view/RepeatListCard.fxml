@@ -32,7 +32,7 @@
                   <Insets left="10.0" />
                </HBox.margin></Label>
             </HBox>
-            <FlowPane fx:id="repeatTags" />
+            <FlowPane fx:id="repeatTags"  />
             <HBox alignment="CENTER_LEFT">
                 <children>
                     <Label text="Start : " />

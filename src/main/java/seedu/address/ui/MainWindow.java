@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReportWindow reportWindow;
     private ActiveNameAndDateView activeNameAndDateView;
     private CalendarView calendarView;
-    private BudgetWindowView budgetView;
+    private BudgetView budgetView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -134,7 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         calendar.getChildren().add(calendarView.getRoot());
         activeNameAndDateView = new ActiveNameAndDateView();
         activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
-        budgetView = new BudgetWindowView();
+        budgetView = new BudgetView();
         budgetPlaceHolder.getChildren().add(budgetView.getRoot());
 
         resultDisplay = new ResultDisplay();

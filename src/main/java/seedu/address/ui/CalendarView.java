@@ -267,7 +267,7 @@ public class CalendarView extends UiPart<Region> {
 
                 if (i == this.prevMonthBalance + this.day - 1 && isSameMonth(this.pivotDate, this.nonPivotDate)) {
                     holder.setBackground(new Background(
-                            new BackgroundFill(Color.LIGHTPINK, CornerRadii.EMPTY, Insets.EMPTY)));
+                            new BackgroundFill(Color.MEDIUMSLATEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
                 }
 
                 if (isSameMonth(this.todayDate, this.nonPivotDate)
