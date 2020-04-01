@@ -6,28 +6,23 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
 
 import java.time.format.DateTimeParseException;
 
-import seedu.address.logic.commands.report.ExportReportCommand;
+import seedu.address.logic.commands.report.PrintReportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Report;
 import seedu.address.model.expenditure.Date;
 
 /**
- * Parse export report.
+ * Parses for report print.
  */
-public class ExportReportCommandParser implements Parser<ExportReportCommand> {
-    public ExportReportCommandParser() {
-
-    }
-
+public class PrintReportCommandParser implements Parser<PrintReportCommand> {
     @Override
-    public ExportReportCommand parse(String userInput) throws ParseException {
-
+    public PrintReportCommand parse(String userInput) throws ParseException {
         String userInputTrimmed = userInput.trim();
         String[] userInputArray = userInputTrimmed.split(" ");
 
         if (userInputArray.length < 3) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportReportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE));
         }
 
         String startDateStr = userInputArray[0];
@@ -41,11 +36,11 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
             endDate = new Date(endDateStr);
 
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATE, ExportReportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE, PrintReportCommand.MESSAGE_USAGE));
         }
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATE, ExportReportCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE, PrintReportCommand.MESSAGE_USAGE));
         }
 
         String graph = userInputArray[2];
@@ -60,10 +55,10 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
-                    ExportReportCommand.MESSAGE_USAGE));
+                    PrintReportCommand.MESSAGE_USAGE));
         }
         Report report = new Report(startDate, endDate, graphType);
 
-        return new ExportReportCommand(report);
+        return new PrintReportCommand(report);
     }
 }
