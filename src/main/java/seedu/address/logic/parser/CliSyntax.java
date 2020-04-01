@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_DATE = new Prefix("-ed ");
     public static final Prefix PREFIX_PERIOD = new Prefix("-p ");
     public static final Prefix PREFIX_YEARMONTH = new Prefix("-ym ");
+    public static final Prefix PREFIX_GRAPH = new Prefix("-g");
 
     public static final Prefix PREFIX_INTERVAL = new Prefix("--interval ");
     public static final Prefix PREFIX_UNTIL = new Prefix("-until ");
