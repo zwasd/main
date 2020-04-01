@@ -27,20 +27,30 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " alice";
 
     private final Predicate<BaseExp> predicate;
+    private final String keywordsString;
+    private final String tag;
 
-    public FindCommand(Predicate<BaseExp> predicate) {
+    public FindCommand(Predicate<BaseExp> predicate, String keywordsString, String tag) {
         this.predicate = predicate;
+        this.keywordsString = keywordsString;
+        this.tag = tag;
+    }
+
+    public FindCommand(InfoContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+        this.keywordsString = predicate.getKeywordsString();
+        this.tag = null;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredBaseExpList(predicate);
-        return new CommandResult(
-                "Searched keywords: " + ((InfoContainsKeywordsPredicate) predicate).getKeywordsString() + "\n"
-                + String.format(Messages.MESSAGE_EXPENDITURES_LISTED_OVERVIEW,
-                        model.getFilteredBaseExpList().size())
-                        + "\nEnter \"list\" to clear search results");
+        String result = (keywordsString == null ? "" : "Searched keywords: " + keywordsString + "\n")
+                + (tag == null ? "" : "Searched tag: " + tag + "\n")
+                + String.format(Messages.MESSAGE_EXPENDITURES_LISTED_OVERVIEW, model.getFilteredBaseExpList().size())
+                + "\nEnter \"exp list\" to clear search results";
+        return new CommandResult(result);
     }
 
     @Override
