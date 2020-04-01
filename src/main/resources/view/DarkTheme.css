@@ -359,8 +359,12 @@
     -fx-background-radius: 0;
 }
 
-#tag {
+#tag, #repeatTag {
     -fx-text-fill: white;
     -fx-background-color: #996699;
     -fx-padding: 5 10 5 10;
+}
+
+#repeatDetails {
+    -fx-text-fill: #aaaaaa;
 }
