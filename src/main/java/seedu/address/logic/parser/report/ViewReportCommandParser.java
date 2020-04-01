@@ -1,69 +1,68 @@
 package seedu.address.logic.parser.report;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.report.ViewReportCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Report;
 import seedu.address.model.expenditure.Date;
 
+
 /**
- * Parse view report.
+ * Parses view report.
  */
 public class ViewReportCommandParser implements Parser<ViewReportCommand> {
     public ViewReportCommandParser() {
 
     }
 
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
     @Override
     public ViewReportCommand parse(String userInput) throws ParseException {
-        String userInputTrimmed = userInput.trim();
-        String[] userInputArray = userInputTrimmed.split(" ");
 
-        if (userInputArray.length < 3) {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
+                PREFIX_END_DATE, PREFIX_GRAPH);
+
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
         }
 
-        String startDateStr = userInputArray[0];
-        String endDateStr = userInputArray[1];
-        Date startDate;
-        Date endDate;
+        Date startDate = ParserUtil.parseDate(argumentMultimap.getValue(PREFIX_START_DATE)
+                .orElseGet(() -> LocalDate.now().toString()));
 
-        try {
-            startDate = new Date(startDateStr);
-            endDate = new Date(endDateStr);
-        } catch (Exception e) {
-            throw new ParseException(String.format("Date should be in YYYY-MM-DD format",
-                    ViewReportCommand.MESSAGE_USAGE));
-        }
+        Date endDate = ParserUtil.parseDate(argumentMultimap.getValue(PREFIX_END_DATE)
+                .orElseGet(() -> LocalDate.now().toString()));
+
+        Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
+                .orElseGet(() -> Report.GraphType.PIE.toString()));
+
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
-            throw new ParseException(String.format("End date should be before start date",
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE,
                     ViewReportCommand.MESSAGE_USAGE));
         }
 
-        String graph = userInputArray[2];
-        Report.GraphType graphType = null;
-
-        switch (graph) {
-        case "BAR":
-            graphType = Report.GraphType.BAR;
-            break;
-        case "STACK":
-            graphType = Report.GraphType.STACK;
-            break;
-        case "PIE":
-            graphType = Report.GraphType.PIE;
-            break;
-        default:
-            throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
-                    ViewReportCommand.MESSAGE_USAGE));
-        }
         Report report = new Report(startDate, endDate, graphType);
 
         return new ViewReportCommand(report);
     }
-
 }

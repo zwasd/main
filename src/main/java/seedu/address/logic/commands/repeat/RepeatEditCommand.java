@@ -1,31 +1,32 @@
 package seedu.address.logic.commands.repeat;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.expenditure.ExpLevelParser;
-
+import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.Amount;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Info;
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
-
-
 
 /**
  * Edit repeat object.
@@ -34,19 +35,21 @@ import seedu.address.model.tag.Tag;
 public class RepeatEditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Edits the details of the repeat identified "
-            + "by the index number used in the displayed repeat list. "
+            + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_INFO + "INFO] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
-            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_START_DATE + "STARTDATE] "
+            + "[" + PREFIX_END_DATE + "ENDDATE] "
+            + "[" + PREFIX_PERIOD + "[daily|monthly|weekly|annually] ]"
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+            + "Example: " + RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.3";
 
-    public static final String MESSAGE_EDIT_REPEAT_SUCCESS = "Edited Repeat Expenditure: %1$s";
+    public static final String MESSAGE_EDIT_REPEAT_SUCCESS = "Edited Repeat: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
 
@@ -63,13 +66,31 @@ public class RepeatEditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        //TODO
-        return null;
+        requireNonNull(model);
+        List<BaseExp> lastShownList = model.getFilteredBaseExpList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
+        }
+
+        BaseExp baseExp = lastShownList.get(index.getZeroBased());
+        if (!(baseExp instanceof Repeat)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_TYPE_AT_INDEX,
+                    Repeat.class.getSimpleName()));
+        }
+        Repeat repeatToEdit = (Repeat) baseExp;
+        Repeat editedRepeat = createEditedRepeat(repeatToEdit, editRepeatDescriptor);
+
+        model.setRepeat(repeatToEdit, editedRepeat);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_EDIT_REPEAT_SUCCESS, editedRepeat),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
+
     }
 
     /**
-     * Creates and returns a {@code Expenditure} with the details of {@code expenditureToEdit}
-     * edited with {@code editExpenditureDescriptor}.
+     * Creates and returns a {@code Repeat} with the details of {@code repeatToEdit}
+     * edited with {@code editRepeatDescriptor}.
      */
     private static Repeat createEditedRepeat(Repeat repeatToEdit,
                                                        RepeatEditCommand.EditRepeatDescriptor editRepeatDescriptor) {

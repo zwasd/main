@@ -10,12 +10,13 @@ import seedu.address.model.Model;
  */
 public class ReportWindowExitCommand extends ReportCommand {
 
+    public static final String MESSAGE_EXIT = "Exiting report window!";
     public ReportWindowExitCommand() {
 
     }
 
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
-        return new ReportCommandResult(true);
+        return new ReportCommandResult(MESSAGE_EXIT, true, false, false);
     }
 }

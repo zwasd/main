@@ -1,11 +1,13 @@
 package seedu.address.model;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Date;
 
 /**
  * Report.
  */
 public class Report {
+
     private final Date startDate;
     private final Date endDate;
     private final GraphType graph;
@@ -15,7 +17,37 @@ public class Report {
      * of graph that can be generated for report.
      */
     public enum GraphType {
-        BAR, PIE, STACK;
+        BAR, PIE, NULL;
+
+        public static final String GRAPH_TYPE_MESSAGE_CONSTRAINT = "Graph types should only be: "
+                + GraphType.BAR + ", " + GraphType.PIE;
+
+        /**
+         * Checks if {@code g} is a valid GraphType.
+         */
+        public static boolean isValidGraph(String g) {
+            switch (g) {
+            case "BAR":
+            case "PIE":
+                return true;
+            default:
+                return false;
+            }
+        }
+
+        /**
+         * Maps {@code String graph} to corresponding graphType
+         */
+        public static GraphType mapToGraphType(String graph) throws ParseException {
+            switch (graph) {
+            case "BAR":
+                return GraphType.BAR;
+            case "PIE":
+                return GraphType.PIE;
+            default:
+                throw new ParseException(GRAPH_TYPE_MESSAGE_CONSTRAINT);
+            }
+        }
     }
 
     public Report(Date startDate, Date endDate, GraphType graph) {
@@ -26,7 +58,7 @@ public class Report {
 
     /**
      * Getter method for user input graph type.
-     * @return GraphType user inpurs
+     * @return GraphType user inputs
      */
     public GraphType getFormat() {
         return graph;
@@ -39,5 +71,6 @@ public class Report {
     public Date getEndDate() {
         return endDate;
     }
+
 
 }

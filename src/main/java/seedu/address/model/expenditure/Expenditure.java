@@ -2,23 +2,21 @@ package seedu.address.model.expenditure;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
+import javafx.scene.layout.Region;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.ExpenditureCard;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents a Expenditure in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Expenditure {
+public class Expenditure extends BaseExp {
 
-    // Identity fields
-    private final Info info;
-    private final Amount amount;
-
-    // Data fields
     private final Date date;
-    private final Tag tag;
 
     /**
      * Every field must be present and not null.
@@ -32,23 +30,8 @@ public class Expenditure {
         this.tag = tag;
     }
 
-    public Info getInfo() {
-        return info;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    /**
-     * Returns a tag.
-     */
-    public Tag getTag() {
-        return tag;
     }
 
     /**
@@ -104,4 +87,13 @@ public class Expenditure {
         return builder.toString();
     }
 
+    @Override
+    public UiPart<Region> getUiCard(int displayedNumber) {
+        return new ExpenditureCard(this, displayedNumber);
+    }
+
+    @Override
+    public boolean isOn(LocalDate localDate) {
+        return localDate.equals(date.localDate);
+    }
 }

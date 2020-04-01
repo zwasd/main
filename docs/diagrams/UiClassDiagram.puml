@@ -12,10 +12,13 @@ Class MainWindow
 Class HelpWindow
 Class ReportWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class ExpenditureListPanel
+Class ExpenditureCard
 Class StatusBarFooter
 Class CommandBox
+Class CalendarView
+Class BudgetView
+Class ActiveNameAndDateView
 }
 
 package Model <<Rectangle>> {
@@ -29,36 +32,69 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow --> ReportWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+UiManager .up.|> Ui
+UiManager --> MainWindow
+MainWindow -right-> HelpWindow
+MainWindow --> CalendarView
+MainWindow -right-> ReportWindow
+MainWindow *-left-> CommandBox
+MainWindow *-left-> ResultDisplay
+MainWindow *-right-> ExpenditureListPanel
+MainWindow -right-> ActiveNameAndDateView
+MainWindow -> BudgetView
+MainWindow *--> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
+ExpenditureListPanel -down-> ExpenditureCard
 
 MainWindow -left-|> UiPart
-
+CalendarView -down|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+ExpenditureListPanel --|> UiPart
+ExpenditureCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
-ReportWindow -down-|> UiPart
+ReportWindow --|> UiPart
+BudgetView -up-|> UiPart
+ActiveNameAndDateView -left|> UiPart
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
-ReportWindow -left-> Logic
+ExpenditureCard ..> Model
+UiManager -up-> Logic
+MainWindow -up-> Logic
+ReportWindow --> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+ExpenditureListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
+@enduml
+
+
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Storage <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface SaveItStorage <<Interface>>
+
+Class StorageManager
+Class JsonUserPrefsStorage
+Class JsonSaveItStorage
+
+StorageManager .left.|> Storage
+StorageManager o-right-> UserPrefsStorage
+StorageManager o--> SaveItStorage
+
+JsonUserPrefsStorage .left.|> UserPrefsStorage
+JsonSaveItStorage .left.|> SaveItStorage
+JsonSaveItStorage .down.> JsonSerializableAccountList
+JsonSerializableAccountList .down.> JsonSerializableAccount
+JsonSerializableAccount .down.> JsonAdaptedExpenditure
+JsonSerializableAccount .right.> JsonAdaptedRepeat
+JsonAdaptedExpenditure .right.> JsonAdaptedTag
 @enduml

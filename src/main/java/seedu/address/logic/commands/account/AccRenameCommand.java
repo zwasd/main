@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.account;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
 
 /**
@@ -13,9 +13,13 @@ public class AccRenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
-    public static final String MESSAGE_SUCCESS = "The account's name has changed from :";
+    public static final String MESSAGE_SUCCESS = "The account's name has changed from:";
 
-    public static final String INVALID_NAME_INPUT = "Please key in the right input";
+    public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": renames an account to the specified new name\n"
+            + "Parameters: OLD_NAME NEW_NAME "
+            + "(each is one word containing only alphanumeric characters, less than 26 characters)\n"
+            + "Example: " + AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " default school";
 
     private final String newName;
 
@@ -28,12 +32,8 @@ public class AccRenameCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        try {
-            model.renameAccount(this.oldName, this.newName);
-            return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName);
-        } catch (Exception e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
-        }
+        String accountName = model.renameAccount(this.oldName, this.newName);
+        return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName, accountName);
     }
 
     @Override

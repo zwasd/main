@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import seedu.address.logic.commands.general.GoCommand;
-import seedu.address.logic.commands.general.HelpCommand;
 
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,11 +28,15 @@ public class GoCommandParser implements Parser<GoCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
         }
 
+        if (trimmedArgs.equals("today")) {
+            return new GoCommand(LocalDate.now(), false);
+        }
+
         try {
             LocalDate targetDate = LocalDate.parse(trimmedArgs, DateTimeFormatter.ISO_DATE);
             return new GoCommand(targetDate, false);
         } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
         }
 
 

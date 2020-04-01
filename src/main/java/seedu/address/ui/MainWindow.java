@@ -10,12 +10,14 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exceptions.PrinterException;
 
 
 /**
@@ -36,8 +38,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReportWindow reportWindow;
-
+    private ActiveNameAndDateView activeNameAndDateView;
     private CalendarView calendarView;
+    private BudgetView budgetView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,7 +58,13 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane calendar;
 
     @FXML
+    private StackPane activeAccountNamePlaceHolder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane budgetPlaceHolder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -72,10 +81,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
-        //imageview = new ImageView();
+        reportWindow.addLogic(logic);
 
-        //Image i = new Image(new File("images/moneyfly.gif").toURI().toString());
-        //imageview.setImage(i);
     }
 
     public Stage getPrimaryStage() {
@@ -121,11 +128,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredExpenditureList());
+        expenditureListPanel = new ExpenditureListPanel(logic.getFilteredBaseExpList());
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
-
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
+        activeNameAndDateView = new ActiveNameAndDateView(logic.getAddressBook().getActiveAccount(),
+                logic.getAddressBook().getActiveDate());
+        activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
+        budgetView = new BudgetView();
+        budgetPlaceHolder.getChildren().add(budgetView.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -135,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
     }
 
     /**
@@ -154,10 +166,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        try {
+            executeCommand("help");
+        } catch (CommandException | ParseException | PrinterException e) {
+            return;
         }
     }
 
@@ -190,11 +202,13 @@ public class MainWindow extends UiPart<Stage> {
     private void handleReport() {
 
         if (!reportWindow.isShowing()) {
-            reportWindow.addLogic(logic);
             reportWindow.showEmpty();
-        } else {
+        }
+
+        /*else {
             reportWindow.focus();
         }
+        */
 
     }
 
@@ -203,37 +217,58 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, PrinterException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             if (commandResult.isShowReport()) {
-
-                if (reportWindow.isShowing()) {
-                    reportWindow.hide();
-                }
-
-                reportWindow.addLogic(logic);
                 reportWindow.showResult(commandResult);
+            }
+
+            if (commandResult.isExportReport()) {
+                reportWindow.export(commandResult);
+            }
+
+            if (commandResult.isPrintReport()) {
+                reportWindow.print(commandResult);
             }
 
             if (commandResult.isUpdateCalendar()) {
                 calendarView.updateActiveDate(commandResult.getNewActiveDate());
+                activeNameAndDateView.setActiveDate(commandResult.getNewActiveDate());
+            }
+
+            if (commandResult.isUpdateAccountName()) {
+                activeNameAndDateView.setActiveAccountName(commandResult.getActiveAccountName());
+            }
+
+            if (commandResult.isUpdateBudgetView()) {
+                Boolean isExist = commandResult.getBudget() != null;
+                budgetView.setBudgetExist(isExist);
+                if (isExist) {
+                    budgetView.setBudgetAmount(commandResult.getBudget());
+                    budgetView.setTotalSpending(commandResult.getTotalSpending());
+                    budgetView.updateView();
+                } else {
+                    budgetView.updateView();
+                }
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
+        } catch (CommandException | ParseException | PrinterException e) {
+
+            if (e instanceof CommandException || e instanceof ParseException) {
+                logger.info("Invalid command: " + commandText);
+            } else {
+                assert e instanceof PrinterException;
+                logger.info("Invalid printer.");
+            }
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

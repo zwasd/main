@@ -4,54 +4,65 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.account.AccDeleteCommand;
+import seedu.address.logic.commands.account.AccRenameCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
-import seedu.address.model.expenditure.UniqueExpenditureList;
-import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
 /**
  * Manages all accounts of the user.
  */
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
+
+    public static final String DEFAULT_ACCOUNT_NAME = "default";
+
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
-    private final UniqueExpenditureList internalExpenditureList = new UniqueExpenditureList();
-    private final ObservableList<Repeat> internalRepeatList = FXCollections.observableArrayList();
-    private String initialAccountName = "default"; // TODO
+    private final ObservableList<BaseExp> displayedBaseExpList = FXCollections.observableArrayList();
     private LocalDate activeDate;
+    private int expAddIndex = 0;
 
     /**
      * Creates an AccountList using the accounts in the {@code toBeCopied}
      */
     public AccountList(ReadOnlyAccountList toBeCopied) {
         resetData(toBeCopied);
-        activeAccount = accounts.get(initialAccountName);
+
+        // create new account
         if (accounts.size() == 0) {
-            activeAccount = new Account("default");
-            accounts.put("default", activeAccount);
-        } else if (!accounts.containsKey(initialAccountName)) {
-            activeAccount = accounts.values().iterator().next();
+            createDefaultAccount();
         } else {
-            activeAccount = accounts.get(initialAccountName);
+            activeAccount = accounts.get(toBeCopied.getActiveAccount());
         }
+
         activeDate = LocalDate.now();
-        internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
-        internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
+        resetFromActiveAccount();
     }
 
     public AccountList(boolean createDefaultAccount) {
         if (createDefaultAccount) {
-            activeAccount = new Account("default");
-            addAccount(activeAccount);
+            createDefaultAccount();
         }
         activeDate = LocalDate.now();
+    }
+
+    private void createDefaultAccount() {
+        activeAccount = new Account(DEFAULT_ACCOUNT_NAME);
+        addAccount(activeAccount);
     }
 
     //// list overwrite operations
@@ -99,28 +110,42 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * Renames account by copying the account data.
      * @param oldName The old account name.
      * @param newName The new account name to be renamed to.
+     * @String a string to denote the current active account name.
      */
-    public void renameAccount(String oldName, String newName) {
+    public String renameAccount(String oldName, String newName) throws CommandException {
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
-        if (!accounts.containsKey(oldName) || accounts.containsKey(newName)) {
-            throw new ExpenditureNotFoundException();
+        if (!accounts.containsKey(oldName)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, oldName) + "\n"
+                            + AccRenameCommand.MESSAGE_USAGE));
+        } else if (accounts.containsKey(newName)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    "The account with the specified name " + newName + " already exists\n"
+                    + AccRenameCommand.MESSAGE_USAGE));
         }
         Account targetAccount = accounts.get(oldName);
         Account replaceAccount = targetAccount.copyAccountWithNewName(newName);
         this.accounts.put(newName, replaceAccount);
         this.accounts.remove(oldName, targetAccount);
+        if (this.activeAccount.getAccountName().equals(oldName)) {
+            return newName;
+        } else {
+            return this.activeAccount.getAccountName();
+        }
     }
 
     /**
      * Delete an account for the accounts base on the input name.
      * @param accName the target account's name
+     * @return a new account name which is to replace
      */
-    public void deleteAccount(String accName) {
+    public String deleteAccount(String accName) throws CommandException {
         requireAllNonNull(accName);
-        //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!this.accounts.containsKey(accName)) {
-            throw new ExpenditureNotFoundException();
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, accName) + "\n"
+                            + AccDeleteCommand.MESSAGE_USAGE));
         }
         Account target = this.accounts.get(accName);
         this.accounts.remove(accName, target);
@@ -128,11 +153,15 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             Account defaultAccount = new Account("default");
             addAccount(defaultAccount);
             updateActiveAccount(defaultAccount.getAccountName());
+            return defaultAccount.getAccountName();
         } else {
             if (this.activeAccount.getAccountName().equals(accName)) {
                 String firstKey = (String) (this.accounts.keySet().toArray())[0];
                 updateActiveAccount(this.accounts.get(firstKey).getAccountName());
+                return this.accounts.get(firstKey).getAccountName();
             }
+            //no change
+            return this.activeAccount.getAccountName();
         }
     }
 
@@ -154,7 +183,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void clearActiveAccount() {
         activeAccount.resetData(new Account());
-        internalExpenditureList.setExpenditures(new ArrayList<>());
+        displayedBaseExpList.setAll(new ArrayList<>());
     }
 
     //// expenditure-level operations
@@ -164,7 +193,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public boolean hasExpenditure(Expenditure expenditure) {
         requireNonNull(expenditure);
-        return internalExpenditureList.contains(expenditure);
+        return displayedBaseExpList.contains(expenditure);
     }
 
     /**
@@ -173,7 +202,17 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void removeExpenditure(Expenditure target) {
         activeAccount.removeExpenditure(target);
-        internalExpenditureList.remove(target);
+        displayedBaseExpList.remove(target);
+        expAddIndex--;
+    }
+
+    /**
+     * Deletes the given repeat.
+     * The repeat must exist in the internal list.
+     */
+    public void removeRepeat(Repeat target) {
+        activeAccount.removeRepeat(target);
+        displayedBaseExpList.remove(target);
     }
 
     /**
@@ -181,8 +220,9 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addExpenditure(Expenditure expenditure) {
         activeAccount.addExpenditure(expenditure);
-        if (expenditure.getDate().localDate.equals(activeDate)) {
-            internalExpenditureList.add(expenditure);
+        if (expenditure.isOn(activeDate)) {
+            displayedBaseExpList.add(expAddIndex, expenditure);
+            expAddIndex++;
         }
     }
 
@@ -191,8 +231,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public void addRepeat(Repeat repeat) {
         activeAccount.addRepeat(repeat);
-        internalRepeatList.add(repeat);
+        if (repeat.isOn(activeDate)) {
+            displayedBaseExpList.add(repeat);
+        }
     }
+
     /**
      * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
      * {@code target} must exist in the internal list.
@@ -202,11 +245,36 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         activeAccount.setExpenditure(target, editedExpenditure);
-        if (editedExpenditure.getDate().localDate.equals(activeDate)) {
-            internalExpenditureList.setExpenditure(target, editedExpenditure);
+        if (editedExpenditure.isOn(activeDate)) {
+            displayedBaseExpList.set(displayedBaseExpList.indexOf(target), editedExpenditure);
         } else {
-            internalExpenditureList.remove(target);
+            displayedBaseExpList.remove(target);
         }
+    }
+
+    /**
+     * Replaces the given expenditure {@code target} with {@code editedExpenditure}.
+     * {@code target} must exist in the internal list.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as
+     * another existing expenditure in the internal list.
+     */
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireAllNonNull(target, editedRepeat);
+        activeAccount.setRepeat(target, editedRepeat);
+        if (editedRepeat.isOn(activeDate)) {
+            displayedBaseExpList.set(displayedBaseExpList.indexOf(target), editedRepeat);
+        } else {
+            displayedBaseExpList.remove(target);
+        }
+    }
+
+    public void setBudget(Budget budget) {
+        activeAccount.setBudget(budget);
+        //TODO need to add in UI.
+    }
+
+    public BudgetMap getBudgets() {
+        return activeAccount.getBudgetList();
     }
 
     //// util methods
@@ -216,9 +284,16 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * @param date the new active date
      */
     public void updateActiveDate(LocalDate date) {
-        internalExpenditureList.setExpenditures(activeAccount.getExpByDate(date));
-        internalRepeatList.setAll(activeAccount.getRepeatByDate(date));
         activeDate = date;
+        resetFromActiveAccount();
+    }
+
+    /**
+     * Returns the active date
+     * @return the active date
+     */
+    public LocalDate getActiveDate() {
+        return activeDate;
     }
 
     /**
@@ -231,10 +306,35 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             return false;
         } else {
             activeAccount = accounts.get(accountName);
-            internalExpenditureList.setExpenditures(activeAccount.getExpByDate(activeDate));
-            internalRepeatList.setAll(activeAccount.getRepeatByDate(activeDate));
+            resetFromActiveAccount();
             return true;
         }
+    }
+
+    public MonthlySpendingCalculator getMonthlySpending() {
+        YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
+        return this.activeAccount.calculateMonthly(givenYearMonth);
+    }
+
+    public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+        return this.activeAccount.calculateMonthly(givenYearMonth);
+    }
+
+
+    public MonthlySpendingCalculator getMonthlySpending(String newAccount) {
+        YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
+        Account acc = accounts.get(newAccount);
+        return acc.calculateMonthly(givenYearMonth);
+    }
+
+
+
+
+
+
+    @Override
+    public String getActiveAccount() {
+        return activeAccount.getAccountName();
     }
 
     @Override
@@ -248,7 +348,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         this.accounts.keySet().iterator().forEachRemaining(accName -> list.append(accName + " "));
         //this is too ugly, so i turn into an array then reformat to look better.
         //return list.toString().trim();
-        String [] allName = list.toString().trim().split(" ");
+        String [] allName = list.toString().trim().split("\\s+");
         StringBuilder output = new StringBuilder();
         for (int i = 1; i <= allName.length; i++) {
             if (i % 8 == 0) {
@@ -259,14 +359,34 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         return output.toString().trim();
     }
 
+    /**
+     * resets the data in the displayed list and gets data from the active account
+     */
+    private void resetFromActiveAccount() {
+        displayedBaseExpList.setAll(new ArrayList<>());
+        displayedBaseExpList.addAll(activeAccount.getExpByDate(activeDate).asUnmodifiableObservableList());
+        expAddIndex = displayedBaseExpList.size();
+        displayedBaseExpList.addAll(activeAccount.getRepeatByDate(activeDate));
+    }
+
     @Override
     public ObservableList<Expenditure> getExpenditureList() {
-        return internalExpenditureList.asUnmodifiableObservableList();
+        return FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(displayedBaseExpList.stream()
+                .filter(baseExp -> baseExp instanceof Expenditure)
+                .map(exp -> (Expenditure) exp).collect(Collectors.toList())));
     }
 
     @Override
     public ObservableList<Repeat> getRepeatList() {
-        return FXCollections.unmodifiableObservableList(internalRepeatList);
+        return FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(displayedBaseExpList.stream()
+                .filter(baseExp -> baseExp instanceof Repeat)
+                .map(exp -> (Repeat) exp).collect(Collectors.toList())));
+    }
+
+    public ObservableList<BaseExp> getBaseExpList() {
+        return FXCollections.unmodifiableObservableList(displayedBaseExpList);
     }
 
     @Override
@@ -278,7 +398,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
     @Override
     public String toString() {
-        return "AccountList: " + internalExpenditureList.toString();
+        return "AccountList: " + displayedBaseExpList.toString();
     }
 
 }

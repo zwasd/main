@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
@@ -45,4 +46,6 @@ public interface ReportableAccount {
      * @return a list containing the repeats on that date
      */
     ObservableList<Repeat> getRepeatByDate(LocalDate date);
+
+    Map<Repeat, ArrayList> getRepeatFromToInclusive(Date startDate, Date endDate);
 }

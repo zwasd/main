@@ -17,32 +17,31 @@
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
             <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
+                <Insets bottom="5" left="15" right="15" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label fx:id="repeatNumber" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="repeatInfo" styleClass="cell_big_label" text="\$first" />
-                <Label fx:id="repeatAmount" styleClass="cell_small_label" text="\$amount">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin></Label>
+                <Label fx:id="repeatTag" styleClass="cell_small_label">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
+                <Label fx:id="repeatInfo" styleClass="cell_big_label" text="\$first" wrapText="true">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
             </HBox>
-            <FlowPane fx:id="repeatTags" />
+            <HBox alignment="CENTER_RIGHT">
+                <Label fx:id="repeatAmount" styleClass="cell_big_label" />
+            </HBox>
             <HBox alignment="CENTER_LEFT">
-                <children>
-                    <Label text="Start : " />
-                    <Label fx:id="repeatStartDateInput" text="input   " />
-                    <Label text="End : ">
-                  <HBox.margin>
-                     <Insets left="5.0" />
-                  </HBox.margin></Label>
-                    <Label fx:id="repeatEndDateInput" text="input" />
-                </children>
+                 <Label fx:id="repeatDetails" styleClass="cell_small_label" wrapText="true" />
             </HBox>
         </VBox>
         <rowConstraints>

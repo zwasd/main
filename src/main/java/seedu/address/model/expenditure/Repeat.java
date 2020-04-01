@@ -1,16 +1,22 @@
 package seedu.address.model.expenditure;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 
+import javafx.scene.layout.Region;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.RepeatCard;
+import seedu.address.ui.UiPart;
 
 /**
  * A Repeated expenditure.
  */
-public class Repeat {
+public class Repeat extends BaseExp {
 
     public static final String PERIOD_MESSAGE_CONSTRAINTS = "Period should be only: '"
             + Period.DAILY.toString() + "', '"
@@ -20,10 +26,11 @@ public class Repeat {
 
     private Date startDate;
     private Date endDate;
-    private Info info;
-    private Amount amount;
-    private Tag tag;
+    // displayDate is empty, size 0 means daily.
+    // non empty means weekly or monthly -> cos i will at least add one day inside.
+    private HashSet<LocalDate> relevantDate;
     private Period period;
+
     /**
      * Represents the frequency
      * of repeat expenditure.
@@ -53,20 +60,7 @@ public class Repeat {
         public String toString() {
             return keyword;
         }
-    }
 
-    // displayDate is empty, size 0 means daily.
-    // non empty means weekly or monthly -> cos i will at least add one day inside.
-    private HashSet<LocalDate> relevantDate;
-
-    public Repeat(Info info, Amount amount, Date startDate, Date endDate, String period) {
-        this.info = info;
-        this.amount = amount;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        setPeriod(period);
-        relevantDate = new HashSet<>();
-        generateRelevantDate();
     }
 
     public Repeat(Info info, Amount amount, Date startDate, Date endDate, Tag tag, String period) {
@@ -78,6 +72,11 @@ public class Repeat {
         setPeriod(period);
         relevantDate = new HashSet<>();
         generateRelevantDate();
+    }
+
+    @Override
+    public UiPart<Region> getUiCard(int displayedNumber) {
+        return new RepeatCard(this, displayedNumber);
     }
 
     /**
@@ -102,14 +101,6 @@ public class Repeat {
     }
 
 
-    public Info getInfo() {
-        return info;
-    }
-
-    public Amount getAmount() {
-        return amount;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
@@ -120,10 +111,6 @@ public class Repeat {
 
     public Period getPeriod() {
         return period;
-    }
-
-    public Tag getTag() {
-        return tag;
     }
 
     public void setInfo(Info newInfo) {
@@ -177,12 +164,14 @@ public class Repeat {
     private void generateWeeklyDate() {
         this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
+        int i = 0;
         while (true) {
-            this.relevantDate.add(pivotDate);
-            pivotDate.plusWeeks(1);
-            if (pivotDate.isAfter(this.endDate.localDate)) {
+            LocalDate toStore = pivotDate.plusWeeks(i);
+            if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
+            this.relevantDate.add(toStore);
+            i++;
         }
     }
 
@@ -254,6 +243,82 @@ public class Repeat {
     private boolean checkWeeklyOrMonthlyOrAnnually(LocalDate targetDate) {
         return this.relevantDate.contains(targetDate);
     }
+
+
+    /**
+     * Do note that this method will only be call if period is not daily.
+     * Get all the date from the relevantDate that falls in the given YearMonth.
+     * @param givenYearMonth target YearMonth.
+     * @return an arrayList of all the dates that follows within the YearMonth.
+     */
+    private ArrayList<LocalDate> isOnYearMonth(YearMonth givenYearMonth) {
+        ArrayList <LocalDate> allDateWithinGivenYearMonth = new ArrayList<>();
+        Iterator iterator = relevantDate.iterator();
+        while (iterator.hasNext()) {
+            LocalDate temp = (LocalDate) iterator.next();
+            if (YearMonth.from(temp).equals(givenYearMonth)) {
+                allDateWithinGivenYearMonth.add(temp);
+            }
+        }
+        return allDateWithinGivenYearMonth;
+    }
+
+    /**
+     * Calculate the total value for the given YearMonth and period is "DAILY".
+     * @param givenYearMonth the target YearMonth
+     * @return the total value of that period.
+     */
+    private double calculateDaily(YearMonth givenYearMonth) {
+        if (YearMonth.from(startDate.localDate).isAfter(givenYearMonth)
+                || YearMonth.from(endDate.localDate).isBefore(givenYearMonth)) {
+            return 0;
+        } else {
+            double total;
+            if (YearMonth.from(startDate.localDate).equals((givenYearMonth))) {
+                // Start date is in the same month of the given year month.
+                if (YearMonth.from(endDate.localDate).equals((givenYearMonth))) {
+                    // End date is in the same month of the given year month.
+                    int totalDays = this.startDate.localDate.until(this.endDate.localDate).getDays();
+                    total = totalDays * this.amount.value;
+                } else {
+                    // End date is not in the same month of the given year month.
+                    int totalNumberOfDaysInTheMonth = givenYearMonth.lengthOfMonth();
+                    int totalNumberOfCountableDays = totalNumberOfDaysInTheMonth
+                            - this.startDate.localDate.getDayOfMonth() + 1;
+                    total = totalNumberOfCountableDays * this.amount.value;
+                }
+                return total;
+            } else {
+                // Start date is before the given YearMonth
+                if (YearMonth.from(endDate.localDate).isAfter(givenYearMonth)) {
+                    // End date is after the given YearMonth
+                    total = givenYearMonth.lengthOfMonth() * this.amount.value;
+                } else {
+                    // End date is within the given YearMonth
+                    int countableDays = this.endDate.localDate.getDayOfMonth();
+                    total = countableDays * this.amount.value;
+                }
+                return total;
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public double calculateForGivenYearMonth(YearMonth givenYearMonth) {
+        if (this.period == Period.DAILY) {
+            return calculateDaily(givenYearMonth);
+        } else {
+            int totalNumOfDays = isOnYearMonth(givenYearMonth).size();
+            double total = totalNumOfDays * this.amount.value;
+            return total;
+        }
+    }
+
+
+
+
 
 
     /**

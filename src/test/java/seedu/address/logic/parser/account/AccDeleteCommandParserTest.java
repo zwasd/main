@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.account.AccAddCommand;
 import seedu.address.logic.commands.account.AccDeleteCommand;
 
 public class AccDeleteCommandParserTest {
@@ -18,10 +19,14 @@ public class AccDeleteCommandParserTest {
 
     @Test
     public void parseInvalidArgs_nameContainSpace_parseException() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.NAME_CONTAIN_SPACE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.MESSAGE_USAGE);
+
+        String expectedMessage1 = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AccAddCommand.NAME_CONTAIN_SPACE + "\n" + AccDeleteCommand.MESSAGE_USAGE);
+
 
         // contains space
-        assertParseFailure(parser, "my account", expectedMessage);
+        assertParseFailure(parser, "my account", expectedMessage1);
 
         // empty
         assertParseFailure(parser, "", expectedMessage);
@@ -29,7 +34,8 @@ public class AccDeleteCommandParserTest {
 
     @Test
     public void parseInvalidArgs_nameTooLong_parseException() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.NAME_TOO_LONG);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_TOO_LONG
+                + "\n" + AccDeleteCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, "thisIsAVeryLongAccountName", expectedMessage);
     }

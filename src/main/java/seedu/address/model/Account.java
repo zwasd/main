@@ -3,7 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,11 @@ import java.util.stream.StreamSupport;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
+import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
@@ -26,19 +33,21 @@ import seedu.address.model.expenditure.exceptions.RepeatNotFoundException;
 public class Account implements ReadOnlyAccount, ReportableAccount {
 
     private final UniqueExpenditureList expenditures;
+    private final BudgetMap budgetList;
     private ObservableList<Repeat> repeats;
     private final String accountName;
+    private MonthlySpendingCalculator calculator;
 
-    /*
+     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         expenditures = new UniqueExpenditureList();
         repeats = FXCollections.observableArrayList();
+        budgetList = new BudgetMap();
     }
 
     public Account() {
@@ -80,6 +89,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public void resetData(ReadOnlyAccount newData) {
         requireNonNull(newData);
         setExpenditures(newData.getExpenditureList());
+        repeats.setAll(new ArrayList<>());
     }
 
     //// expenditure-level operations
@@ -122,6 +132,17 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     /**
+     * Replaces the given expenditure {@code target} in the list with {@code editedExpenditure}.
+     * {@code target} must exist in the address book.
+     * The expenditure identity of {@code editedExpenditure} must not be the same as another
+     * existing expenditure in the address book.
+     */
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireNonNull(editedRepeat);
+        repeats.set(repeats.indexOf(target), editedRepeat);
+    }
+
+    /**
      * Removes {@code key} from this {@code Account}.
      * {@code key} must exist.
      */
@@ -136,6 +157,98 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         if (!repeats.remove(repeat)) {
             throw new RepeatNotFoundException();
         }
+    }
+
+    /**
+     * Add or reset a budget to the budgetList.
+     *
+     * @param budget contains amount and the yearMonth.
+     */
+    public void setBudget(Budget budget) {
+        requireNonNull(budget);
+        //This can use to reset the budget too.
+        this.budgetList.setBudget(budget);
+    }
+
+    public void setBudget(YearMonth yearMonth, Amount amount) {
+        requireNonNull(yearMonth);
+        requireNonNull(amount);
+        this.budgetList.setBudget(new Budget(yearMonth, amount));
+    }
+
+    /**
+     * Obtain the budget object for a given yearMonth.
+     *
+     * @param yearMonth the target month you are looking for.
+     * @return If the budget is within the [@code budgetList], return it.
+     * Else return a budget object with 0 amount.
+     */
+    public Double getBudget(YearMonth yearMonth) {
+        requireNonNull(yearMonth);
+        return budgetList.get(yearMonth);
+    }
+
+    /**
+     * Obtain the budget object for a given yearMonth.
+     *
+     * @param yearMonth the target month you are looking for.
+     * @return If the budget is within the [@code budgetList], return it.
+     * Else return a budget object with 0 amount.
+     */
+    public double getBudget(String yearMonth) throws ParseException {
+        requireNonNull(yearMonth);
+        try {
+            YearMonth targetYearMonth = ParserUtil.parseYearMonth(yearMonth);
+            return getBudget(targetYearMonth);
+        } catch (Exception e) {
+            throw new ParseException("Year Month need to be in a format of : YYYY-MM");
+        }
+    }
+
+    public BudgetMap getBudgetList() {
+        return budgetList;
+    }
+
+
+    private void setCalculator(YearMonth givenYearMonth) {
+        this.calculator = new MonthlySpendingCalculator(getBudget(givenYearMonth), expenditures, repeats,
+                givenYearMonth);
+    }
+
+
+    /**
+     * Calculate total expenditure amount for a given YearMonth.
+     *
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount for all the expenditure.
+     */
+    private double calculateMonthlyExpenditure(YearMonth givenYearMonth) {
+        return this.expenditures.calculateExpenditureAmount(givenYearMonth);
+    }
+
+    /**
+     * Calculate total repeat amount for a given YearMonth.
+     *
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount for all the repeat.
+     */
+    private double calculateMonthlyRepeat(YearMonth givenYearMonth) {
+        double total = 0;
+        for (int i = 0; i < repeats.size(); i++) {
+            total += this.repeats.get(i).calculateForGivenYearMonth(givenYearMonth);
+        }
+        return total;
+    }
+
+    /**
+     * Calculate total amount of a given YearMonth.
+     *
+     * @param givenYearMonth target YearMonth.
+     * @return a double which the total amount.
+     */
+    public MonthlySpendingCalculator calculateMonthly(YearMonth givenYearMonth) {
+        setCalculator(givenYearMonth);
+        return this.calculator;
     }
 
     //// util methods
@@ -162,7 +275,8 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         return other == this // short circuit if same object
                 || (other instanceof Account // instanceof handles nulls
                 && accountName.equals(((Account) other).accountName)
-                && expenditures.equals(((Account) other).expenditures));
+                && expenditures.equals(((Account) other).expenditures)
+                && repeats.equals(((Account) other).repeats));
     }
 
     @Override
@@ -176,12 +290,53 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 repeats.stream().filter(repeat -> repeat.isOn(date)).collect(Collectors.toList()));
     }
 
+    //TODO: add for monthly and annually.
+    @Override
+    public Map<Repeat, ArrayList> getRepeatFromToInclusive(Date startDate, Date endDate) {
+        HashMap<Repeat, ArrayList> repMap = new HashMap();
+
+        //add daily repeats
+        repeats.stream().filter(repeat -> repeat.getPeriod() == Repeat.Period.DAILY
+                && Date.isEqualOrAfter(repeat.getEndDate(), startDate)
+        ).forEach(repeat -> {
+            if (Date.isEqualOrBefore(repeat.getEndDate(), endDate)) {
+
+                Date currentDay = startDate;
+
+                if (Date.isEqualOrAfter(repeat.getStartDate(), startDate)) {
+                    currentDay = repeat.getStartDate();
+                }
+
+                Date repeatEnd = repeat.getEndDate();
+
+                if (!repMap.containsKey(repeat)) {
+                    ArrayList list = new ArrayList();
+                    list.add(currentDay);
+                    list.add(repeatEnd);
+                    repMap.put(repeat, list);
+                }
+            } else {
+                Date currentDay = repeat.getStartDate();
+                Date repeatEnd = endDate;
+                if (!repMap.containsKey(repeat)) {
+                    ArrayList list = new ArrayList();
+                    list.add(currentDay);
+                    list.add(repeatEnd);
+                    repMap.put(repeat, list);
+                }
+
+            }
+        });
+
+        return repMap;
+    }
+
     @Override
     public UniqueExpenditureList getExpByDate(String date) {
         return new UniqueExpenditureList(
                 getExpenditureStream()
-                    .filter(exp -> exp.getDate().toString().equals(date))
-                    .collect(Collectors.toList())
+                        .filter(exp -> exp.getDate().toString().equals(date))
+                        .collect(Collectors.toList())
         );
     }
 
@@ -200,7 +355,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         Map<String, UniqueExpenditureList> expMap = new HashMap<>();
         getExpenditureStream()
                 .filter(exp -> Date.isEqualOrBefore(start, exp.getDate())
-                            && Date.isEqualOrBefore(exp.getDate(), end))
+                        && Date.isEqualOrBefore(exp.getDate(), end))
                 .forEach(exp -> {
                     String date = exp.getDate().toString();
                     if (!expMap.containsKey(date)) {

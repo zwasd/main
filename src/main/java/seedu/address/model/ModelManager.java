@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +14,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -26,6 +30,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Expenditure> filteredExpenditures;
     private final FilteredList<Repeat> filteredRepeats;
+    private final FilteredList<BaseExp> filteredBaseExp;
 
     /**
      * Initializes a ModelManager with the given account and userPrefs.
@@ -41,6 +46,7 @@ public class ModelManager implements Model {
 
         filteredExpenditures = this.accountList.getExpenditureList().filtered(PREDICATE_SHOW_ALL_EXPENDITURES);
         filteredRepeats = this.accountList.getRepeatList().filtered(PREDICATE_SHOW_ALL_REPEATS);
+        filteredBaseExp = this.accountList.getBaseExpList().filtered(PREDICATE_SHOW_ALL_BASEEXP);
     }
 
     public ModelManager() {
@@ -108,18 +114,30 @@ public class ModelManager implements Model {
     @Override
     public void addExpenditure(Expenditure expenditure) {
         accountList.addExpenditure(expenditure);
-        updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        showAll();
     }
 
     @Override
     public void addRepeat(Repeat repeat) {
         accountList.addRepeat(repeat);
+        showAll();
+    }
+
+    @Override
+    public void deleteRepeat(Repeat target) {
+        accountList.removeRepeat(target);
     }
 
     @Override
     public void setExpenditure(Expenditure target, Expenditure editedExpenditure) {
         requireAllNonNull(target, editedExpenditure);
         accountList.setExpenditure(target, editedExpenditure);
+    }
+
+    @Override
+    public void setRepeat(Repeat target, Repeat editedRepeat) {
+        requireAllNonNull(target, editedRepeat);
+        accountList.setRepeat(target, editedRepeat);
     }
 
     //=========== Filtered Expenditure List Accessors =============================================================
@@ -139,16 +157,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<BaseExp> getFilteredBaseExpList() {
+        return filteredBaseExp;
+    }
+
+    @Override
     public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
         requireNonNull(predicate);
         filteredExpenditures.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredBaseExpList(Predicate<BaseExp> predicate) {
+        requireNonNull(predicate);
+        filteredBaseExp.setPredicate(predicate);
+    }
+
     /**
      * Displays all repeats and expenditures
      */
-    public void showAll() {
+    private void showAll() {
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+        updateFilteredBaseExpList(PREDICATE_SHOW_ALL_BASEEXP);
         // TODO
     }
 
@@ -157,19 +187,19 @@ public class ModelManager implements Model {
         if (!accountList.updateActiveAccount(accountName)) {
             return false;
         } else {
-            updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
+            showAll();
             return true;
         }
     }
 
     @Override
-    public void renameAccount(String oldName, String newName) {
-        this.accountList.renameAccount(oldName, newName);
+    public String renameAccount(String oldName, String newName) throws CommandException {
+        return this.accountList.renameAccount(oldName, newName);
     }
 
     @Override
-    public void deleteAccount(String name) {
-        this.accountList.deleteAccount(name);
+    public String deleteAccount(String name) throws CommandException {
+        return this.accountList.deleteAccount(name);
     }
 
     public void clearActiveAccount() {
@@ -187,6 +217,36 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public LocalDate getActiveDate() {
+        return accountList.getActiveDate();
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        this.accountList.setBudget(budget);
+    }
+
+    @Override
+    public BudgetMap getBudgets() {
+        return this.accountList.getBudgets();
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending() {
+        return this.accountList.getMonthlySpending();
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+        return this.accountList.getMonthlySpending(givenYearMonth);
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(String newActiveAccount) {
+        return this.accountList.getMonthlySpending(newActiveAccount);
+    }
+
+    @Override
     public void addAccount(Account account) throws CommandException {
         try {
             this.accountList.addAccount(account);
@@ -195,6 +255,8 @@ public class ModelManager implements Model {
                     + " already exists! Unable to add.");
         }
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

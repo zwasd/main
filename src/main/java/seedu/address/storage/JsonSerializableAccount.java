@@ -1,6 +1,8 @@
 package seedu.address.storage;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.Account;
+import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 
@@ -24,6 +27,7 @@ class JsonSerializableAccount {
 
     private final List<JsonAdaptedExpenditure> expenditures = new ArrayList<>();
     private final List<JsonAdaptedRepeat> repeats = new ArrayList<>();
+    private final HashMap<YearMonth, Double> budgets = new HashMap<>();
     private final String accountName;
 
     /**
@@ -32,10 +36,12 @@ class JsonSerializableAccount {
     @JsonCreator
     public JsonSerializableAccount(@JsonProperty("accountName") String accountName,
                                    @JsonProperty("expenditures") List<JsonAdaptedExpenditure> expenditures,
-                                   @JsonProperty("repeats") List<JsonAdaptedRepeat> repeats) {
+                                   @JsonProperty("repeats") List<JsonAdaptedRepeat> repeats,
+                                   @JsonProperty("budgets") HashMap<YearMonth, Double> budgets) {
         this.accountName = accountName;
         this.expenditures.addAll(expenditures);
         this.repeats.addAll(repeats);
+        this.budgets.putAll(budgets);
     }
 
     /**
@@ -48,6 +54,7 @@ class JsonSerializableAccount {
                 .collect(Collectors.toList()));
         repeats.addAll(source.getRepeatList().stream().map(JsonAdaptedRepeat::new).collect(Collectors.toList()));
         accountName = source.getAccountName();
+        budgets.putAll(source.getBudgetList().getBudgets());
     }
 
     /**
@@ -64,6 +71,9 @@ class JsonSerializableAccount {
         for (JsonAdaptedRepeat jsonAdaptedRepeat : repeats) {
             Repeat repeat = jsonAdaptedRepeat.toModelType();
             account.addRepeat(repeat);
+        }
+        for (YearMonth yearMonth : budgets.keySet()) {
+            account.setBudget(yearMonth, new Amount(budgets.get(yearMonth)));
         }
         return account;
     }

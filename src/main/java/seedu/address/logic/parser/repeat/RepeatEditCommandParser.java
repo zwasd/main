@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.expenditure.ExpEditCommand;
 import seedu.address.logic.commands.repeat.RepeatEditCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -41,7 +40,8 @@ public class RepeatEditCommandParser implements Parser<RepeatEditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpEditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RepeatEditCommand.MESSAGE_USAGE), pe);
         }
 
         RepeatEditCommand.EditRepeatDescriptor editRepeatDescriptor = new RepeatEditCommand.EditRepeatDescriptor();

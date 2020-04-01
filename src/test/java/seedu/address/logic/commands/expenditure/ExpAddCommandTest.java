@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -17,15 +18,19 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 // import seedu.address.model.Account;
 // import seedu.address.model.AccountList;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
 // import seedu.address.model.ReadOnlyAccount;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReportableAccount;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.BudgetMap;
+import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.testutil.ExpenditureBuilder;
@@ -48,15 +53,14 @@ public class ExpAddCommandTest {
         assertEquals(Arrays.asList(validExpenditure), modelStub.expendituresAdded);
     }
 
-    @Test
-    public void execute_duplicateExpenditure_throwsCommandException() {
-        Expenditure validExpenditure = new ExpenditureBuilder().build();
-        ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
-        ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
-
-        assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
-                expAddCommand.execute(modelStub));
-    }
+    // @Test
+    // public void execute_duplicateExpenditure_throwsCommandException() {
+    //     Expenditure validExpenditure = new ExpenditureBuilder().build();
+    //     ExpAddCommand expAddCommand = new ExpAddCommand(validExpenditure);
+    //     ModelStub modelStub = new ModelStubWithExpenditure(validExpenditure);
+    //     assertThrows(CommandException.class, ExpAddCommand.MESSAGE_DUPLICATE_EXPENDITURE, () ->
+    //             expAddCommand.execute(modelStub));
+    // }
 
     @Test
     public void equals() {
@@ -127,6 +131,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public void deleteRepeat(Repeat target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAccountList(ReadOnlyAccountList newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -152,6 +161,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public void setRepeat(Repeat target, Repeat editedRepeat) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Expenditure> getFilteredExpenditureList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -162,7 +176,17 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public ObservableList<BaseExp> getFilteredBaseExpList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredExpenditureList(Predicate<Expenditure> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredBaseExpList(Predicate<BaseExp> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -177,12 +201,12 @@ public class ExpAddCommandTest {
         }
 
         @Override
-        public void renameAccount(String oldName, String newName) {
+        public String renameAccount(String oldName, String newName) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteAccount(String name) {
+        public String deleteAccount(String name) throws CommandException {
             throw new AssertionError("This method should not be called");
         }
 
@@ -198,6 +222,36 @@ public class ExpAddCommandTest {
 
         @Override
         public void updateActiveDate(LocalDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public LocalDate getActiveDate() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public BudgetMap getBudgets() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending(String newActiveAccount) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -236,6 +290,11 @@ public class ExpAddCommandTest {
         public void addExpenditure(Expenditure expenditure) {
             requireNonNull(expenditure);
             expendituresAdded.add(expenditure);
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending() {
+            return new MonthlySpendingCalculator(null, null, null, null);
         }
 
         @Override

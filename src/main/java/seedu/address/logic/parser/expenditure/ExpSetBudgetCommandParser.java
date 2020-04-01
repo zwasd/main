@@ -2,10 +2,9 @@ package seedu.address.logic.parser.expenditure;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARMONTH;
 
-import java.time.LocalDate;
-import java.util.Optional;
+import java.time.YearMonth;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
@@ -16,7 +15,6 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.Amount;
-import seedu.address.model.expenditure.Date;
 
 /**
  * Parse set budget.
@@ -29,35 +27,17 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
     public ExpSetBudgetCommand parse(String userInput) throws ParseException {
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_AMOUNT, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(userInput, PREFIX_AMOUNT, PREFIX_YEARMONTH);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpSetBudgetCommand.MESSAGE_FAIL));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Optional<String> dateOpt = argMultimap.getValue(PREFIX_DATE);
-        String dateStr;
-
-        if (dateOpt.isEmpty()) {
-
-            int dateNowYear = LocalDate.now().getYear();
-            int dateNowMonth = LocalDate.now().getMonthValue();
-
-            if (dateNowMonth < 10) {
-                //f month is before oct, append a 0 to dateNowMonth to get MM format
-                dateStr = dateNowYear + "-0" + dateNowMonth + "-01";
-            } else {
-                dateStr = dateNowYear + "-" + dateNowMonth + "-01";
-            }
-        } else {
-            dateStr = dateOpt.get() + "-01";
-        }
-
-        Date date = new Date(dateStr);
-
-        return new ExpSetBudgetCommand(date, amount);
+        YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEARMONTH)
+                .orElseGet(() -> new StringBuilder()
+                        .toString()));
+        return new ExpSetBudgetCommand(yearMonth, amount);
     }
 
     /**

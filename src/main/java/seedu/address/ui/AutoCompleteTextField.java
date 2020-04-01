@@ -66,8 +66,9 @@ public class AutoCompleteTextField extends TextField {
         // TODO: remove this part and make use of AutoCompleteMenuItem
         entries.addAll(Arrays.asList(
             "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
-            "exp add", "exp delete", "exp edit", "exp find", "exp repeat", "exp setbudget",
-            "report view", "report export", "go", "help", "exit"
+            "exp add", "exp delete", "exp edit", "exp setbudget",
+            "repeat add", "repeat edit", "repeat delete",
+            "report view", "report export", "report print ", "go", "go today", "help", "exit", "find"
         ));
     }
 
@@ -98,6 +99,7 @@ public class AutoCompleteTextField extends TextField {
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
                     entriesPopup.hide();
+                    AutoCompleteTextField.this.end();
                 }
             });
             menuItems.add(item);

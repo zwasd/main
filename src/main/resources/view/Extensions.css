@@ -9,7 +9,6 @@
 }
 
 
-
 .tag-selector {
     -fx-border-width: 1;
     -fx-border-color: white;
@@ -17,18 +16,24 @@
     -fx-background-radius: 3;
 }
 
-.tooltip-text {
-    -fx-text-fill: white;
-}
-
 #leftButton {
-    -fx-background-color: MEDIUMPURPLE;
     -fx-border-width: 0;
+    -fx-background-radius: 26em;
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+    -fx-background-color: #ffffff;
 }
 
 #rightButton {
-    -fx-background-color: MEDIUMPURPLE;
     -fx-border-width: 0;
+    -fx-background-radius: 26em;
+    -fx-min-width: 26px;
+    -fx-min-height: 26px;
+    -fx-max-width: 26px;
+    -fx-max-height: 26px;
+    -fx-background-color: #ffffff;
 }
 
 #monthYearLabel {
@@ -55,3 +60,18 @@
     -fx-font-size: 12;
 }
 
+.activeNameAndDate {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+.vBoxBackground {
+    -fx-background: #383838;
+}
+
+#reportButton {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}

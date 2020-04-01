@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 
@@ -19,9 +20,14 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
 
+    public static final String YEARMONTH_MESSAGE_CONSTRAINTS = "Year and Month should be in the format of (YYYY-MM), "
+                                                                + "and it should not be blank";
+
     public final String value;
 
     public final LocalDate localDate;
+
+    private final YearMonth yearMonth;
 
     /**
      * Constructs an {@code Date}.
@@ -33,10 +39,11 @@ public class Date {
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
         localDate = LocalDate.parse(date, FORMATTER);
+        this.yearMonth = YearMonth.of(localDate.getYear(), localDate.getMonthValue());
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
         try {
@@ -45,6 +52,27 @@ public class Date {
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if a given string is a valid year month.
+     */
+    public static boolean isValidYearMonth(String test) {
+        try {
+            LocalDate date = LocalDate.parse(test + "-01", FORMATTER);
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Check if the date fall on a given YearMonth.
+     * @param givenYearMonth the given year month which we want to check.
+     * @return a boolean.
+     */
+    public boolean isOn (YearMonth givenYearMonth) {
+        return this.yearMonth.equals(givenYearMonth);
     }
 
     @Override
@@ -72,6 +100,10 @@ public class Date {
      */
     public static boolean isEqualOrBefore(Date d1, Date d2) {
         return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
+    }
+
+    public static boolean isEqualOrAfter(Date d1, Date d2) {
+        return d1.value.equals(d2.value) || d1.localDate.isAfter(d2.localDate);
     }
 
 }
