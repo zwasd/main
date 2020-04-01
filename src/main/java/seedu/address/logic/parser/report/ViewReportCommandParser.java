@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.report;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_GRAPH_TYPE;
 
 import seedu.address.logic.commands.report.ViewReportCommand;
@@ -10,7 +11,7 @@ import seedu.address.model.Report;
 import seedu.address.model.expenditure.Date;
 
 /**
- * Parse view report.
+ * Parses view report.
  */
 public class ViewReportCommandParser implements Parser<ViewReportCommand> {
     public ViewReportCommandParser() {
@@ -35,12 +36,12 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
             startDate = new Date(startDateStr);
             endDate = new Date(endDateStr);
         } catch (Exception e) {
-            throw new ParseException(String.format("Date should be in YYYY-MM-DD format",
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE,
                     ViewReportCommand.MESSAGE_USAGE));
         }
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
-            throw new ParseException(String.format("End date should be before start date",
+            throw new ParseException(String.format(MESSAGE_INVALID_DATE,
                     ViewReportCommand.MESSAGE_USAGE));
         }
 
@@ -56,7 +57,7 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
             break;
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_GRAPH_TYPE,
-                    ViewReportCommand.MESSAGE_USAGE));
+                ViewReportCommand.MESSAGE_USAGE));
         }
         Report report = new Report(startDate, endDate, graphType);
 

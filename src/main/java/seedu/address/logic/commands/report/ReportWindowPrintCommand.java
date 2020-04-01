@@ -6,17 +6,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Exit command for report window.
+ * Prints the report.
  */
-public class ReportWindowExitCommand extends ReportCommand {
 
-    public static final String MESSAGE_EXIT = "Exiting report window!";
-    public ReportWindowExitCommand() {
+public class ReportWindowPrintCommand extends ReportCommand {
 
-    }
+    public static final String MESSAGE_SUCCESS = "Printing report.";
 
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
-        return new ReportCommandResult(MESSAGE_EXIT, true, false, false);
+        return new ReportCommandResult(MESSAGE_SUCCESS, false, false, true);
     }
 }
