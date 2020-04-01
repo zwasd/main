@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -293,6 +294,11 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
             resetFromActiveAccount();
             return true;
         }
+    }
+
+    public MonthlySpendingCalculator getMonthlySpending() {
+        YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
+        return this.activeAccount.calculateMonthly(givenYearMonth);
     }
 
     @Override

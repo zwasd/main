@@ -14,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.Repeat;
 
 
@@ -54,7 +55,10 @@ public class RepeatAddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addRepeat(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
+
     }
 
     @Override

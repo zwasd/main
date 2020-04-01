@@ -36,6 +36,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     private final BudgetMap budgetList;
     private ObservableList<Repeat> repeats;
     private final String accountName;
+    private MonthlySpendingCalculator calculator;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -206,37 +207,14 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         return budgetList;
     }
 
-    /**
-     * Calculate total expenditure amount for a given YearMonth.
-     * @param givenYearMonth target YearMonth.
-     * @return a double which the total amount for all the expenditure.
-     */
-    private double calculateMonthlyExpenditure(YearMonth givenYearMonth) {
-        return this.expenditures.calculateExpenditureAmount(givenYearMonth);
+    private void setCalculator(YearMonth givenYearMonth) {
+        this.calculator = new MonthlySpendingCalculator(getBudget(givenYearMonth), expenditures, repeats, givenYearMonth);
     }
 
-    /**
-     * Calculate total repeat amount for a given YearMonth.
-     * @param givenYearMonth target YearMonth.
-     * @return a double which the total amount for all the repeat.
-     */
-    private double calculateMonthlyRepeat(YearMonth givenYearMonth) {
-        double total = 0;
-        for (int i = 0; i < repeats.size(); i++) {
-            total += this.repeats.get(i).calculateForGivenYearMonth(givenYearMonth);
-        }
-        return total;
+    public MonthlySpendingCalculator calculateMonthly(YearMonth givenYearMonth) {
+        setCalculator(givenYearMonth);
+        return this.calculator;
     }
-
-    /**
-     * Calculate total amount of a given YearMonth.
-     * @param givenYearMonth target YearMonth.
-     * @return a double which the total amount.
-     */
-    public double getTotalMonthlySpending(YearMonth givenYearMonth) {
-        return calculateMonthlyExpenditure(givenYearMonth) + calculateMonthlyExpenditure(givenYearMonth);
-    }
-
 
     //// util methods
 

@@ -18,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
@@ -85,7 +86,9 @@ public class ExpEditCommand extends Command {
         }
 
         model.setExpenditure(expenditureToEdit, editedExpenditure);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_EDIT_EXPENDITURE_SUCCESS, editedExpenditure),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     /**

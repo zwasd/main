@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 
 
 /**
@@ -33,10 +34,15 @@ public class GoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.updateActiveDate(toDate);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
         if (fromUi) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate),
+                    monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
+
         } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate,
+                    monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
+
         }
     }
 

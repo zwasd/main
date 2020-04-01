@@ -22,6 +22,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Account;
 import seedu.address.model.Model;
 // import seedu.address.model.ReadOnlyAccount;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.ReadOnlyAccountList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ReportableAccount;
@@ -234,6 +235,11 @@ public class ExpAddCommandTest {
 
         @Override
         public BudgetMap getBudgets() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -231,6 +231,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public MonthlySpendingCalculator getMonthlySpending() {
+        return this.accountList.getMonthlySpending();
+    }
+
+    @Override
     public void addAccount(Account account) throws CommandException {
         try {
             this.accountList.addAccount(account);
@@ -239,6 +244,8 @@ public class ModelManager implements Model {
                     + " already exists! Unable to add.");
         }
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

@@ -4,6 +4,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 
 /**
  * Delete account.
@@ -28,8 +29,9 @@ public class AccDeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         String newActiveAccountName = model.deleteAccount(this.targetAccountName);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
         return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName,
-                newActiveAccountName);
+                newActiveAccountName, monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override

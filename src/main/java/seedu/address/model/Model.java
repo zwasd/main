@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -166,5 +168,12 @@ public interface Model {
      * Obtains the hashmap of the budget.
      */
     BudgetMap getBudgets();
+
+    /**
+     * Obtains a MonthlySpendingCalculator for the current active yearMonth.
+     */
+    MonthlySpendingCalculator getMonthlySpending();
+
+
 
 }
