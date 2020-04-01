@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -15,6 +16,12 @@ public interface ReadOnlyAccountList extends ReadOnlyAccount {
      * @return a string which consists of all account name
      */
     String listAllName();
+
+    /**
+     * Gets the date of expenditures shown.
+     * @return The LocalDate date.
+     */
+    LocalDate getActiveDate();
 
     /**
      * Returns the active account in the account list.

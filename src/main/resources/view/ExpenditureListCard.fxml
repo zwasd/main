@@ -19,7 +19,7 @@
             <padding>
                 <Insets bottom="5" left="15" right="15" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <Label fx:id="number" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
@@ -31,21 +31,13 @@
                 </Label>
                 <Label fx:id="tag" styleClass="cell_small_label">
                     <HBox.margin>
-                        <Insets left="5" />
+                        <Insets />
                     </HBox.margin>
                 </Label>
-                <Label fx:id="info" styleClass="cell_big_label" text="\$first" wrapText="true">
-                    <HBox.margin>
-                        <Insets left="5" />
-                    </HBox.margin>
-                </Label>
+                <Label fx:id="info" styleClass="cell_big_label" text="\$first" wrapText="true" />
             </HBox>
             <HBox alignment="CENTER_RIGHT">
-                <Label fx:id="amount" styleClass="cell_big_label" text="\$amount">
-                    <VBox.margin>
-                        <Insets top="5.0" />
-                    </VBox.margin>
-                </Label>
+                <Label fx:id="amount" styleClass="cell_big_label" text="\$amount" />
             </HBox>
         </VBox>
       <rowConstraints>

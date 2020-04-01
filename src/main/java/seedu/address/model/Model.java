@@ -145,10 +145,21 @@ public interface Model {
 
     ReportableAccount getReportableAccount();
 
+    /**
+     * Changes the active date to the one stated.
+     * @param date New active date.
+     */
     void updateActiveDate(LocalDate date);
 
+    /**
+     * Obtains the active date being viewed.
+     */
     LocalDate getActiveDate();
 
+    /**
+     * Updates budget list with a budget detail.
+     * @param budget The budget detail.
+     */
     void setBudget(Budget budget);
 
     /**

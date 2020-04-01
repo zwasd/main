@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.expenditure.Repeat;
@@ -38,11 +37,9 @@ public class RepeatCard extends UiPart<Region> {
     @FXML
     private Label repeatAmount;
     @FXML
-    private Label repeatStartDate;
+    private Label repeatDetails;
     @FXML
-    private Label repeatEndDate;
-    @FXML
-    private FlowPane repeatTags;
+    private Label repeatTag;
 
     public RepeatCard(Repeat repeat, int displayedNumber) {
         super(FXML);
@@ -50,9 +47,12 @@ public class RepeatCard extends UiPart<Region> {
         repeatNumber.setText(displayedNumber + ". ");
         repeatInfo.setText(repeat.getInfo().fullInfo);
         repeatAmount.setText("$" + TWO_DP.format(repeat.getAmount().value));
-        repeatStartDate.setText(repeat.getStartDate().localDate.format(DTF));
-        repeatEndDate.setText(repeat.getEndDate().localDate.format(DTF));
-        repeatTags.getChildren().add(new Label(repeat.getTag().tagName));
+        repeatTag.setText(repeat.getTag().tagName);
+
+        String startDate = repeat.getStartDate().toString();
+        String endDate = repeat.getEndDate().toString();
+        String period = repeat.getPeriod().name();
+        repeatDetails.setText(String.format("Repeated %s from %s to %s", period, startDate, endDate));
     }
 
     @Override
