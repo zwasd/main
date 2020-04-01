@@ -8,6 +8,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -240,6 +241,16 @@ public class ExpAddCommandTest {
 
         @Override
         public MonthlySpendingCalculator getMonthlySpending() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlySpendingCalculator getMonthlySpending(String newActiveAccount) {
             throw new AssertionError("This method should not be called.");
         }
     }

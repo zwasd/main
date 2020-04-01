@@ -253,14 +253,15 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isUpdateBudgetView()) {
-                Boolean isExist = (Double) commandResult.getBudget() != null;
+                Boolean isExist = commandResult.getBudget() != null;
                 budgetView.setBudgetExist(isExist);
                 if (isExist) {
                     budgetView.setBudgetAmount(commandResult.getBudget());
                     budgetView.setTotalSpending(commandResult.getTotalSpending());
                     budgetView.updateView();
+                } else {
+                    budgetView.updateView();
                 }
-
             }
 
             return commandResult;

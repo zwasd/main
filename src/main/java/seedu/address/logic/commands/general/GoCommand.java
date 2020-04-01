@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.general;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -34,7 +35,8 @@ public class GoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.updateActiveDate(toDate);
-        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        YearMonth target = YearMonth.of(toDate.getYear(), toDate.getMonthValue());
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(target);
         if (fromUi) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toDate),
                     monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());

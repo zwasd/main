@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 
-import java.text.DecimalFormat;
 
 /**
  * budget window view.
@@ -40,7 +39,6 @@ public class BudgetView extends UiPart<Node> {
 
     public BudgetView() {
         super(FXML);
-        System.out.println("lol" + budgetExist);
         if (budgetExist) {
             display();
         } else {
@@ -48,6 +46,9 @@ public class BudgetView extends UiPart<Node> {
         }
     }
 
+    /**
+     * Update the budget view.
+     */
     public void updateView() {
         budgetWindow.getChildren().clear();
         if (budgetExist) {
@@ -123,7 +124,7 @@ public class BudgetView extends UiPart<Node> {
             budgetWindow.getChildren().add(pig);
         }
         budgetWindow.setSpacing(12);
-//        budgetWindow.setAlignment(Pos.CENTER);
+        budgetWindow.setAlignment(Pos.CENTER);
     }
 
 

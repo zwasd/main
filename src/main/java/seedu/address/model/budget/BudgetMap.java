@@ -18,9 +18,10 @@ public class BudgetMap {
         budgets.put(budget.getYearMonth(), budget.getBudget().value);
     }
 
-    public double get(YearMonth yearMonth) {
-        return budgets.get(yearMonth);
+    public Double get(YearMonth yearMonth) {
+        return budgets.getOrDefault(yearMonth, null);
     }
+
 
     public HashMap<YearMonth, Double> getBudgets() {
         return budgets;

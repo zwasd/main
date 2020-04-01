@@ -1,13 +1,18 @@
 package seedu.address.model;
 
+import java.time.YearMonth;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.UniqueExpenditureList;
 
-import java.time.YearMonth;
-
+/**
+ * Calculate monthly balance given the budget is set.
+ * If budget is not set, it will ask user to set budget.
+ */
 public class MonthlySpendingCalculator {
-    private double budget;
+    private Double budget;
     private UniqueExpenditureList expenditures;
     private ObservableList <Repeat> repeats;
     private YearMonth givenYearMonth;
@@ -15,9 +20,9 @@ public class MonthlySpendingCalculator {
     private double balance;
 
 
-    public MonthlySpendingCalculator(double budget, UniqueExpenditureList expenditures,
+    public MonthlySpendingCalculator(Double budget, UniqueExpenditureList expenditures,
                                       ObservableList <Repeat> repeats, YearMonth givenYearMonth) {
-        if ((Double) budget != null) {
+        if (budget != null) {
             this.budget = budget;
             this.expenditures = expenditures;
             this.repeats = repeats;
@@ -27,16 +32,12 @@ public class MonthlySpendingCalculator {
         }
     }
 
-    public double getBudget() {
+    public Double getBudget() {
         return this.budget;
     }
 
     public double getTotalSpending() {
         return this.totalSpending;
-    }
-
-    public double getBalance() {
-        return this.balance;
     }
 
     /**

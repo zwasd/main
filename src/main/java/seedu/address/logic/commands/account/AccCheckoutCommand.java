@@ -31,7 +31,7 @@ public class AccCheckoutCommand extends Command {
         if (!model.updateActiveAccount(accountName)) {
             throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
         }
-        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(accountName);
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, accountName), accountName,
                 monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -233,6 +234,16 @@ public class ModelManager implements Model {
     @Override
     public MonthlySpendingCalculator getMonthlySpending() {
         return this.accountList.getMonthlySpending();
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+        return this.accountList.getMonthlySpending(givenYearMonth);
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(String newActiveAccount) {
+        return this.accountList.getMonthlySpending(newActiveAccount);
     }
 
     @Override

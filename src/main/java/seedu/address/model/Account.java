@@ -182,7 +182,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * @return If the budget is within the [@code budgetList], return it.
      *         Else return a budget object with 0 amount.
      */
-    public double getBudget(YearMonth yearMonth) {
+    public Double getBudget(YearMonth yearMonth) {
         requireNonNull(yearMonth);
         return budgetList.get(yearMonth);
     }
@@ -208,9 +208,15 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     private void setCalculator(YearMonth givenYearMonth) {
-        this.calculator = new MonthlySpendingCalculator(getBudget(givenYearMonth), expenditures, repeats, givenYearMonth);
+        this.calculator = new MonthlySpendingCalculator(getBudget(givenYearMonth), expenditures, repeats,
+                givenYearMonth);
     }
 
+    /**
+     * Return a MonthlySpendingCalculator base on the givenYearMonth.
+     * @param givenYearMonth
+     * @return
+     */
     public MonthlySpendingCalculator calculateMonthly(YearMonth givenYearMonth) {
         setCalculator(givenYearMonth);
         return this.calculator;

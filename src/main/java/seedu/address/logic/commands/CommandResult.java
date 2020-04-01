@@ -45,7 +45,7 @@ public class CommandResult {
      * The indicator of the current budget view should change.
      */
     private boolean updateBudgetView;
-    private double budget;
+    private Double budget;
     private double totalSpending;
     /**
      * The application should exit.
@@ -70,9 +70,9 @@ public class CommandResult {
     }
 
 
-    public CommandResult(String feedbackToUser, LocalDate newActiveDate, double budget, double totalSpending) {
+    public CommandResult(String feedbackToUser, LocalDate newActiveDate, Double budget, double totalSpending) {
         this(feedbackToUser, false, false, false, false, false,
-                true, true, true);
+                true, false, true);
         this.newActiveDate = newActiveDate;
         this.budget = budget;
         this.totalSpending = totalSpending;
@@ -95,9 +95,9 @@ public class CommandResult {
     }
 
     //checkout another account
-    public CommandResult(String feedbackToUser, String newAccountName, double budget, double totalSpending) {
+    public CommandResult(String feedbackToUser, String newAccountName, Double budget, double totalSpending) {
         this(feedbackToUser, false, false, false, false, false,
-                false, true, false);
+                false, true, true);
         this.activeAccountName = newAccountName;
         this.budget = budget;
         this.totalSpending = totalSpending;
@@ -112,7 +112,7 @@ public class CommandResult {
                 false, false, false, false);
     }
 
-    public CommandResult(String feedbackToUser, double budget, double totalSpending) {
+    public CommandResult(String feedbackToUser, Double budget, double totalSpending) {
         this(feedbackToUser, false, false, false, false,
                 false, false, false, true);
         this.budget = budget;
@@ -176,7 +176,7 @@ public class CommandResult {
         return this.updateBudgetView;
     }
 
-    public double getBudget() {
+    public Double getBudget() {
         return this.budget;
     }
 
