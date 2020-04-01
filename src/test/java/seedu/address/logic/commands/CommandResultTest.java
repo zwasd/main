@@ -35,7 +35,7 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true,
-                false, false, false, false,false)));
+                false, false, false, false, false)));
     }
 
     @Test
