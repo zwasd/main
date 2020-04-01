@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
@@ -20,11 +19,12 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Finds all expenditures and repeats which contain any of "
-            + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameter: KEYWORD \n"
-            + "Example: " + COMMAND_WORD + " alice";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all expenditures which contain any of "
+            + "the specified keyword(s) (case-insensitive) AND the specified tag (if present).\n"
+            + "Parameters: [KEYWORD] [-t TAG]\n"
+            + "Example: " + COMMAND_WORD + " apple -t Food\n"
+            + "Note: at least one keyword OR the tag must be specified";
 
     private final Predicate<BaseExp> predicate;
     private final String keywordsString;

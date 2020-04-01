@@ -20,7 +20,7 @@ public class AccListCommandParser implements Parser<AccListCommand> {
     public AccListCommand parse(String userInput) throws ParseException {
         String trimmedArgs = userInput.trim();
         if (trimmedArgs.length() > 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccListCommand.MESSAGE_FAILURE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccListCommand.MESSAGE_USAGE));
         }
         return new AccListCommand();
     }

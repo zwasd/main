@@ -15,7 +15,7 @@ public class AccCheckoutCommand extends Command {
     public static final String COMMAND_WORD = "checkout";
     public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Checks out the account with the specified name.\n"
-            + "Parameters: ACCOUNT_NAME (must be one word containing any characters)\n"
+            + "Parameters: ACCOUNT_NAME (one word containing only alphanumeric characters, less than 26 characters)\n"
             + "Example: " + AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " default";
     public static final String MESSAGE_CHECKOUT_SUCCESS = "Successfully checked out account: %1$s";
 
@@ -28,7 +28,8 @@ public class AccCheckoutCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (!model.updateActiveAccount(accountName)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ACCOUNT_NAME);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, accountName)));
         }
         return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, accountName), accountName);
     }

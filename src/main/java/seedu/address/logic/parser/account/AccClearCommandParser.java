@@ -20,7 +20,7 @@ public class AccClearCommandParser implements Parser<AccClearCommand> {
     public AccClearCommand parse(String userInput) throws ParseException {
         String trimmedArgs = userInput.trim();
         if (trimmedArgs.length() > 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccClearCommand.MESSAGE_FAILURE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccClearCommand.MESSAGE_USAGE));
         }
         return new AccClearCommand();
     }

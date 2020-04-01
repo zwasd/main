@@ -28,18 +28,22 @@ public class AccAddCommandParserTest {
 
     @Test
     public void parseInvalidValue_nameContainSpace_parseException() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_CONTAIN_SPACE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AccAddCommand.NAME_CONTAIN_SPACE + "\n" + AccAddCommand.MESSAGE_USAGE);
+        String expectedMessage1 = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AccAddCommand.MESSAGE_USAGE);
 
         // contains space
         assertParseFailure(parser, "my account", expectedMessage);
 
         // empty
-        assertParseFailure(parser, "", expectedMessage);
+        assertParseFailure(parser, "", expectedMessage1);
     }
 
     @Test
     public void parseInvalidValue_nameTooLong_parseException() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_TOO_LONG);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AccAddCommand.NAME_TOO_LONG + "\n" + AccAddCommand.MESSAGE_USAGE);
 
         assertParseFailure(parser, "thisIsAVeryLongAccountName", expectedMessage);
     }

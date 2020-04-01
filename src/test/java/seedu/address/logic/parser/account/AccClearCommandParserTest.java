@@ -11,7 +11,7 @@ import seedu.address.logic.commands.account.AccClearCommand;
 public class AccClearCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccClearCommand.MESSAGE_FAILURE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccClearCommand.MESSAGE_USAGE);
 
     private final AccClearCommandParser parser = new AccClearCommandParser();
 

@@ -16,11 +16,6 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /**
-     * Help information should be shown to the user.
-     */
-    private final boolean showHelp;
-
-    /**
      * Indicates the action of report command.
      **/
     private final boolean isShowReport;
@@ -49,11 +44,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowReport,
+    public CommandResult(String feedbackToUser, boolean exit, boolean isShowReport,
                          boolean isExportReport, boolean isPrintReport,
                          boolean updateCalendar, boolean updateAccountName) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
         this.exit = exit;
         this.isShowReport = isShowReport;
         this.isExportReport = isExportReport;
@@ -63,21 +57,21 @@ public class CommandResult {
     }
 
     public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
-        this(feedbackToUser, false, false, false,
+        this(feedbackToUser, false, false,
                 false, false, true, false);
         this.newActiveDate = newActiveDate;
     }
 
     public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats,
                          boolean exportReport, boolean showReport, boolean printReport) {
-        this(feedbackToUser, false, false, showReport,
+        this(feedbackToUser, false, showReport,
                 exportReport, printReport, false, false);
         this.graph = graph;
         this.stats = stats;
     }
 
     public CommandResult(String feedbackToUser, String newAccountName) {
-        this(feedbackToUser, false, false, false, false, false, false, true);
+        this(feedbackToUser, false, false, false, false, false, true);
         this.activeAccountName = newAccountName;
     }
 
@@ -86,16 +80,12 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false,
+        this(feedbackToUser, false, false, false,
                 false, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public boolean isShowHelp() {
-        return showHelp;
     }
 
     public boolean isExit() {
@@ -159,18 +149,17 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && isShowReport == otherCommandResult.isShowReport
-                && isExportReport == isExportReport
-                && isPrintReport == isPrintReport
+                && isExportReport == otherCommandResult.isExportReport
+                && isPrintReport == otherCommandResult.isPrintReport
                 && updateCalendar == otherCommandResult.updateCalendar
                 && updateAccountName == otherCommandResult.updateAccountName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, isShowReport, isExportReport,
+        return Objects.hash(feedbackToUser, exit, isShowReport, isExportReport,
                 isPrintReport, updateCalendar, updateAccountName);
     }
 
