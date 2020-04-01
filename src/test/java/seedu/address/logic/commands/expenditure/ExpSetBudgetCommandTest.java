@@ -5,7 +5,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.expenditure.Amount;
 
 public class ExpSetBudgetCommandTest {
 
