@@ -13,6 +13,7 @@ import seedu.address.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.address.logic.commands.expenditure.ExpEditCommand;
 import seedu.address.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.general.ListCommand;
 import seedu.address.logic.parser.TopLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -62,6 +63,9 @@ public class ExpLevelParser extends TopLevelParser {
 
         case ExpSetBudgetCommand.COMMAND_WORD:
             return new ExpSetBudgetCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+                return new ListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

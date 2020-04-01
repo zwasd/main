@@ -73,9 +73,6 @@ public class TopLevelParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
