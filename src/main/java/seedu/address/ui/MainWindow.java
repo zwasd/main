@@ -248,6 +248,18 @@ public class MainWindow extends UiPart<Stage> {
                 activeNameAndDateView.setActiveAccountName(commandResult.getActiveAccountName());
             }
 
+            if (commandResult.isUpdateBudgetView()) {
+                Boolean isExist = commandResult.getBudget() != null;
+                budgetView.setBudgetExist(isExist);
+                if (isExist) {
+                    budgetView.setBudgetAmount(commandResult.getBudget());
+                    budgetView.setTotalSpending(commandResult.getTotalSpending());
+                    budgetView.updateView();
+                } else {
+                    budgetView.updateView();
+                }
+            }
+
             return commandResult;
         } catch (CommandException | ParseException | PrinterException e) {
 

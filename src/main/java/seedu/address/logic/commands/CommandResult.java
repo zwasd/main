@@ -31,11 +31,17 @@ public class CommandResult {
     private LocalDate newActiveDate = null;
 
     /**
-     *
+     *The indicator of the current active account name should change.
      */
     private boolean updateAccountName;
     private String activeAccountName;
 
+    /**
+     * The indicator of the current budget view should change.
+     */
+    private boolean updateBudgetView;
+    private Double budget;
+    private double totalSpending;
     /**
      * The application should exit.
      */
@@ -44,9 +50,9 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean exit, boolean isShowReport,
-                         boolean isExportReport, boolean isPrintReport,
-                         boolean updateCalendar, boolean updateAccountName) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowReport,
+                         boolean isExportReport, boolean isPrintReport, boolean updateCalendar,
+                         boolean updateAccountName, boolean updateBudgetView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.exit = exit;
         this.isShowReport = isShowReport;
@@ -54,25 +60,41 @@ public class CommandResult {
         this.isPrintReport = isPrintReport;
         this.updateCalendar = updateCalendar;
         this.updateAccountName = updateAccountName;
+        this.updateBudgetView = updateBudgetView;
     }
 
-    public CommandResult(String feedbackToUser, LocalDate newActiveDate) {
-        this(feedbackToUser, false, false,
-                false, false, true, false);
+
+    public CommandResult(String feedbackToUser, LocalDate newActiveDate, Double budget, double totalSpending) {
+        this(feedbackToUser, false, false, false, false, false,
+                true, false, true);
         this.newActiveDate = newActiveDate;
+        this.budget = budget;
+        this.totalSpending = totalSpending;
+
     }
 
     public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats,
                          boolean exportReport, boolean showReport, boolean printReport) {
-        this(feedbackToUser, false, showReport,
-                exportReport, printReport, false, false);
+        this(feedbackToUser, false, false, showReport,
+                exportReport, printReport, false, false, false);
         this.graph = graph;
         this.stats = stats;
     }
 
+    //rename
     public CommandResult(String feedbackToUser, String newAccountName) {
-        this(feedbackToUser, false, false, false, false, false, true);
+        this(feedbackToUser, false, false, false, false, false,
+                false, true, false);
         this.activeAccountName = newAccountName;
+    }
+
+    //checkout another account
+    public CommandResult(String feedbackToUser, String newAccountName, Double budget, double totalSpending) {
+        this(feedbackToUser, false, false, false, false, false,
+                false, true, true);
+        this.activeAccountName = newAccountName;
+        this.budget = budget;
+        this.totalSpending = totalSpending;
     }
 
     /**
@@ -80,9 +102,17 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false,
-                false, false, false);
+        this(feedbackToUser, false, false, false, false,
+                false, false, false, false);
     }
+
+    public CommandResult(String feedbackToUser, Double budget, double totalSpending) {
+        this(feedbackToUser, false, false, false, false,
+                false, false, false, true);
+        this.budget = budget;
+        this.totalSpending = totalSpending;
+    }
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -132,6 +162,18 @@ public class CommandResult {
         return stats;
     }
 
+    public boolean isUpdateBudgetView() {
+        return this.updateBudgetView;
+    }
+
+    public Double getBudget() {
+        return this.budget;
+    }
+
+    public double getTotalSpending() {
+        return this.totalSpending;
+    }
+
     public Report.GraphType getGraphType() {
         return graph;
     }
@@ -154,7 +196,8 @@ public class CommandResult {
                 && isExportReport == otherCommandResult.isExportReport
                 && isPrintReport == otherCommandResult.isPrintReport
                 && updateCalendar == otherCommandResult.updateCalendar
-                && updateAccountName == otherCommandResult.updateAccountName;
+                && updateAccountName == otherCommandResult.updateAccountName
+                && updateBudgetView == otherCommandResult.updateBudgetView;
     }
 
     @Override

@@ -36,6 +36,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     private final BudgetMap budgetList;
     private ObservableList<Repeat> repeats;
     private final String accountName;
+    private MonthlySpendingCalculator calculator;
 
      /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -182,7 +183,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * @return If the budget is within the [@code budgetList], return it.
      * Else return a budget object with 0 amount.
      */
-    public double getBudget(YearMonth yearMonth) {
+    public Double getBudget(YearMonth yearMonth) {
         requireNonNull(yearMonth);
         return budgetList.get(yearMonth);
     }
@@ -207,6 +208,13 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     public BudgetMap getBudgetList() {
         return budgetList;
     }
+
+
+    private void setCalculator(YearMonth givenYearMonth) {
+        this.calculator = new MonthlySpendingCalculator(getBudget(givenYearMonth), expenditures, repeats,
+                givenYearMonth);
+    }
+
 
     /**
      * Calculate total expenditure amount for a given YearMonth.
@@ -238,10 +246,10 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      * @param givenYearMonth target YearMonth.
      * @return a double which the total amount.
      */
-    public double getTotalMonthlySpending(YearMonth givenYearMonth) {
-        return calculateMonthlyExpenditure(givenYearMonth) + calculateMonthlyExpenditure(givenYearMonth);
+    public MonthlySpendingCalculator calculateMonthly(YearMonth givenYearMonth) {
+        setCalculator(givenYearMonth);
+        return this.calculator;
     }
-
 
     //// util methods
 

@@ -6,6 +6,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 
 /**
  * Change to another account.
@@ -31,7 +32,9 @@ public class AccCheckoutCommand extends Command {
             throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, accountName)));
         }
-        return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, accountName), accountName);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(accountName);
+        return new CommandResult(String.format(MESSAGE_CHECKOUT_SUCCESS, accountName), accountName,
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override

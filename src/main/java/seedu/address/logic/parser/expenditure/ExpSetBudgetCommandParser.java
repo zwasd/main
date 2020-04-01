@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARMONTH;
 
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.stream.Stream;
 
@@ -37,9 +36,6 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEARMONTH)
                 .orElseGet(() -> new StringBuilder()
-                        .append(LocalDate.now().getYear())
-                        .append("-")
-                        .append(LocalDate.now().getMonthValue())
                         .toString()));
         return new ExpSetBudgetCommand(yearMonth, amount);
     }

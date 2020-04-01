@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.repeat.RepeatLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.Amount;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Date;
@@ -81,7 +82,10 @@ public class RepeatEditCommand extends Command {
         Repeat editedRepeat = createEditedRepeat(repeatToEdit, editRepeatDescriptor);
 
         model.setRepeat(repeatToEdit, editedRepeat);
-        return new CommandResult(String.format(MESSAGE_EDIT_REPEAT_SUCCESS, editedRepeat));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_EDIT_REPEAT_SUCCESS, editedRepeat),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
+
     }
 
     /**

@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -166,5 +167,23 @@ public interface Model {
      * Obtains the hashmap of the budget.
      */
     BudgetMap getBudgets();
+
+    /**
+     * Obtains a MonthlySpendingCalculator for the current active yearMonth.
+     */
+    MonthlySpendingCalculator getMonthlySpending();
+
+    /**
+     * Obtains a MonthlySpendingCalculator for the given active yearMonth.
+     * To be called in go command.
+     */
+    MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth);
+
+    /**
+     * Obtains a MonthlySpendingCalculator for the new active account.
+     * To be called in acc checkout, acc delete command.
+     */
+    MonthlySpendingCalculator getMonthlySpending(String newActiveAccount);
+
 
 }

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expenditure.Amount;
 
@@ -25,7 +26,6 @@ public class ExpSetBudgetCommand extends Command {
     private Amount budgetAmount;
 
     public ExpSetBudgetCommand(YearMonth yearMonth, Amount budgetAmount) {
-        requireNonNull(yearMonth);
         requireNonNull(budgetAmount);
         this.yearMonth = yearMonth;
         this.budgetAmount = budgetAmount;
@@ -34,8 +34,13 @@ public class ExpSetBudgetCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (this.yearMonth == null) {
+            this.yearMonth = YearMonth.of(model.getActiveDate().getYear(), model.getActiveDate().getMonthValue());
+        }
         model.setBudget(new Budget(yearMonth, budgetAmount));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, yearMonth.toString(), budgetAmount.value));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(yearMonth);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, yearMonth.toString(), budgetAmount.value),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override
