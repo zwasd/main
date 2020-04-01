@@ -25,7 +25,7 @@ public class RepeatDeleteCommand extends Command {
     public static final String MESSAGE_USAGE = RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the repeat identified by the index number used in the displayed list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_REPEAT_SUCCESS = "Deleted Repeat: %1$s";
 
