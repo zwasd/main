@@ -292,6 +292,11 @@ public class ExpAddCommandTest {
         }
 
         @Override
+        public MonthlySpendingCalculator getMonthlySpending() {
+            return new MonthlySpendingCalculator(null, null, null, null);
+        }
+
+        @Override
         public ReadOnlyAccountList getAccountList() {
             // return new AccountList();
             return null;
