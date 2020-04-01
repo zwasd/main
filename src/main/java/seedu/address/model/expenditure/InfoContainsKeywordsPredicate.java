@@ -28,4 +28,8 @@ public class InfoContainsKeywordsPredicate implements Predicate<BaseExp> {
                 && keywords.equals(((InfoContainsKeywordsPredicate) other).keywords)); // state check
     }
 
+    public String getKeywordsString() {
+        return String.join(", ", keywords);
+    }
+
 }

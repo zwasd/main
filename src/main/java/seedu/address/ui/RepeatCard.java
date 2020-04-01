@@ -52,7 +52,7 @@ public class RepeatCard extends UiPart<Region> {
         repeatInfo.setText(repeat.getInfo().fullInfo);
         repeatAmount.setText("$" + TWO_DP.format(repeat.getAmount().value));
         repeatStartDate.setText(repeat.getStartDate().localDate.format(DTF));
-        repeatStartDate.setText(repeat.getStartDate().localDate.format(DTF));
+        repeatEndDate.setText(repeat.getEndDate().localDate.format(DTF));
         repeatTags.getChildren().add(new Label(repeat.getTag().tagName));
     }
 

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.expenditure.BaseExp;
+import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 
 /**
  * Finds and lists all expenditures in address book whose info contains any of the argument keywords.
@@ -36,8 +37,10 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredBaseExpList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EXPENDITURES_LISTED_OVERVIEW,
-                        model.getFilteredBaseExpList().size()));
+                "Searched keywords: " + ((InfoContainsKeywordsPredicate) predicate).getKeywordsString() + "\n"
+                + String.format(Messages.MESSAGE_EXPENDITURES_LISTED_OVERVIEW,
+                        model.getFilteredBaseExpList().size())
+                        + "\nEnter \"list\" to clear search results");
     }
 
     @Override
