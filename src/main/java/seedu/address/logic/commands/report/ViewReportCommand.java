@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.report;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+
 import java.util.HashMap;
 
 import seedu.address.logic.commands.Command;
@@ -21,11 +25,13 @@ public class ViewReportCommand extends Command {
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Shows the report. "
             + "\n" + "Parameters: "
-            + "start date : YYYY-MM-DD  "
-            + "end date :  YYYY-MM-DD  "
-            + "graph type: PIE/BAR " + "\n"
+            + PREFIX_START_DATE + " STAR DATE "
+            + PREFIX_END_DATE + " END DATE "
+            + PREFIX_GRAPH + " GRAPH TYPE " + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
-            + " 2020-03-22 " + "2020-03-25 " + "PIE";
+            + " " + PREFIX_START_DATE + " 2020-03-22 "
+            + PREFIX_END_DATE + " 2020-03-25 "
+            + PREFIX_GRAPH + " PIE";
 
     private final Report toView;
     private HashMap statsToDisplay;
