@@ -102,4 +102,8 @@ public class Date {
         return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
     }
 
+    public static boolean isEqualOrAfter(Date d1, Date d2) {
+        return d1.value.equals(d2.value) || d1.localDate.isAfter(d2.localDate);
+    }
+
 }
