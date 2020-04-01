@@ -24,7 +24,7 @@ public class AccLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "acc";
 
-    public static final String MESSGAE_USAGE = "acc add\nacc checkout\nacc clear\nacc delete\nacc list\nacc rename\n";
+    public static final String MESSAGE_USAGE = "acc add\nacc checkout\nacc clear\nacc delete\nacc list\nacc rename\n";
 
     /**
      * Used for initial separation of command word and args.
@@ -60,7 +60,7 @@ public class AccLevelParser extends TopLevelParser {
             return new AccRenameCommandParser().parse(arguments);
 
         case AccClearCommand.COMMAND_WORD:
-            return new AccClearCommand();
+            return new AccClearCommandParser().parse(arguments);
 
         case AccListCommand.COMMAND_WORD:
             return new AccListCommandParser().parse(arguments);

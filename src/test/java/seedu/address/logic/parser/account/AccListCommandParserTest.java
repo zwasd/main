@@ -11,7 +11,7 @@ import seedu.address.logic.commands.account.AccListCommand;
 public class AccListCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccListCommand.MESSAGE_FAILURE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccListCommand.MESSAGE_USAGE);
 
     private final AccListCommandParser parser = new AccListCommandParser();
 

@@ -23,7 +23,7 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
     @Override
     public ReportCommand parse(String userInput) throws ParseException {
         String userInputTrimmed = userInput.trim();
-        String[] userInputArray = userInputTrimmed.split(" ");
+        String[] userInputArray = userInputTrimmed.split("\\s+");
 
         if (userInput.equals("exit")) {
             return new ReportWindowExitCommand();

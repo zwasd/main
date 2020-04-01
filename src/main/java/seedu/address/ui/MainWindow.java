@@ -166,10 +166,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        try {
+            executeCommand("help");
+        } catch (CommandException | ParseException | PrinterException e) {
+            return;
         }
     }
 
@@ -222,10 +222,6 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();
