@@ -11,7 +11,6 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.FindCommand;
 import seedu.address.logic.commands.general.GoCommand;
 import seedu.address.logic.commands.general.HelpCommand;
-import seedu.address.logic.commands.general.ListCommand;
 import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;

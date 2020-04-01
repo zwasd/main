@@ -65,7 +65,7 @@ public class ExpLevelParser extends TopLevelParser {
             return new ExpSetBudgetCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+            return new ListCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
