@@ -24,7 +24,7 @@ import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
  */
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
 
-    public final static String DEFAULT_ACCOUNT_NAME = "default";
+    public static final String DEFAULT_ACCOUNT_NAME = "default";
 
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
