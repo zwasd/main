@@ -6,11 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 
 /**
@@ -37,27 +40,39 @@ public class ExpAddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EXPENDITURE = "This expenditure already exists in $AVE IT.";
 
     private final Expenditure toAdd;
+    private final boolean getActiveDate;
 
     /**
      * Creates an ExpAddCommand to add the specified {@code Expenditure}
      */
     public ExpAddCommand(Expenditure expenditure) {
+        this(expenditure, false);
+    }
+
+    /**
+     * Creates an ExpAddCommand to add the specified {@code Expenditure}
+     */
+    public ExpAddCommand(Expenditure expenditure, boolean getActiveDate) {
         requireNonNull(expenditure);
         toAdd = expenditure;
+        this.getActiveDate = getActiveDate;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        model.addExpenditure(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        Expenditure added = !getActiveDate ? toAdd
+            : new Expenditure(toAdd.getInfo(), toAdd.getAmount(),
+                                new Date(model.getActiveDate().format(DateTimeFormatter.ISO_DATE)), toAdd.getTag());
+        model.addExpenditure(added);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, added));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExpAddCommand // instanceof handles nulls
+                && getActiveDate == ((ExpAddCommand) other).getActiveDate
                 && toAdd.equals(((ExpAddCommand) other).toAdd)); // same fields
     }
 }

@@ -49,7 +49,9 @@ public class ExpAddCommandParser implements Parser<ExpAddCommand> {
 
         Expenditure expenditure = new Expenditure(info, amount, date, tag);
 
-        return new ExpAddCommand(expenditure);
+        boolean getActiveDate = !arePrefixesPresent(argMultimap, PREFIX_DATE);
+
+        return new ExpAddCommand(expenditure, getActiveDate);
     }
 
     /**
