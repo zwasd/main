@@ -13,7 +13,7 @@ import javafx.scene.text.TextAlignment;
 /**
  * budget window view.
  */
-public class BudgetWindowView extends UiPart<Node> {
+public class BudgetView extends UiPart<Node> {
 
     private static final String FXML = "BudgetView.fxml";
 
@@ -36,7 +36,7 @@ public class BudgetWindowView extends UiPart<Node> {
     private Image feedingPiggy = new Image(this.getClass().getResourceAsStream("/images/feedingPiggy.png"),
             150, 150, true, true);
 
-    public BudgetWindowView() {
+    public BudgetView() {
         super(FXML);
         if (budgetExist) {
             display();
@@ -59,7 +59,7 @@ public class BudgetWindowView extends UiPart<Node> {
 
     //If budgetExist is false, then it will just display a piggyBank.
     private void setPiggyBank() {
-        ImageView pig = new ImageView(feedingPiggy);
+        ImageView pig = new ImageView(piggyBank);
         Label label = new Label("Please set the budget for this month\n");
         label.setTextFill(Paint.valueOf("000000"));
         label.setTextAlignment(TextAlignment.LEFT);

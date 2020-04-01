@@ -46,7 +46,6 @@ public class RepeatCard extends UiPart<Region> {
 
     public RepeatCard(Repeat repeat, int displayedNumber) {
         super(FXML);
-
         this.repeat = repeat;
         repeatNumber.setText(displayedNumber + ". ");
         repeatInfo.setText(repeat.getInfo().fullInfo);
