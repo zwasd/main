@@ -91,10 +91,10 @@ Edits the info of expenditure with ID 1 to veg rice.
 * `exp edit 2 -t` +
 Clears tag of expenditure with ID.
 
-=== Locating expenditure by keyword: `exp find`
+=== Locating expenditure by keyword: `find`
 
 Find expenditures which contain the keyword(s). +
-Format: `exp find [KEYWORD...]`
+Format: `find [KEYWORD...]`
 
 ****
 * The search is case insensitive. e.g `chickens` will match `Chickens`
@@ -105,9 +105,9 @@ Format: `exp find [KEYWORD...]`
 
 Examples:
 
-* `exp find rice` +
+* `find rice` +
 Returns `Chicken rice` and `Veg Rice`
-* `exp find Spicy Chicken Rice` +
+* `find Spicy Chicken Rice` +
 Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`
 
 // tag::delete[]
@@ -125,9 +125,9 @@ Examples:
 
 `exp delete 2` +
 Deletes the expenditure with ID 2. +
-`exp find Chicky rice` +
+`find Chicky rice` +
 exp delete 1` +
-Deletes the expenditure with ID 1 if it is in the results of the `exp find` command.
+Deletes the expenditure with ID 1 if it is in the results of the `find` command.
 // end::delete[]
 
 === Set a fixed recurring ( recurs every `NUMBER PERIOD` )  expenditure: `repeat`
@@ -207,8 +207,8 @@ e.g `exp edit 1 -i duck rice -a 4.50 -d 2020-04-02`
 * *exp delete* : `exp delete INDEX` +
 e.g `exp delete 1`
 
-* *exp find* : `exp find Keyword` +
-e.g `exp find chicken`
+* *find* : `find Keyword` +
+e.g `find chicken`
 
 * *exp setBudget* : `exp setBudget -a AMOUNT [-d DATE (YYYY-MM-DD)]` +
 e.g `exp setBudget -a 1000 -d 2020-04-01`
