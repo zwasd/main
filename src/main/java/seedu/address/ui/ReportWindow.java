@@ -369,7 +369,7 @@ public class ReportWindow extends UiPart<Stage> {
 
             if (e instanceof CommandException || e instanceof ParseException) {
                 logger.info("Invalid command :" + commandText);
-            } else if (e instanceof  PrinterException) {
+            } else if (e instanceof PrinterException) {
                 logger.info("Invalid printer");
             }
 
