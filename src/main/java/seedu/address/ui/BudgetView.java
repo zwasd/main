@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 
+
 /**
  * budget window view.
  */
@@ -38,6 +39,18 @@ public class BudgetView extends UiPart<Node> {
 
     public BudgetView() {
         super(FXML);
+        if (budgetExist) {
+            display();
+        } else {
+            setPiggyBank();
+        }
+    }
+
+    /**
+     * Update the budget view.
+     */
+    public void updateView() {
+        budgetWindow.getChildren().clear();
         if (budgetExist) {
             display();
         } else {
@@ -88,13 +101,15 @@ public class BudgetView extends UiPart<Node> {
         budget.setTextFill(Paint.valueOf("000000"));
         budget.setWrapText(true);
         Label spending = new Label();
+        String spendingString = String.format("%.2f", totalSpending);
         spending.setText("Total spending: " + totalSpending);
         spending.setTextAlignment(TextAlignment.LEFT);
         spending.setTextFill(Paint.valueOf("000000"));
         spending.setWrapText(true);
         Label leftOver = new Label();
 
-        leftOver.setText("Balance: " + balance);
+        String balanceString = String.format("%.2f", balance);
+        leftOver.setText("Balance: " + balanceString);
         leftOver.setTextAlignment(TextAlignment.LEFT);
         leftOver.setTextFill(Paint.valueOf("000000"));
         leftOver.setWrapText(true);

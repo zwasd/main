@@ -119,6 +119,9 @@ public class ParserUtil {
      */
     public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
         requireNonNull(yearMonth);
+        if (yearMonth.equalsIgnoreCase("")) {
+            return null;
+        }
         String[] trimmedYearMonth = yearMonth.trim().split("-");
         try {
             if (trimmedYearMonth.length >= 3) {

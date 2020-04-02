@@ -11,6 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 
@@ -50,7 +51,9 @@ public class ExpDeleteCommand extends Command {
         }
         Expenditure expenditureToDelete = (Expenditure) baseExp;
         model.deleteExpenditure(expenditureToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_DELETE_EXPENDITURE_SUCCESS, expenditureToDelete),
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override

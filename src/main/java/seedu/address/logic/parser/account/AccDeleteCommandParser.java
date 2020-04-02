@@ -2,6 +2,7 @@ package seedu.address.logic.parser.account;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.commands.account.AccAddCommand;
 import seedu.address.logic.commands.account.AccDeleteCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,12 +20,17 @@ public class AccDeleteCommandParser implements Parser<AccDeleteCommand> {
     @Override
     public AccDeleteCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.MESSAGE_USAGE));
+        }
         if (trimmedArgs.contains(" ") || trimmedArgs.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AccDeleteCommand.NAME_CONTAIN_SPACE));
+                    AccAddCommand.NAME_CONTAIN_SPACE + "\n" + AccDeleteCommand.MESSAGE_USAGE));
         }
         if (trimmedArgs.length() >= 26) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccDeleteCommand.NAME_TOO_LONG));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccAddCommand.NAME_TOO_LONG
+                    + "\n" + AccDeleteCommand.MESSAGE_USAGE));
         }
         return new AccDeleteCommand(trimmedArgs);
     }

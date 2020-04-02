@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -192,12 +193,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String renameAccount(String oldName, String newName) {
+    public String renameAccount(String oldName, String newName) throws CommandException {
         return this.accountList.renameAccount(oldName, newName);
     }
 
     @Override
-    public String deleteAccount(String name) {
+    public String deleteAccount(String name) throws CommandException {
         return this.accountList.deleteAccount(name);
     }
 
@@ -231,6 +232,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public MonthlySpendingCalculator getMonthlySpending() {
+        return this.accountList.getMonthlySpending();
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+        return this.accountList.getMonthlySpending(givenYearMonth);
+    }
+
+    @Override
+    public MonthlySpendingCalculator getMonthlySpending(String newActiveAccount) {
+        return this.accountList.getMonthlySpending(newActiveAccount);
+    }
+
+    @Override
     public void addAccount(Account account) throws CommandException {
         try {
             this.accountList.addAccount(account);
@@ -239,6 +255,8 @@ public class ModelManager implements Model {
                     + " already exists! Unable to add.");
         }
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

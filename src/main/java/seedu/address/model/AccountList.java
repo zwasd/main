@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,21 +13,26 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.account.AccDeleteCommand;
+import seedu.address.logic.commands.account.AccRenameCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetMap;
 import seedu.address.model.expenditure.BaseExp;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.Repeat;
-import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
 
 /**
  * Manages all accounts of the user.
  */
 public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
+
+    public static final String DEFAULT_ACCOUNT_NAME = "default";
+
     private Map<String, Account> accounts = new HashMap<>();
     private Account activeAccount; //TODO: make it static ?? (XP)
     private final ObservableList<BaseExp> displayedBaseExpList = FXCollections.observableArrayList();
-    private String initialAccountName = "default"; // TODO
     private LocalDate activeDate;
     private int expAddIndex = 0;
 
@@ -35,25 +41,28 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      */
     public AccountList(ReadOnlyAccountList toBeCopied) {
         resetData(toBeCopied);
-        activeAccount = accounts.get(initialAccountName);
+
+        // create new account
         if (accounts.size() == 0) {
-            activeAccount = new Account("default");
-            accounts.put("default", activeAccount);
-        } else if (!accounts.containsKey(initialAccountName)) {
-            activeAccount = accounts.values().iterator().next();
+            createDefaultAccount();
         } else {
-            activeAccount = accounts.get(initialAccountName);
+            activeAccount = accounts.get(toBeCopied.getActiveAccount());
         }
+
         activeDate = LocalDate.now();
         resetFromActiveAccount();
     }
 
     public AccountList(boolean createDefaultAccount) {
         if (createDefaultAccount) {
-            activeAccount = new Account("default");
-            addAccount(activeAccount);
+            createDefaultAccount();
         }
         activeDate = LocalDate.now();
+    }
+
+    private void createDefaultAccount() {
+        activeAccount = new Account(DEFAULT_ACCOUNT_NAME);
+        addAccount(activeAccount);
     }
 
     //// list overwrite operations
@@ -103,11 +112,17 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * @param newName The new account name to be renamed to.
      * @String a string to denote the current active account name.
      */
-    public String renameAccount(String oldName, String newName) {
+    public String renameAccount(String oldName, String newName) throws CommandException {
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
-        if (!accounts.containsKey(oldName) || accounts.containsKey(newName)) {
-            throw new ExpenditureNotFoundException();
+        if (!accounts.containsKey(oldName)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, oldName) + "\n"
+                            + AccRenameCommand.MESSAGE_USAGE));
+        } else if (accounts.containsKey(newName)) {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    "The account with the specified name " + newName + " already exists\n"
+                    + AccRenameCommand.MESSAGE_USAGE));
         }
         Account targetAccount = accounts.get(oldName);
         Account replaceAccount = targetAccount.copyAccountWithNewName(newName);
@@ -125,11 +140,12 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
      * @param accName the target account's name
      * @return a new account name which is to replace
      */
-    public String deleteAccount(String accName) {
+    public String deleteAccount(String accName) throws CommandException {
         requireAllNonNull(accName);
-        //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!this.accounts.containsKey(accName)) {
-            throw new ExpenditureNotFoundException();
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    String.format(Messages.MESSAGE_INVALID_ACCOUNT_NAME, accName) + "\n"
+                            + AccDeleteCommand.MESSAGE_USAGE));
         }
         Account target = this.accounts.get(accName);
         this.accounts.remove(accName, target);
@@ -295,6 +311,27 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         }
     }
 
+    public MonthlySpendingCalculator getMonthlySpending() {
+        YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
+        return this.activeAccount.calculateMonthly(givenYearMonth);
+    }
+
+    public MonthlySpendingCalculator getMonthlySpending(YearMonth givenYearMonth) {
+        return this.activeAccount.calculateMonthly(givenYearMonth);
+    }
+
+
+    public MonthlySpendingCalculator getMonthlySpending(String newAccount) {
+        YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
+        Account acc = accounts.get(newAccount);
+        return acc.calculateMonthly(givenYearMonth);
+    }
+
+
+
+
+
+
     @Override
     public String getActiveAccount() {
         return activeAccount.getAccountName();
@@ -311,7 +348,7 @@ public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
         this.accounts.keySet().iterator().forEachRemaining(accName -> list.append(accName + " "));
         //this is too ugly, so i turn into an array then reformat to look better.
         //return list.toString().trim();
-        String [] allName = list.toString().trim().split(" ");
+        String [] allName = list.toString().trim().split("\\s+");
         StringBuilder output = new StringBuilder();
         for (int i = 1; i <= allName.length; i++) {
             if (i % 8 == 0) {

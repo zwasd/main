@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.expenditure.ExpLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 import seedu.address.model.expenditure.Date;
 import seedu.address.model.expenditure.Expenditure;
 
@@ -65,7 +66,9 @@ public class ExpAddCommand extends Command {
             : new Expenditure(toAdd.getInfo(), toAdd.getAmount(),
                                 new Date(model.getActiveDate().format(DateTimeFormatter.ISO_DATE)), toAdd.getTag());
         model.addExpenditure(added);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, added));
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, added), monthlyCalculator.getBudget(),
+                monthlyCalculator.getTotalSpending());
     }
 
     @Override

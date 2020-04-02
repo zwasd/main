@@ -299,7 +299,7 @@ It extends the `TextField` component of JavaFx and provides a dropdown of possib
 
 To make use of the autocomplete feature. The backend will have to include the commands to be +
 added which will be shown to the users. This allows easy configuration of what commands will +
-be searched. 
+be searched.
 
 Given below is the example usage scenario of how the autocompletion works.
 

@@ -166,10 +166,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        try {
+            executeCommand("help");
+        } catch (CommandException | ParseException | PrinterException e) {
+            return;
         }
     }
 
@@ -223,10 +223,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -250,6 +246,18 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isUpdateAccountName()) {
                 activeNameAndDateView.setActiveAccountName(commandResult.getActiveAccountName());
+            }
+
+            if (commandResult.isUpdateBudgetView()) {
+                Boolean isExist = commandResult.getBudget() != null;
+                budgetView.setBudgetExist(isExist);
+                if (isExist) {
+                    budgetView.setBudgetAmount(commandResult.getBudget());
+                    budgetView.setTotalSpending(commandResult.getTotalSpending());
+                    budgetView.updateView();
+                } else {
+                    budgetView.updateView();
+                }
             }
 
             return commandResult;

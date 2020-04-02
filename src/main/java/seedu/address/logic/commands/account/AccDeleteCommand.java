@@ -3,7 +3,9 @@ package seedu.address.logic.commands.account;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
+import seedu.address.model.MonthlySpendingCalculator;
 
 /**
  * Delete account.
@@ -11,12 +13,11 @@ import seedu.address.model.Model;
 public class AccDeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
-    public static final String NAME_CONTAIN_SPACE = "The account name should not contain space";
-
-    public static final String NAME_TOO_LONG = "The account name should be less than 25 characters";
-
     public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Deleted Account: ";
+    public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": deletes the account with the specified name\n"
+            + "Parameters: ACCOUNT_NAME (one word containing only alphanumeric characters, less than 26 characters)\n"
+            + "Example: " + AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " default";
 
     private final String targetAccountName;
 
@@ -28,8 +29,9 @@ public class AccDeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         String newActiveAccountName = model.deleteAccount(this.targetAccountName);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
         return new CommandResult(MESSAGE_DELETE_ACCOUNT_SUCCESS + this.targetAccountName,
-                newActiveAccountName);
+                newActiveAccountName, monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override
