@@ -9,8 +9,8 @@ Account *-right-> "1" UniqueExpenditureList
 UniqueExpenditureList o-right-> Expenditure
 
 Expenditure *--> "1" Tag
-Expenditure *--> Info
-Expenditure *--> Amount
-Expenditure *-> "1" Date
+Expenditure *--> "1" Info
+Expenditure *--> "1  "Amount
+Expenditure *--> "1" Date
 
 @enduml
