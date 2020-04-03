@@ -226,9 +226,14 @@ _{To be added}_
 // end::autocomplete[]
 
 
-=== Calendar feature
+=== Calendar feature [In progress]
+Calendar is a feature that has a clickable calendar which users
+can use to navigate between the different days. It also shows
+the date of the expenditures the user is viewing as well as today.
 
-_{Coming soon}_
+==== Rationale
+
+
 
 // end::calendar[]
 
@@ -254,9 +259,15 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 // tag::repeat[]
 
-=== Recurring Expenditure feature
-
-_{Coming soon}_
+=== Recurring Expenditure feature [In Progress]
+Recurring expenditure is one of the main feature in `$AVE IT` and it is
+a expenditure automatically logged for user at their preferred frequency.
+==== Rationale
+This feature allows user to keep track of expenditures that will occur either _daily_,
+_monthly_ or _annually_ without the need to key in the expenditures every day or month.
+Hence, this will provide more convenience for users as well as address the need
+for such a feature since recurring expenditures are common. For example, day to day
+commuting expenses.
 
 // end::repeat[]
 
@@ -280,20 +291,26 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
+.Sequence Diagram for Report View
+image::ReportViewSequence.png[]
+
+.Sequence Diagram GenerateStats and Graph
+image::GenerateStats_and_Graph.png[]
+
 If a `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
 start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
 and _Report.GraphType_ objects are used to create _ViewReportCommand_ object which will be
-executed. The execution will pop out the _ReportWindow_ which will showcase a expenditure breakdown report.
+executed. The result of executions is popping out the _ReportWindow_ which will showcase a expenditure breakdown report.
 
 If a `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
 start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
 and _Report.GraphType_ objects are used to create _PrintReportCommand_ object which will be
-executed. The execution will send a print job to your printer, printing out the report.
+executed. The result of execution will be sending a print job to your printer, printing out the report.
 
 If a `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
 start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
 and _Report.GraphType_ objects are used to create _ExportReportCommand_ object which will be
-executed. The execution will export a PDF version of the report into your computer.
+executed. The result of execution will be exporting a PDF version of the report into your computer.
 
 ==== Design Considerations
 
