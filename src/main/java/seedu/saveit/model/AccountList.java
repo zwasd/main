@@ -26,7 +26,7 @@ import seedu.saveit.model.expenditure.Repeat;
 /**
  * Manages all accounts of the user.
  */
-public class AccountList implements ReadOnlyAccountList, ReadOnlyAccount {
+public class AccountList implements ReadOnlyAccountList {
 
     public static final String DEFAULT_ACCOUNT_NAME = "default";
 
