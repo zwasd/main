@@ -51,7 +51,7 @@ public class ViewReportCommand extends Command {
         statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         format = toView.getFormat();
 
-        if(format.equals(Report.GraphType.PIE)) {
+        if (format.equals(Report.GraphType.PIE)) {
             graph = new Pie(statsToDisplay);
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToDisplay);

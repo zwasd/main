@@ -38,7 +38,7 @@ public class ReportWindowStatsCommand extends ReportCommand {
         statsToDisplay = new GenerateStats(report, model).generateStatsByTags();
         format = report.getFormat();
 
-        if(format.equals(Report.GraphType.PIE)) {
+        if (format.equals(Report.GraphType.PIE)) {
             graph = new Pie(statsToDisplay);
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToDisplay);

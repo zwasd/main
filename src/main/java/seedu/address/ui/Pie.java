@@ -7,8 +7,6 @@ import java.util.Set;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ReportCommandResult;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,7 +20,10 @@ public class Pie extends Graph {
         this.stats = stats;
     }
 
-
+    /**
+     * Constructs graph based on stats
+     * @return PieChart reflecting stats.
+     */
     public PieChart constructGraph() {
         PieChart pie = new PieChart();
         pie.setTitle("Expenditure Breakdown");
@@ -40,7 +41,7 @@ public class Pie extends Graph {
             pie.getData().add(data);
         }
 
-       return pie;
+        return pie;
     }
 
 }

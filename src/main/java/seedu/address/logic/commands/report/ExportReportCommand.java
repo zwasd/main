@@ -50,7 +50,7 @@ public class ExportReportCommand extends Command {
         statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
         format = toExport.getFormat();
 
-        if(format.equals(Report.GraphType.PIE)) {
+        if (format.equals(Report.GraphType.PIE)) {
             graph = new Pie(statsToExport);
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToExport);

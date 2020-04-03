@@ -1,8 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.HashMap;
-
-import seedu.address.model.Report;
 import seedu.address.ui.Graph;
 
 /**
@@ -47,7 +44,9 @@ public class ReportCommandResult {
         return feedbackToUser;
     }
 
-    public Graph getGraph() { return graph; }
+    public Graph getGraph() {
+        return graph;
+    }
 
 
 }

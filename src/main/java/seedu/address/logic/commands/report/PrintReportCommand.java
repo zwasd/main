@@ -5,16 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.HashMap;
-import java.util.logging.Logger;
 
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
-
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,16 +15,12 @@ import seedu.address.model.Report;
 import seedu.address.ui.Bar;
 import seedu.address.ui.Graph;
 import seedu.address.ui.Pie;
-import seedu.address.ui.ReportWindow;
-import seedu.address.ui.exceptions.PrinterException;
-
 
 /**
  * Prints report.
  */
 public class PrintReportCommand extends Command {
 
-    private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     public static final String COMMAND_WORD = "print";
     public static final String MESSAGE_SUCCESS = "Printing report.";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
@@ -54,7 +41,6 @@ public class PrintReportCommand extends Command {
     private Graph graph;
 
 
-
     public PrintReportCommand(Report toPrint) {
         this.toPrint = toPrint;
     }
@@ -64,7 +50,7 @@ public class PrintReportCommand extends Command {
         statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
         format = toPrint.getFormat();
 
-        if(format.equals(Report.GraphType.PIE)) {
+        if (format.equals(Report.GraphType.PIE)) {
             graph = new Pie(statsToPrint);
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToPrint);

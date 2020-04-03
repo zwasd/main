@@ -12,11 +12,9 @@ import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -102,11 +100,11 @@ public class ReportWindow extends UiPart<Stage> {
         label.setFont(new Font("Segoe UI Light", 14));
         label1.setOnMouseClicked(click -> {
             try {
-               if(currentGraph != null) {
-                   print();
-               } else {
-                   display.setFeedbackToUser("Construct graph before printing.");
-               }
+                if (currentGraph != null) {
+                    print();
+                } else {
+                    display.setFeedbackToUser("Construct graph before printing.");
+                }
             } catch (PrinterException e) {
                 logger.info("Invalid printer");
                 display.setFeedbackToUser(e.getMessage());
@@ -228,6 +226,11 @@ public class ReportWindow extends UiPart<Stage> {
 
     }
 
+    /**
+     * Invokes printer job from Javafx.
+     * @param graphNode Node to be printed.
+     * @throws PrinterException if job cannot finish.
+     */
     public void printerJob(Node graphNode) throws PrinterException {
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4,
@@ -262,7 +265,7 @@ public class ReportWindow extends UiPart<Stage> {
                 display.clear();
                 getRoot().hide();
             } else if (result.isPrintReport()) {
-                if(currentGraph != null) {
+                if (currentGraph != null) {
                     print();
                 } else {
                     display.setFeedbackToUser("Construct graph before printing");

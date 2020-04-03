@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Objects;
 
-import seedu.address.model.Report;
 import seedu.address.ui.Graph;
 
 /**
@@ -31,7 +29,7 @@ public class CommandResult {
     private LocalDate newActiveDate = null;
 
     /**
-     *The indicator of the current active account name should change.
+     * The indicator of the current active account name should change.
      */
     private boolean updateAccountName;
     private String activeAccountName;
@@ -161,7 +159,9 @@ public class CommandResult {
         return this.totalSpending;
     }
 
-    public Graph getGraph() { return graph; };
+    public Graph getGraph() {
+        return graph;
+    }
 
     @Override
     public boolean equals(Object other) {

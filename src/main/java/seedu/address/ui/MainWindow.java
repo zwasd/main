@@ -226,6 +226,11 @@ public class MainWindow extends UiPart<Stage> {
         printerJob(graphNode);
     }
 
+    /**
+     * Invokes printer job of Javafx.
+     * @param graphNode Node to be printed.
+     * @throws PrinterException if job cannot finish.
+     */
     public void printerJob(Node graphNode) throws PrinterException {
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4,
@@ -274,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExportReport()) {
-               export(commandResult);
+                export(commandResult);
             }
 
             if (commandResult.isPrintReport()) {
