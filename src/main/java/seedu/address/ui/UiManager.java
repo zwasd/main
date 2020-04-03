@@ -24,7 +24,6 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
-    private CalendarView cv;
 
     public UiManager(Logic logic) {
         super();

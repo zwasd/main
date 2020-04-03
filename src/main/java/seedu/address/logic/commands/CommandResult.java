@@ -3,10 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Objects;
 
-import seedu.address.model.Report;
+import seedu.address.ui.Graph;
 
 /**
  * Represents the result of a command execution.
@@ -21,8 +20,7 @@ public class CommandResult {
     private final boolean isShowReport;
     private final boolean isExportReport;
     private final boolean isPrintReport;
-    private HashMap stats;
-    private Report.GraphType graph = Report.GraphType.NULL;
+    private Graph graph;
 
     /**
      * The indicator of the current active date in the calendar view should change.
@@ -31,7 +29,7 @@ public class CommandResult {
     private LocalDate newActiveDate = null;
 
     /**
-     *The indicator of the current active account name should change.
+     * The indicator of the current active account name should change.
      */
     private boolean updateAccountName;
     private String activeAccountName;
@@ -73,12 +71,11 @@ public class CommandResult {
 
     }
 
-    public CommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats,
+    public CommandResult(String feedbackToUser, Graph graph,
                          boolean exportReport, boolean showReport, boolean printReport) {
         this(feedbackToUser, false, false, showReport,
                 exportReport, printReport, false, false, false);
         this.graph = graph;
-        this.stats = stats;
     }
 
     //rename
@@ -134,14 +131,6 @@ public class CommandResult {
         return isPrintReport;
     }
 
-    public boolean isPieGraph() {
-        return graph == Report.GraphType.PIE;
-    }
-
-    public boolean isBarGraph() {
-        return graph == Report.GraphType.BAR;
-    }
-
     public boolean isUpdateCalendar() {
         return updateCalendar;
     }
@@ -158,10 +147,6 @@ public class CommandResult {
         return newActiveDate;
     }
 
-    public HashMap getStats() {
-        return stats;
-    }
-
     public boolean isUpdateBudgetView() {
         return this.updateBudgetView;
     }
@@ -174,7 +159,7 @@ public class CommandResult {
         return this.totalSpending;
     }
 
-    public Report.GraphType getGraphType() {
+    public Graph getGraph() {
         return graph;
     }
 
