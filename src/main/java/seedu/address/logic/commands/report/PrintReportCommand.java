@@ -12,7 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.report.ReportLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.Report;
-
+import seedu.address.ui.Bar;
+import seedu.address.ui.Graph;
+import seedu.address.ui.Pie;
 
 /**
  * Prints report.
@@ -36,6 +38,8 @@ public class PrintReportCommand extends Command {
     private final Report toPrint;
     private HashMap statsToPrint;
     private Report.GraphType format;
+    private Graph graph;
+
 
     public PrintReportCommand(Report toPrint) {
         this.toPrint = toPrint;
@@ -45,6 +49,13 @@ public class PrintReportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
         format = toPrint.getFormat();
-        return new CommandResult(MESSAGE_SUCCESS, format, statsToPrint, false, false, true);
+
+        if (format.equals(Report.GraphType.PIE)) {
+            graph = new Pie(statsToPrint);
+        } else if (format.equals(Report.GraphType.BAR)) {
+            graph = new Bar(statsToPrint);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS, graph, false, false, true);
     }
 }

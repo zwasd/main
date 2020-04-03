@@ -11,10 +11,10 @@ import seedu.address.model.Model;
 
 public class ReportWindowPrintCommand extends ReportCommand {
 
-    public static final String MESSAGE_SUCCESS = "Printing report.";
+    public static final String MESSAGE_PRINT = "Checking if there is a graph to print.";
 
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
-        return new ReportCommandResult(MESSAGE_SUCCESS, false, false, true);
+        return new ReportCommandResult(MESSAGE_PRINT, false, false, true);
     }
 }
