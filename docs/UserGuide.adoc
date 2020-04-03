@@ -21,7 +21,7 @@ $AVE IT is a desktop budget management application. As most tertiary students
 are at a stage without a fixed income, they can use this to manage their
 spending. It has a GUI but most of the user interactions happen using a CLI
 (Command Line Interface). The application is ideal for tertiary students who
-are comfortable with typing. 
+are comfortable with typing.
 
 
 == Quick Start
