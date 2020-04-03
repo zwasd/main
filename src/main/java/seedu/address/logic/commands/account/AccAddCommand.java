@@ -33,6 +33,7 @@ public class AccAddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         model.addAccount(toAdd);
         return new CommandResult(MESSAGE_SUCCESS + toAdd.getAccountName());
     }

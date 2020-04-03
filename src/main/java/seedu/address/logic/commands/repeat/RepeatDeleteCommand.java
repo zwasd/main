@@ -44,7 +44,7 @@ public class RepeatDeleteCommand extends Command {
         List<BaseExp> lastShownList = model.getFilteredBaseExpList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEAT_DISPLAYED_INDEX);
         }
 
         BaseExp baseExp = lastShownList.get(targetIndex.getZeroBased());

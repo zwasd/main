@@ -8,6 +8,8 @@ import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.MonthlySpendingCalculator;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Change to another account.
  */
@@ -23,6 +25,7 @@ public class AccCheckoutCommand extends Command {
     private final String accountName;
 
     public AccCheckoutCommand(String accountName) {
+        requireNonNull(accountName);
         this.accountName = accountName;
     }
 

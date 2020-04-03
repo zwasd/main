@@ -7,6 +7,8 @@ import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.MonthlySpendingCalculator;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Delete account.
  */
@@ -22,6 +24,7 @@ public class AccDeleteCommand extends Command {
     private final String targetAccountName;
 
     public AccDeleteCommand(String targetAccountName) {
+        requireNonNull(targetAccountName);
         this.targetAccountName = targetAccountName;
     }
 

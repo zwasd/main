@@ -6,6 +6,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.account.AccLevelParser;
 import seedu.address.model.Model;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Rename account.
  */
@@ -26,12 +28,15 @@ public class AccRenameCommand extends Command {
     private final String oldName;
 
     public AccRenameCommand(String oldName, String newName) {
+        requireNonNull(oldName);
+        requireNonNull(newName);
         this.newName = newName;
         this.oldName = oldName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         String accountName = model.renameAccount(this.oldName, this.newName);
         return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName, accountName);
     }
