@@ -12,17 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
 By: `Team T10-3`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
-$AVE IT is a desktop budget management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-The application is aimed towards tertiary students who like to type a lot.
-As tertiary students are at a stage without a fixed income, they can use this to manage their spending.
+$AVE IT is a desktop budget management application. As most tertiary students
+are at a stage without a fixed income, they can use this to manage their
+spending. It has a GUI but most of the user interactions happen using a CLI
+(Command Line Interface). The application is ideal for tertiary students who
+are comfortable with typing. 
+
 
 == Quick Start
-
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `$AVE IT.jar` coming soon.
 .  Copy the file to the folder you want to use as the home folder for $AVE IT application.
@@ -31,69 +33,336 @@ As tertiary students are at a stage without a fixed income, they can use this to
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
+* `exp add -i chicken rice -a 4.50`: adds new expenditure and information.
+* `exp delete 3`: deletes the 3rd expenditure shown in the current list.
+* `exit` : exits the app.
 
-* **`exp add`**`-i chicken rice -a $4.50` : adds new expenditure and information.
-* **`exp delete`**`3` : deletes the 3rd expenditure shown in the current list
-* *`exit`* : exits the app
+.  Refer to <<main-commands, Main Commands>> for details of each command.
 
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+
+=== Disjoint Accounts
+_{ work in progress }_
+
+=== Expenditures
+_{ work in progress }_
+
+=== Calendar
+_{ work in progress }_
+
+=== Report
+_{ work in progress }_
+
+=== Autocomplete
+_{ work in progress }_
+
+=== Saving the data
+
+$AVE IT data is stored in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+[[main-commands]]
+== Main Commands
+
 ====
 *Command Format*:
 
-* Words in caps are the parameters to be supplied by the user e.g. in `add -i INFO -a AMT`, `AMT` is a parameter which can be used as `add -a $4.50`. +
-* Items in square brackets are optional e.g `-i INFO -a AMT [-t TAG]` can be used as `-i chicken rice -a $4.50 [-t food]` or as `-i chicken rice -a $4.50`. +
-* Parameters can be in any order e.g. if the command specifies `-i INFO -a AMT`, `-a AMT -i INFO` is also acceptable.
+Let's use a command format, +
+`exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
+as an example.
 
+* The first word is the *operation category* of the command, in this case, `exp`
+belongs to the expediture operations.
+* There may be a second word which is the specific command for the operation
+category, in this case, `add`.
+* Words starting with `-` e.g. `-i`, `-a` and `-t` are the *option prefix*. Not all
+commands have options, an example is deleting an expenditure, `exp delete 1`.
+* Words in caps are the *parameters* to be supplied by the user. `INFO`, `AMOUNT`
+and `TAG` are parameters representing information, amount and tag of the
+expenditure respectively. It can be used as such,
+`exp add -i chicken rice -a 4.50 -t food`.
+* Items in square brackets are optional, that means in this example
+`exp add -i chicken rice -a 4.50` is also valid.
+* Parameters can be in any order e.g. if the command specifies
+`-i INFO -a AMOUNT`, `-a AMOUNT -i INFO` is also acceptable.
+* However, if the parameter is not prefixed by any option prefixes, the order of
+the parameter matters.
 ====
 
-=== Viewing help : `help [-c COMMAND]`
+[[cmd-help]]
+=== Viewing help: `help`
 
-Format: `help`
+Views the help message.  +
+Format: `help [COMMAND]`
 
-=== Adding a expenditure: `exp add`
-
-Adds an expenditure to $AVE IT +
-Format: `exp add -i INFO -a AMT  [-t TAG]`
+****
+* When the optional `COMMAND` is stated, more information
+on the category of commands will be shown.
+****
 
 [TIP]
-An expenditure can have 1 optional tag which is useful for calculating expenditure reports.
-* The AMT must be positive and less than 10 million.
-* Total amount of all expenses must be less than 1 billion.
-
+The available `COMMAND` will be shown when entering `help`.
 
 Examples:
 
-* `exp add -i chicken rice -a $4.50`
-* `exp add -i chicken rice -a $4.50 [-t food]`
+* `help`
+* `help exp`
+* `help go`
 
-=== Editing a expenditure : `exp edit`
+[[cmd-go]]
+=== Going to a specific date: `go`
 
-Edits an existing expenditure in $AVE IT. +
-Format: `exp edit ID [-i INFO] [-a AMT]  [-t TAG] [-d DATE]`
+Lists the expenditures from a particular date. +
+Format: `go DATE`
 
 ****
-* Edits the expenditure with the specified `ID`. The ID refers to the identification number assigned to each spending.
+* `DATE` is a date in the format of `YYYY-MM-DD`, or year month day.
+****
+
+[TIP]
+Use `go today` to go to today's date.
+
+Examples:
+
+* `go 2020-05-05`
+* `go today`
+
+[[acc-add]]
+=== Adding an account: `acc add`
+
+Adds a disjoint expenditure account to $AVE IT. +
+Format: `acc add ACCOUNT`
+
+****
+* `ACCOUNT` is the account name. It is only contain letters and numbers and
+must be less than 26 characters.
+* The default account is called `default`, it is automatically created when you
+first use the application.
+****
+
+Examples:
+
+* `acc add school`
+* `acc add SpendLess1`
+
+[[acc-list]]
+=== Listing all accounts: `acc list`
+
+List all disjoint accounts in $AVE IT. +
+Format: `acc list`
+
+[[acc-rename]]
+=== Renaming an account: `acc rename`
+
+Renames an existing account in $AVE IT. +
+Format: `acc rename OLD_NAME NEW_NAME`
+
+****
+* `OLD_NAME` is the name of the account you want to rename from. It has to exist.
+* `NEW_NAME` is the name of the account you want to rename to.
+* See <<acc-add>> for account naming constraints.
+****
+
+Example:
+
+* `acc rename school uni` +
+Renames the account `school` to `uni`.
+
+[[acc-checkout]]
+=== Changing the current account: `acc checkout`
+
+Changes the account view to another existing account. +
+Format: `acc checkout ACCOUNT`
+
+[TIP]
+Use `acc list` to view the available accounts.
+
+[NOTE]
+Did you know git's `git checkout` command is our inspiration for `acc checkout`?
+
+Example:
+
+* `acc checkout cca`
+
+[[acc-clear]]
+=== Clearing account information: `acc clear`
+
+Reset the current account to a clean state. +
+Format: `acc clear`
+
+[WARNING]
+All information in an account will be deleted, use with care.
+
+[[acc-delete]]
+=== Deleting an account: `acc delete`
+
+Deletes an existing account in $AVE IT. +
+Format: `acc delete ACCOUNT`
+
+****
+* `ACCOUNT` is the name of the account that will be deleted.
+****
+
+[WARNING]
+The account and all the information in it will be deleted, use with care.
+
+Example:
+
+* `acc delete school` +
+Deletes the account named `school`.
+
+[[exp-setbudget]]
+=== Setting the budget: `exp setbudget`
+
+Sets the budget amount in an account for the specified month. +
+Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
+
+****
+* `AMOUNT` is the amount of the budget (in dollars). It must be positive up
+to 2 decimal point and less than 1 billion.
+* `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
+budget. If not specified, the current year and month will be used.
+****
+
+Examples:
+
+* `exp setbudget -a 1000` +
+Sets the budget of $1000 for this month.
+* `exp setbudget -a 1000 -ym 2020-03` +
+Sets the budget of $1000 for the month of March in 2020.
+
+[[exp-add]]
+=== Adding an expenditure: `exp add`
+
+Adds an expenditure to the current account in $AVE IT. +
+Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
+
+****
+* `INFO` is the information of the expenditure.
+* `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
+to 2 decimal point and less than 1 billion.
+* `TAG` is the category of the expenditure. The default category is `Others`.
+You can only specify a category.
+* `DATE` is the date of the expenditure. The date will be the day's date when
+not specified.
+****
+
+Examples:
+
+* `exp add -i chicken rice -a 4.50`
+* `exp add -i chicken rice -a 4.50 -t food -d 2020-01-01`
+
+[[exp-edit]]
+=== Editing an expenditure : `exp edit`
+
+Edits an existing expenditure in the current account in $AVE IT. +
+Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
+
+****
+* Edits the expenditure with the specified `INDEX`. +
+`INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Refer to <<exp-add>> for what the options represent.
 ****
 
 Examples:
 
 * `exp edit 1 -i veg rice` +
-Edits the info of expenditure with ID 1 to veg rice.
-* `exp edit 2 -t` +
-Clears tag of expenditure with ID.
+Edits the info of expenditure with index `1` to `veg rice`.
 
+* `exp edit 3 -a 3.23 -t transport -d 2020-02-02`
+
+[[exp-delete]]
+=== Deleting an expenditure: `exp delete`
+
+Deletes an existing expenditure in the current $AVE IT account. +
+Format: `exp delete INDEX`
+
+****
+* Deletes the expenditure with the specified `INDEX`. +
+`INDEX` refers to the index number assigned to each expenditure based on the order.
+****
+
+Example:
+
+* `exp delete 4`
+Deletes the expenditure with index `4`.
+
+[[repeat-add]]
+=== Adding a repeated expenditure: `repeat add`
+
+Adds an expenditure that can be repeated. +
+Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
+
+****
+* `INFO` is the information of the expenditure.
+* `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
+to 2 decimal point and less than 1 billion.
+* `START_DATE` is the date in which the expenditure will start recurring from.
+* `END_DATE` is the date in which the expenditure will no longer recur.
+* `PERIOD` is the interval the expenditure will repeat. Valid intervals are
+`daily`, `weekly`, `monthly` and `annually`.
+* `TAG` is the category of the expenditure. The default category is `Others`.
+You can only specify a category.
+****
+
+Examples:
+
+* `repeat add -i transport fee -a 100 -sd 2020-01-01 -ed 2020-12-30 -p monthly` +
+Adds a repeated expenditure called `transport fee` which will be counted for
+$100 monthly on the first day of the month for the year of 2020.
+* `repeat add -i transport fee -a 100 -sd 2020-01-01 -ed 2020-12-30 -p monthly -t transport`
+
+[[repeat-edit]]
+=== Editing a repeated expenditure: `repeat edit`
+
+Edits an expenditure that can be repeated. +
+Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]`
+
+****
+* Edits the  repeated expenditure with the specified `INDEX`. +
+`INDEX` refers to the index number assigned to each expenditure based on the order.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Refer to <<repeat-add>> for what the options represent.
+****
+
+Examples:
+
+* `repeat edit 2 -i concession` +
+Edits the information of the repeated expenditure with index `2` to `concession`.
+* `repeat edit 3 -p weekly -ed 2020-07-02` +
+Edits the interval for the repeated expenditure with index `3` to weekly and
+ends at 2 July 2020.
+
+[[repeat-delete]]
+=== Deleting a repeated expenditure: `repeat delete`
+
+Deletes an expenditure that can be repeated. +
+Format: `repeat delete INDEX`
+
+****
+* Deletes the repeated expenditure with the specified `INDEX`. +
+`INDEX` refers to the index number assigned to each expenditure based on the order.
+****
+
+Example:
+
+* `repeat delete 4`
+Deletes the repeated expenditure with index `4`.
+
+[[cmd-find]]
 === Locating expenditure by keyword: `find`
 
-Find expenditures which contain the keyword(s). +
+Find expenditures (both single and repeated) which contain the keyword(s). +
 Format: `find [KEYWORD...]`
 
 ****
@@ -103,154 +372,223 @@ Format: `find [KEYWORD...]`
 * Expenditures matching at least one keyword will be returned (i.e. `OR` search). e.g. `Chicken Rice` will return `Fried Chicken`, `Steam Chicken`
 ****
 
+[TIP]
+Use `exp list` to exit from the search results.
+
 Examples:
 
 * `find rice` +
-Returns `Chicken rice` and `Veg Rice`
+Returns `Chicken rice` and `Veg Rice`.
 * `find Spicy Chicken Rice` +
-Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`
+Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`.
 
-// tag::delete[]
-=== Deleting a expenditure : `exp delete`
+[[exp-list]]
+=== Listing expenditures: `exp list`
 
-Deletes the specified expenditure from $AVE IT. +
-Format: `exp delete ID`
+Lists the expenditures for the current active date in the current account. +
+Format: `exp list`
+
+[TIP]
+Use this command after `find` to return back to normal daily view.
+
+[[report-view]]
+=== Viewing expenditures report: `report view`
+
+Generates report on expenditure spending in the given period. +
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
 
 ****
-* Deletes the expenditure at the specified `ID`.
-* The ID refers to the unique identification number assigned to the spending.
+* Views the report of a graph type populated with data from expenditures from
+a start date to an end date.
+* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
+`BAR` or `PIE` (take note of the casing). They represent a bar chart and a pie
+char respectively.
+* `START_DATE` is the date from which the report will start generating from.
+* `END_DATE` is the date from which the report will stop generating.
 ****
 
 Examples:
 
-`exp delete 2` +
-Deletes the expenditure with ID 2. +
-`find Chicky rice` +
-exp delete 1` +
-Deletes the expenditure with ID 1 if it is in the results of the `find` command.
-// end::delete[]
+* `report view -g PIE -sd 2020-03-01 -ed 2020-03-31`
+* `report view -g BAR -sd 2020-03-01 -ed 2020-03-31`
 
-=== Set a fixed recurring ( recurs every `NUMBER PERIOD` )  expenditure: `repeat`
+[[report-export]]
+=== Exporting report: `report export`
 
-Sets an expenditure that will automatically be added every interval which expires at specified date. +
-Format: `repeat add -i INFO -a AMT -d DATE -p INTERVAL MONTH [-t TAG]`
+Exports report on expenditure spending in the given period. +
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
 
 ****
-* The default interval is set to `monthly`.
-* The AMT must be positive and less than 10 million.
+* Exports the report of a graph type populated with data from expenditures from
+a start date to an end date.
+* Refer to <<report-view>> for the details on the parameters.
 ****
 
-=== See expenditures report : `report`
+Examples:
 
-Generates report on expenditure spending in the given period. +
-Format: `report view -sd 2020-03-01 -ed 2020-03-31 -g PIE`
+* `report export -g PIE -sd 2020-03-01 -ed 2020-03-31`
+* `report export -g BAR -sd 2020-03-01 -ed 2020-03-31`
 
-=== Clearing all entries [Not yet functional] : `reset`
+[[report-print]]
+=== Printing report: `report print`
 
-Clears all entries from $AVE IT . Once cleared, entries cannot be recovered. +
-Format: `reset`
+Prints report on expenditure spending in the given period. +
+Format: `report print -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
 
-=== Exiting the program : `exit`
+****
+* Prints the report of a graph type populated with data from expenditures from
+a start date to an end date.
+* Refer to <<report-view>> for the details on the parameters.
+****
+
+Examples:
+
+* `report print -g PIE -sd 2020-03-01 -ed 2020-03-31`
+* `report print -g BAR -sd 2020-03-01 -ed 2020-03-31`
+
+[[cmd-exit]]
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
 
-$AVE IT data is stored in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+[[report-commands]]
+== Report Window Commands
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+These are the commands to be executed in the report window.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+[[report-cmd-view]]
+=== Viewing expenditures report
+
+[NOTE]
+The result of this command is equivalent to <<report-view>>.
+
+Generates report on expenditure spending in the given period. +
+Format: `GRAPH_TYPE START_DATE END_DATE`
+
+****
+* Views the report of a graph type populated with data from expenditures from
+a start date to an end date.
+* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
+`BAR` or `PIE` (take note of the casing). They represent a bar chart and a pie
+char respectively.
+* `START_DATE` is the date from which the report will start generating from.
+* `END_DATE` is the date from which the report will stop generating.
+****
+
+Examples:
+
+* `PIE 2020-03-01 2020-03-31`
+* `BAR 2020-03-01 2020-03-31`
+
+[[report-cmd-export]]
+=== Exporting report: `export` *[Not yet functional]*
+
+Exports the current report shown on the report window. +
+Format: `export`
+
+[[report-cmd-print]]
+=== Printing report: `print`
+
+Prints the current report shown on the report window. +
+Format: `printt`
+
+[[report-cmd-exit]]
+=== Exiting the report window: `exit`
+
+Exits the report window. +
+Format: `exit`
+
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
 
+
 == Command Summary
-=== General operation
-* *Exit* : `exit`
 
-* *Help* : `help`
+=== General Operations
+* <<cmd-help, *help*>> : `help`
 
-* *Go* : `go "DATE(YYYY-MM-DD)"` +
+* <<cmd-go, *go*>> : `go DATE` +
 e.g `go 2020-04-01`
 
-=== Account Operation
-* *acc add* : `acc add "ACCOUNT NAME"` +
+* <<cmd-find, *find*>> : `find [KEYWORD...]` +
+e.g. `find chicken rice`
+
+* <<cmd-exit, *exit*>> : `exit`
+
+=== Account Operations
+* <<acc-add, *acc add*>> : `acc add ACCOUNT` +
 e.g. `acc add Personal`
 
-* *acc checkout* : `Checkout "ACCOUNT NAME"` +
-e.g. `acc checkout Personal`
+* <<acc-list, *acc list*>> : `acc list` +
 
-* *acc clear* : `acc clear` +
-
-* *acc list* : `acc list` +
-
-* *acc delete* : `acc delete "ACCOUNT NAME"` +
-e.g. `acc delete Personal`
-
-* *acc rename* : `acc rename "OLD ACCOUNT NAME" "NEW ACCOUNT NAME` +
+* <<acc-rename, *acc rename*>> : `acc rename OLD_NAME NEW_NAME` +
 e.g. `acc rename Personal non-personal`
 
-=== Expenditure Operation
-* *exp add* : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE(YYYY-MM-DD)]` +
+* <<acc-checkout, *acc checkout*>> : `acc checkout ACCOUNT` +
+e.g. `acc checkout Personal`
+
+* <<acc-clear, *acc clear*>> : `acc clear` +
+
+* <<acc-delete, *acc delete*>> : `acc delete ACCOUNT` +
+e.g. `acc delete Personal`
+
+=== Expenditure Operations
+* <<exp-setbudget, *exp setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
+e.g `exp setbudget -a 1000 -ym 2020-04`
+
+* <<exp-add, *exp add*>> : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`
 
-* *exp edit* : `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE(YYYY-MM-DD)]` +
+* <<exp-edit, *exp edit*>> : `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]` +
 e.g `exp edit 1 -i duck rice -a 4.50 -d 2020-04-02`
 
-* *exp delete* : `exp delete INDEX` +
+* <<exp-delete, *exp delete*>> : `exp delete INDEX` +
 e.g `exp delete 1`
 
-* *find* : `find Keyword` +
-e.g `find chicken`
+* <<exp-list, *exp list*>> : `exp list`
 
-* *exp setBudget* : `exp setBudget -a AMOUNT [-d DATE (YYYY-MM-DD)]` +
-e.g `exp setBudget -a 1000 -d 2020-04-01`
-
-=== Repeat Operation
-
-* *repeat add* : `repeat add -i INFO -a AMOUNT -sd START DATE (YYYY-MM-DD) -ed END DATE(YYYY-MM-DD) -p PERIOD [-t TAG]` +
+=== Repeat Operations
+* <<repeat-add, *repeat add*>> : `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
 e.g `repeat add -i bus fare -a 1.50 -sd 2020-03-01 -ed 2020-04-01 -p daily -t transport`
 
-* *repeat edit* : `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START DATE (YYYY-MM-DD)] [-ed END DATE(YYYY-MM-DD)] [-p PERIOD] [-t TAG]` +
+* <<repeat-edit, *repeat edit*>> : `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]` +
 e.g `repeat edit 2 -a 1.20 -ed 2020-04-02`
 
-* *repeat delete* : `repeat delete INDEX` +
+* <<repeat-delete, *repeat delete*>> : `repeat delete INDEX` +
 e.g `repeat delete INDEX`
 
-=== Report(Main Window) Operation
+=== Report (Main) Operations
 
-Note : The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
+[NOTE]
+The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
 
-* *report view* : `report view -sd YYYY-MM-DD -ed YYYY-MM-DD -g GraphType` +
-e.g. `report view -sd 2020-03-01 -ed 2020-03-31 -g PIE`
+* <<report-view, *report view*>> : `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
+e.g. `report view -g PIE -sd 2020-03-01 -ed 2020-03-31`
 
-* *report print* : `report view -sd YYYY-MM-DD -ed YYYY-MM-DD -g GraphType` +
-e.g. `report print -sd 2020-03-01 -ed 2020-03-31 -g PIE`
+* <<report-export, *report export*>> : `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
+e.g. `report export -g PIE -sd 2020-03-01 -ed 2020-03-31`
 
-* *report export [Not yet functional]* : `report export -sd YYYY-MM-DD -ed YYYY-MM-DD -g GraphType` +
-e.g. `report export -sd 2020-03-01 -ed 2020-03-31 BAR`
+* <<report-print, *report print*>> : `report print -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
+e.g. `report export -g BAR -sd 2020-03-01 -ed 2020-03-31`
 
-=== Report(Report Window) Operation
+=== Report Window Operations
 
-Note : The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
+[NOTE]
+The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
 
-* *report view* _equivalence_  : `GraphType YYYY-MM-DD(START DATE) YYYY-MM-DD(END DATE)` +
-e.g. `PIE 2020-03-01 2020-03-31 `
+* <<report-cmd-view, *report view _equivalence_*>> : `GRAPH_TYPE START_DATE END_DATE` +
+e.g. `PIE 2020-03-01 2020-03-31`
 
-* *print* : `print` +
+* <<report-cmd-print, *print*>> : `print` +
 e.g. `print`
 
-* *report export _equivalence_ [Not yet functional]* : `export` +
+* <<report-cmd-export, *report export _equivalence_*>> *[Not yet functional]* : `export` +
 e.g. `export`
 
-* *exit* : `exit` +
+* <<report-cmd-exit, *exit*>> : `exit` +
 e.g. `exit`
-
-
