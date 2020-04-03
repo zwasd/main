@@ -2,7 +2,7 @@
 !include style.puml
 title GenerateStats and Graph
 box Logic LOGIC_COLOR_T1
-participant "r:ViewReportCommand" as ViewReportCommand LOGIC_COLOR
+participant ":ViewReportCommand" as ViewReportCommand LOGIC_COLOR
 participant ":GenerateStats" as GenerateStats LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box

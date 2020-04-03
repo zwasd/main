@@ -200,7 +200,7 @@ Given below is the example usage scenario of how the autocompletion works.
 Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
 The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
 
-[Note]
+[NOTE]
 For the current implementation, it checks whether the typed command matches the starting characters of any commands.
 To be improved in later versions.
 
