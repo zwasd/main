@@ -65,13 +65,13 @@ public class JsonAccountStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndsaveSaveIt_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
         AccountList original = getTypicalAccountList();
         JsonAccountListStorage jsonAccountListStorage = new JsonAccountListStorage(filePath);
 
         // Save in new file and read back
-        jsonAccountListStorage.saveAddressBook(original, filePath);
+        jsonAccountListStorage.saveSaveIt(original, filePath);
         ReadOnlyAccountList readBack = jsonAccountListStorage.readAddressBook(filePath).get();
         assertEquals(original, new AccountList(readBack));
 
@@ -79,37 +79,37 @@ public class JsonAccountStorageTest {
         original.addExpenditure(HOON);
         // TODO: why does allowing this to run fails?
         // original.removeExpenditure(ALICE);
-        jsonAccountListStorage.saveAddressBook(original, filePath);
+        jsonAccountListStorage.saveSaveIt(original, filePath);
         readBack = jsonAccountListStorage.readAddressBook(filePath).get();
         assertEquals(original, new AccountList(readBack));
 
         // Save and read without specifying file path
         original.addExpenditure(IDA);
-        jsonAccountListStorage.saveAddressBook(original); // file path not specified
+        jsonAccountListStorage.saveSaveIt(original); // file path not specified
         readBack = jsonAccountListStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AccountList(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveSaveIt_nullAddressBook_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSaveIt(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAccountList addressBook, String filePath) {
+    private void saveSaveIt(ReadOnlyAccountList addressBook, String filePath) {
         try {
             new JsonAccountListStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveSaveIt(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new AccountList(false), null));
+    public void saveSaveIt_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveSaveIt(new AccountList(false), null));
     }
 }

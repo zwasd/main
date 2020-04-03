@@ -26,7 +26,7 @@ import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.Repeat.Period;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Edit repeat object.

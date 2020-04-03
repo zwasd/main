@@ -22,7 +22,7 @@ import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Repeat;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Parses input arguments and creates a new RepeatAddCommand object

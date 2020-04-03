@@ -38,7 +38,7 @@ public class AccountTest {
     }
 
     // @Test
-    // public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    // public void resetData_withValidReadOnlyAccountList_replacesData() {
     //     Account newData = getTypicalAccount();
     //     account.resetData(newData);
     //     assertEquals(newData, account);

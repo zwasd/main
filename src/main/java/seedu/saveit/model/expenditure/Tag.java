@@ -1,4 +1,4 @@
-package seedu.saveit.model.tag;
+package seedu.saveit.model.expenditure;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.AppUtil.checkArgument;

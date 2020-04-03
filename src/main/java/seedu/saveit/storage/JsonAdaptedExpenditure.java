@@ -12,7 +12,7 @@ import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Info;
 
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Jackson-friendly version of {@link Expenditure}.
@@ -89,7 +89,7 @@ class JsonAdaptedExpenditure {
             tag = new JsonAdaptedTag("Others");
         }
 
-        if (!seedu.saveit.model.tag.Tag.isValidTagName(tag.getTagName())) {
+        if (!seedu.saveit.model.expenditure.Tag.isValidTagName(tag.getTagName())) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 

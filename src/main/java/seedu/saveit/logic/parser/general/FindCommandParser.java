@@ -12,7 +12,7 @@ import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.ParserUtil;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.InfoContainsKeywordsPredicate;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Parses input arguments and creates a new FindCommand object

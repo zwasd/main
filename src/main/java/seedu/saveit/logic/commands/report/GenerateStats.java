@@ -12,8 +12,8 @@ import seedu.saveit.model.ReportableAccount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Repeat;
+import seedu.saveit.model.expenditure.Tag;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
-import seedu.saveit.model.tag.Tag;
 
 /**
  * Internal statistics generation command.

@@ -60,16 +60,16 @@ public class JsonAccountListStorage implements SaveItStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAccountList addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveSaveIt(ReadOnlyAccountList addressBook) throws IOException {
+        saveSaveIt(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAccountList)}.
+     * Similar to {@link #saveSaveIt(ReadOnlyAccountList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAccountList addressBook, Path filePath) throws IOException {
+    public void saveSaveIt(ReadOnlyAccountList addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

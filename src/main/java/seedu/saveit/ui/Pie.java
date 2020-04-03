@@ -7,7 +7,7 @@ import java.util.Set;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Constructs pie chart.

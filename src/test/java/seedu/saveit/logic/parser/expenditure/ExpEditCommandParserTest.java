@@ -39,7 +39,7 @@ import seedu.saveit.logic.commands.expenditure.ExpEditCommand.EditExpenditureDes
 import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 import seedu.saveit.testutil.EditExpenditureDescriptorBuilder;
 
 public class ExpEditCommandParserTest {

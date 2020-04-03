@@ -12,7 +12,7 @@ import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_INFO = "R@chel";

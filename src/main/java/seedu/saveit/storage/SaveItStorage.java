@@ -37,11 +37,11 @@ public interface SaveItStorage {
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAccountList addressBook) throws IOException;
+    void saveSaveIt(ReadOnlyAccountList addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAccountList)
+     * @see #saveSaveIt(ReadOnlyAccountList)
      */
-    void saveAddressBook(ReadOnlyAccountList addressBook, Path filePath) throws IOException;
+    void saveSaveIt(ReadOnlyAccountList addressBook, Path filePath) throws IOException;
 
 }

@@ -24,7 +24,7 @@ import seedu.saveit.model.expenditure.BaseExp;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Info;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Edits the details of an existing expenditure in the address book.

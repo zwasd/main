@@ -1,4 +1,4 @@
-package seedu.saveit.model.tag;
+package seedu.saveit.model.expenditure;
 
 import static seedu.saveit.testutil.Assert.assertThrows;
 

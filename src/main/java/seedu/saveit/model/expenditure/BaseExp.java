@@ -3,7 +3,6 @@ package seedu.saveit.model.expenditure;
 import java.time.LocalDate;
 
 import javafx.scene.layout.Region;
-import seedu.saveit.model.tag.Tag;
 import seedu.saveit.ui.UiPart;
 
 /**

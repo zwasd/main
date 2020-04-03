@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import javafx.scene.layout.Region;
 import seedu.saveit.commons.exceptions.IllegalValueException;
-import seedu.saveit.model.tag.Tag;
 import seedu.saveit.ui.RepeatCard;
 import seedu.saveit.ui.UiPart;
 

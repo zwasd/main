@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import javafx.scene.layout.Region;
-import seedu.saveit.model.tag.Tag;
 import seedu.saveit.ui.ExpenditureCard;
 import seedu.saveit.ui.UiPart;
 

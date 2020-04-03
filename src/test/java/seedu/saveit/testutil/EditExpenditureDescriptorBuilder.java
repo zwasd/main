@@ -6,7 +6,7 @@ import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Info;
-import seedu.saveit.model.tag.Tag;
+import seedu.saveit.model.expenditure.Tag;
 
 /**
  * A utility class to help with building EditExpenditureDescriptor objects.

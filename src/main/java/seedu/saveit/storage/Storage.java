@@ -27,6 +27,6 @@ public interface Storage extends SaveItStorage, UserPrefsStorage {
     Optional<ReadOnlyAccountList> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAccountList addressBook) throws IOException;
+    void saveSaveIt(ReadOnlyAccountList addressBook) throws IOException;
 
 }
