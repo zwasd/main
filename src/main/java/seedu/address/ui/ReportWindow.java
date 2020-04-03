@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
@@ -51,8 +52,6 @@ public class ReportWindow extends UiPart<Stage> {
     private ResultDisplay display;
     private MenuBar menuBar;
     private Graph currentGraph;
-    private CommandResult firstResult = null;
-    private ReportCommandResult currentGraphResult = null;
 
     /**
      * Creates a new Report Window.
@@ -103,7 +102,11 @@ public class ReportWindow extends UiPart<Stage> {
         label.setFont(new Font("Segoe UI Light", 14));
         label1.setOnMouseClicked(click -> {
             try {
-                print();
+               if(currentGraph != null) {
+                   print();
+               } else {
+                   display.setFeedbackToUser("Construct graph before printing.");
+               }
             } catch (PrinterException e) {
                 logger.info("Invalid printer");
                 display.setFeedbackToUser(e.getMessage());
@@ -122,7 +125,7 @@ public class ReportWindow extends UiPart<Stage> {
      * TODO: ADD DOC
      */
     private void initCloseHandler() {
-        getRoot().setOnCloseRequest(new EventHandler<WindowEvent>() {
+        getRoot().setOnCloseRequest(new EventHandler<>() {
             @Override
             public void handle(WindowEvent event) {
                 display.clear();
@@ -131,9 +134,28 @@ public class ReportWindow extends UiPart<Stage> {
         });
     }
 
-    private void setScene() {
+    /**
+     * Returns true if the report window is currently being shown.
+     */
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Hides the report window.
+     */
+    public void hide() {
+        getRoot().hide();
+    }
+
+
+    public void addLogic(Logic logic) {
+        this.logic = logic;
+    }
+
+    private void setScene(Node graph) {
         VBox topBox = new VBox(menuBar, box.getRoot());
-        VBox vbox = new VBox(topBox, display.getRoot(), (Node) currentGraph.getGraph());
+        VBox vbox = new VBox(topBox, display.getRoot(), graph);
         Scene scene = new Scene(vbox);
         scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
         getRoot().setScene(scene);
@@ -162,10 +184,8 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showEmpty() {
         logger.fine("Showing empty report page.");
-        this.currentGraph = new Pie();
-        setScene();
+        setScene((Node) new Pie(new HashMap()).constructGraph());
     }
-
 
     /**
      * Shows the expenditure breakdown
@@ -175,20 +195,8 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
-
-        this.firstResult = result;
-
-        if (result.isPieGraph()) {
-            this.currentGraph = new Pie();
-
-        } else if (result.isBarGraph()) {
-            this.currentGraph = new Bar();
-        }
-
-        assert currentGraph != null;
-        currentGraph.constructGraph(result);
-        setScene();
-
+        this.currentGraph = result.getGraph();
+        setScene((Node) currentGraph.constructGraph());
     }
 
     /**
@@ -199,149 +207,44 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showResult(ReportCommandResult result) {
         logger.fine("Showing report page.");
-
-        if (result.isPieGraph()) {
-            this.currentGraph = new Pie();
-
-        } else if (result.isBarGraph()) {
-            this.currentGraph = new Bar();
-        }
-
-        assert currentGraph != null;
-        currentGraph.constructGraph(result);
-        setScene();
+        this.currentGraph = result.getGraph();
+        setScene((Node) currentGraph.constructGraph());
     }
 
     /**
-     * Sends a print job of report to printer.
+     * Sends a print job of report from report window to printer.
      *
-     * @param result command result of user input.
      * @throws PrinterException is thrown when printer cannot
      *                          successfully finish a job.
      */
-    public void print(CommandResult result) throws PrinterException {
-        logger.fine("Exporting");
-        Graph toPrint = null;
-        Node graph;
+    public void print() throws PrinterException {
+        logger.fine("Printing");
+        display.setFeedbackToUser("Printing");
 
-        if (result.isPieGraph()) {
-            toPrint = new Pie();
-        } else if (result.isBarGraph()) {
-            toPrint = new Bar();
-        }
+        assert currentGraph != null;
+        Node graphNode;
+        graphNode = (Node) currentGraph.constructGraph();
+        printerJob(graphNode);
 
-        assert toPrint != null;
-        toPrint.constructGraph(result);
-        graph = (Node) toPrint.getGraph();
+    }
+
+    public void printerJob(Node graphNode) throws PrinterException {
         Printer printer = Printer.getDefaultPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4,
                 PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
         PrinterJob printerJob = PrinterJob.createPrinterJob();
 
         if (printerJob != null) {
-            display.setFeedbackToUser("Printing");
-            boolean jobStatus = printerJob.printPage(pageLayout, graph);
+            boolean jobStatus = printerJob.printPage(pageLayout, graphNode);
             if (jobStatus) {
                 printerJob.endJob();
             } else {
                 printerJob.cancelJob();
                 throw new PrinterException("Set available printer as default printer");
             }
-        } else {
-            display.setFeedbackToUser("Construct a graph before printing.");
         }
     }
 
-    /**
-     * Sends a print job of report to printer.
-     *
-     * @throws PrinterException is thrown when printer cannot
-     *                          successfully finish a job.
-     */
-    public void print() throws PrinterException {
-        logger.fine("Exporting");
-
-        if (currentGraphResult == null && firstResult != null) {
-
-            print(firstResult);
-
-        } else if (currentGraphResult != null) {
-            Graph toPrint = null;
-            Node graph;
-
-            if (currentGraphResult.isPieGraph()) {
-                toPrint = new Pie();
-            } else if (currentGraphResult.isBarGraph()) {
-                toPrint = new Bar();
-            }
-
-            assert toPrint != null;
-            toPrint.constructGraph(currentGraphResult);
-            graph = (Node) toPrint.getGraph();
-            Printer printer = Printer.getDefaultPrinter();
-            PageLayout pageLayout = printer.createPageLayout(Paper.A4,
-                    PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
-            PrinterJob printerJob = PrinterJob.createPrinterJob();
-
-            if (printerJob != null) {
-                display.setFeedbackToUser("Printing");
-                boolean jobStatus = printerJob.printPage(pageLayout, graph);
-                if (jobStatus) {
-                    printerJob.endJob();
-                } else {
-                    printerJob.cancelJob();
-                    throw new PrinterException("Set available printer as default printer");
-                }
-            }
-
-        } else {
-            display.setFeedbackToUser("Construct a graph before printing.");
-        }
-    }
-
-
-    //TODO: ask can use SwinfFXutils
-
-    /**
-     * Export report (in progress not done)
-     *
-     * @param result
-     */
-    public void export(CommandResult result) {
-        Graph toPrint = null;
-        Node graph;
-
-        if (result.isPieGraph()) {
-            toPrint = new Pie();
-        } else if (result.isBarGraph()) {
-            toPrint = new Bar();
-        }
-
-        assert toPrint != null;
-        toPrint.constructGraph(result);
-        graph = (Node) toPrint.getGraph();
-        WritableImage img = graph.snapshot(new SnapshotParameters(), null);
-
-    }
-
-    /**
-     * Returns true if the report window is currently being shown.
-     */
-    public boolean isShowing() {
-        return getRoot().isShowing();
-    }
-
-    /**
-     * Hides the report window.
-     */
-    public void hide() {
-        getRoot().hide();
-    }
-
-
-    public void addLogic(Logic logic) {
-        this.logic = logic;
-    }
 
     /**
      * Executor method for report command box.
@@ -359,9 +262,12 @@ public class ReportWindow extends UiPart<Stage> {
                 display.clear();
                 getRoot().hide();
             } else if (result.isPrintReport()) {
-                print();
+                if(currentGraph != null) {
+                    print();
+                } else {
+                    display.setFeedbackToUser("Construct graph before printing");
+                }
             } else {
-                this.currentGraphResult = result;
                 showResult(result);
             }
 

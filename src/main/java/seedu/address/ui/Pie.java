@@ -16,11 +16,14 @@ import seedu.address.model.tag.Tag;
  */
 public class Pie extends Graph {
 
-    private PieChart pie = null;
+    private HashMap stats;
 
-    @Override
-    public void constructGraph(ReportCommandResult result) {
-        HashMap stats = result.getStats();
+    public Pie(HashMap stats) {
+        this.stats = stats;
+    }
+
+
+    public PieChart constructGraph() {
         PieChart pie = new PieChart();
         pie.setTitle("Expenditure Breakdown");
         pie.setLabelLineLength(10);
@@ -37,39 +40,7 @@ public class Pie extends Graph {
             pie.getData().add(data);
         }
 
-        this.pie = pie;
+       return pie;
     }
 
-    /**
-     * Pie chart displaying
-     * user expenditures.
-     */
-    @Override
-    public void constructGraph(CommandResult result) {
-        HashMap stats = result.getStats();
-        PieChart pie = new PieChart();
-        pie.setTitle("Expenditure Breakdown");
-        pie.setLabelLineLength(10);
-        pie.setLegendSide(Side.RIGHT);
-
-        Set set = stats.keySet();
-        Iterator itr = set.iterator();
-
-        while (itr.hasNext()) {
-
-            Tag index = ((Tag) itr.next());
-            PieChart.Data data = new PieChart.Data(index.getTagName(), (double) stats.get(index));
-            pie.getData().add(data);
-        }
-        this.pie = pie;
-
-    }
-
-    @Override
-    public PieChart getGraph() {
-        if (pie == null) {
-            pie = new PieChart();
-        }
-        return pie;
-    }
 }

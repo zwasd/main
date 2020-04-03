@@ -4,6 +4,12 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -201,14 +207,50 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleReport() {
 
-        if (!reportWindow.isShowing()) {
-            reportWindow.showEmpty();
-        }
+        assert reportWindow.isShowing() == false;
 
-        /*else {
-            reportWindow.focus();
+        reportWindow.showEmpty();
+
+    }
+
+    /**
+     * Sends a print job of report from main window to printer.
+     *
+     * @throws PrinterException is thrown when printer cannot
+     *                          successfully finish a job.
+     */
+    public void print(Graph graph) throws PrinterException {
+        logger.fine("Printing");
+        Node graphNode;
+        graphNode = (Node) graph.constructGraph();
+        printerJob(graphNode);
+    }
+
+    public void printerJob(Node graphNode) throws PrinterException {
+        Printer printer = Printer.getDefaultPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4,
+                PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+
+        if (printerJob != null) {
+            boolean jobStatus = printerJob.printPage(pageLayout, graphNode);
+            if (jobStatus) {
+                printerJob.endJob();
+            } else {
+                printerJob.cancelJob();
+                throw new PrinterException("Set available printer as default printer");
+            }
         }
-        */
+    }
+
+    //TODO: ask can use SwinfFXutils
+
+    /**
+     * Export report (in progress not done)
+     *
+     * @param result
+     */
+    public void export(CommandResult result) {
 
     }
 
@@ -232,11 +274,11 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExportReport()) {
-                reportWindow.export(commandResult);
+               export(commandResult);
             }
 
             if (commandResult.isPrintReport()) {
-                reportWindow.print(commandResult);
+                print(commandResult.getGraph());
             }
 
             if (commandResult.isUpdateCalendar()) {

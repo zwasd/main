@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.HashMap;
 
 import seedu.address.model.Report;
+import seedu.address.ui.Graph;
 
 /**
  * Command result from report window.
@@ -14,13 +15,11 @@ public class ReportCommandResult {
     private final boolean isPrintReport;
     private final String feedbackToUser;
 
-    private HashMap stats;
-    private Report.GraphType graph = Report.GraphType.NULL;
+    private Graph graph;
 
-    public ReportCommandResult(String feedbackToUser, Report.GraphType graph, HashMap stats) {
+    public ReportCommandResult(String feedbackToUser, Graph graph) {
         this(feedbackToUser, false, false, false);
         this.graph = graph;
-        this.stats = stats;
         ;
     }
 
@@ -30,10 +29,6 @@ public class ReportCommandResult {
         this.isExitReport = isExitReport;
         this.isExportReport = isExportReport;
         this.isPrintReport = isPrintReport;
-    }
-
-    public HashMap getStats() {
-        return stats;
     }
 
     public boolean isExitReport() {
@@ -52,13 +47,9 @@ public class ReportCommandResult {
         return feedbackToUser;
     }
 
-    public boolean isPieGraph() {
-        return graph == Report.GraphType.PIE;
-    }
+    public Graph getGraph() { return graph; }
 
-    public boolean isBarGraph() {
-        return graph == Report.GraphType.BAR;
-    }
+
 }
 
 

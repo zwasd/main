@@ -12,6 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.report.ReportLevelParser;
 import seedu.address.model.Model;
 import seedu.address.model.Report;
+import seedu.address.ui.Bar;
+import seedu.address.ui.Graph;
+import seedu.address.ui.Pie;
 
 
 /**
@@ -36,6 +39,7 @@ public class ExportReportCommand extends Command {
     private final Report toExport;
     private HashMap statsToExport;
     private Report.GraphType format;
+    private Graph graph;
 
     public ExportReportCommand(Report toExport) {
         this.toExport = toExport;
@@ -45,7 +49,13 @@ public class ExportReportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
         format = toExport.getFormat();
-        return new CommandResult(MESSAGE_SUCCESS, format, statsToExport, true,
-                false, false);
+
+        if(format.equals(Report.GraphType.PIE)) {
+            graph = new Pie(statsToExport);
+        } else if (format.equals(Report.GraphType.BAR)) {
+            graph = new Bar(statsToExport);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS, graph, true, false, false);
     }
 }
