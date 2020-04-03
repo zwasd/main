@@ -3,9 +3,10 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":ExpLevelParser" as ExpLevelParser LOGIC_COLOR
+participant ":ExpDeleteCommandParser" as ExpDeleteCommandParser LOGIC_COLOR
+participant "d:ExpDeleteCommand" as ExpDeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +14,61 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("exp delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> TopLevelParser : parseCommand("exp delete 1")
+activate TopLevelParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create ExpLevelParser
+TopLevelParser -> ExpLevelParser
+activate ExpLevelParser
+TopLevelParser -> ExpLevelParser : parseCommand("delete 1")
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+create ExpDeleteCommandParser
+ExpLevelParser -> ExpDeleteCommandParser
+activate ExpDeleteCommandParser
+ExpLevelParser -> ExpDeleteCommandParser : parse("1")
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+create ExpDeleteCommand
+ExpDeleteCommandParser -> ExpDeleteCommand
+activate ExpDeleteCommand
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+ExpDeleteCommand --> ExpDeleteCommandParser : d
+deactivate ExpDeleteCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+ExpDeleteCommandParser -> ExpLevelParser : d
+deactivate ExpDeleteCommandParser
+ExpDeleteCommandParser -[hidden]-> ExpLevelParser
+destroy ExpDeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+ExpLevelParser --> TopLevelParser : d
+deactivate ExpLevelParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+ExpLevelParser -[hidden]-> TopLevelParser
+destroy ExpLevelParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+TopLevelParser --> LogicManager : d
+deactivate TopLevelParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> ExpDeleteCommand : execute()
+activate ExpDeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+ExpDeleteCommand -> Model : deleteExpenditure(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> ExpDeleteCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+ExpDeleteCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> ExpDeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+ExpDeleteCommand --> LogicManager : result
+deactivate ExpDeleteCommand
 
 [<--LogicManager
 deactivate LogicManager

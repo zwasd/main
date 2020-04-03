@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ExpenditureListPanel expenditureListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    //private HelpWindow helpWindow;
     private ReportWindow reportWindow;
     private ActiveNameAndDateView activeNameAndDateView;
     private CalendarView calendarView;
@@ -85,7 +85,7 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        //helpWindow = new HelpWindow();
         reportWindow = new ReportWindow();
         reportWindow.addLogic(logic);
 
@@ -193,7 +193,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
 
         reportWindow.hide();
-        helpWindow.hide();
+        //helpWindow.hide();
         primaryStage.hide();
     }
 

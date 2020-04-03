@@ -9,7 +9,6 @@ Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ReportWindow
 Class ResultDisplay
 Class ExpenditureListPanel
@@ -33,68 +32,38 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
 UiManager .up.|> Ui
-UiManager --> MainWindow
-MainWindow -right-> HelpWindow
-MainWindow --> CalendarView
-MainWindow -right-> ReportWindow
-MainWindow *-left-> CommandBox
-MainWindow *-left-> ResultDisplay
-MainWindow *-right-> ExpenditureListPanel
-MainWindow -right-> ActiveNameAndDateView
-MainWindow -> BudgetView
+UiManager -left-> MainWindow
+MainWindow *--right-> CalendarView
+MainWindow -down-> ReportWindow
+MainWindow *---> CommandBox
+MainWindow *---> ResultDisplay
+MainWindow *---> ExpenditureListPanel
+MainWindow *--> ActiveNameAndDateView
+MainWindow *--> BudgetView
 MainWindow *--> StatusBarFooter
 
 ExpenditureListPanel -down-> ExpenditureCard
 
-MainWindow -left-|> UiPart
-CalendarView -down|> UiPart
+MainWindow --|> UiPart
+CalendarView -|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ExpenditureListPanel --|> UiPart
 ExpenditureCard --|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
 ReportWindow --|> UiPart
-BudgetView -up-|> UiPart
-ActiveNameAndDateView -left|> UiPart
+BudgetView -down-|> UiPart
+ActiveNameAndDateView -|> UiPart
 
 ExpenditureCard ..> Model
-UiManager -up-> Logic
-MainWindow -up-> Logic
-ReportWindow --> Logic
+UiManager -right-> Logic
+MainWindow --> Logic
+ReportWindow -up-> Logic
 
-ExpenditureListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
-
 MainWindow -[hidden]-|> UiPart
 @enduml
 
 
-@startuml
-!include style.puml
-skinparam arrowThickness 1.1
-skinparam arrowColor STORAGE_COLOR
-skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface SaveItStorage <<Interface>>
-
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonSaveItStorage
-
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> SaveItStorage
-
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonSaveItStorage .left.|> SaveItStorage
-JsonSaveItStorage .down.> JsonSerializableAccountList
-JsonSerializableAccountList .down.> JsonSerializableAccount
-JsonSerializableAccount .down.> JsonAdaptedExpenditure
-JsonSerializableAccount .right.> JsonAdaptedRepeat
-JsonAdaptedExpenditure .right.> JsonAdaptedTag
-@enduml

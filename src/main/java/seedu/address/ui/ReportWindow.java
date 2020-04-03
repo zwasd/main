@@ -262,6 +262,7 @@ public class ReportWindow extends UiPart<Stage> {
             display.setFeedbackToUser(result.getFeedbackToUser());
 
             if (result.isExitReport()) {
+                currentGraph = null;
                 display.clear();
                 getRoot().hide();
             } else if (result.isPrintReport()) {
