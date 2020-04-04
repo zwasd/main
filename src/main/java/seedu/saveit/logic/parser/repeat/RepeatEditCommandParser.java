@@ -55,7 +55,7 @@ public class RepeatEditCommandParser implements Parser<RepeatEditCommand> {
             editRepeatDescriptor.setStartDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
-            editRepeatDescriptor.setStartDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
+            editRepeatDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             editRepeatDescriptor.setTag(ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get()));
