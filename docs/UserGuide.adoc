@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
-By: `Team T10-3`      Since: `Feb 2020`      Licence: `MIT`
+By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 $AVE IT is a desktop budget management application. As most tertiary students

@@ -1,0 +1,5 @@
+package seedu.saveit.logic.parser.report;
+
+public class ExportReportCommandParserTest {
+    private final ExportReportCommandParser parser = new ExportReportCommandParser();
+}
