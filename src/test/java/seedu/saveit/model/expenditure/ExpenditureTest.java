@@ -2,8 +2,8 @@ package seedu.saveit.model.expenditure;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 import static seedu.saveit.testutil.TypicalExpenditures.ALICE;
 import static seedu.saveit.testutil.TypicalExpenditures.BOB;
 
@@ -43,11 +43,11 @@ public class ExpenditureTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields -> returns false
-        editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_MRT).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different object and fields-> returns false
-        editedAlice = new ExpenditureBuilder(ALICE).withTag(VALID_TAG_HUSBAND).build();
+        editedAlice = new ExpenditureBuilder(ALICE).withTag(VALID_TAG_BUS).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

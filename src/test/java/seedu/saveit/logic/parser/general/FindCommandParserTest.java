@@ -1,5 +1,6 @@
 package seedu.saveit.logic.parser.general;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -20,6 +21,12 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_nullArg_throwsParseException() {
+        assertThrows(NullPointerException.class, () -> new FindCommandParser().parse(null));
+    }
+
 
     @Test
     public void parse_validArgs_returnsFindCommand() {

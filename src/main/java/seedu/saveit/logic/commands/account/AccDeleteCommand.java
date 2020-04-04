@@ -1,11 +1,14 @@
 package seedu.saveit.logic.commands.account;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.MonthlySpendingCalculator;
+
 
 /**
  * Delete account.
@@ -22,6 +25,7 @@ public class AccDeleteCommand extends Command {
     private final String targetAccountName;
 
     public AccDeleteCommand(String targetAccountName) {
+        requireNonNull(targetAccountName);
         this.targetAccountName = targetAccountName;
     }
 

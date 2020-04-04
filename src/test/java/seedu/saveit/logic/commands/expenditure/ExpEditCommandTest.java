@@ -2,9 +2,10 @@ package seedu.saveit.logic.commands.expenditure;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.saveit.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.saveit.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_BOB;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
 // import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandFailure;
 // import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -138,7 +139,7 @@ public class ExpEditCommandTest {
     public void execute_invalidExpenditureIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenditureList().size() + 1);
         EditExpenditureDescriptor descriptor = new EditExpenditureDescriptorBuilder()
-                .withInfo(VALID_INFO_BOB).build();
+                .withInfo(VALID_INFO_MRT).build();
         ExpEditCommand expEditCommand = new ExpEditCommand(outOfBoundIndex, descriptor);
         assertCommandFailure(expEditCommand, model, Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX);
     }

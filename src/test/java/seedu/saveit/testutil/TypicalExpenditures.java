@@ -1,12 +1,12 @@
 package seedu.saveit.testutil;
 
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_AMY;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_AMY;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_BUS;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_BUS;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,10 +45,10 @@ public class TypicalExpenditures {
             .withAmount(3.14).withDate("2019-09-11").build();
 
     // Manually added - Expenditure's details found in {@code CommandTestUtil}
-    public static final Expenditure AMY = new ExpenditureBuilder().withInfo(VALID_INFO_AMY)
-            .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY).build();
-    public static final Expenditure BOB = new ExpenditureBuilder().withInfo(VALID_INFO_BOB)
-            .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
+    public static final Expenditure AMY = new ExpenditureBuilder().withInfo(VALID_INFO_BUS)
+            .withAmount(VALID_AMOUNT_BUS).withDate(VALID_DATE_BUS).build();
+    public static final Expenditure BOB = new ExpenditureBuilder().withInfo(VALID_INFO_MRT)
+            .withAmount(VALID_AMOUNT_MRT).withDate(VALID_DATE_MRT).withTag(VALID_TAG_BUS)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

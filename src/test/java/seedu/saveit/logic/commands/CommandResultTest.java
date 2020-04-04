@@ -54,13 +54,12 @@ public class CommandResultTest {
         /*
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true,
-<<<<<<< HEAD
                 false, false, false, false, false, false, false).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false,
                 true, false, false, false, false, false, false).hashCode());
-=======
+
                 false, false, false, false, false, false).hashCode());
          */
 

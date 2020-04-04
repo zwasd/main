@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.account;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.saveit.commons.core.Messages;
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
@@ -7,6 +9,7 @@ import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.MonthlySpendingCalculator;
+
 
 /**
  * Change to another account.
@@ -23,6 +26,7 @@ public class AccCheckoutCommand extends Command {
     private final String accountName;
 
     public AccCheckoutCommand(String accountName) {
+        requireNonNull(accountName);
         this.accountName = accountName;
     }
 
