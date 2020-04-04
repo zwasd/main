@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENDITURE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_BUS;
 
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.AMY;
@@ -84,7 +84,7 @@ public class LogicManagerTest {
         // Execute add command
 
         String addCommand = ExpLevelParser.COMMAND_WORD + " " + ExpAddCommand.COMMAND_WORD
-                + INFO_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY;
+                + INFO_DESC_BUS + AMOUNT_DESC_BUS + DATE_DESC_BUS;
         Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).build();
 
         ModelManager expectedModel = new ModelManager();

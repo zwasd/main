@@ -1,23 +1,23 @@
 package seedu.address.logic.parser.expenditure;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.INFO_DESC_MRT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INFO_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BUS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TRANSPORT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalExpenditures.AMY;
@@ -40,30 +40,30 @@ public class ExpAddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Expenditure expectedExpenditure = new ExpenditureBuilder(BOB).withTag(VALID_TAG_FRIEND).build();
+        Expenditure expectedExpenditure = new ExpenditureBuilder(BOB).withTag(VALID_TAG_TRANSPORT).build();
 
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + INFO_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + INFO_DESC_MRT + AMOUNT_DESC_MRT
+                + DATE_DESC_MRT + TAG_DESC_TRANSPORT, new ExpAddCommand(expectedExpenditure));
 
         // multiple infos - last info accepted
-        assertParseSuccess(parser, INFO_DESC_AMY + INFO_DESC_BOB + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
+        assertParseSuccess(parser, INFO_DESC_BUS + INFO_DESC_MRT + AMOUNT_DESC_MRT
+                + DATE_DESC_MRT + TAG_DESC_TRANSPORT, new ExpAddCommand(expectedExpenditure));
 
         // multiple amounts - last amount accepted
-        assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_AMY + AMOUNT_DESC_BOB
-                + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
+        assertParseSuccess(parser, INFO_DESC_MRT + AMOUNT_DESC_BUS + AMOUNT_DESC_MRT
+                + DATE_DESC_MRT + TAG_DESC_TRANSPORT, new ExpAddCommand(expectedExpenditure));
 
         // multiple addresses - last address accepted
-        assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_AMY
-                + DATE_DESC_BOB + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditure));
+        assertParseSuccess(parser, INFO_DESC_MRT + AMOUNT_DESC_MRT + DATE_DESC_BUS
+                + DATE_DESC_MRT + TAG_DESC_TRANSPORT, new ExpAddCommand(expectedExpenditure));
 
         // multiple tags - all accepted
         Expenditure expectedExpenditureMultipleTags = new ExpenditureBuilder(BOB)
-                .withTag(VALID_TAG_FRIEND)
+                .withTag(VALID_TAG_TRANSPORT)
                 .build();
 
-        assertParseSuccess(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new ExpAddCommand(expectedExpenditureMultipleTags));
+        assertParseSuccess(parser, INFO_DESC_MRT + AMOUNT_DESC_MRT + DATE_DESC_MRT
+                + TAG_DESC_BUS + TAG_DESC_TRANSPORT, new ExpAddCommand(expectedExpenditureMultipleTags));
 
     }
 
@@ -72,7 +72,7 @@ public class ExpAddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Expenditure expectedExpenditure = new ExpenditureBuilder(AMY).build();
-        assertParseSuccess(parser, INFO_DESC_AMY + AMOUNT_DESC_AMY + DATE_DESC_AMY,
+        assertParseSuccess(parser, INFO_DESC_BUS + AMOUNT_DESC_BUS + DATE_DESC_BUS,
                 new ExpAddCommand(expectedExpenditure));
     }
 
@@ -81,43 +81,43 @@ public class ExpAddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpAddCommand.MESSAGE_USAGE);
 
         // missing info prefix
-        assertParseFailure(parser, VALID_INFO_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB,
+        assertParseFailure(parser, VALID_INFO_MRT + AMOUNT_DESC_MRT + DATE_DESC_MRT,
                 expectedMessage);
 
         // missing amount prefix
-        assertParseFailure(parser, INFO_DESC_BOB + VALID_AMOUNT_BOB + DATE_DESC_BOB,
+        assertParseFailure(parser, INFO_DESC_MRT + VALID_AMOUNT_MRT + DATE_DESC_MRT,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_INFO_BOB + VALID_AMOUNT_BOB + DATE_DESC_BOB,
+        assertParseFailure(parser, VALID_INFO_MRT + VALID_AMOUNT_MRT + DATE_DESC_MRT,
                 expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid info
-        assertParseFailure(parser, INVALID_INFO_DESC + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Info.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_INFO_DESC + AMOUNT_DESC_MRT + DATE_DESC_MRT
+                + TAG_DESC_BUS + TAG_DESC_TRANSPORT, Info.MESSAGE_CONSTRAINTS);
 
         // invalid amount
-        assertParseFailure(parser, INFO_DESC_BOB + INVALID_AMOUNT_DESC + DATE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Amount.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INFO_DESC_MRT + INVALID_AMOUNT_DESC + DATE_DESC_MRT
+                + TAG_DESC_BUS + TAG_DESC_TRANSPORT, Amount.MESSAGE_CONSTRAINTS);
 
         // invalid date
-        assertParseFailure(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + INVALID_DATE_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Date.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INFO_DESC_MRT + AMOUNT_DESC_MRT + INVALID_DATE_DESC
+                + TAG_DESC_BUS + TAG_DESC_TRANSPORT, Date.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, INFO_DESC_BOB + AMOUNT_DESC_BOB + DATE_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INFO_DESC_MRT + AMOUNT_DESC_MRT + DATE_DESC_MRT
+                + INVALID_TAG_DESC + VALID_TAG_TRANSPORT, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_INFO_DESC + AMOUNT_DESC_BOB + INVALID_DATE_DESC,
+        assertParseFailure(parser, INVALID_INFO_DESC + AMOUNT_DESC_MRT + INVALID_DATE_DESC,
                 Info.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + INFO_DESC_BOB + AMOUNT_DESC_BOB
-                        + DATE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + INFO_DESC_MRT + AMOUNT_DESC_MRT
+                        + DATE_DESC_MRT + TAG_DESC_BUS + TAG_DESC_TRANSPORT,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpAddCommand.MESSAGE_USAGE));
     }
 }

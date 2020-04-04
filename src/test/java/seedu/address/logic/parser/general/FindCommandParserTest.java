@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.general;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.general.FindCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expenditure.InfoContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -20,6 +22,12 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "     ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_nullArg_throwsParseException() {
+        assertThrows(NullPointerException.class, () -> new FindCommandParser().parse(null));
+    }
+
 
     @Test
     public void parse_validArgs_returnsFindCommand() {

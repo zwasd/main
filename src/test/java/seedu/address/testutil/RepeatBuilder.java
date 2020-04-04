@@ -8,6 +8,11 @@ import seedu.address.model.expenditure.Repeat;
 import seedu.address.model.expenditure.Repeat.Period;
 import seedu.address.model.tag.Tag;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_DATE_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INFO_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
+
 
 /**
  * A utility class to help with building Repeat objects.
@@ -16,10 +21,10 @@ import seedu.address.model.tag.Tag;
  */
 public class RepeatBuilder {
 
-    public static final String DEFAULT_INFO = "Bus fare";
-    public static final double DEFAULT_AMOUNT = 1.49;
-    public static final String DEFAULT_START_DATE = "2020-01-01";
-    public static final String DEFAULT_END_DATE = "2020-04-01";
+    public static final String DEFAULT_INFO = VALID_INFO_MRT;
+    public static final double DEFAULT_AMOUNT = VALID_AMOUNT_MRT;
+    public static final String DEFAULT_START_DATE = VALID_START_DATE_MRT;
+    public static final String DEFAULT_END_DATE = VALID_END_DATE_MRT;
     public static final String DEFAULT_TAG = "Others";
     public static final String DEFAULT_PERIOD = Period.DAILY.toString();
 
@@ -36,7 +41,7 @@ public class RepeatBuilder {
         startDate = new Date(DEFAULT_START_DATE);
         endDate = new Date(DEFAULT_END_DATE);
         tag = new Tag(DEFAULT_TAG);
-        period = Period.valueOf(DEFAULT_PERIOD);
+        period = Period.DAILY;
     }
 
     /**
@@ -80,7 +85,7 @@ public class RepeatBuilder {
     }
 
     /**
-     * Sets the {@code Amount} of the {@code Repeat} that we are building.
+     * Sets the {@code Repeat} of the {@code Repeat} that we are building.
      */
     public RepeatBuilder withPeriod(String period) {
         this.period = Period.valueOf(period);

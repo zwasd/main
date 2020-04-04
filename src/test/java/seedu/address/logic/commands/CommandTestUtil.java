@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INFO;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -28,43 +31,60 @@ import seedu.address.testutil.EditExpenditureDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
-    public static final String VALID_INFO_AMY = "Amy Bee";
-    public static final String VALID_INFO_BOB = "Bob Choo";
-    public static final double VALID_AMOUNT_AMY = 3.14;
-    public static final double VALID_AMOUNT_BOB = 3.14;
-    public static final String VALID_DATE_AMY = "2019-09-11";
-    public static final String VALID_DATE_BOB = "2019-09-12";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
-
-    public static final String INFO_DESC_AMY = " " + PREFIX_INFO + VALID_INFO_AMY;
-    public static final String INFO_DESC_BOB = " " + PREFIX_INFO + VALID_INFO_BOB;
-    public static final String AMOUNT_DESC_AMY = " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY;
-    public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_BOB;
-    public static final String DATE_DESC_AMY = " " + PREFIX_DATE + VALID_DATE_AMY;
-    public static final String DATE_DESC_BOB = " " + PREFIX_DATE + VALID_DATE_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-
+    public static final String VALID_INFO_BUS = "Bus fare";
+    public static final String VALID_INFO_MRT = "Mrt fare";
+    public static final double VALID_AMOUNT_BUS = 3.14;
+    public static final double VALID_AMOUNT_MRT = 1.34;
+    public static final String VALID_DATE_BUS = "2019-09-11";
+    public static final String VALID_DATE_MRT = "2019-09-12";
+    public static final String VALID_TAG_BUS = "BUS";
+    public static final String VALID_TAG_TRANSPORT = "Transport";
+    public static final String INFO_DESC_BUS = " " + PREFIX_INFO + VALID_INFO_BUS;
+    public static final String INFO_DESC_MRT = " " + PREFIX_INFO + VALID_INFO_MRT;
+    public static final String AMOUNT_DESC_BUS = " " + PREFIX_AMOUNT + VALID_AMOUNT_BUS;
+    public static final String AMOUNT_DESC_MRT = " " + PREFIX_AMOUNT + VALID_AMOUNT_MRT;
+    public static final String DATE_DESC_BUS = " " + PREFIX_DATE + VALID_DATE_BUS;
+    public static final String DATE_DESC_MRT = " " + PREFIX_DATE + VALID_DATE_MRT;
+    public static final String TAG_DESC_TRANSPORT = " " + PREFIX_TAG + VALID_TAG_TRANSPORT;
+    public static final String TAG_DESC_BUS = " " + PREFIX_TAG + VALID_TAG_BUS;
     public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + "James&"; // '&' not allowed in infos
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "bob!yahoo"; // a string
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE; // empty string not allowed for addresses
-
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+
+    public static final String VALID_START_DATE_BUS = "2019-01-02";
+    public static final String VALID_END_DATE_BUS = "2019-04-03";
+    public static final String START_DATE_DESC_BUS = " " + PREFIX_START_DATE + VALID_START_DATE_BUS;
+    public static final String END_DATE_DESC_BUS = " " + PREFIX_END_DATE + VALID_END_DATE_BUS;
+    public static final String VALID_START_DATE_MRT = "2020-01-01";
+    public static final String VALID_END_DATE_MRT = "2020-04-01";
+    public static final String START_DATE_DESC_MRT = " " + PREFIX_START_DATE + VALID_START_DATE_MRT;
+    public static final String END_DATE_DESC_MRT = " " + PREFIX_END_DATE + VALID_END_DATE_MRT;
+    public static final String VALID_DAILY_PERIOD = "DAILY";
+    public static final String VALID_WEEKLY_PERIOD = "WEEKLY";
+    public static final String VALID_MONTHLY_PERIOD = "MONTHLY";
+    public static final String VALID_ANNUALLY_PERIOD = "ANNUALLY";
+    public static final String VALID_DAILY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_DAILY_PERIOD;
+    public static final String VALID_WEEKLY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_WEEKLY_PERIOD;
+    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "2019-02-31"; // this date does not exist
+    public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE; // empty string
+    public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
+
+
+
 
     public static final EditExpenditureDescriptor DESC_AMY;
     public static final EditExpenditureDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_AMY)
-               .withAmount(VALID_AMOUNT_AMY).withDate(VALID_DATE_AMY).build();
-        DESC_BOB = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_BOB)
-                .withAmount(VALID_AMOUNT_BOB).withDate(VALID_DATE_BOB)
-                .withTag(VALID_TAG_HUSBAND).build();
+        DESC_AMY = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_BUS)
+               .withAmount(VALID_AMOUNT_BUS).withDate(VALID_DATE_BUS).build();
+        DESC_BOB = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_MRT)
+                .withAmount(VALID_AMOUNT_MRT).withDate(VALID_DATE_MRT)
+                .withTag(VALID_TAG_BUS).build();
     }
 
     /**

@@ -3,8 +3,8 @@ package seedu.address.model.expenditure;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_MRT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenditures.ALICE;
 import static seedu.address.testutil.TypicalExpenditures.BOB;
@@ -43,7 +43,7 @@ public class UniqueExpenditureListTest {
     public void contains_expenditureWithDifferentData_returnsFalse() {
         uniqueExpenditureList.add(ALICE);
 
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_MRT).withTag(VALID_TAG_BUS)
                 .build();
         assertFalse(uniqueExpenditureList.contains(editedAlice));
     }
@@ -87,7 +87,7 @@ public class UniqueExpenditureListTest {
     public void setExpenditure_editedExpenditureHasSameIdentity_success() {
         uniqueExpenditureList.add(ALICE);
 
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_BOB).withTag(VALID_TAG_HUSBAND)
+        Expenditure editedAlice = new ExpenditureBuilder(ALICE).withDate(VALID_DATE_MRT).withTag(VALID_TAG_BUS)
                 .build();
         uniqueExpenditureList.setExpenditure(ALICE, editedAlice);
         UniqueExpenditureList expectedUniqueExpenditureList = new UniqueExpenditureList();

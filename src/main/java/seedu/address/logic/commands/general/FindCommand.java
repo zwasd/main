@@ -31,12 +31,16 @@ public class FindCommand extends Command {
     private final String tag;
 
     public FindCommand(Predicate<BaseExp> predicate, String keywordsString, String tag) {
+        requireNonNull(predicate);
+        requireNonNull(keywordsString);
+        requireNonNull(tag);
         this.predicate = predicate;
         this.keywordsString = keywordsString;
         this.tag = tag;
     }
 
     public FindCommand(InfoContainsKeywordsPredicate predicate) {
+        requireNonNull(predicate);
         this.predicate = predicate;
         this.keywordsString = predicate.getKeywordsString();
         this.tag = null;
