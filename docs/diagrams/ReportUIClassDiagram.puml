@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+Class ReportWindow
+Class ResultDisplay
+Class ReportCommandBox
+Class MenuBar
+Class Graph
+Class MainWindow
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+MainWindow -left-> ReportWindow
+MainWindow -up-> Logic
+ReportWindow -left-> Graph
+ReportWindow -up-> Logic
+
+
+ReportWindow *-down- ReportCommandBox
+ReportWindow *-down- MenuBar
+ReportWindow *-- ResultDisplay
+
+MainWindow -down-|> UiPart
+ReportWindow -down-|> UiPart
+ReportCommandBox -down-|> UiPart
+ResultDisplay -down-|> UiPart
+
+@enduml
+
