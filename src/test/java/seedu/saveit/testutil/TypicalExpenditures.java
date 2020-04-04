@@ -8,7 +8,6 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

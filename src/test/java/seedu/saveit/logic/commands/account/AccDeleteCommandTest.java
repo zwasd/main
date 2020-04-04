@@ -1,18 +1,16 @@
 package seedu.saveit.logic.commands.account;
 
-import org.junit.jupiter.api.Test;
-import seedu.saveit.commons.core.Messages;
-import seedu.saveit.commons.core.index.Index;
-import seedu.saveit.logic.commands.exceptions.CommandException;
-import seedu.saveit.logic.commands.expenditure.ExpDeleteCommand;
-import seedu.saveit.model.Model;
-import seedu.saveit.model.ModelManager;
-import seedu.saveit.model.UserPrefs;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.saveit.logic.commands.exceptions.CommandException;
+import seedu.saveit.model.Model;
+import seedu.saveit.model.ModelManager;
+import seedu.saveit.model.UserPrefs;
 
 
 public class AccDeleteCommandTest {

@@ -1,15 +1,5 @@
 package seedu.saveit.logic.parser.repeat;
 
-
-import org.junit.jupiter.api.Test;
-import seedu.saveit.logic.commands.repeat.RepeatAddCommand;
-import seedu.saveit.model.expenditure.Amount;
-import seedu.saveit.model.expenditure.Date;
-import seedu.saveit.model.expenditure.Info;
-import seedu.saveit.model.expenditure.Repeat;
-import seedu.saveit.model.expenditure.Tag;
-import seedu.saveit.testutil.RepeatBuilder;
-
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.logic.commands.CommandTestUtil.AMOUNT_DESC_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.AMOUNT_DESC_MRT;
@@ -28,8 +18,8 @@ import static seedu.saveit.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.saveit.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.saveit.logic.commands.CommandTestUtil.START_DATE_DESC_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.START_DATE_DESC_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.TAG_DESC_TRANSPORT;
 import static seedu.saveit.logic.commands.CommandTestUtil.TAG_DESC_BUS;
+import static seedu.saveit.logic.commands.CommandTestUtil.TAG_DESC_TRANSPORT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DAILY_PERIOD;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DAILY_PERIOD_DESC;
@@ -40,6 +30,16 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_TRANSPORT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_WEEKLY_PERIOD_DESC;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.saveit.logic.commands.repeat.RepeatAddCommand;
+import seedu.saveit.model.expenditure.Amount;
+import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.expenditure.Info;
+import seedu.saveit.model.expenditure.Repeat;
+import seedu.saveit.model.expenditure.Tag;
+import seedu.saveit.testutil.RepeatBuilder;
 
 
 public class RepeatAddCommandParserTest {

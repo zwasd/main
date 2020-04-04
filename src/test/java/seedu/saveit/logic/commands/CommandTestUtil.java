@@ -69,7 +69,8 @@ public class CommandTestUtil {
     public static final String VALID_ANNUALLY_PERIOD = "ANNUALLY";
     public static final String VALID_DAILY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_DAILY_PERIOD;
     public static final String VALID_WEEKLY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_WEEKLY_PERIOD;
-    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "2019-02-31"; // this date does not exist
+    // this date does not exist
+    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "2019-02-31";
     public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE; // empty string
     public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
 

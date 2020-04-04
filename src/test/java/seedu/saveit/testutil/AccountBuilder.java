@@ -34,6 +34,10 @@ public class AccountBuilder {
         return this;
     }
 
+    /**
+     * build an new account with the given account name and expenditure list.
+     * @return a new account.
+     */
     public Account build() {
         Account acc = new Account(this.account.getAccountName());
         acc.setExpenditures(this.account.getExpenditureList());

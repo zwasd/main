@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.general;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 
@@ -9,8 +11,6 @@ import seedu.saveit.logic.commands.exceptions.CommandException;
 
 import seedu.saveit.model.Model;
 import seedu.saveit.model.MonthlySpendingCalculator;
-
-import static java.util.Objects.requireNonNull;
 
 
 /**

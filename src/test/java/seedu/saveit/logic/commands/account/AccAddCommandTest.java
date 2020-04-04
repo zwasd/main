@@ -1,7 +1,12 @@
 package seedu.saveit.logic.commands.account;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.saveit.testutil.Assert.assertThrows;
+import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
+
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
+
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.model.Account;
 import seedu.saveit.model.Model;
@@ -9,10 +14,6 @@ import seedu.saveit.model.ModelManager;
 import seedu.saveit.model.UserPrefs;
 import seedu.saveit.testutil.AccountBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.saveit.testutil.Assert.assertThrows;
-import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
 
 public class AccAddCommandTest {
 

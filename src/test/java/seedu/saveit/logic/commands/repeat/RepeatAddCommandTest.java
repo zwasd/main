@@ -1,6 +1,12 @@
 package seedu.saveit.logic.commands.repeat;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.saveit.testutil.Assert.assertThrows;
+import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.saveit.logic.commands.expenditure.ExpAddCommand;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.ModelManager;
@@ -8,10 +14,6 @@ import seedu.saveit.model.UserPrefs;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.testutil.ExpenditureBuilder;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.saveit.testutil.Assert.assertThrows;
-import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
 
 public class RepeatAddCommandTest {
     private Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());

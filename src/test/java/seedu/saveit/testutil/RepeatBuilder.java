@@ -1,5 +1,9 @@
 package seedu.saveit.testutil;
 
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
 
 import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
@@ -7,11 +11,6 @@ import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.Repeat.Period;
 import seedu.saveit.model.expenditure.Tag;
-
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
 
 
 /**

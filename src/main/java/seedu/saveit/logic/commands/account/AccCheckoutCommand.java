@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.account;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.saveit.commons.core.Messages;
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
@@ -8,7 +10,6 @@ import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.MonthlySpendingCalculator;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Change to another account.
