@@ -16,4 +16,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE = "The start date provided should be before or equal to end date.";
     public static final String MESSAGE_INVALID_TYPE_AT_INDEX = "The entry at the index is a(n) %1$s, "
                                                                 + "please use the correct command";
+    public static final String MESSAGE_INVALID_REPEAT_DISPLAYED_INDEX =
+            "The repeat index provided is invalid";
+
 }

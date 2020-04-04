@@ -12,6 +12,10 @@ import seedu.saveit.model.expenditure.Expenditure;
  */
 public class AccountBuilder {
 
+
+    public static final String DEFAULT_ACCOUNT_NAME = "PERSONAL";
+
+
     private Account account;
 
     public AccountBuilder(String accountName) {
@@ -30,7 +34,13 @@ public class AccountBuilder {
         return this;
     }
 
+    /**
+     * build an new account with the given account name and expenditure list.
+     * @return a new account.
+     */
     public Account build() {
-        return account;
+        Account acc = new Account(this.account.getAccountName());
+        acc.setExpenditures(this.account.getExpenditureList());
+        return acc;
     }
 }

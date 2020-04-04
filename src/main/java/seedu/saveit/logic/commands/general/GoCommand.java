@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.general;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.YearMonth;
 
@@ -32,8 +34,18 @@ public class GoCommand extends Command {
         this.toDate = toDate;
         this.fromUi = fromUi;
     }
+
+    public LocalDate getToDate() {
+        return toDate;
+    }
+
+    public boolean getFromUi() {
+        return fromUi;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         model.updateActiveDate(toDate);
         YearMonth target = YearMonth.of(toDate.getYear(), toDate.getMonthValue());
         MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(target);
@@ -48,4 +60,14 @@ public class GoCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        requireNonNull(obj);
+        if (obj == this) {
+            return true;
+        } else {
+            return ((GoCommand) obj).getToDate().equals(this.toDate)
+                    && (((GoCommand) obj).getFromUi() == this.fromUi);
+        }
+    }
 }

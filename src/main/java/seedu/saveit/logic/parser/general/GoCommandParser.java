@@ -1,5 +1,6 @@
 package seedu.saveit.logic.parser.general;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class GoCommandParser implements Parser<GoCommand> {
      * @param args The date argument to be parsed.
      */
     public GoCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

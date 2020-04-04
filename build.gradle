@@ -68,7 +68,6 @@ dependencies {
 
 shadowJar {
     archiveName = 'save-it.jar'
-
     destinationDir = file("${buildDir}/jar/")
 }
 

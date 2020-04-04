@@ -2,12 +2,13 @@ package seedu.saveit.logic.commands.expenditure;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.saveit.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.saveit.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_BOB;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_AMOUNT_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_INFO_MRT;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,19 +37,19 @@ public class EditExpenditureDescriptorTest {
 
         // different info -> returns false
         EditExpenditureDescriptor editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY)
-                .withInfo(VALID_INFO_BOB).build();
+                .withInfo(VALID_INFO_MRT).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different amount -> returns true
-        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_BOB).build();
-        assertTrue(DESC_AMY.equals(editedAmy));
+        // different amount -> returns false
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withAmount(VALID_AMOUNT_MRT).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different address -> returns false
-        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_BOB).build();
+        // different date -> returns false
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withDate(VALID_DATE_MRT).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withTag(VALID_TAG_HUSBAND).build();
+        editedAmy = new EditExpenditureDescriptorBuilder(DESC_AMY).withTag(VALID_TAG_BUS).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
