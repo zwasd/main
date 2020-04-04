@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.StackPane?>
 
-<?import seedu.address.ui.ReportAutoCompleteTextField?>
+<?import seedu.saveit.ui.ReportAutoCompleteTextField?>
 
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <ReportAutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered"  promptText="Params : Graph Type: PIE Start Date(YYYY-MM-DD) End

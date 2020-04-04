@@ -49,7 +49,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/saveit/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/saveit/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -92,11 +92,11 @@ The sections below give more details of each component.
 .Structure of the Main UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/ui/Ui.java[`Ui.java`]
 
 The Main UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/saveit/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -104,18 +104,17 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 .Structure of the Report UI Component
+image::ReportUIClassDiagram.png[]
 
-
-The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `PieChart` etc.
+The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `Result Display` etc.
 The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu.address/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/address/ui[`ReportWindow.java`]
-Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/address/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
+The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu/saveit/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/saveit/ui[`ReportWindow.java`]
+Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/saveit/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -125,7 +124,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TopLevelParser` class to parse the user command.
 .  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
@@ -148,7 +147,7 @@ NOTE: The lifeline for `ExpDeleteCommandParser` should end at the destroy marker
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -157,10 +156,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -168,7 +163,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/saveit/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -178,117 +173,12 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-// tag::calendar[]
-
-=== Calendar feature
-
-_{Coming soon}_
-
-// end::calendar[]
-
-// tag::repeat[]
-
-=== Recurring Expenditure feature
-
-_{Coming soon}_
-
-// end::repeat[]
-
+//Reordered this section in alphabetical order
 // tag::autocomplete[]
 === Autocomplete feature
 
@@ -306,7 +196,7 @@ Given below is the example usage scenario of how the autocompletion works.
 Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
 The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
 
-[Note]
+[NOTE]
 For the current implementation, it checks whether the typed command matches the starting characters of any commands.
 To be improved in later versions.
 
@@ -332,6 +222,21 @@ _{To be added}_
 // end::autocomplete[]
 
 
+=== Calendar feature [In progress]
+Calendar is a feature that has a clickable calendar which users
+can use to navigate between the different days. It also shows
+the date of the expenditures the user is viewing as well as today.
+
+==== Rationale
+
+
+
+// end::calendar[]
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === Logging
 
@@ -347,6 +252,20 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+// tag::repeat[]
+
+=== Recurring Expenditure feature [In Progress]
+Recurring expenditure is one of the main feature in `$AVE IT` and it is
+a expenditure automatically logged for user at their preferred frequency.
+==== Rationale
+This feature allows user to keep track of expenditures that will occur either _daily_,
+_monthly_ or _annually_ without the need to key in the expenditures every day or month.
+Hence, this will provide more convenience for users as well as address the need
+for such a feature since recurring expenditures are common. For example, day to day
+commuting expenses.
+
+// end::repeat[]
 
 [[Implementation-Report]]
 === Report [In progress]
@@ -368,10 +287,26 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
+.Sequence Diagram for Report View
+image::ReportViewSequence.png[]
+
+.Sequence Diagram GenerateStats and Graph
+image::GenerateStats_and_Graph.png[]
+
 If a `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
 start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
 and _Report.GraphType_ objects are used to create _ViewReportCommand_ object which will be
-executed. The execution will pop out the _ReportWindow_ which will showcase a expenditure breakdown report.
+executed. The result of executions is popping out the _ReportWindow_ which will showcase a expenditure breakdown report.
+
+If a `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
+start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
+and _Report.GraphType_ objects are used to create _PrintReportCommand_ object which will be
+executed. The result of execution will be sending a print job to your printer, printing out the report.
+
+If a `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
+start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
+and _Report.GraphType_ objects are used to create _ExportReportCommand_ object which will be
+executed. The result of execution will be exporting a PDF version of the report into your computer.
 
 ==== Design Considerations
 
@@ -391,12 +326,6 @@ the Main Winow UI.
 ** Cons: It could be more different to implement
 
 Due to the above considerations ,we implemented report viewing in a pop up window.
-
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -469,7 +398,7 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to add a new account. Format: `acc add "account name"`
+1.  User requests to add a new account. Format: `acc add ACCOUNT`
 2.  `$AVE IT` will acknowledge and add this account into the list.
 +
 
@@ -489,7 +418,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to delete an existing account. Format: `acc delete "account name"`
+1.  User requests to delete an existing account. Format: `acc delete ACCOUNT`
 2.  `$AVE IT` will acknowledge and delete this account from the list.
 +
 
@@ -502,7 +431,7 @@ Use case ends.
 ** Use case resumes from step 1.
 * 1b. `$AVE IT` detects account name is non-existent.
 ** 1b1. `$AVE IT` will state that account is not found. Unable to delete.
-**Use case resumes from step 1.
+** Use case resumes from step 1.
 * 2a. User requests to deleted the only account in the list.
 ** 2a1. `$AVE IT` will create a default account to ensure there is at least an account in the list
 ** Use case ends.
@@ -516,7 +445,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to rename an account. Format: `acc rename "old name" "new name"`
+1.  User requests to rename an account. Format: `acc rename OLD_NAME NEW_NAME`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -540,7 +469,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to check out to another account. Format: `acc checkout "account name"`
+1.  User requests to check out to another account. Format: `acc checkout ACCOUNT`
 2.  `$AVE IT` will acknowledge and state that the target account is checked out.
 +
 
@@ -580,7 +509,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to clear all data in an account. Format: `acc clear "account name"`
+1.  User requests to clear all data in an account. Format: `acc clear`
 2.  `$AVE IT` will acknowledge and state that the account's data has been cleared'.
 +
 
@@ -601,7 +530,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to add an expenditure record in the account which they are viewing right now. +
-Format: `exp add -i info -a amount [-t tag] [-d date (YYYY-MM-DD)]`
+Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
 2.  `$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
 +
 
@@ -631,7 +560,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to delete an expenditure record in the account they are viewing right now. +
-Format: `exp delete number (positive) `
+Format: `exp delete INDEX`
 2.  `$AVE IT` will acknowledge.
 +
 Use case ends.
@@ -653,7 +582,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to edit an expenditure record in the account they are viewing right now. +
-Format: `exp edit number(positive) [-i info] [-a amount] [-t tag] [-d date (YYYY-MM-DD)]`
+Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -682,7 +611,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to find expenditure & repeat records with certain `keyword`(s) in the account which they are viewing right now. +
-Format: `find [keyword...]`
+Format: `find [KEYWORD...]`
 2.  `$AVE IT` will acknowledge and output a list of relevant records.
 +
 
@@ -697,12 +626,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Exp SetBudget [TO BE IMPLEMENTED]
+=== Use case: Exp SetBudget
 
 *MSS*
 
 1.  User requests to set an budget for a given month in the account which they are viewing right now. +
-Format: `exp setbudget -a amount [-d date (YYYY-MM-DD)]`
+Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -728,12 +657,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Repeat Add [TO BE IMPLEMENTED]
+=== Use case: Repeat Add
 
 *MSS*
 
 1.  User requests to add a repeating expenditure record in the account which they are viewing right now. +
-Format: `repeat add -i info -a amount -sd startDate (YYYY-MM-DD) -ed endDate(YYYY-MM-DD) -p period [-t tag] `
+Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -765,7 +694,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to delete a repeating expenditure record from the account which they are viewing right now. +
-Format: `repeat delete number (positive) `
+Format: `repeat delete INDEX`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -783,12 +712,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Repeat Edit [TO BE IMPLEMENTED]
+=== Use case: Repeat Edit
 
 *MSS*
 
 1.  User requests to edit a repeating expenditure record in the account which they are viewing right now. +
-Format: `repeat edit number(positive) [-i info] [-a amount] [-sd startDate (YYYY-MM-DD)] [-ed endDate(YYYY-MM-DD)] [-p period] [-t tag]`
+Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]`
 2.  `$AVE IT` will acknowledge.
 +
 
@@ -815,12 +744,12 @@ Use case ends.
 ** use case end.
 
 [discrete]
-=== Use case: Report View [In Progress]
+=== Use case: Report View
 
 *MSS*
 
 1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) graphType(PIE)`
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -855,7 +784,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
-Format: `report export startDate (YYYY-MM-DD) endDate(YYYY-MM-DD) `
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -888,16 +817,11 @@ Use case ends.
 *Extensions*
 
 [none]
-1a. `$AVE IT` detects input is in incorrect format.
-
+* 1a. `$AVE IT` detects input is in incorrect format.
 ** Use case resumes from step 1.
-
-1b. `$AVE IT` detects date input is invalid.
-
+* 1b. `$AVE IT` detects date input is invalid.
 ** Use case resumes from step 1.
-
-1c. `$AVE IT` detects graph type input is invalid.
-
+* 1c. `$AVE IT` detects graph type input is invalid.
 ** Use case resumes from step 1.
 
 [discrete]
@@ -905,7 +829,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view other date. Format: `Go date(YYYY-MM-DD)`
+1.  User requests to view other date. Format: `go DATE`
 2.  `$AVE IT` will acknowledge and update the view.
 +
 
@@ -1013,12 +937,12 @@ _{ more test cases ... }_
 
 . Deleting an expenditure while all expenditure are listed
 
-.. Prerequisites: List all expenditure using the `list` command. Multiple expenditure in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all expenditure using the `exp list` command. Multiple expenditure in the list.
+.. Test case: `exp delete 1` +
    Expected: First expenditure is deleted from the list. Details of the deleted expenditure shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `exp delete 0` +
    Expected: No expenditure is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `exp delete`, `exp delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
