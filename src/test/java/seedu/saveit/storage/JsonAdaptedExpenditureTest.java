@@ -55,7 +55,7 @@ public class JsonAdaptedExpenditureTest {
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
+    public void toModelType_nullAmount_throwsIllegalValueException() {
         JsonAdaptedExpenditure expenditure =
                 new JsonAdaptedExpenditure(VALID_INFO, INVALID_AMOUNT, VALID_DATE, VALID_TAG);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
@@ -71,7 +71,7 @@ public class JsonAdaptedExpenditureTest {
     }
 
     @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
+    public void toModelType_nullDate_throwsIllegalValueException() {
         JsonAdaptedExpenditure expenditure = new JsonAdaptedExpenditure(VALID_INFO, VALID_AMOUNT, null, VALID_TAG);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expenditure::toModelType);

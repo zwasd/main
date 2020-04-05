@@ -7,6 +7,9 @@ import static seedu.saveit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.saveit.logic.commands.account.AccClearCommand;
@@ -15,11 +18,14 @@ import seedu.saveit.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
 import seedu.saveit.logic.commands.general.ExitCommand;
+import seedu.saveit.logic.commands.general.FindCommand;
+import seedu.saveit.logic.commands.general.GoCommand;
 import seedu.saveit.logic.commands.general.HelpCommand;
 import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.logic.parser.expenditure.ExpLevelParser;
 import seedu.saveit.model.expenditure.Expenditure;
+import seedu.saveit.model.expenditure.InfoContainsKeywordsPredicate;
 import seedu.saveit.testutil.EditExpenditureDescriptorBuilder;
 import seedu.saveit.testutil.ExpenditureBuilder;
 import seedu.saveit.testutil.ExpenditureUtil;
@@ -61,6 +67,22 @@ public class TopLevelParserTest {
                 + ExpEditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENDITURE.getOneBased() + " "
                 + ExpenditureUtil.getEditExpenditureDescriptorDetails(descriptor));
         assertEquals(new ExpEditCommand(INDEX_FIRST_EXPENDITURE, descriptor), command);
+    }
+
+
+    @Test
+    public void parseCommand_find() throws Exception {
+        String keyword = "bus";
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keyword);
+        assertEquals(new FindCommand(new InfoContainsKeywordsPredicate(Arrays.asList(keyword))), command);
+    }
+
+    @Test
+    public void parseCommand_go() throws Exception {
+        LocalDate goTo = LocalDate.now();
+        GoCommand command = (GoCommand) parser.parseCommand(GoCommand.COMMAND_WORD + " " + goTo.toString());
+        assertEquals(new GoCommand(goTo, false), command);
     }
 
     @Test

@@ -7,7 +7,6 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_MRT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalExpenditures.ALICE;
-// import static seedu.saveit.testutil.TypicalExpenditures.getTypicalAccount;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,12 +36,14 @@ public class AccountTest {
         assertThrows(NullPointerException.class, () -> account.resetData(null));
     }
 
-    // @Test
-    // public void resetData_withValidReadOnlyAccountList_replacesData() {
-    //     Account newData = getTypicalAccount();
-    //     account.resetData(newData);
-    //     assertEquals(newData, account);
-    // }
+    /* todo sp dk how to fix this
+     @Test
+     public void resetData_withValidReadOnlyAccountList_replacesData() {
+         Account newData = getTypicalAccounts();
+         account.resetData(newData);
+         assertEquals(newData, account);
+     }
+    */
 
     @Test
     public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {

@@ -20,13 +20,15 @@ import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseSuccess
 
 import org.junit.jupiter.api.Test;
 
-import seedu.saveit.logic.commands.report.ViewReportCommand;
+import seedu.saveit.logic.commands.report.PrintReportCommand;
 import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.testutil.ReportBuilder;
 
-public class ViewReportCommandParserTest {
-    private final ViewReportCommandParser parser = new ViewReportCommandParser();
+
+
+public class PrintReportCommandParserTest {
+    private final PrintReportCommandParser parser = new PrintReportCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -36,24 +38,24 @@ public class ViewReportCommandParserTest {
                 .build();
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                        + VALID_GRAPH_BAR_DESC, new ViewReportCommand(expectedReport));
+                + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
 
         // multiple graph type - last graph type accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                        + VALID_GRAPH_PIE_DESC + VALID_GRAPH_BAR_DESC, new ViewReportCommand(expectedReport));
+                + VALID_GRAPH_PIE_DESC + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
 
         // multiple start date - last start date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_BUS + START_DATE_DESC_MRT
-                        + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new ViewReportCommand(expectedReport));
+                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
 
         // multiple end date - last end date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_BUS
-                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new ViewReportCommand(expectedReport));
+                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE);
 
         // missing start date prefix
         assertParseFailure(parser, VALID_START_DATE_MRT + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC,
@@ -97,8 +99,7 @@ public class ViewReportCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + START_DATE_DESC_MRT + END_DATE_DESC_MRT
                         + VALID_GRAPH_BAR_DESC,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE));
     }
-
 
 }

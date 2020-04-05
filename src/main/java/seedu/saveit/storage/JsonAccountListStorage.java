@@ -27,22 +27,22 @@ public class JsonAccountListStorage implements SaveItStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getSaveItFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyAccountList> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyAccountList> readSaveIt() throws DataConversionException {
+        return readSaveIt(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readSaveIt()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAccountList> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAccountList> readSaveIt(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableAccountList> jsonAddressBook = JsonUtil.readJsonFile(

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_INFO;
 
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_PERIOD;
@@ -69,10 +70,21 @@ public class CommandTestUtil {
     public static final String VALID_ANNUALLY_PERIOD = "ANNUALLY";
     public static final String VALID_DAILY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_DAILY_PERIOD;
     public static final String VALID_WEEKLY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_WEEKLY_PERIOD;
+    public static final String VALID_MONTHLY_PERIOD_DESC = " " + PREFIX_PERIOD + VALID_MONTHLY_PERIOD;
+
+
     // this date does not exist
     public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "2019-02-31";
     public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE; // empty string
     public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
+
+    //report
+    public static final String VALID_GRAPH_BAR = "BAR";
+    public static final String VALID_GRAPH_PIE = "PIE";
+    public static final String INVALID_GRAPH = "";
+    public static final String VALID_GRAPH_BAR_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_BAR;
+    public static final String VALID_GRAPH_PIE_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_PIE;
+    public static final String INVALID_GRAPH_DESC = " " + PREFIX_GRAPH + INVALID_GRAPH;
 
 
 

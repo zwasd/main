@@ -12,6 +12,7 @@ public class Report {
     private final Date endDate;
     private final GraphType graph;
 
+
     /**
      * Represents the different types
      * of graph that can be generated for report.
@@ -72,5 +73,17 @@ public class Report {
         return endDate;
     }
 
-
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            if (other instanceof Report) {
+                Report o = (Report) other;
+                return this.startDate.equals(o.startDate) && this.endDate.equals(o.endDate)
+                        && this.graph.toString().equals(o.graph.toString());
+            }
+            return false;
+        }
+    }
 }

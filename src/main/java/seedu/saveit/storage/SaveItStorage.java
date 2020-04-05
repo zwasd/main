@@ -17,7 +17,7 @@ public interface SaveItStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getSaveItFilePath();
 
     /**
      * Returns Account data as a {@link ReadOnlyAccount}.
@@ -25,12 +25,12 @@ public interface SaveItStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAccountList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAccountList> readSaveIt() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getSaveItFilePath()
      */
-    Optional<ReadOnlyAccountList> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAccountList> readSaveIt(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAccountList} to the storage.

@@ -58,4 +58,13 @@ public class ViewReportCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS, graph, false, true, false);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewReportCommand // instanceof handles nulls
+                && toView.equals(((ViewReportCommand) other).toView));
+
+    }
+
 }

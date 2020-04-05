@@ -138,7 +138,7 @@ public class ExpEditCommandParserTest {
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
+        // date
         userInput = targetIndex.getOneBased() + DATE_DESC_BUS;
         descriptor = new EditExpenditureDescriptorBuilder().withDate(VALID_DATE_BUS).build();
         expectedCommand = new ExpEditCommand(targetIndex, descriptor);
