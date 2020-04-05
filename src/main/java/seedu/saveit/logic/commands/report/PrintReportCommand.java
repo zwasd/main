@@ -1,11 +1,5 @@
 package seedu.saveit.logic.commands.report;
 
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
-
-import java.util.HashMap;
-
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
@@ -15,6 +9,12 @@ import seedu.saveit.model.Report;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
+
+import java.util.HashMap;
+
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 /**
  * Prints report.
@@ -26,7 +26,7 @@ public class PrintReportCommand extends Command {
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Prints the report. "
             + "\n" + "Parameters: "
-            + PREFIX_START_DATE + " STAR DATE "
+            + PREFIX_START_DATE + " START DATE "
             + PREFIX_END_DATE + " END DATE "
             + PREFIX_GRAPH + " GRAPH TYPE" + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
