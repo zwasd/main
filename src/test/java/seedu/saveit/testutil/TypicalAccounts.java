@@ -19,7 +19,7 @@ import seedu.saveit.model.AccountList;
  * A utility class containing a list of {@code Expenditure} objects to be used in tests.
  */
 public class TypicalAccounts {
-
+    public String accountName = "Test";
     public static final Account SCHOOL = new AccountBuilder("school").withExpenditure(ALICE)
             .withExpenditure(BENSON).build();
     public static final Account WORK = new AccountBuilder("work").withExpenditure(CARL).withExpenditure(DANIEL).build();

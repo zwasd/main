@@ -34,7 +34,7 @@ public class JsonAccountStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAccountList> readAddressBook(String filePath) throws Exception {
-        return new JsonAccountListStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new JsonAccountListStorage(Paths.get(filePath)).readSaveIt(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -72,7 +72,7 @@ public class JsonAccountStorageTest {
 
         // Save in new file and read back
         jsonAccountListStorage.saveSaveIt(original, filePath);
-        ReadOnlyAccountList readBack = jsonAccountListStorage.readAddressBook(filePath).get();
+        ReadOnlyAccountList readBack = jsonAccountListStorage.readSaveIt(filePath).get();
         assertEquals(original, new AccountList(readBack));
 
         // Modify data, overwrite exiting file, and read back
@@ -80,13 +80,13 @@ public class JsonAccountStorageTest {
         // TODO: why does allowing this to run fails?
         // original.removeExpenditure(ALICE);
         jsonAccountListStorage.saveSaveIt(original, filePath);
-        readBack = jsonAccountListStorage.readAddressBook(filePath).get();
+        readBack = jsonAccountListStorage.readSaveIt(filePath).get();
         assertEquals(original, new AccountList(readBack));
 
         // Save and read without specifying file path
         original.addExpenditure(IDA);
         jsonAccountListStorage.saveSaveIt(original); // file path not specified
-        readBack = jsonAccountListStorage.readAddressBook().get(); // file path not specified
+        readBack = jsonAccountListStorage.readSaveIt().get(); // file path not specified
         assertEquals(original, new AccountList(readBack));
 
     }
