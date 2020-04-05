@@ -18,6 +18,9 @@ import java.util.List;
 import seedu.saveit.model.Account;
 import seedu.saveit.model.expenditure.Repeat;
 
+/**
+ * A utility class containing a list of {@code Repeat} objects to be used in tests.
+ */
 public class TypicalRepeats {
 
     public static final Repeat ALICE = new RepeatBuilder().withInfo("Alice Pauline")

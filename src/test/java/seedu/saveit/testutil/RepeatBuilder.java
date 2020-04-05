@@ -25,7 +25,7 @@ public class RepeatBuilder {
     public static final String DEFAULT_START_DATE = VALID_START_DATE_MRT;
     public static final String DEFAULT_END_DATE = VALID_END_DATE_MRT;
     public static final String DEFAULT_TAG = "Others";
-    public static final String DEFAULT_PERIOD = Period.DAILY.toString();
+    public static final String DEFAULT_PERIOD = "DAILY";
 
     private Info info;
     private Amount amount;
@@ -40,7 +40,7 @@ public class RepeatBuilder {
         startDate = new Date(DEFAULT_START_DATE);
         endDate = new Date(DEFAULT_END_DATE);
         tag = new Tag(DEFAULT_TAG);
-        period = Period.DAILY;
+        period = Period.valueOf(DEFAULT_PERIOD);
     }
 
     /**

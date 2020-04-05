@@ -8,11 +8,13 @@ import static seedu.saveit.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.saveit.logic.commands.general.HelpCommand;
-import seedu.saveit.logic.commands.repeat.RepeatAddCommand;
+import seedu.saveit.logic.commands.report.ExportReportCommand;
+import seedu.saveit.logic.commands.report.PrintReportCommand;
+import seedu.saveit.logic.commands.report.ViewReportCommand;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.expenditure.Repeat;
-import seedu.saveit.testutil.RepeatBuilder;
-import seedu.saveit.testutil.RepeatUtil;
+import seedu.saveit.model.Report;
+import seedu.saveit.testutil.ReportBuilder;
+import seedu.saveit.testutil.ReportUtil;
 
 
 public class ReportLevelParserTest {
@@ -22,9 +24,24 @@ public class ReportLevelParserTest {
 
     @Test
     public void parseReportCommand_view() throws Exception {
-        Repeat repeat = new RepeatBuilder().build();
-        RepeatAddCommand command = (RepeatAddCommand) parser.parseCommand(RepeatUtil.getAddCommand(repeat));
-        assertEquals(new RepeatAddCommand(repeat), command);
+        Report report = new ReportBuilder().build();
+        ViewReportCommand command = (ViewReportCommand) parser.parseCommand(ReportUtil.getReportViewCommand(report));
+        assertEquals(new ViewReportCommand(report), command);
+    }
+
+    @Test
+    public void parseReportCommand_export() throws Exception {
+        Report report = new ReportBuilder().build();
+        ExportReportCommand command = (ExportReportCommand) parser.parseCommand(ReportUtil
+                .getReportExportCommand(report));
+        assertEquals(new ExportReportCommand(report), command);
+    }
+
+    @Test
+    public void parseReportCommand_print() throws Exception {
+        Report report = new ReportBuilder().build();
+        PrintReportCommand command = (PrintReportCommand) parser.parseCommand(ReportUtil.getReportPrintCommand(report));
+        assertEquals(new PrintReportCommand(report), command);
     }
 
 

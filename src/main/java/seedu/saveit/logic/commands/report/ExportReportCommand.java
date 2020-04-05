@@ -58,4 +58,11 @@ public class ExportReportCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, graph, true, false, false);
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExportReportCommand // instanceof handles nulls
+                && toExport.equals(((ExportReportCommand) other).toExport));
+
+    }
 }
