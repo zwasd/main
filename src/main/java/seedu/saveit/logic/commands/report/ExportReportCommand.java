@@ -1,11 +1,5 @@
 package seedu.saveit.logic.commands.report;
 
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
-
-import java.util.HashMap;
-
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
@@ -16,6 +10,12 @@ import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
 
+import java.util.HashMap;
+
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
+
 
 /**
  * Exports report.
@@ -23,7 +23,7 @@ import seedu.saveit.ui.Pie;
 public class ExportReportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-    public static final String MESSAGE_SUCCESS = "Report exported to : %1$s";
+    public static final String MESSAGE_SUCCESS = "Report is exporting.";
     public static final String MESSAGE_FAIL = "Report cannot be exported";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Exports the report. "

@@ -1,7 +1,6 @@
 package seedu.saveit.ui;
 
-import java.util.logging.Logger;
-
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.print.PageLayout;
@@ -10,13 +9,19 @@ import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import seedu.saveit.commons.core.GuiSettings;
 import seedu.saveit.commons.core.LogsCenter;
 import seedu.saveit.logic.Logic;
@@ -24,6 +29,11 @@ import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.ui.exceptions.PrinterException;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 
 /**
@@ -248,15 +258,39 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    //TODO: ask can use SwinfFXutils
 
     /**
-     * Export report (in progress not done)
+     * Exports report.
      *
-     * @param result
      */
-    public void export(CommandResult result) {
+    public void export(Graph graph, String fileName) {
 
+        Node node = (Node)graph.constructGraph();
+        Scene sc = new Scene((Parent) node,800,600);
+        Chart chart = null;
+
+        if(node instanceof PieChart) {
+            chart = (PieChart) node;
+
+        } else if (node instanceof BarChart) {
+            chart = (BarChart) node;
+        }
+
+        assert chart != null;
+
+        chart.setAnimated(false);
+        WritableImage img = new WritableImage(800,600);
+        node.snapshot(new SnapshotParameters(), img);
+
+        File f = new File ("Report/" + fileName + ".png");
+        f.getParentFile().mkdir();
+
+        try{
+            f.createNewFile();
+            ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", f);
+        } catch (IOException e) {
+            resultDisplay.setFeedbackToUser("Reported cannot be exported.");
+        }
     }
 
     /**
@@ -279,7 +313,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExportReport()) {
-                export(commandResult);
+                export(commandResult.getGraph(), "file");
             }
 
             if (commandResult.isPrintReport()) {
