@@ -42,7 +42,8 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
                 PREFIX_END_DATE, PREFIX_GRAPH);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH)) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH)
+                || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
         }
 

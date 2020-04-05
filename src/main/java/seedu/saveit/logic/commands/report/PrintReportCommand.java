@@ -58,4 +58,13 @@ public class PrintReportCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS, graph, false, false, true);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PrintReportCommand // instanceof handles nulls
+                && toPrint.equals(((PrintReportCommand) other).toPrint));
+
+    }
+
 }

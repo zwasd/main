@@ -21,10 +21,10 @@ public interface Storage extends SaveItStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getSaveItFilePath();
 
     @Override
-    Optional<ReadOnlyAccountList> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAccountList> readSaveIt() throws DataConversionException, IOException;
 
     @Override
     void saveSaveIt(ReadOnlyAccountList addressBook) throws IOException;

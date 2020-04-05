@@ -24,14 +24,14 @@ import seedu.saveit.testutil.RepeatUtil;
 public class RepeatLevelParserTest {
     private final RepeatLevelParser parser = new RepeatLevelParser();
     @Test
-    public void parseExpCommand_add() throws Exception {
+    public void parseRepeatCommand_add() throws Exception {
         Repeat repeat = new RepeatBuilder().build();
         RepeatAddCommand command = (RepeatAddCommand) parser.parseCommand(RepeatUtil.getAddCommand(repeat));
         assertEquals(new RepeatAddCommand(repeat), command);
     }
 
     @Test
-    public void parseExpCommand_delete() throws Exception {
+    public void parseRepeatCommand_delete() throws Exception {
         RepeatDeleteCommand command = (RepeatDeleteCommand) parser
                 .parseCommand(RepeatDeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_REPEAT.getOneBased());
         assertEquals(new RepeatDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
