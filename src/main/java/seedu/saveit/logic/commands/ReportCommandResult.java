@@ -30,12 +30,12 @@ public class ReportCommandResult {
     }
 
     public ReportCommandResult(String feedbackToUser, String fileName) {
-        this(feedbackToUser, false,true, false);
+        this(feedbackToUser, false, true, false);
         this.fileName = fileName;
     }
 
     public ReportCommandResult(String feedbackToUser) {
-        this(feedbackToUser,false,false,false);
+        this(feedbackToUser, false, false, false);
     }
 
     public boolean isExitReport() {
@@ -58,7 +58,9 @@ public class ReportCommandResult {
         return graph;
     }
 
-    public String getFileName() { return fileName; }
+    public String getFileName() {
+        return fileName;
+    }
 
 
 }

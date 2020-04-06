@@ -1,17 +1,18 @@
 package seedu.saveit.logic.commands.report;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import seedu.saveit.model.Model;
-import seedu.saveit.model.report.Report;
 import seedu.saveit.model.ReportableAccount;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.Tag;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
+import seedu.saveit.model.report.Report;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Internal statistics generation command.
@@ -65,7 +66,7 @@ public class GenerateStats {
         for (Repeat repeat : (Set<Repeat>) repeats.keySet()) {
             double amt = (double) repeats.get(repeat);
 
-            if(amt == 0) {
+            if (amt == 0) {
                 continue;
             }
 

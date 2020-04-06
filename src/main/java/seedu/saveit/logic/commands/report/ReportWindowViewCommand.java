@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.report;
 
+import java.util.HashMap;
+
 import seedu.saveit.logic.commands.ReportCommand;
 import seedu.saveit.logic.commands.ReportCommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
@@ -8,8 +10,6 @@ import seedu.saveit.model.report.Report;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
-
-import java.util.HashMap;
 
 /**
  * View report command in report window.

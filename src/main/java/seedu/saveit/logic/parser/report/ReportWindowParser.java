@@ -1,5 +1,12 @@
 package seedu.saveit.logic.parser.report;
 
+import static java.util.Objects.requireNonNull;
+
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
+
+import java.time.format.DateTimeParseException;
+
 import seedu.saveit.logic.commands.ReportCommand;
 import seedu.saveit.logic.commands.report.ReportWindowExitCommand;
 import seedu.saveit.logic.commands.report.ReportWindowExportCommand;
@@ -12,11 +19,7 @@ import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.model.report.Report;
 
-import java.time.format.DateTimeParseException;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
 
 /**
  * Parses commands typed in report window.
@@ -30,28 +33,28 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
         String[] userInputArray = userInputTrimmed.split("\\s+");
 
         switch (userInputArray[0]) {
-        case "exit" :
-            if(userInputArray.length > 1) {
+        case "exit":
+            if (userInputArray.length > 1) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
 
             return new ReportWindowExitCommand();
-        case "help" :
-            if(userInputArray.length > 1) {
+        case "help":
+            if (userInputArray.length > 1) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
             return new ReportWindowHelpCommand();
 
-        case "print" :
-            if(userInputArray.length > 1) {
+        case "print":
+            if (userInputArray.length > 1) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
             return new ReportWindowPrintCommand();
 
-        case "export" :
-            if(userInputArray.length != 2) {
+        case "export":
+            if (userInputArray.length != 2) {
 
-                if(userInputArray.length > 2) {
+                if (userInputArray.length > 2) {
                     throw new ParseException(ExportFile.FILENAME_CONSTRAINT);
                 }
 
@@ -61,7 +64,7 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
                 String fileName = userInputArray[1];
                 return new ReportWindowExportCommand(fileName);
             }
-        case "view" :
+        case "view":
             if (userInputArray.length < 4) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ReportWindowViewCommand.MESSAGE_USAGE));

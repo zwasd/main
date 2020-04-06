@@ -1,17 +1,6 @@
 package seedu.saveit.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.saveit.logic.parser.ParserUtil;
-import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.budget.Budget;
-import seedu.saveit.model.budget.BudgetMap;
-import seedu.saveit.model.expenditure.Amount;
-import seedu.saveit.model.expenditure.Date;
-import seedu.saveit.model.expenditure.Expenditure;
-import seedu.saveit.model.expenditure.Repeat;
-import seedu.saveit.model.expenditure.UniqueExpenditureList;
-import seedu.saveit.model.expenditure.exceptions.RepeatNotFoundException;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -24,7 +13,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import seedu.saveit.logic.parser.ParserUtil;
+import seedu.saveit.logic.parser.exceptions.ParseException;
+import seedu.saveit.model.budget.Budget;
+import seedu.saveit.model.budget.BudgetMap;
+import seedu.saveit.model.expenditure.Amount;
+import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.expenditure.Expenditure;
+import seedu.saveit.model.expenditure.Repeat;
+import seedu.saveit.model.expenditure.UniqueExpenditureList;
+import seedu.saveit.model.expenditure.exceptions.RepeatNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -38,7 +39,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     private final String accountName;
     private MonthlySpendingCalculator calculator;
 
-    /*
+     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -299,19 +300,19 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
 
-            System.out.println(repeat.toString());
-            if (repeat.getPeriod() == Repeat.Period.DAILY) {
-                double amt = repeat.calculateDailyRepeat(startDate, endDate);
-                repMap.put(repeat, amt);
+                    System.out.println(repeat.toString());
+                    if (repeat.getPeriod() == Repeat.Period.DAILY) {
+                        double amt = repeat.calculateDailyRepeat(startDate, endDate);
+                        repMap.put(repeat, amt);
 
-            } else if (repeat.getPeriod() == Repeat.Period.WEEKLY ||
-                    repeat.getPeriod() == Repeat.Period.MONTHLY ||
-                    repeat.getPeriod() == Repeat.Period.ANNUALLY) {
-                double amt = repeat.calculateWkOrMthOrYr(startDate, endDate);
-                repMap.put(repeat, amt);
-            }
-        }
-     );
+                    } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
+                            || repeat.getPeriod() == Repeat.Period.MONTHLY
+                            || repeat.getPeriod() == Repeat.Period.ANNUALLY) {
+                        double amt = repeat.calculateWkOrMthOrYr(startDate, endDate);
+                        repMap.put(repeat, amt);
+                    }
+                }
+        );
 
 
         return repMap;

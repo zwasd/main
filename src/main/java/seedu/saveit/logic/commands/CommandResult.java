@@ -1,12 +1,12 @@
 package seedu.saveit.logic.commands;
 
-import seedu.saveit.model.report.ExportFile;
-import seedu.saveit.ui.Graph;
+import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static java.util.Objects.requireNonNull;
+import seedu.saveit.model.report.ExportFile;
+import seedu.saveit.ui.Graph;
 
 /**
  * Represents the result of a command execution.
@@ -80,7 +80,7 @@ public class CommandResult {
         this.graph = graph;
     }
 
-    public CommandResult(String feedbackToUser, ExportFile fileToExport , boolean exportReport) {
+    public CommandResult(String feedbackToUser, ExportFile fileToExport, boolean exportReport) {
         this(feedbackToUser, false, false, false,
                 exportReport, false, false, false, false);
         this.file = fileToExport;
@@ -139,7 +139,9 @@ public class CommandResult {
         return isPrintReport;
     }
 
-    public ExportFile getFile() { return file; }
+    public ExportFile getFile() {
+        return file;
+    }
 
     public boolean isUpdateCalendar() {
         return updateCalendar;

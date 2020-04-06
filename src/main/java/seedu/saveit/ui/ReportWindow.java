@@ -1,5 +1,11 @@
 package seedu.saveit.ui;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.util.HashMap;
+import java.util.logging.Logger;
+
 import javafx.event.EventHandler;
 import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
@@ -23,6 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+
 import seedu.saveit.commons.core.LogsCenter;
 import seedu.saveit.logic.Logic;
 import seedu.saveit.logic.commands.CommandResult;
@@ -31,13 +38,6 @@ import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
-import java.util.HashMap;
-import java.util.logging.Logger;
-
 
 /**
  * The Report Window. Provides statistics on expenditure
@@ -103,7 +103,7 @@ public class ReportWindow extends UiPart<Stage> {
         label.setOnMouseClicked(click -> {
             try {
                 executeReportWindowCommand("help");
-            } catch (CommandException| ParseException| PrinterException e) {
+            } catch (CommandException | ParseException | PrinterException e) {
                 return;
             }
         });
@@ -244,6 +244,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     /**
      * Invokes printer job from Javafx.
+     *
      * @param graphNode Node to be printed.
      * @throws PrinterException if job cannot finish.
      */
@@ -264,16 +265,20 @@ public class ReportWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Exports report.
+     * @param fileName fileName of the file to export to.
+     */
     public void export(String fileName) {
 
-        try{
+        try {
             display.setFeedbackToUser("Exporting.");
             WritableImage img = snapshot();
             ExportFile file = new ExportFile(fileName, currentGraph);
             file.export(img);
-        } catch (IOException e ) {
+        } catch (IOException e) {
 
-            if(e instanceof FileAlreadyExistsException) {
+            if (e instanceof FileAlreadyExistsException) {
                 display.setFeedbackToUser("The file " + fileName + " already exists.");
             } else {
                 display.setFeedbackToUser("Reported cannot be exported.");
@@ -281,14 +286,18 @@ public class ReportWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Snapshot of current graph.
+     * @return image of graph.
+     */
     public WritableImage snapshot() {
         assert currentGraph != null;
         Node node;
         node = (Node) currentGraph.constructGraph();
-        Scene sc = new Scene((Parent) node,800,600);
+        Scene sc = new Scene((Parent) node, 800, 600);
         Chart chart = null;
 
-        if(node instanceof PieChart) {
+        if (node instanceof PieChart) {
             chart = (PieChart) node;
 
         } else if (node instanceof BarChart) {
@@ -298,10 +307,11 @@ public class ReportWindow extends UiPart<Stage> {
         assert chart != null;
 
         chart.setAnimated(false);
-        WritableImage img = new WritableImage(800,600);
+        WritableImage img = new WritableImage(800, 600);
         node.snapshot(new SnapshotParameters(), img);
         return img;
     }
+
     /**
      * Executor method for report command box.
      */
@@ -318,17 +328,16 @@ public class ReportWindow extends UiPart<Stage> {
                 currentGraph = null;
                 display.clear();
                 getRoot().hide();
-            } else if (result.isPrintReport()) {
+            } else if (result.isPrintReport() || result.isExportReport()) {
                 if (currentGraph != null) {
-                    print();
+                    if (result.isPrintReport()) {
+                        print();
+                    } else {
+                        assert result.isPrintReport();
+                        export(result.getFileName());
+                    }
                 } else {
                     display.setFeedbackToUser("Construct graph before printing");
-                }
-            } else if (result.isExportReport()) {
-                if(currentGraph != null) {
-                    export(result.getFileName());
-                } else {
-                    display.setFeedbackToUser("Construct graph before exporting");
                 }
             } else {
                 showResult(result);
