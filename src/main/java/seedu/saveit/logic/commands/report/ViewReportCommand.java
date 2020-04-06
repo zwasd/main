@@ -34,7 +34,7 @@ public class ViewReportCommand extends Command {
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
-            + PREFIX_GRAPH + " PIE";
+            + PREFIX_GRAPH + " pie";
 
     private final Report toView;
     private HashMap statsToDisplay;

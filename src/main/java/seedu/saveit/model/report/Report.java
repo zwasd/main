@@ -27,7 +27,7 @@ public class Report {
          * Checks if {@code g} is a valid GraphType.
          */
         public static boolean isValidGraph(String g) {
-            switch (g) {
+            switch (g.toUpperCase()) {
             case "BAR":
             case "PIE":
                 return true;
@@ -40,7 +40,7 @@ public class Report {
          * Maps {@code String graph} to corresponding graphType
          */
         public static GraphType mapToGraphType(String graph) throws ParseException {
-            switch (graph) {
+            switch (graph.toUpperCase()) {
             case "BAR":
                 return GraphType.BAR;
             case "PIE":

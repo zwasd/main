@@ -21,7 +21,7 @@ public class ReportWindowViewCommand extends ReportCommand {
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
     public static final String MESSAGE_USAGE = "Parameters: "
-            + " graph type : PIE  "
+            + " graph type : pie  "
             + " start date : YYYY-MM-DD  "
             + " end date :  YYYY-MM-DD  " + "\n"
             + "eg: " + " PIE " + " 2020-03-22 " + " 2020-03-25 ";
