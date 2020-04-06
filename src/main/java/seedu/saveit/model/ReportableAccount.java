@@ -1,13 +1,12 @@
 package seedu.saveit.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-
 import javafx.collections.ObservableList;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
+
+import java.time.LocalDate;
+import java.util.Map;
 
 /**
  * An interface containing methods that allow expenditure data to be read from an account.
@@ -47,5 +46,5 @@ public interface ReportableAccount {
      */
     ObservableList<Repeat> getRepeatByDate(LocalDate date);
 
-    Map<Repeat, ArrayList> getRepeatFromToInclusive(Date startDate, Date endDate);
+    Map<Repeat, Double> getRepeatFromToInclusive(Date startDate, Date endDate);
 }

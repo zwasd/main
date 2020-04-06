@@ -1,19 +1,17 @@
 package seedu.saveit.logic.commands.report;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import seedu.saveit.model.Model;
 import seedu.saveit.model.Report;
 import seedu.saveit.model.ReportableAccount;
-import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.Tag;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Internal statistics generation command.
@@ -65,19 +63,15 @@ public class GenerateStats {
         Map repeats = acct.getRepeatFromToInclusive(report.getStartDate(), report.getEndDate());
 
         for (Repeat repeat : (Set<Repeat>) repeats.keySet()) {
-            ArrayList list = (ArrayList) repeats.get(repeat);
-            int days = ((Date) list.get(0)).localDate.until(((Date) list.get(1)).localDate).getDays();
-            double amount = repeat.getAmount().value * days;
+           double amt = (double) repeats.get(repeat);
             Tag tag = repeat.getTag();
 
             if (output.containsKey(tag)) {
-                output.replace(tag, output.get(tag) + amount);
+                output.replace(tag, output.get(tag) + amt);
             } else {
-                output.put(tag, amount);
+                output.put(tag, amt);
             }
         }
-
-
         return output;
 
     }

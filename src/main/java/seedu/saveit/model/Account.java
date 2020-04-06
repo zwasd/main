@@ -1,18 +1,5 @@
 package seedu.saveit.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.saveit.logic.parser.ParserUtil;
@@ -26,6 +13,19 @@ import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
 import seedu.saveit.model.expenditure.exceptions.RepeatNotFoundException;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import static java.util.Objects.requireNonNull;
+
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
@@ -38,7 +38,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     private final String accountName;
     private MonthlySpendingCalculator calculator;
 
-     /*
+    /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -292,41 +292,26 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
     //TODO: add for monthly and annually.
     @Override
-    public Map<Repeat, ArrayList> getRepeatFromToInclusive(Date startDate, Date endDate) {
-        HashMap<Repeat, ArrayList> repMap = new HashMap();
-
+    public Map<Repeat, Double> getRepeatFromToInclusive(Date startDate, Date endDate) {
+        HashMap repMap = new HashMap();
         //add daily repeats
-        repeats.stream().filter(repeat -> repeat.getPeriod() == Repeat.Period.DAILY
-                && Date.isEqualOrAfter(repeat.getEndDate(), startDate)
+        repeats.stream().filter(repeat -> Date.isEqualOrAfter(repeat.getEndDate(), startDate)
+                && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
-            if (Date.isEqualOrBefore(repeat.getEndDate(), endDate)) {
 
-                Date currentDay = startDate;
+            if (repeat.getPeriod() == Repeat.Period.DAILY) {
+                double amt = repeat.calculateDailyRepeat(startDate, endDate);
+                repMap.put(repeat, amt);
 
-                if (Date.isEqualOrAfter(repeat.getStartDate(), startDate)) {
-                    currentDay = repeat.getStartDate();
-                }
-
-                Date repeatEnd = repeat.getEndDate();
-
-                if (!repMap.containsKey(repeat)) {
-                    ArrayList list = new ArrayList();
-                    list.add(currentDay);
-                    list.add(repeatEnd);
-                    repMap.put(repeat, list);
-                }
-            } else {
-                Date currentDay = repeat.getStartDate();
-                Date repeatEnd = endDate;
-                if (!repMap.containsKey(repeat)) {
-                    ArrayList list = new ArrayList();
-                    list.add(currentDay);
-                    list.add(repeatEnd);
-                    repMap.put(repeat, list);
-                }
-
+            } else if (repeat.getPeriod() == Repeat.Period.WEEKLY ||
+                    repeat.getPeriod() == Repeat.Period.MONTHLY ||
+                    repeat.getPeriod() == Repeat.Period.ANNUALLY) {
+                double amt = repeat.calculateWkOrMthOrYr(startDate, endDate);
+                repMap.put(repeat, amt);
             }
-        });
+        }
+     );
+
 
         return repMap;
     }
