@@ -3,6 +3,7 @@ package seedu.saveit.logic.parser.report;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_FILE_NAME;
 import static seedu.saveit.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import seedu.saveit.logic.commands.report.ExportReportCommand;
 import seedu.saveit.logic.commands.report.PrintReportCommand;
 import seedu.saveit.logic.commands.report.ViewReportCommand;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.testutil.ReportBuilder;
 import seedu.saveit.testutil.ReportUtil;
 
@@ -33,8 +34,8 @@ public class ReportLevelParserTest {
     public void parseReportCommand_export() throws Exception {
         Report report = new ReportBuilder().build();
         ExportReportCommand command = (ExportReportCommand) parser.parseCommand(ReportUtil
-                .getReportExportCommand(report));
-        assertEquals(new ExportReportCommand(report), command);
+                .getReportExportCommand(report, VALID_FILE_NAME));
+        assertEquals(new ExportReportCommand(report, VALID_FILE_NAME), command);
     }
 
     @Test

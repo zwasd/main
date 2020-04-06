@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_INFO;
 
@@ -79,12 +80,16 @@ public class CommandTestUtil {
     public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
 
     //report
-    public static final String VALID_GRAPH_BAR = "BAR";
-    public static final String VALID_GRAPH_PIE = "PIE";
+    public static final String VALID_GRAPH_BAR_CAPS = "BAR";
+    public static final String VALID_GRAPH_PIE_CAPS = "PIE";
     public static final String INVALID_GRAPH = "";
-    public static final String VALID_GRAPH_BAR_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_BAR;
-    public static final String VALID_GRAPH_PIE_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_PIE;
+    public static final String VALID_GRAPH_BAR_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_BAR_CAPS;
+    public static final String VALID_GRAPH_PIE_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_PIE_CAPS;
     public static final String INVALID_GRAPH_DESC = " " + PREFIX_GRAPH + INVALID_GRAPH;
+    public static final String VALID_FILE_NAME = "Hello";
+    public static final String INVALID_FILE_NAME = "H e l l o";
+    public static final String VALID_FILE_NAME_DESC = " " + PREFIX_FILENAME +  VALID_FILE_NAME;
+    public static final String INVALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + INVALID_FILE_NAME;
 
 
 

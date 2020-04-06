@@ -2,7 +2,7 @@ package seedu.saveit.testutil;
 
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR_CAPS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
 
@@ -15,7 +15,7 @@ import seedu.saveit.model.report.Report;
  *     {@code Report ab = new ReportBuilder();}
  */
 public class ReportBuilder {
-    public static final String DEFAULT_GRAPH_TYPE = VALID_GRAPH_BAR;
+    public static final String DEFAULT_GRAPH_TYPE = VALID_GRAPH_BAR_CAPS;
     public static final String DEFAULT_START_DATE = VALID_START_DATE_MRT;
     public static final String DEFAULT_END_DATE = VALID_END_DATE_MRT;
 
@@ -24,7 +24,7 @@ public class ReportBuilder {
     private Date endDate;
 
     public ReportBuilder() {
-        this.graphType = Report.GraphType.valueOf(VALID_GRAPH_BAR);
+        this.graphType = Report.GraphType.valueOf(VALID_GRAPH_BAR_CAPS);
         this.startDate = new Date(VALID_START_DATE_BUS);
         this.endDate = new Date(VALID_END_DATE_BUS);
     }
