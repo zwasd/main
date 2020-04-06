@@ -96,6 +96,22 @@ public class ReportWindow extends UiPart<Stage> {
      * component of the report window.
      */
     private void initMenu() {
+
+        //help item
+        Label label = new Label("Help");
+        label.setFont(new Font("Segoe UI Light", 14));
+        label.setOnMouseClicked(click -> {
+            try {
+                executeReportWindowCommand("help");
+            } catch (CommandException| ParseException| PrinterException e) {
+                return;
+            }
+        });
+
+        // print item
+        Menu menu = new Menu("", label);
+        menuBar.getMenus().add(menu);
+
         Label label1 = new Label("Print");
         label1.setFont(new Font("Segoe UI Light", 14));
         label1.setOnMouseClicked(click -> {
@@ -251,6 +267,7 @@ public class ReportWindow extends UiPart<Stage> {
     public void export(String fileName) {
 
         try{
+            display.setFeedbackToUser("Exporting.");
             WritableImage img = snapshot();
             ExportFile file = new ExportFile(fileName, currentGraph);
             file.export(img);

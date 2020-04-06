@@ -3,6 +3,7 @@ package seedu.saveit.logic.parser.report;
 import seedu.saveit.logic.commands.ReportCommand;
 import seedu.saveit.logic.commands.report.ReportWindowExitCommand;
 import seedu.saveit.logic.commands.report.ReportWindowExportCommand;
+import seedu.saveit.logic.commands.report.ReportWindowHelpCommand;
 import seedu.saveit.logic.commands.report.ReportWindowPrintCommand;
 import seedu.saveit.logic.commands.report.ReportWindowViewCommand;
 import seedu.saveit.logic.parser.ParserReportWindow;
@@ -35,6 +36,11 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
             }
 
             return new ReportWindowExitCommand();
+        case "help" :
+            if(userInputArray.length > 1) {
+                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            }
+            return new ReportWindowHelpCommand();
 
         case "print" :
             if(userInputArray.length > 1) {

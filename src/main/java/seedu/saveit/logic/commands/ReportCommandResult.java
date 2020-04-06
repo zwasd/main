@@ -21,6 +21,7 @@ public class ReportCommandResult {
         this.isExitReport = isExitReport;
         this.isExportReport = isExportReport;
         this.isPrintReport = isPrintReport;
+
     }
 
     public ReportCommandResult(String feedbackToUser, Graph graph) {
@@ -31,6 +32,10 @@ public class ReportCommandResult {
     public ReportCommandResult(String feedbackToUser, String fileName) {
         this(feedbackToUser, false,true, false);
         this.fileName = fileName;
+    }
+
+    public ReportCommandResult(String feedbackToUser) {
+        this(feedbackToUser,false,false,false);
     }
 
     public boolean isExitReport() {
