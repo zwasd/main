@@ -6,8 +6,8 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
 
-import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.report.Report;
 
 /**
  * A utility class to help with building Report objects.
