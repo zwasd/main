@@ -184,10 +184,11 @@ public class Repeat extends BaseExp {
         int i = 0;
         while (true) {
             LocalDate toStore = pivotDate.plusMonths(i);
+            System.out.println(toStore);
             if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
-            this.relevantDate.add(pivotDate);
+            this.relevantDate.add(toStore);
             i++;
         }
     }
