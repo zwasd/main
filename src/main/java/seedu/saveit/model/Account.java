@@ -299,6 +299,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
 
+            System.out.println(repeat.toString());
             if (repeat.getPeriod() == Repeat.Period.DAILY) {
                 double amt = repeat.calculateDailyRepeat(startDate, endDate);
                 repMap.put(repeat, amt);

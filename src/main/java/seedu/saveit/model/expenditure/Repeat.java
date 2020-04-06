@@ -261,7 +261,6 @@ public class Repeat extends BaseExp {
         Iterator iterator = relevantDate.iterator();
         while (iterator.hasNext()) {
             LocalDate temp = (LocalDate) iterator.next();
-            System.out.println("repeat " + temp);
             if (YearMonth.from(temp).equals(givenYearMonth)) {
                 allDateWithinGivenYearMonth.add(temp);
             }
@@ -354,8 +353,8 @@ public class Repeat extends BaseExp {
 
         double amount = 0;
 
-        System.out.println("ADJ " + adjustedStart);
-        System.out.print("ADJ " + adjustedEnd);
+        //System.out.println("ADJ " + adjustedStart);
+        //System.out.println("ADJ " + adjustedEnd);
 
         if(adjustedStart.getDayOfMonth() != 1) {
 
@@ -364,7 +363,7 @@ public class Repeat extends BaseExp {
             amount = amount + calculateRepeatTillEndOfMonth(adjustedStart,
                     endOfMonth);
 
-            System.out.println( "Amt " + amount);
+            //System.out.println( "Amt " + amount);
             adjustedStart = YearMonth.from(adjustedStart.plusMonths(1)).atDay(1);
         }
 
@@ -375,8 +374,8 @@ public class Repeat extends BaseExp {
             System.out.println( "Amt " + amount);
         }
 
-        System.out.println("ADJ " + adjustedStart);
-        System.out.print("ADJ " + adjustedEnd);
+        //System.out.println("ADJ " + adjustedStart);
+        //System.out.print("ADJ " + adjustedEnd);
         amount =  amount + calculateRepeat(YearMonth.from(adjustedStart),YearMonth.from(adjustedEnd));
 
         return amount;
@@ -400,7 +399,7 @@ public class Repeat extends BaseExp {
         while (!current.isAfter(endYearMonth)) {
             total = total + calculateForGivenYearMonth(current);
             current = current.plusMonths(1);
-            System.out.println("total " + total);
+            //System.out.println("total " + total);
         }
 
         return total;
@@ -423,8 +422,8 @@ public class Repeat extends BaseExp {
 
         if(this.getPeriod() == Period.WEEKLY) {
             LocalDate current = null;
-            if (relevantDate.contains(startDate)) {
-                current = startDate.localDate;
+            if (relevantDate.contains(adjustedStart)) {
+                current = adjustedStart;
             } else {
                 //check if repeat date is before or after start for start's week
                 if (adjustedStart.getDayOfWeek().getValue() -
@@ -443,7 +442,7 @@ public class Repeat extends BaseExp {
             assert current != null;
             while(!current.isAfter(adjustedEnd)) {
                 amount = amount + this.getAmount().value;
-                current.plusWeeks(1);
+                current = current.plusWeeks(1);
             }
 
             return  amount;
@@ -457,7 +456,7 @@ public class Repeat extends BaseExp {
             if(nextDateRepeat.getMonth() != this.getStartDate().localDate.getMonth()) {
 
                 //check if endDate is also last day of every month
-                LocalDate nextDateEnd = this.endDate.localDate.plusDays(1);
+                LocalDate nextDateEnd = adjustedEnd.plusDays(1);
 
                 if(nextDateEnd.getMonth() != adjustedStart.getMonth()) {
                     amount = this.getAmount().value;
@@ -482,6 +481,7 @@ public class Repeat extends BaseExp {
 
                 if(adjustedStart.getDayOfMonth() ==
                 this.getStartDate().localDate.getDayOfMonth()) {
+                    amount = this.getAmount().value;
                     return amount;
                 }
 
@@ -491,6 +491,8 @@ public class Repeat extends BaseExp {
         assert amount == 0;
         return  amount;
     }
+
+
 
     /**
      * Calculate daily repeat for
@@ -526,15 +528,17 @@ public class Repeat extends BaseExp {
            adjustedEnd = endDate.localDate;
         }
 
+        //System.out.println("ADJ " + adjustedStart);
+        //System.out.println("ADJ " + adjustedEnd);
+
         int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
+
+        System.out.println(days);
+
         double amount = this.getAmount().value * days;
 
+        //System.out.println("Amt " + amount);
         return amount;
-    }
-
-
-    public HashSet getRelevantDates() {
-        return relevantDate;
     }
 
 

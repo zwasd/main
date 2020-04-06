@@ -63,7 +63,12 @@ public class GenerateStats {
         Map repeats = acct.getRepeatFromToInclusive(report.getStartDate(), report.getEndDate());
 
         for (Repeat repeat : (Set<Repeat>) repeats.keySet()) {
-           double amt = (double) repeats.get(repeat);
+            double amt = (double) repeats.get(repeat);
+
+            if(amt == 0) {
+                continue;
+            }
+
             Tag tag = repeat.getTag();
 
             if (output.containsKey(tag)) {
