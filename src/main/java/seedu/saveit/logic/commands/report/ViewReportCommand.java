@@ -11,7 +11,7 @@ import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.report.ReportLevelParser;
 import seedu.saveit.model.Model;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;

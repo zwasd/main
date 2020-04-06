@@ -11,7 +11,7 @@ import seedu.saveit.logic.commands.report.ReportWindowPrintCommand;
 import seedu.saveit.logic.commands.report.ReportWindowStatsCommand;
 import seedu.saveit.logic.parser.ParserReportWindow;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.model.expenditure.Date;
 
 /**

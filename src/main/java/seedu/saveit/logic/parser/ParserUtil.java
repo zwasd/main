@@ -1,18 +1,19 @@
 package seedu.saveit.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
-import java.time.YearMonth;
-
 import seedu.saveit.commons.core.index.Index;
 import seedu.saveit.commons.util.StringUtil;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.ExportFile;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.Tag;
+
+import java.time.YearMonth;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -144,10 +145,19 @@ public class ParserUtil {
     public static Report.GraphType parseGraph(String graph) throws ParseException {
         requireNonNull(graph);
         String trimmedGraph = graph.trim();
-        if (!Report.GraphType.isValidGraph(graph)) {
+        if (!Report.GraphType.isValidGraph(trimmedGraph)) {
             throw new ParseException(Report.GraphType.GRAPH_TYPE_MESSAGE_CONSTRAINT);
         }
         return Report.GraphType.mapToGraphType(graph);
     }
 
+    public static String parseFileName(String fileName) throws ParseException {
+        requireNonNull(fileName);
+        String fileNameTrimmed = fileName.trim();
+
+        if(!ExportFile.isValidFileName(fileNameTrimmed)) {
+            throw new ParseException(ExportFile.FILENAME_CONSTRAINT);
+        }
+        return fileNameTrimmed;
+    }
 }

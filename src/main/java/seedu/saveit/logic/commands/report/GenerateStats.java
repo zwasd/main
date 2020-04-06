@@ -1,7 +1,7 @@
 package seedu.saveit.logic.commands.report;
 
 import seedu.saveit.model.Model;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.model.ReportableAccount;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Repeat;

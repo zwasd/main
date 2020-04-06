@@ -1,14 +1,5 @@
 package seedu.saveit.logic.parser.report;
 
-import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
-
-import java.time.LocalDate;
-import java.util.stream.Stream;
-
 import seedu.saveit.logic.commands.report.PrintReportCommand;
 import seedu.saveit.logic.parser.ArgumentMultimap;
 import seedu.saveit.logic.parser.ArgumentTokenizer;
@@ -16,8 +7,17 @@ import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.ParserUtil;
 import seedu.saveit.logic.parser.Prefix;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.report.Report;
+
+import java.time.LocalDate;
+import java.util.stream.Stream;
+
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 /**
  * Parses for report print.

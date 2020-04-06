@@ -28,11 +28,13 @@ import seedu.saveit.logic.Logic;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
+import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.logging.Logger;
 
 
@@ -263,9 +265,9 @@ public class MainWindow extends UiPart<Stage> {
      * Exports report.
      *
      */
-    public void export(Graph graph, String fileName) {
+    public void export(ExportFile file) {
 
-        Node node = (Node)graph.constructGraph();
+        Node node = (Node)file.getGraph().constructGraph();
         Scene sc = new Scene((Parent) node,800,600);
         Chart chart = null;
 
@@ -282,14 +284,24 @@ public class MainWindow extends UiPart<Stage> {
         WritableImage img = new WritableImage(800,600);
         node.snapshot(new SnapshotParameters(), img);
 
-        File f = new File ("Report/" + fileName + ".png");
+        File f = new File ("Report/" + file.getFileName() + ".png");
         f.getParentFile().mkdir();
 
         try{
+
+            if(f.exists()) {
+                throw new FileAlreadyExistsException(file.getFileName());
+            }
+
             f.createNewFile();
             ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", f);
-        } catch (IOException e) {
-            resultDisplay.setFeedbackToUser("Reported cannot be exported.");
+        } catch (IOException e ) {
+
+           if(e instanceof FileAlreadyExistsException) {
+               resultDisplay.setFeedbackToUser("The file " + file.getFileName() + " already exists.");
+           } else {
+               resultDisplay.setFeedbackToUser("Reported cannot be exported.");
+           }
         }
     }
 
@@ -313,7 +325,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExportReport()) {
-                export(commandResult.getGraph(), "file");
+                export(commandResult.getFile());
             }
 
             if (commandResult.isPrintReport()) {

@@ -1,4 +1,4 @@
-package seedu.saveit.model;
+package seedu.saveit.model.report;
 
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.Date;

@@ -5,7 +5,8 @@ import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.report.ReportLevelParser;
 import seedu.saveit.model.Model;
-import seedu.saveit.model.Report;
+import seedu.saveit.model.report.ExportFile;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
@@ -13,6 +14,7 @@ import seedu.saveit.ui.Pie;
 import java.util.HashMap;
 
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
@@ -30,19 +32,24 @@ public class ExportReportCommand extends Command {
             + "\n" + "Parameters: "
             + PREFIX_START_DATE + " STAR DATE "
             + PREFIX_END_DATE + " END DATE "
-            + PREFIX_GRAPH + " GRAPH TYPE" + "\n"
+            + PREFIX_GRAPH + " GRAPH TYPE"
+            + PREFIX_FILENAME + " FILE NAME"
+            + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
-            + PREFIX_GRAPH + " PIE";
+            + PREFIX_GRAPH + " PIE"
+            + PREFIX_FILENAME + " Report";
 
     private final Report toExport;
     private HashMap statsToExport;
     private Report.GraphType format;
     private Graph graph;
+    private String fileName;
 
-    public ExportReportCommand(Report toExport) {
+    public ExportReportCommand(Report toExport, String fileName) {
         this.toExport = toExport;
+        this.fileName = fileName;
     }
 
     @Override
@@ -56,7 +63,8 @@ public class ExportReportCommand extends Command {
             graph = new Bar(statsToExport);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS, graph, true, false, false);
+        ExportFile f = new ExportFile(fileName, graph);
+        return new CommandResult(MESSAGE_SUCCESS, f, true);
     }
     @Override
     public boolean equals(Object other) {
@@ -65,4 +73,6 @@ public class ExportReportCommand extends Command {
                 && toExport.equals(((ExportReportCommand) other).toExport));
 
     }
+
+
 }
