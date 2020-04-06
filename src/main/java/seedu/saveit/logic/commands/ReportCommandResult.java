@@ -13,12 +13,7 @@ public class ReportCommandResult {
     private final String feedbackToUser;
 
     private Graph graph;
-
-    public ReportCommandResult(String feedbackToUser, Graph graph) {
-        this(feedbackToUser, false, false, false);
-        this.graph = graph;
-        ;
-    }
+    private String fileName;
 
     public ReportCommandResult(String feedbackToUser, boolean isExitReport,
                                boolean isExportReport, boolean isPrintReport) {
@@ -26,6 +21,16 @@ public class ReportCommandResult {
         this.isExitReport = isExitReport;
         this.isExportReport = isExportReport;
         this.isPrintReport = isPrintReport;
+    }
+
+    public ReportCommandResult(String feedbackToUser, Graph graph) {
+        this(feedbackToUser, false, false, false);
+        this.graph = graph;
+    }
+
+    public ReportCommandResult(String feedbackToUser, String fileName) {
+        this(feedbackToUser, false,true, false);
+        this.fileName = fileName;
     }
 
     public boolean isExitReport() {
@@ -47,6 +52,8 @@ public class ReportCommandResult {
     public Graph getGraph() {
         return graph;
     }
+
+    public String getFileName() { return fileName; }
 
 
 }

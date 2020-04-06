@@ -1,11 +1,5 @@
 package seedu.saveit.logic.commands.report;
 
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
-import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
-
-import java.util.HashMap;
-
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
@@ -15,6 +9,12 @@ import seedu.saveit.model.report.Report;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
+
+import java.util.HashMap;
+
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 /**
  * Views report.

@@ -1,7 +1,5 @@
 package seedu.saveit.logic.commands.report;
 
-import java.util.HashMap;
-
 import seedu.saveit.logic.commands.ReportCommand;
 import seedu.saveit.logic.commands.ReportCommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
@@ -11,10 +9,14 @@ import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
 
+import java.util.HashMap;
+
 /**
  * View report command in report window.
  */
-public class ReportWindowStatsCommand extends ReportCommand {
+public class ReportWindowViewCommand extends ReportCommand {
+
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
@@ -29,7 +31,7 @@ public class ReportWindowStatsCommand extends ReportCommand {
     private Report report;
     private Graph graph;
 
-    public ReportWindowStatsCommand(Report report) {
+    public ReportWindowViewCommand(Report report) {
         this.report = report;
     }
 

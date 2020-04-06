@@ -1,6 +1,5 @@
 package seedu.saveit.ui;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.print.PageLayout;
@@ -31,8 +30,6 @@ import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.logging.Logger;
@@ -260,13 +257,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-
     /**
      * Exports report.
      *
      */
     public void export(ExportFile file) {
+        try{
+            WritableImage img = snapshot(file);
+            file.export(img);
+        } catch (IOException e ) {
 
+           if(e instanceof FileAlreadyExistsException) {
+               resultDisplay.setFeedbackToUser("The file " + file.getFileName() + " already exists.");
+           } else {
+               resultDisplay.setFeedbackToUser("Reported cannot be exported.");
+           }
+        }
+    }
+
+    public WritableImage snapshot(ExportFile file) {
         Node node = (Node)file.getGraph().constructGraph();
         Scene sc = new Scene((Parent) node,800,600);
         Chart chart = null;
@@ -284,25 +293,7 @@ public class MainWindow extends UiPart<Stage> {
         WritableImage img = new WritableImage(800,600);
         node.snapshot(new SnapshotParameters(), img);
 
-        File f = new File ("Report/" + file.getFileName() + ".png");
-        f.getParentFile().mkdir();
-
-        try{
-
-            if(f.exists()) {
-                throw new FileAlreadyExistsException(file.getFileName());
-            }
-
-            f.createNewFile();
-            ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", f);
-        } catch (IOException e ) {
-
-           if(e instanceof FileAlreadyExistsException) {
-               resultDisplay.setFeedbackToUser("The file " + file.getFileName() + " already exists.");
-           } else {
-               resultDisplay.setFeedbackToUser("Reported cannot be exported.");
-           }
-        }
+        return  img;
     }
 
     /**

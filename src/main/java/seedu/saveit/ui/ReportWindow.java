@@ -1,9 +1,5 @@
 package seedu.saveit.ui;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.logging.Logger;
-
 import javafx.event.EventHandler;
 import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
@@ -11,24 +7,36 @@ import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-
 import seedu.saveit.commons.core.LogsCenter;
 import seedu.saveit.logic.Logic;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.ReportCommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
+import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.util.HashMap;
+import java.util.logging.Logger;
 
 
 /**
@@ -88,16 +96,8 @@ public class ReportWindow extends UiPart<Stage> {
      * component of the report window.
      */
     private void initMenu() {
-        Label label = new Label("Export");
-        label.setFont(new Font("Segoe UI Light", 14));
-        label.setOnMouseClicked(click -> {
-
-        });
-        Menu menu = new Menu("", label);
-        menuBar.getMenus().add(menu);
-
         Label label1 = new Label("Print");
-        label.setFont(new Font("Segoe UI Light", 14));
+        label1.setFont(new Font("Segoe UI Light", 14));
         label1.setOnMouseClicked(click -> {
             try {
                 if (currentGraph != null) {
@@ -248,7 +248,43 @@ public class ReportWindow extends UiPart<Stage> {
         }
     }
 
+    public void export(String fileName) {
 
+        try{
+            WritableImage img = snapshot();
+            ExportFile file = new ExportFile(fileName, currentGraph);
+            file.export(img);
+        } catch (IOException e ) {
+
+            if(e instanceof FileAlreadyExistsException) {
+                display.setFeedbackToUser("The file " + fileName + " already exists.");
+            } else {
+                display.setFeedbackToUser("Reported cannot be exported.");
+            }
+        }
+    }
+
+    public WritableImage snapshot() {
+        assert currentGraph != null;
+        Node node;
+        node = (Node) currentGraph.constructGraph();
+        Scene sc = new Scene((Parent) node,800,600);
+        Chart chart = null;
+
+        if(node instanceof PieChart) {
+            chart = (PieChart) node;
+
+        } else if (node instanceof BarChart) {
+            chart = (BarChart) node;
+        }
+
+        assert chart != null;
+
+        chart.setAnimated(false);
+        WritableImage img = new WritableImage(800,600);
+        node.snapshot(new SnapshotParameters(), img);
+        return img;
+    }
     /**
      * Executor method for report command box.
      */
@@ -270,6 +306,12 @@ public class ReportWindow extends UiPart<Stage> {
                     print();
                 } else {
                     display.setFeedbackToUser("Construct graph before printing");
+                }
+            } else if (result.isExportReport()) {
+                if(currentGraph != null) {
+                    export(result.getFileName());
+                } else {
+                    display.setFeedbackToUser("Construct graph before exporting");
                 }
             } else {
                 showResult(result);

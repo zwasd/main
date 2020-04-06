@@ -11,6 +11,7 @@ import seedu.saveit.model.Model;
 
 public class ReportWindowPrintCommand extends ReportCommand {
 
+    public static final String COMMAND_WORD = "print";
     public static final String MESSAGE_PRINT = "Checking if there is a graph to print.";
 
     @Override
