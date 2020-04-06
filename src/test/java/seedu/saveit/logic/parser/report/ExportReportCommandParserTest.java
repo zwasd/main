@@ -30,9 +30,9 @@ import seedu.saveit.model.report.Report;
 import seedu.saveit.testutil.ReportBuilder;
 
 
-
 public class ExportReportCommandParserTest {
     private final ExportReportCommandParser parser = new ExportReportCommandParser();
+
     @Test
     public void parse_allFieldsPresent_success() {
         Report expectedReport = new ReportBuilder().withGraphType(VALID_GRAPH_BAR_CAPS)
@@ -43,22 +43,22 @@ public class ExportReportCommandParserTest {
         String expectedFileName = "Hello";
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
-                new ExportReportCommand(expectedReport,expectedFileName));
+                        + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
+                new ExportReportCommand(expectedReport, expectedFileName));
 
         // multiple graph type - last graph type accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                + VALID_GRAPH_PIE_DESC_CAPS + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
+                        + VALID_GRAPH_PIE_DESC_CAPS + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
                 new ExportReportCommand(expectedReport, expectedFileName));
 
         // multiple start date - last start date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_BUS + START_DATE_DESC_MRT
-                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
+                        + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
                 new ExportReportCommand(expectedReport, expectedFileName));
 
         // multiple end date - last end date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_BUS
-                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
+                        + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME_DESC,
                 new ExportReportCommand(expectedReport, expectedFileName));
     }
 
@@ -83,7 +83,7 @@ public class ExportReportCommandParserTest {
 
         // missing file name prefix
         assertParseFailure(parser, START_DATE_DESC_BUS + END_DATE_DESC_BUS
-                + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME,
+                        + VALID_GRAPH_BAR_DESC_CAPS + VALID_FILE_NAME,
                 expectedMessage);
 
         // all prefixes missing
