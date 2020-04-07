@@ -53,7 +53,7 @@ public class ViewReportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if(toView.getOrganise().equals("tag")) {
+        if (toView.getOrganise().equals("tag")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         } else if (toView.getOrganise().equals("month")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();

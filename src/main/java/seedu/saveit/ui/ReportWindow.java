@@ -1,17 +1,13 @@
 package seedu.saveit.ui;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
@@ -240,20 +236,16 @@ public class ReportWindow extends UiPart<Stage> {
         display.setFeedbackToUser("Printing");
 
         assert currentGraph != null;
-        Node graphNode;
-        graphNode = (Node) currentGraph.constructGraph();
-        printerJob(graphNode);
+        printerJob();
 
     }
 
     /**
      * Invokes printer job from Javafx.
      *
-     * @param graphNode Node to be printed.
      * @throws PrinterException if job cannot finish.
      */
-    public void printerJob(Node graphNode) throws PrinterException {
-        Printer printer = Printer.getDefaultPrinter();
+    public void printerJob() throws PrinterException {
         PrinterJob printerJob = PrinterJob.createPrinterJob();
         PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
 

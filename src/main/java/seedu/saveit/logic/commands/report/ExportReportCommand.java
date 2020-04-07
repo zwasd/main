@@ -58,7 +58,7 @@ public class ExportReportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if(toExport.getOrganise().equals("tag")) {
+        if (toExport.getOrganise().equals("tag")) {
             statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
         } else if (toExport.getOrganise().equals("month")) {
             statsToExport = new GenerateStats(toExport, model).generateStatsByMonth();
@@ -75,6 +75,7 @@ public class ExportReportCommand extends Command {
         ExportFile f = new ExportFile(fileName, graph);
         return new CommandResult(MESSAGE_SUCCESS, f, true);
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

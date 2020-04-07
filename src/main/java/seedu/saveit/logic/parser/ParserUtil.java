@@ -153,9 +153,9 @@ public class ParserUtil {
     }
 
     public static String parseOrganise(String organise) throws ParseException {
-       requireNonNull(organise);
+        requireNonNull(organise);
         String trimmedOrganised = organise.trim();
-        if(!Report.isValidOrganise(trimmedOrganised)) {
+        if (!Report.isValidOrganise(trimmedOrganised)) {
             throw new ParseException(Report.ORGANISE_TYPE_MESSAGE_CONSTRAINT);
         }
         return trimmedOrganised;

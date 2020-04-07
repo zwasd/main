@@ -1,7 +1,5 @@
 package seedu.saveit.logic.commands.report;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,7 +52,7 @@ public class GenerateStats {
 
                 Expenditure current = (Expenditure) listItr.next();
 
-                if(current.getAmount().value == 0) {
+                if (current.getAmount().value == 0) {
                     continue;
                 }
 
@@ -99,7 +97,7 @@ public class GenerateStats {
         ReportableAccount acct = model.getReportableAccount();
         Map<Date, UniqueExpenditureList> expenditures = acct.getExpFromToInclusive(report.getStartDate(), report.getEndDate());
 
-        for(Date date : expenditures.keySet()) {
+        for (Date date : expenditures.keySet()) {
 
             UniqueExpenditureList list = expenditures.get(date);
             Iterator listItr = list.iterator();
@@ -108,7 +106,7 @@ public class GenerateStats {
 
                 Expenditure current = (Expenditure) listItr.next();
 
-                if(current.getAmount().value == 0.0) {
+                if (current.getAmount().value == 0.0) {
                     continue;
                 }
 
@@ -127,18 +125,18 @@ public class GenerateStats {
 
         Map<String, Double> repeats = acct.getRepeatExpFromToInclusiveByMonth(report.getStartDate(), report.getEndDate());
 
-        for(String yearMonth: repeats.keySet()) {
+        for (String yearMonth : repeats.keySet()) {
 
             double amount = repeats.get(yearMonth);
 
-            if(amount == 0.0) {
+            if (amount == 0.0) {
                 continue;
             }
 
             if (output.containsKey(yearMonth)) {
-                output.replace(yearMonth , output.get(yearMonth) + repeats.get(yearMonth));
+                output.replace(yearMonth, output.get(yearMonth) + repeats.get(yearMonth));
             } else {
-                output.put(yearMonth , repeats.get(yearMonth));
+                output.put(yearMonth, repeats.get(yearMonth));
             }
         }
 

@@ -30,11 +30,12 @@ public class Bar extends Graph {
 
     /**
      * Constructs graph based on stats.
+     *
      * @return BarChart reflecting stats.
      */
     public BarChart constructGraph() {
 
-        if(organise.equals("tag")) {
+        if (organise.equals("tag")) {
 
             CategoryAxis xAxis = new CategoryAxis();
             xAxis.setLabel("Tag");
@@ -79,7 +80,7 @@ public class Bar extends Graph {
 
             while (itr.hasNext()) {
 
-                String month = (String)itr.next();
+                String month = (String) itr.next();
                 dataSeries.getData().add(new XYChart.Data(month, (double) stats.get(month)));
             }
             bar.getData().add(dataSeries);

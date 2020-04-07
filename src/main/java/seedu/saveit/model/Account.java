@@ -39,7 +39,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     private final String accountName;
     private MonthlySpendingCalculator calculator;
 
-     /*
+    /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
@@ -317,36 +317,36 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     @Override
-    public Map<String, Double > getRepeatExpFromToInclusiveByMonth(Date startDate, Date endDate) {
+    public Map<String, Double> getRepeatExpFromToInclusiveByMonth(Date startDate, Date endDate) {
         HashMap<String, Double> repMap = new HashMap();
         repeats.stream().filter(repeat -> Date.isEqualOrAfter(repeat.getEndDate(), startDate)
                 && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
 
-            HashMap<String, Double> monthlyExpenditures = null;
+                    HashMap<String, Double> monthlyExpenditures = null;
 
-            if(repeat.getPeriod() == Repeat.Period.DAILY) {
-                monthlyExpenditures =  repeat.calculateDailyRepeatMonth(startDate, endDate);
+                    if (repeat.getPeriod() == Repeat.Period.DAILY) {
+                        monthlyExpenditures = repeat.calculateDailyRepeatMonth(startDate, endDate);
 
-            } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
-                    || repeat.getPeriod() == Repeat.Period.MONTHLY
-                    || repeat.getPeriod() == Repeat.Period.ANNUALLY) {
-              monthlyExpenditures = repeat.calculateWkOrMthOrYrMonth(startDate, endDate);
-            }
+                    } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
+                            || repeat.getPeriod() == Repeat.Period.MONTHLY
+                            || repeat.getPeriod() == Repeat.Period.ANNUALLY) {
+                        monthlyExpenditures = repeat.calculateWkOrMthOrYrMonth(startDate, endDate);
+                    }
 
-            assert monthlyExpenditures!= null;
-            for(String month : monthlyExpenditures.keySet()) {
+                    assert monthlyExpenditures != null;
+                    for (String month : monthlyExpenditures.keySet()) {
 
-                if(repMap.containsKey(month)) {
-                    repMap.put(month, monthlyExpenditures.get(month) + repMap.get(month));
-                } else {
-                    repMap.put(month, monthlyExpenditures.get(month));
+                        if (repMap.containsKey(month)) {
+                            repMap.put(month, monthlyExpenditures.get(month) + repMap.get(month));
+                        } else {
+                            repMap.put(month, monthlyExpenditures.get(month));
+                        }
+
+                    }
+
+
                 }
-
-            }
-
-
-        }
         );
 
         return repMap;

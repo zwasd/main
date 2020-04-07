@@ -24,7 +24,7 @@ public class ReportWindowViewCommand extends ReportCommand {
             + " start date : YYYY-MM-DD  "
             + " end date :  YYYY-MM-DD  "
             + " graph type : pie  "
-            +" organise : tag "
+            + " organise : tag "
             + "\n"
             + "eg: " + " 2020-03-22 " + " 2020-03-25 " + " PIE " + " tag ";
 
@@ -40,7 +40,7 @@ public class ReportWindowViewCommand extends ReportCommand {
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
 
-        if(toView.getOrganise().equals("tag")) {
+        if (toView.getOrganise().equals("tag")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         } else if (toView.getOrganise().equals("month")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();

@@ -56,7 +56,7 @@ public class PrintReportCommand extends Command {
 
         if (toPrint.getOrganise().equals("tag")) {
             statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
-        } else if(toPrint.getOrganise().equals("month")) {
+        } else if (toPrint.getOrganise().equals("month")) {
             statsToPrint = new GenerateStats(toPrint, model).generateStatsByMonth();
         } else {
             throw new CommandException(MESSAGE_FAIL);
