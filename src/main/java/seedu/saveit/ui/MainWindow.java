@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -10,8 +12,15 @@ import javafx.print.Paper;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -23,7 +32,9 @@ import seedu.saveit.logic.Logic;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
+import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
+
 
 
 /**
@@ -228,6 +239,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Invokes printer job of Javafx.
+     *
      * @param graphNode Node to be printed.
      * @throws PrinterException if job cannot finish.
      */
@@ -248,15 +260,48 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    //TODO: ask can use SwinfFXutils
+    /**
+     * Exports report.
+     */
+    public void export(ExportFile file) {
+        try {
+            WritableImage img = snapshot(file);
+            file.export(img);
+        } catch (IOException e) {
+
+            if (e instanceof FileAlreadyExistsException) {
+                resultDisplay.setFeedbackToUser("The file " + file.getFileName() + " already exists.");
+            } else {
+                resultDisplay.setFeedbackToUser("Reported cannot be exported.");
+            }
+        }
+    }
 
     /**
-     * Export report (in progress not done)
-     *
-     * @param result
+     * Takes a snapshot of the graph
+     * to be exported.
+     * @param file represents the file to be exported.
+     * @return image of the graph.
      */
-    public void export(CommandResult result) {
+    public WritableImage snapshot(ExportFile file) {
+        Node node = (Node) file.getGraph().constructGraph();
+        Scene sc = new Scene((Parent) node, 800, 600);
+        Chart chart = null;
 
+        if (node instanceof PieChart) {
+            chart = (PieChart) node;
+
+        } else if (node instanceof BarChart) {
+            chart = (BarChart) node;
+        }
+
+        assert chart != null;
+
+        chart.setAnimated(false);
+        WritableImage img = new WritableImage(800, 600);
+        node.snapshot(new SnapshotParameters(), img);
+
+        return img;
     }
 
     /**
@@ -279,7 +324,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExportReport()) {
-                export(commandResult);
+                export(commandResult.getFile());
             }
 
             if (commandResult.isPrintReport()) {

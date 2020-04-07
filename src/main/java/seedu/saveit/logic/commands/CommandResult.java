@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.Graph;
 
 /**
@@ -21,6 +22,7 @@ public class CommandResult {
     private final boolean isExportReport;
     private final boolean isPrintReport;
     private Graph graph;
+    private ExportFile file;
 
     /**
      * The indicator of the current active date in the calendar view should change.
@@ -78,6 +80,12 @@ public class CommandResult {
         this.graph = graph;
     }
 
+    public CommandResult(String feedbackToUser, ExportFile fileToExport, boolean exportReport) {
+        this(feedbackToUser, false, false, false,
+                exportReport, false, false, false, false);
+        this.file = fileToExport;
+    }
+
     //rename
     public CommandResult(String feedbackToUser, String newAccountName) {
         this(feedbackToUser, false, false, false, false, false,
@@ -129,6 +137,10 @@ public class CommandResult {
 
     public boolean isPrintReport() {
         return isPrintReport;
+    }
+
+    public ExportFile getFile() {
+        return file;
     }
 
     public boolean isUpdateCalendar() {

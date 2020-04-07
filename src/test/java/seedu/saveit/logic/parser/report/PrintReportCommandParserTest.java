@@ -11,9 +11,9 @@ import static seedu.saveit.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.saveit.logic.commands.CommandTestUtil.START_DATE_DESC_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.START_DATE_DESC_MRT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_MRT;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR_DESC;
-import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_PIE_DESC;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR_CAPS;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR_DESC_CAPS;
+import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_PIE_DESC_CAPS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_MRT;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -21,8 +21,8 @@ import static seedu.saveit.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.saveit.logic.commands.report.PrintReportCommand;
-import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.report.Report;
 import seedu.saveit.testutil.ReportBuilder;
 
 
@@ -32,25 +32,25 @@ public class PrintReportCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Report expectedReport = new ReportBuilder().withGraphType(VALID_GRAPH_BAR)
+        Report expectedReport = new ReportBuilder().withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withStartDate(VALID_START_DATE_MRT)
                 .withEndDate(VALID_END_DATE_MRT)
                 .build();
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
+                + VALID_GRAPH_BAR_DESC_CAPS, new PrintReportCommand(expectedReport));
 
         // multiple graph type - last graph type accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                + VALID_GRAPH_PIE_DESC + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
+                + VALID_GRAPH_PIE_DESC_CAPS + VALID_GRAPH_BAR_DESC_CAPS, new PrintReportCommand(expectedReport));
 
         // multiple start date - last start date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_BUS + START_DATE_DESC_MRT
-                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
+                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS, new PrintReportCommand(expectedReport));
 
         // multiple end date - last end date accepted
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_BUS
-                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC, new PrintReportCommand(expectedReport));
+                + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS, new PrintReportCommand(expectedReport));
     }
 
     @Test
@@ -58,20 +58,20 @@ public class PrintReportCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE);
 
         // missing start date prefix
-        assertParseFailure(parser, VALID_START_DATE_MRT + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC,
+        assertParseFailure(parser, VALID_START_DATE_MRT + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS,
                 expectedMessage);
 
         // missing end date prefix
-        assertParseFailure(parser, START_DATE_DESC_MRT + VALID_END_DATE_MRT + VALID_GRAPH_BAR_DESC,
+        assertParseFailure(parser, START_DATE_DESC_MRT + VALID_END_DATE_MRT + VALID_GRAPH_BAR_DESC_CAPS,
                 expectedMessage);
 
         // missing graph type prefix
-        assertParseFailure(parser, START_DATE_DESC_MRT + END_DATE_DESC_MRT + VALID_GRAPH_BAR,
+        assertParseFailure(parser, START_DATE_DESC_MRT + END_DATE_DESC_MRT + VALID_GRAPH_BAR_CAPS,
                 expectedMessage);
 
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_START_DATE_MRT + VALID_START_DATE_MRT + VALID_GRAPH_BAR,
+        assertParseFailure(parser, VALID_START_DATE_MRT + VALID_START_DATE_MRT + VALID_GRAPH_BAR_CAPS,
                 expectedMessage);
 
     }
@@ -79,12 +79,12 @@ public class PrintReportCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid start date
-        assertParseFailure(parser, INVALID_START_DATE_DESC + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC,
+        assertParseFailure(parser, INVALID_START_DATE_DESC + END_DATE_DESC_MRT + VALID_GRAPH_BAR_DESC_CAPS,
                 Date.MESSAGE_CONSTRAINTS);
 
 
         // invalid end date
-        assertParseFailure(parser, START_DATE_DESC_MRT + INVALID_END_DATE_DESC + VALID_GRAPH_BAR_DESC,
+        assertParseFailure(parser, START_DATE_DESC_MRT + INVALID_END_DATE_DESC + VALID_GRAPH_BAR_DESC_CAPS,
                 Date.MESSAGE_CONSTRAINTS);
 
         // invalid graph type
@@ -98,7 +98,7 @@ public class PrintReportCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + START_DATE_DESC_MRT + END_DATE_DESC_MRT
-                        + VALID_GRAPH_BAR_DESC,
+                        + VALID_GRAPH_BAR_DESC_CAPS,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE));
     }
 

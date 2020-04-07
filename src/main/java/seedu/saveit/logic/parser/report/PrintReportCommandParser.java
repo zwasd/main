@@ -16,8 +16,8 @@ import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.ParserUtil;
 import seedu.saveit.logic.parser.Prefix;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.report.Report;
 
 /**
  * Parses for report print.
