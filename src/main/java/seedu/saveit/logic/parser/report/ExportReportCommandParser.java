@@ -34,10 +34,10 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
     public ExportReportCommand parse(String userInput) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_FILENAME, PREFIX_ORGANISE);
+                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE, PREFIX_FILENAME);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE,
-                PREFIX_GRAPH, PREFIX_FILENAME, PREFIX_ORGANISE)
+                PREFIX_GRAPH,  PREFIX_ORGANISE, PREFIX_FILENAME)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportReportCommand.MESSAGE_USAGE));
         }
@@ -48,10 +48,10 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
                 .orElseGet(() -> LocalDate.now().toString()));
         Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
                 .orElseGet(() -> Report.GraphType.PIE.toString().toLowerCase()));
-        String fileName = ParserUtil.parseFileName(argumentMultimap.getValue(PREFIX_FILENAME)
-                .orElseGet(() -> "default name"));
         String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
                 .orElseGet(() -> "tag"));
+        String fileName = ParserUtil.parseFileName(argumentMultimap.getValue(PREFIX_FILENAME)
+                .orElseGet(() -> "default name"));
 
 
 

@@ -10,6 +10,7 @@ import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_INFO;
 
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_TAG;
@@ -80,8 +81,8 @@ public class CommandTestUtil {
     public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
 
     //report
-    public static final String VALID_GRAPH_BAR_CAPS = "BAR";
-    public static final String VALID_GRAPH_PIE_CAPS = "PIE";
+    public static final String VALID_GRAPH_BAR_CAPS = "bar";
+    public static final String VALID_GRAPH_PIE_CAPS = "pie";
     public static final String INVALID_GRAPH = "";
     public static final String VALID_GRAPH_BAR_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_BAR_CAPS;
     public static final String VALID_GRAPH_PIE_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_PIE_CAPS;
@@ -92,7 +93,11 @@ public class CommandTestUtil {
     public static final String INVALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + INVALID_FILE_NAME;
     public static final String VALID_ORGANISATION_TAG = "tag";
     public static final String VALID_ORGANISATION_MONTH = "month";
-    public static final String
+    public static final String INVALID_ORGANISATION = "";
+    public static final String VALID_ORGANISATION_TAG_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_TAG;
+    public static final String VALID_ORGANISATION_MONTH_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_MONTH;
+    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISE + INVALID_ORGANISATION;
+
 
 
     public static final EditExpenditureDescriptor DESC_AMY;

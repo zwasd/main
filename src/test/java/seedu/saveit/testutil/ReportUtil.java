@@ -3,6 +3,7 @@ package seedu.saveit.testutil;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.saveit.logic.commands.report.ExportReportCommand;
@@ -30,7 +31,7 @@ public class ReportUtil {
     }
 
     /**
-     * Returns an print command string ro print report {@code report}.
+     * Returns an print command string for print report {@code report}.
      */
     public static String getReportPrintCommand(Report report) {
         return PrintReportCommand.COMMAND_WORD + " " + getReportDetails(report);
@@ -45,7 +46,8 @@ public class ReportUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_START_DATE + report.getStartDate().localDate.toString() + " ");
         sb.append(PREFIX_END_DATE + report.getEndDate().localDate.toString() + " ");
-        sb.append(PREFIX_GRAPH + report.getFormat().toString() + " ");
+        sb.append(PREFIX_GRAPH + report.getFormat().toString().toLowerCase() + " ");
+        sb.append(PREFIX_ORGANISE + report.getOrganise() + " ");
         return sb.toString();
     }
 

@@ -2,6 +2,7 @@ package seedu.saveit.model.report;
 
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.ui.Graph;
 
 /**
  * Holds information of report graph.
@@ -53,7 +54,6 @@ public class Report {
             }
         }
     }
-
 
     public Report(Date startDate, Date endDate, GraphType graph, String organise) {
         this.startDate = startDate;

@@ -34,15 +34,15 @@ public class ExportReportCommand extends Command {
             + PREFIX_START_DATE + " STAR DATE "
             + PREFIX_END_DATE + " END DATE "
             + PREFIX_GRAPH + " GRAPH TYPE "
-            + PREFIX_FILENAME + " FILE NAME "
             + PREFIX_ORGANISE + " ORGANISE "
+            + PREFIX_FILENAME + " FILE NAME "
             + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
             + PREFIX_GRAPH + " pie "
-            + PREFIX_FILENAME + " Report "
-            + PREFIX_ORGANISE + " tag";
+            + PREFIX_ORGANISE + " tag"
+            + PREFIX_FILENAME + " Report ";
 
     private final Report toExport;
     private HashMap statsToExport;
