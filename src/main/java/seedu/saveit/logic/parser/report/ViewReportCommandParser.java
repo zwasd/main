@@ -4,6 +4,7 @@ import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
@@ -39,9 +40,9 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
     public ViewReportCommand parse(String userInput) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_GRAPH);
+                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewReportCommand.MESSAGE_USAGE));
         }
@@ -55,13 +56,17 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
         Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
                 .orElseGet(() -> Report.GraphType.PIE.toString()));
 
+        String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
+        .orElseGet(() -> "tag"));
+
+
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATE,
                     ViewReportCommand.MESSAGE_USAGE));
         }
 
-        Report report = new Report(startDate, endDate, graphType);
+        Report report = new Report(startDate, endDate, graphType, organise);
 
         return new ViewReportCommand(report);
     }

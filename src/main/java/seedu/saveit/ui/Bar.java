@@ -3,6 +3,7 @@ package seedu.saveit.ui;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -17,11 +18,13 @@ import seedu.saveit.model.expenditure.Tag;
 public class Bar extends Graph {
 
 
-    private HashMap stats;
+    private TreeMap stats;
+    private String organise;
 
 
-    public Bar(HashMap stats) {
-        this.stats = stats;
+    public Bar(HashMap stats, String organise) {
+        this.stats = new TreeMap(stats);
+        this.organise = organise;
     }
 
 
@@ -30,28 +33,60 @@ public class Bar extends Graph {
      * @return BarChart reflecting stats.
      */
     public BarChart constructGraph() {
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Tag");
 
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Expenditure");
+        if(organise.equals("tag")) {
 
-        BarChart bar = new BarChart(xAxis, yAxis);
-        bar.setTitle("Expenditure breakdown");
+            CategoryAxis xAxis = new CategoryAxis();
+            xAxis.setLabel("Tag");
 
-        Set set = stats.keySet();
-        Iterator itr = set.iterator();
+            NumberAxis yAxis = new NumberAxis();
+            yAxis.setLabel("Expenditure");
 
-        XYChart.Series dataSeries = new XYChart.Series();
+            BarChart bar = new BarChart(xAxis, yAxis);
+            bar.setTitle("Expenditure breakdown");
 
-        while (itr.hasNext()) {
+            Set set = stats.keySet();
+            Iterator itr = set.iterator();
 
-            Tag index = ((Tag) itr.next());
-            dataSeries.getData().add(new XYChart.Data(index.getTagName(), (double) stats.get(index)));
+            XYChart.Series dataSeries = new XYChart.Series();
+
+            while (itr.hasNext()) {
+
+                Tag index = ((Tag) itr.next());
+                dataSeries.getData().add(new XYChart.Data(index.getTagName(), (double) stats.get(index)));
+            }
+            bar.getData().add(dataSeries);
+
+            return bar;
+
+        } else {
+
+            assert organise.equals("month");
+
+            CategoryAxis xAxis = new CategoryAxis();
+            xAxis.setLabel("Month");
+
+            NumberAxis yAxis = new NumberAxis();
+            yAxis.setLabel("Expenditure");
+
+            BarChart bar = new BarChart(xAxis, yAxis);
+            bar.setTitle("Expenditure breakdown");
+
+            Set set = stats.keySet();
+            Iterator itr = set.iterator();
+
+            XYChart.Series dataSeries = new XYChart.Series();
+
+            while (itr.hasNext()) {
+
+                String month = (String)itr.next();
+                dataSeries.getData().add(new XYChart.Data(month, (double) stats.get(month)));
+            }
+            bar.getData().add(dataSeries);
+
+            return bar;
         }
-        bar.getData().add(dataSeries);
 
-        return bar;
     }
 
 }

@@ -152,6 +152,15 @@ public class ParserUtil {
         return Report.GraphType.mapToGraphType(graph);
     }
 
+    public static String parseOrganise(String organise) throws ParseException {
+       requireNonNull(organise);
+        String trimmedOrganised = organise.trim();
+        if(!Report.isValidOrganise(trimmedOrganised)) {
+            throw new ParseException(Report.ORGANISE_TYPE_MESSAGE_CONSTRAINT);
+        }
+        return trimmedOrganised;
+    }
+
     /**
      * Parses a {@code String fileName} into {@code String fileNameTrimmed}
      *
@@ -166,4 +175,5 @@ public class ParserUtil {
         }
         return fileNameTrimmed;
     }
+
 }

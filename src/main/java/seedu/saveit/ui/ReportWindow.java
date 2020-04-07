@@ -1,11 +1,13 @@
 package seedu.saveit.ui;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.print.PageLayout;
 import javafx.print.PageOrientation;
@@ -22,9 +24,11 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -198,7 +202,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showEmpty() {
         logger.fine("Showing empty report page.");
-        setScene((Node) new Pie(new HashMap()).constructGraph());
+        setScene((Node) new Pie(new HashMap(), "tag").constructGraph());
     }
 
     /**
@@ -250,12 +254,21 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void printerJob(Node graphNode) throws PrinterException {
         Printer printer = Printer.getDefaultPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A4,
-                PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
         PrinterJob printerJob = PrinterJob.createPrinterJob();
+        PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+
+        WritableImage snapshot = snapshot();
+
+        ImageView ivSnapshot = new ImageView(snapshot);
+        double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
+        double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
+        double scale = Math.min(scaleX, scaleY);
+        if (scale < 1.0) {
+           ivSnapshot.getTransforms().add(new Scale(scale, scale));
+        }
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(pageLayout, graphNode);
+            boolean jobStatus = printerJob.printPage(ivSnapshot);;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
@@ -263,6 +276,7 @@ public class ReportWindow extends UiPart<Stage> {
                 throw new PrinterException("Set available printer as default printer");
             }
         }
+
     }
 
     /**

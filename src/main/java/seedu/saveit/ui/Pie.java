@@ -3,6 +3,7 @@ package seedu.saveit.ui;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
@@ -14,33 +15,48 @@ import seedu.saveit.model.expenditure.Tag;
  */
 public class Pie extends Graph {
 
-    private HashMap stats;
+    private TreeMap stats;
+    private String organise;
 
-    public Pie(HashMap stats) {
-        this.stats = stats;
+    public Pie(HashMap stats, String organise) {
+        this.stats = new TreeMap(stats);
+        this.organise = organise;
     }
 
     /**
      * Constructs graph based on stats
+     *
      * @return PieChart reflecting stats.
      */
     public PieChart constructGraph() {
+
         PieChart pie = new PieChart();
         pie.setTitle("Expenditure Breakdown");
         pie.setLabelLineLength(10);
         pie.setLegendSide(Side.RIGHT);
-
         Set set = stats.keySet();
         Iterator itr = set.iterator();
 
+        if (organise.equals("tag")) {
 
-        while (itr.hasNext()) {
+            while (itr.hasNext()) {
 
-            Tag index = ((Tag) itr.next());
-            PieChart.Data data = new PieChart.Data(index.getTagName(), (double) stats.get(index));
-            pie.getData().add(data);
+                Tag index = ((Tag) itr.next());
+                PieChart.Data data = new PieChart.Data(index.getTagName(), (double) stats.get(index));
+                pie.getData().add(data);
+            }
+
+        } else {
+
+            assert organise.equals("month");
+
+            while (itr.hasNext()) {
+                String month = (String) itr.next();
+                PieChart.Data data = new PieChart.Data(month, (double) stats.get(month));
+                pie.getData().add(data);
+            }
+
         }
-
         return pie;
     }
 

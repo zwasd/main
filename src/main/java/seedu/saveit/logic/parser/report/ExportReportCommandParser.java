@@ -5,6 +5,7 @@ import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
@@ -33,9 +34,10 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
     public ExportReportCommand parse(String userInput) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_FILENAME);
+                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_FILENAME, PREFIX_ORGANISE);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_FILENAME)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE,
+                PREFIX_GRAPH, PREFIX_FILENAME, PREFIX_ORGANISE)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportReportCommand.MESSAGE_USAGE));
         }
@@ -48,6 +50,9 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
                 .orElseGet(() -> Report.GraphType.PIE.toString()));
         String fileName = ParserUtil.parseFileName(argumentMultimap.getValue(PREFIX_FILENAME)
                 .orElseGet(() -> "default name"));
+        String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
+                .orElseGet(() -> "tag"));
+
 
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
@@ -55,7 +60,7 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
                     ExportReportCommand.MESSAGE_USAGE));
         }
 
-        Report report = new Report(startDate, endDate, graphType);
+        Report report = new Report(startDate, endDate, graphType, organise);
 
         return new ExportReportCommand(report, fileName);
     }

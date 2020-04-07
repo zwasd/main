@@ -34,66 +34,30 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
 
         switch (userInputArray[0]) {
         case "exit":
-            if (userInputArray.length > 1) {
+            if (!userInputTrimmed.equals("exit")) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
 
             return new ReportWindowExitCommand();
         case "help":
-            if (userInputArray.length > 1) {
+            if (!userInputTrimmed.equals("help")) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
             return new ReportWindowHelpCommand();
 
         case "print":
-            if (userInputArray.length > 1) {
+            if (!userInputTrimmed.equals("print")) {
                 throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
             }
             return new ReportWindowPrintCommand();
 
         case "export":
-            if (userInputArray.length != 2) {
 
-                if (userInputArray.length > 2) {
-                    throw new ParseException(ExportFile.FILENAME_CONSTRAINT);
-                }
+            return new ExportReportWindowCommandParser().parse(userInputTrimmed);
 
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ReportWindowExportCommand.MESSAGE_USAGE));
-            } else {
-                String fileName = userInputArray[1];
-                return new ReportWindowExportCommand(fileName);
-            }
         case "view":
-            if (userInputArray.length < 4) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        ReportWindowViewCommand.MESSAGE_USAGE));
-            }
-            String graph = userInputArray[1];
-            Report.GraphType graphType = Report.GraphType.NULL;
 
-            graphType = Report.GraphType.mapToGraphType(graph);
-
-            String startDateStr = userInputArray[2];
-            String endDateStr = userInputArray[3];
-            Date startDate;
-            Date endDate;
-
-            try {
-                startDate = new Date(startDateStr);
-                endDate = new Date(endDateStr);
-            } catch (DateTimeParseException | IllegalArgumentException e) {
-                throw new ParseException(String.format(Date.MESSAGE_CONSTRAINTS,
-                        ReportWindowViewCommand.MESSAGE_USAGE));
-            }
-
-            if (!Date.isEqualOrBefore(startDate, endDate)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_DATE,
-                        ReportWindowViewCommand.MESSAGE_USAGE));
-            }
-
-            Report report = new Report(startDate, endDate, graphType);
-            return new ReportWindowViewCommand(report);
+            return new ViewReportWindowCommandParser().parse(userInputTrimmed);
 
         default:
             throw new ParseException("Unknown Command");

@@ -3,6 +3,7 @@ package seedu.saveit.logic.commands.report;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.HashMap;
@@ -32,14 +33,16 @@ public class ExportReportCommand extends Command {
             + "\n" + "Parameters: "
             + PREFIX_START_DATE + " STAR DATE "
             + PREFIX_END_DATE + " END DATE "
-            + PREFIX_GRAPH + " GRAPH TYPE"
-            + PREFIX_FILENAME + " FILE NAME"
+            + PREFIX_GRAPH + " GRAPH TYPE "
+            + PREFIX_FILENAME + " FILE NAME "
+            + PREFIX_ORGANISE + " ORGANISE "
             + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
-            + PREFIX_GRAPH + " pie"
-            + PREFIX_FILENAME + " Report";
+            + PREFIX_GRAPH + " pie "
+            + PREFIX_FILENAME + " Report "
+            + PREFIX_ORGANISE + " tag";
 
     private final Report toExport;
     private HashMap statsToExport;
@@ -54,13 +57,19 @@ public class ExportReportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
+
+        if(toExport.getOrganise().equals("tag")) {
+            statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
+        } else if (toExport.getOrganise().equals("month")) {
+            statsToExport = new GenerateStats(toExport, model).generateStatsByMonth();
+        }
+
         format = toExport.getFormat();
 
         if (format.equals(Report.GraphType.PIE)) {
-            graph = new Pie(statsToExport);
+            graph = new Pie(statsToExport, toExport.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
-            graph = new Bar(statsToExport);
+            graph = new Bar(statsToExport, toExport.getOrganise());
         }
 
         ExportFile f = new ExportFile(fileName, graph);
