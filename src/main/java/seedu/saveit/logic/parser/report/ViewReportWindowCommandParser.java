@@ -3,14 +3,17 @@ package seedu.saveit.logic.parser.report;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
 
+import java.time.format.DateTimeParseException;
+
 import seedu.saveit.logic.commands.report.ReportWindowViewCommand;
 import seedu.saveit.logic.parser.ParserReportWindow;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.report.Report;
 
-import java.time.format.DateTimeParseException;
-
+/**
+ * Parses report window view command.
+ */
 public class ViewReportWindowCommandParser implements ParserReportWindow<ReportWindowViewCommand> {
 
 
@@ -51,7 +54,7 @@ public class ViewReportWindowCommandParser implements ParserReportWindow<ReportW
 
         switch (userInputArray[4]) {
 
-            case "tag":
+        case "tag":
             Report report = new Report(startDate, endDate, graphType, "tag");
             return new ReportWindowViewCommand(report);
 

@@ -8,9 +8,8 @@ import seedu.saveit.model.expenditure.Date;
  */
 public class Report {
 
-    public static final String ORGANISE_TYPE_MESSAGE_CONSTRAINT
-            = "Expenditures organisation should be: "
-            + "tag" + " , month";
+    public static final String ORGANISE_TYPE_MESSAGE_CONSTRAINT =
+            "Expenditures organisation should be: " + "tag" + " , month";
     private final Date startDate;
     private final Date endDate;
     private final GraphType graph;
@@ -63,14 +62,20 @@ public class Report {
         this.organise = organise;
     }
 
+    /**
+     * Checks if {@code organise} is valid
+     *
+     */
     public static boolean isValidOrganise(String organise) {
-        if(organise.equals("tag") || organise.equals("month")) {
+        if (organise.equals("tag") || organise.equals("month")) {
             return true;
         }
         return false;
     }
+
     /**
      * Getter method for user input graph type.
+     *
      * @return GraphType user inputs
      */
     public GraphType getFormat() {
@@ -85,7 +90,9 @@ public class Report {
         return endDate;
     }
 
-    public String getOrganise() { return organise; }
+    public String getOrganise() {
+        return organise;
+    }
 
     @Override
     public boolean equals(Object other) {

@@ -7,6 +7,9 @@ import seedu.saveit.logic.parser.ParserReportWindow;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.report.ExportFile;
 
+/**
+ * Parses report window export command.
+ */
 public class ExportReportWindowCommandParser implements ParserReportWindow<ReportWindowExportCommand> {
 
     @Override

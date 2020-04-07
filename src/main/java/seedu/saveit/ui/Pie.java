@@ -15,11 +15,11 @@ import seedu.saveit.model.expenditure.Tag;
  */
 public class Pie extends Graph {
 
-    private TreeMap stats;
+    private HashMap stats;
     private String organise;
 
     public Pie(HashMap stats, String organise) {
-        this.stats = new TreeMap(stats);
+        this.stats = stats;
         this.organise = organise;
     }
 
@@ -50,9 +50,10 @@ public class Pie extends Graph {
 
             assert organise.equals("month");
 
+            TreeMap sortedStats = new TreeMap(stats);
             while (itr.hasNext()) {
                 String month = (String) itr.next();
-                PieChart.Data data = new PieChart.Data(month, (double) stats.get(month));
+                PieChart.Data data = new PieChart.Data(month, (double) sortedStats.get(month));
                 pie.getData().add(data);
             }
 

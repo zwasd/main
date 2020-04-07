@@ -420,7 +420,8 @@ public class Repeat extends BaseExp {
         LocalDate startOfMonthOfEndLocalDate = YearMonth.from(adjustedStart.localDate).atDay(1);
         Date startOfMonthOfEndDate = new Date(startOfMonthOfEndLocalDate.format(DateTimeFormatter.ISO_DATE));
 
-        output.put(String.valueOf(YearMonth.from(startOfMonthOfEndLocalDate)), calculateDaily(startOfMonthOfEndDate, adjustedEnd));
+        output.put(String.valueOf(YearMonth.from(startOfMonthOfEndLocalDate)),
+                calculateDaily(startOfMonthOfEndDate, adjustedEnd));
         return output;
     }
 

@@ -18,12 +18,12 @@ import seedu.saveit.model.expenditure.Tag;
 public class Bar extends Graph {
 
 
-    private TreeMap stats;
+    private HashMap stats;
     private String organise;
 
 
     public Bar(HashMap stats, String organise) {
-        this.stats = new TreeMap(stats);
+        this.stats = stats;
         this.organise = organise;
     }
 
@@ -78,10 +78,12 @@ public class Bar extends Graph {
 
             XYChart.Series dataSeries = new XYChart.Series();
 
+            TreeMap sortedStats = new TreeMap(stats);
+
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
-                dataSeries.getData().add(new XYChart.Data(month, (double) stats.get(month)));
+                dataSeries.getData().add(new XYChart.Data(month, (double) sortedStats.get(month)));
             }
             bar.getData().add(dataSeries);
 

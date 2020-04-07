@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
 import javafx.print.PageLayout;
-import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -256,11 +255,12 @@ public class ReportWindow extends UiPart<Stage> {
         double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
         double scale = Math.min(scaleX, scaleY);
         if (scale < 1.0) {
-           ivSnapshot.getTransforms().add(new Scale(scale, scale));
+            ivSnapshot.getTransforms().add(new Scale(scale, scale));
         }
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(ivSnapshot);;
+            boolean jobStatus = printerJob.printPage(ivSnapshot);
+            ;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
@@ -273,6 +273,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     /**
      * Exports report.
+     *
      * @param fileName fileName of the file to export to.
      */
     public void export(String fileName) {
@@ -294,6 +295,7 @@ public class ReportWindow extends UiPart<Stage> {
 
     /**
      * Snapshot of current graph.
+     *
      * @return image of graph.
      */
     public WritableImage snapshot() {

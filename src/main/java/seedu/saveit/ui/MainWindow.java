@@ -7,9 +7,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -36,7 +33,6 @@ import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
-
 
 
 /**
@@ -240,7 +236,6 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Invokes printer job of Javafx.
      *
-     * @param graphNode Node to be printed.
      * @throws PrinterException if job cannot finish.
      */
     public void printerJob(Graph graph) throws PrinterException {
@@ -258,7 +253,8 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(ivSnapshot);;
+            boolean jobStatus = printerJob.printPage(ivSnapshot);
+            ;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
@@ -288,6 +284,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Takes a snapshot of the graph
      * to be exported.
+     *
      * @return image of the graph.
      */
     public WritableImage snapshot(Graph graph) {

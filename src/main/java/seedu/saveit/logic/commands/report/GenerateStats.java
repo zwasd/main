@@ -32,7 +32,7 @@ public class GenerateStats {
     /**
      * Calculate expenditures under each tag.
      *
-     * @return HashMap mapping to tag to its spending.
+     * @return HashMap mapping tag to its spending.
      */
     public HashMap<Tag, Double> generateStatsByTags() {
 
@@ -89,13 +89,18 @@ public class GenerateStats {
 
     }
 
+    /**
+     * Calculate expenditures under each month.
+     * @return HashMap mapping month to month's spending.
+     */
     public HashMap<String, Double> generateStatsByMonth() {
 
         HashMap<String, Double> output = new HashMap<>();
 
 
         ReportableAccount acct = model.getReportableAccount();
-        Map<Date, UniqueExpenditureList> expenditures = acct.getExpFromToInclusive(report.getStartDate(), report.getEndDate());
+        Map<Date, UniqueExpenditureList> expenditures = acct.getExpFromToInclusive(report.getStartDate(),
+                report.getEndDate());
 
         for (Date date : expenditures.keySet()) {
 
@@ -123,7 +128,8 @@ public class GenerateStats {
         }
 
 
-        Map<String, Double> repeats = acct.getRepeatExpFromToInclusiveByMonth(report.getStartDate(), report.getEndDate());
+        Map<String, Double> repeats = acct.getRepeatExpFromToInclusiveByMonth(report.getStartDate(),
+                report.getEndDate());
 
         for (String yearMonth : repeats.keySet()) {
 
