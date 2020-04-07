@@ -90,6 +90,9 @@ public class CommandTestUtil {
     public static final String INVALID_FILE_NAME = "H e l l o";
     public static final String VALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + VALID_FILE_NAME;
     public static final String INVALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + INVALID_FILE_NAME;
+    public static final String VALID_ORGANISATION_TAG = "tag";
+    public static final String VALID_ORGANISATION_MONTH = "month";
+    public static final String
 
 
     public static final EditExpenditureDescriptor DESC_AMY;

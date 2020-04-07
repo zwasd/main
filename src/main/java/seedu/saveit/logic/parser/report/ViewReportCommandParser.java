@@ -54,7 +54,7 @@ public class ViewReportCommandParser implements Parser<ViewReportCommand> {
                 .orElseGet(() -> LocalDate.now().toString()));
 
         Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
-                .orElseGet(() -> Report.GraphType.PIE.toString()));
+                .orElseGet(() -> Report.GraphType.PIE.toString().toLowerCase()));
 
         String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
                 .orElseGet(() -> "tag"));

@@ -47,7 +47,7 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
         Date endDate = ParserUtil.parseDate(argumentMultimap.getValue(PREFIX_END_DATE)
                 .orElseGet(() -> LocalDate.now().toString()));
         Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
-                .orElseGet(() -> Report.GraphType.PIE.toString()));
+                .orElseGet(() -> Report.GraphType.PIE.toString().toLowerCase()));
         String fileName = ParserUtil.parseFileName(argumentMultimap.getValue(PREFIX_FILENAME)
                 .orElseGet(() -> "default name"));
         String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)

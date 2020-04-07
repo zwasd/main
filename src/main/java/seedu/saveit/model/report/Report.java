@@ -23,16 +23,16 @@ public class Report {
         BAR, PIE, NULL;
 
         public static final String GRAPH_TYPE_MESSAGE_CONSTRAINT = "Graph types should only be: "
-                + GraphType.BAR + ", " + GraphType.PIE;
+                + "bar" + ", " + "pie" ;
 
 
         /**
          * Checks if {@code g} is a valid GraphType.
          */
         public static boolean isValidGraph(String g) {
-            switch (g.toUpperCase()) {
-            case "BAR":
-            case "PIE":
+            switch (g) {
+            case "bar":
+            case "pie":
                 return true;
             default:
                 return false;
@@ -43,10 +43,10 @@ public class Report {
          * Maps {@code String graph} to corresponding graphType
          */
         public static GraphType mapToGraphType(String graph) throws ParseException {
-            switch (graph.toUpperCase()) {
-            case "BAR":
+            switch (graph) {
+            case "bar":
                 return GraphType.BAR;
-            case "PIE":
+            case "pie":
                 return GraphType.PIE;
             default:
                 throw new ParseException(GRAPH_TYPE_MESSAGE_CONSTRAINT);
