@@ -2,6 +2,7 @@ package seedu.saveit.logic.commands.report;
 
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.HashMap;
@@ -24,16 +25,20 @@ public class PrintReportCommand extends Command {
 
     public static final String COMMAND_WORD = "print";
     public static final String MESSAGE_SUCCESS = "Printing report.";
+    public static final String MESSAGE_FAIL = "Report cannot be printed";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Prints the report. "
-            + "\n" + "Parameters: "
+            + "\n" + "Parameters:  "
             + PREFIX_START_DATE + " START DATE "
             + PREFIX_END_DATE + " END DATE "
-            + PREFIX_GRAPH + " GRAPH TYPE" + "\n"
+            + PREFIX_GRAPH + " GRAPH TYPE "
+            + PREFIX_ORGANISE + " ORGANISE "
+            + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
-            + PREFIX_GRAPH + " pie";
+            + PREFIX_GRAPH + " pie "
+            + PREFIX_ORGANISE + " tag ";
 
 
     private final Report toPrint;
@@ -48,13 +53,21 @@ public class PrintReportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
+
+        if (toPrint.getOrganise().equals("tag")) {
+            statsToPrint = new GenerateStats(toPrint, model).generateStatsByTags();
+        } else if (toPrint.getOrganise().equals("month")) {
+            statsToPrint = new GenerateStats(toPrint, model).generateStatsByMonth();
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
+        }
+
         format = toPrint.getFormat();
 
         if (format.equals(Report.GraphType.PIE)) {
-            graph = new Pie(statsToPrint);
+            graph = new Pie(statsToPrint, toPrint.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
-            graph = new Bar(statsToPrint);
+            graph = new Bar(statsToPrint, toPrint.getOrganise());
         }
 
         return new CommandResult(MESSAGE_SUCCESS, graph, false, false, true);

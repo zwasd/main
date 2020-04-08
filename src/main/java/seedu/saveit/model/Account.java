@@ -291,18 +291,16 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 repeats.stream().filter(repeat -> repeat.isOn(date)).collect(Collectors.toList()));
     }
 
-    //TODO: add for monthly and annually.
     @Override
-    public Map<Repeat, Double> getRepeatFromToInclusive(Date startDate, Date endDate) {
+    public Map<Repeat, Double> getRepeatExpFromToInclusiveByRepeat(Date startDate, Date endDate) {
         HashMap repMap = new HashMap();
-        //add daily repeats
+
         repeats.stream().filter(repeat -> Date.isEqualOrAfter(repeat.getEndDate(), startDate)
                 && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
 
-                    System.out.println(repeat.toString());
                     if (repeat.getPeriod() == Repeat.Period.DAILY) {
-                        double amt = repeat.calculateDailyRepeat(startDate, endDate);
+                        double amt = repeat.calculateDaily(startDate, endDate);
                         repMap.put(repeat, amt);
 
                     } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
@@ -314,6 +312,42 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 }
         );
 
+
+        return repMap;
+    }
+
+    @Override
+    public Map<String, Double> getRepeatExpFromToInclusiveByMonth(Date startDate, Date endDate) {
+        HashMap<String, Double> repMap = new HashMap();
+        repeats.stream().filter(repeat -> Date.isEqualOrAfter(repeat.getEndDate(), startDate)
+                && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
+        ).forEach(repeat -> {
+
+                    HashMap<String, Double> monthlyExpenditures = null;
+
+                    if (repeat.getPeriod() == Repeat.Period.DAILY) {
+                        monthlyExpenditures = repeat.calculateDailyRepeatMonth(startDate, endDate);
+
+                    } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
+                            || repeat.getPeriod() == Repeat.Period.MONTHLY
+                            || repeat.getPeriod() == Repeat.Period.ANNUALLY) {
+                        monthlyExpenditures = repeat.calculateWkOrMthOrYrMonth(startDate, endDate);
+                    }
+
+                    assert monthlyExpenditures != null;
+                    for (String month : monthlyExpenditures.keySet()) {
+
+                        if (repMap.containsKey(month)) {
+                            repMap.put(month, monthlyExpenditures.get(month) + repMap.get(month));
+                        } else {
+                            repMap.put(month, monthlyExpenditures.get(month));
+                        }
+
+                    }
+
+
+                }
+        );
 
         return repMap;
     }
@@ -333,18 +367,20 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
     }
 
     @Override
-    public Map<String, UniqueExpenditureList> getExpFromToInclusive(String startDate, String endDate) {
+    public Map<Date, UniqueExpenditureList> getExpFromToInclusive(String startDate, String endDate) {
         return getExpFromToInclusive(new Date(startDate), new Date(endDate));
     }
 
     @Override
-    public Map<String, UniqueExpenditureList> getExpFromToInclusive(Date start, Date end) {
-        Map<String, UniqueExpenditureList> expMap = new HashMap<>();
+    public Map<Date, UniqueExpenditureList> getExpFromToInclusive(Date start, Date end) {
+        Map<Date, UniqueExpenditureList> expMap = new HashMap<>();
         getExpenditureStream()
                 .filter(exp -> Date.isEqualOrBefore(start, exp.getDate())
                         && Date.isEqualOrBefore(exp.getDate(), end))
                 .forEach(exp -> {
-                    String date = exp.getDate().toString();
+
+                    Date date = exp.getDate();
+
                     if (!expMap.containsKey(date)) {
                         UniqueExpenditureList expList = new UniqueExpenditureList();
                         expList.add(exp);

@@ -12,8 +12,8 @@ import javafx.scene.image.WritableImage;
 import seedu.saveit.ui.Graph;
 
 /**
- * Class representing the
- * report file to export to.
+ * Class used for to represent
+ * file that report graph is exporting to.
  */
 public class ExportFile {
 

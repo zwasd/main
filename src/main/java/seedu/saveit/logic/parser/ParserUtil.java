@@ -138,7 +138,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String graph} into a {@code Report.GraphType}/.
+     * Parses a {@code String graph} into a {@code Report.GraphType}.
      * Trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the give {@code graph} is invalid.
@@ -150,6 +150,21 @@ public class ParserUtil {
             throw new ParseException(Report.GraphType.GRAPH_TYPE_MESSAGE_CONSTRAINT);
         }
         return Report.GraphType.mapToGraphType(graph);
+    }
+
+    /**
+     * Parses a {@code String organise} into a {@code String organise}
+     * Trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if given {@code organise} is invalid.
+     */
+    public static String parseOrganise(String organise) throws ParseException {
+        requireNonNull(organise);
+        String trimmedOrganised = organise.trim();
+        if (!Report.isValidOrganise(trimmedOrganised)) {
+            throw new ParseException(Report.ORGANISE_TYPE_MESSAGE_CONSTRAINT);
+        }
+        return trimmedOrganised;
     }
 
     /**
@@ -166,4 +181,5 @@ public class ParserUtil {
         }
         return fileNameTrimmed;
     }
+
 }

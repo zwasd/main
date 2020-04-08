@@ -2,6 +2,7 @@ package seedu.saveit.logic.commands.report;
 
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.HashMap;
@@ -30,11 +31,14 @@ public class ViewReportCommand extends Command {
             + "\n" + "Parameters: "
             + PREFIX_START_DATE + " STAR DATE "
             + PREFIX_END_DATE + " END DATE "
-            + PREFIX_GRAPH + " GRAPH TYPE " + "\n"
+            + PREFIX_GRAPH + " GRAPH TYPE "
+            + PREFIX_ORGANISE + " ORGANISE "
+            + "\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
-            + PREFIX_GRAPH + " pie";
+            + PREFIX_GRAPH + " pie "
+            + PREFIX_ORGANISE + " tag";
 
     private final Report toView;
     private HashMap statsToDisplay;
@@ -48,13 +52,19 @@ public class ViewReportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
+
+        if (toView.getOrganise().equals("tag")) {
+            statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
+        } else if (toView.getOrganise().equals("month")) {
+            statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();
+        }
+
         format = toView.getFormat();
 
         if (format.equals(Report.GraphType.PIE)) {
-            graph = new Pie(statsToDisplay);
+            graph = new Pie(statsToDisplay, toView.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
-            graph = new Bar(statsToDisplay);
+            graph = new Bar(statsToDisplay, toView.getOrganise());
         }
         return new CommandResult(MESSAGE_SUCCESS, graph, false, true, false);
     }
