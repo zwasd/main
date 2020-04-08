@@ -23,7 +23,7 @@ public class Report {
         BAR, PIE, NULL;
 
         public static final String GRAPH_TYPE_MESSAGE_CONSTRAINT = "Graph types should only be: "
-                + "bar" + ", " + "pie" ;
+                + "bar" + ", " + "pie";
 
 
         /**

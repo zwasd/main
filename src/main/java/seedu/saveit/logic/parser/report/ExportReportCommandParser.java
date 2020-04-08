@@ -37,7 +37,7 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
                 PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE, PREFIX_FILENAME);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE,
-                PREFIX_GRAPH,  PREFIX_ORGANISE, PREFIX_FILENAME)
+                PREFIX_GRAPH, PREFIX_ORGANISE, PREFIX_FILENAME)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportReportCommand.MESSAGE_USAGE));
         }
