@@ -287,32 +287,55 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
-.Sequence Diagram GenerateStats and Graph
-image::GenerateStats_and_Graph.png[]
-
 .Sequence Diagram for Report View
 image::ReportViewSequence.png[]
 
-If a valid `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
-start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _String: organisation_ object respectively.
+If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
+start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
 These objects are used to create _ViewReportCommand_ object which will be executed. The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
-The details of execution can be seen from *Figure 11*.
+*Figure 11* provides a detailed execution flow for `report view` command.
+
+As stated in *Figure 11*, when a user inputs a valid `report  view` command:
+
+1. `report view` command will be parsed and a new _Report_ object will be created.
+2. A new _ViewReportCommand_ object containing the _Report_ object will be created.
+3. The _ViewReportCommand_ object will be executed and a new _GenerateStats_ object will be created.
+4. The _GenerateStats_ object will calculate and generate statistics from
+_ReportableAccount_ object requested from _Model_ through `getReportableAccount` method.
+5. A new _Pie_ object will be created.
+6. The _Pie_ object will construct a graph using statistics from _GenerateStats_ object.
+7. A new _CommandResult_ will be constructed and returned.
+8. Report Window will pop out.
+
 
 If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
-start date, end date, graph into _Date_ , _Report.GraphType_ and _String: organisation_ object respectively. These objects
+start date, end date, graph into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively. These objects
 are used to create _PrintReportCommand_ object which will be executed. The result of execution will be sending a print job to your printer, printing out the report.
 `report print` has a similar execution path to `report view`, hence you can refer to *Figure 11* to find out more.
 
 If a valid `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
-tart date, end date, graph into _Date_ , _Report.GraphType_ , _String: organisation_ and _String: file name_ object respectively.
+tart date, end date, graph into _Date_ , _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
 These objects are used to create _ExportReportCommand_ object which will be executed.
 The result of execution will be exporting a PNG version of the report into your computer with file name.
 `report export` also has a similar execution path to `report view` with the addition of _ExportFile_ class being involved.
 
+.Activity Diagram for Report in Main Window
+image::Report_MainWindow_.png[]
+The activity diagram summarises what can happen when user
+enter a `report` command in the *Main Window*
 
 * *Report Window*
 
 The *Report Window* can be accessed via the  _Report button_ in the *Main Window* or via `report view` command.
+
+.Activity Diagram for Report Window
+image::Report_ReportWindow_.png[]
+
+The activity diagram shows what can happen when users enter in a new command
+in the *Report Window*
+
+
+
 
 ==== Design Considerations
 

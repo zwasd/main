@@ -3,13 +3,17 @@ start
 :User types in  command;
 if () then ([command is correct])
     :Executes command;
-     if() then ([report command])
-     :Report window shows graph;
-     else ([print/export command])
-            if () then ([has graph])
+     if() then ([view command])
+     :Report window shows updated graph;
+     else ([print/export/exit command])
+            if () then ([export/print command])
+             if () then ([has graph)
                 :Prints/exports the graph shown in report window;
              else ([else])
                 :Throw error message;
+              endif
+            else ([else])
+                 :Exits Report Window;
                 endif
       endif
 else ([else])
