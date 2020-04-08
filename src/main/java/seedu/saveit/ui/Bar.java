@@ -56,7 +56,8 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 Tag index = ((Tag) itr.next());
-                dataSeries.getData().add(new XYChart.Data( (double) stats.get(index),index.getTagName() + " : $" + stats.get(index)));
+                dataSeries.getData().add(new XYChart.Data((double) stats.get(index),
+                        index.getTagName() + " : $" + stats.get(index)));
             }
             bar.getData().add(dataSeries);
 
@@ -93,7 +94,8 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
-                dataSeries.getData().add(new XYChart.Data( (double) sortedStats.get(month), month +  " : $" + sortedStats.get(month)));
+                dataSeries.getData().add(new XYChart.Data((double) sortedStats.get(month),
+                        month + " : $" + sortedStats.get(month)));
             }
             bar.getData().add(dataSeries);
 
