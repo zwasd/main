@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
+image::logo.png[pdfwidth=3.5in,align=center]
+
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
@@ -333,8 +335,6 @@ image::Report_ReportWindow_.png[]
 
 The activity diagram shows what can happen when users enter in a new command
 in the *Report Window*
-
-
 
 
 ==== Design Considerations
