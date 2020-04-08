@@ -54,17 +54,6 @@ public class Date {
         }
     }
 
-    /**
-     * Returns true if a given string is a valid year month.
-     */
-    public static boolean isValidYearMonth(String test) {
-        try {
-            LocalDate date = LocalDate.parse(test + "-01", FORMATTER);
-            return true;
-        } catch (DateTimeException e) {
-            return false;
-        }
-    }
 
     /**
      * returns true if the first date is equal to or comes before the second date
