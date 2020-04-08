@@ -19,11 +19,10 @@ image::logo.png[align=center]
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
-$AVE IT is a desktop budget management application. As most tertiary students
-are at a stage without a fixed income, they can use this to manage their
-spending. It has a GUI but most of the user interactions happen using a CLI
-(Command Line Interface). The application is ideal for tertiary students who
-are comfortable with typing.
+$AVE IT is a desktop budget management application. It is
+developed for tertiary students who have needs in financial budgeting and management.
+Tertiary students who have to manage finance accounts from different sources
+such as school project and personal spending will find ease in using our application.
 
 
 == Quick Start
@@ -81,7 +80,7 @@ Let's use a command format, +
 as an example.
 
 * The first word is the *operation category* of the command, in this case, `exp`
-belongs to the expediture operations.
+belongs to the expenditure operations.
 * There may be a second word which is the specific command for the operation
 category, in this case, `add`.
 * Words starting with `-` e.g. `-i`, `-a` and `-t` are the *option prefix*. Not all
@@ -136,8 +135,9 @@ Examples:
 * `go 2020-05-05`
 * `go today`
 
+=== Account command
 [[acc-add]]
-=== Adding an account: `acc add`
+==== Adding an account: `acc add`
 
 Adds a disjoint expenditure account to $AVE IT. +
 Format: `acc add ACCOUNT`
@@ -155,13 +155,13 @@ Examples:
 * `acc add SpendLess1`
 
 [[acc-list]]
-=== Listing all accounts: `acc list`
+==== Listing all accounts: `acc list`
 
 List all disjoint accounts in $AVE IT. +
 Format: `acc list`
 
 [[acc-rename]]
-=== Renaming an account: `acc rename`
+==== Renaming an account: `acc rename`
 
 Renames an existing account in $AVE IT. +
 Format: `acc rename OLD_NAME NEW_NAME`
@@ -178,7 +178,7 @@ Example:
 Renames the account `school` to `uni`.
 
 [[acc-checkout]]
-=== Changing the current account: `acc checkout`
+==== Changing the current account: `acc checkout`
 
 Changes the account view to another existing account. +
 Format: `acc checkout ACCOUNT`
@@ -194,7 +194,7 @@ Example:
 * `acc checkout cca`
 
 [[acc-clear]]
-=== Clearing account information: `acc clear`
+==== Clearing account information: `acc clear`
 
 Reset the current account to a clean state. +
 Format: `acc clear`
@@ -203,7 +203,7 @@ Format: `acc clear`
 All information in an account will be deleted, use with care.
 
 [[acc-delete]]
-=== Deleting an account: `acc delete`
+==== Deleting an account: `acc delete`
 
 Deletes an existing account in $AVE IT. +
 Format: `acc delete ACCOUNT`
@@ -220,8 +220,10 @@ Example:
 * `acc delete school` +
 Deletes the account named `school`.
 
+=== Expenditure command
+
 [[exp-setbudget]]
-=== Setting the budget: `exp setbudget`
+==== Setting the budget: `exp setbudget`
 
 Sets the budget amount in an account for the specified month. +
 Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
@@ -241,7 +243,7 @@ Sets the budget of $1000 for this month.
 Sets the budget of $1000 for the month of March in 2020.
 
 [[exp-add]]
-=== Adding an expenditure: `exp add`
+==== Adding an expenditure: `exp add`
 
 Adds an expenditure to the current account in $AVE IT. +
 Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
@@ -262,7 +264,7 @@ Examples:
 * `exp add -i chicken rice -a 4.50 -t food -d 2020-01-01`
 
 [[exp-edit]]
-=== Editing an expenditure : `exp edit`
+==== Editing an expenditure : `exp edit`
 
 Edits an existing expenditure in the current account in $AVE IT. +
 Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
@@ -283,7 +285,7 @@ Edits the info of expenditure with index `1` to `veg rice`.
 * `exp edit 3 -a 3.23 -t transport -d 2020-02-02`
 
 [[exp-delete]]
-=== Deleting an expenditure: `exp delete`
+==== Deleting an expenditure: `exp delete`
 
 Deletes an existing expenditure in the current $AVE IT account. +
 Format: `exp delete INDEX`
@@ -298,8 +300,20 @@ Example:
 * `exp delete 4`
 Deletes the expenditure with index `4`.
 
+[[exp-list]]
+==== Listing expenditures: `exp list`
+
+Lists the expenditures for the current active date in the current account. +
+Format: `exp list`
+
+[TIP]
+Use this command after `find` to return back to normal daily view.
+
+
+=== Repeat command
+
 [[repeat-add]]
-=== Adding a repeated expenditure: `repeat add`
+==== Adding a repeated expenditure: `repeat add`
 
 Adds an expenditure that can be repeated. +
 Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
@@ -324,7 +338,7 @@ $100 monthly on the first day of the month for the year of 2020.
 * `repeat add -i transport fee -a 100 -sd 2020-01-01 -ed 2020-12-30 -p monthly -t transport`
 
 [[repeat-edit]]
-=== Editing a repeated expenditure: `repeat edit`
+==== Editing a repeated expenditure: `repeat edit`
 
 Edits an expenditure that can be repeated. +
 Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]`
@@ -346,7 +360,7 @@ Edits the interval for the repeated expenditure with index `3` to weekly and
 ends at 2 July 2020.
 
 [[repeat-delete]]
-=== Deleting a repeated expenditure: `repeat delete`
+==== Deleting a repeated expenditure: `repeat delete`
 
 Deletes an expenditure that can be repeated. +
 Format: `repeat delete INDEX`
@@ -362,7 +376,7 @@ Example:
 Deletes the repeated expenditure with index `4`.
 
 [[cmd-find]]
-=== Locating expenditure by keyword: `find`
+=== Locating both repeat and normal expenditures by keyword: `find`
 
 Find expenditures (both single and repeated) which contain the keyword(s). +
 Format: `find [KEYWORD...]`
@@ -382,74 +396,76 @@ Examples:
 * `find rice` +
 Returns `Chicken rice` and `Veg Rice`.
 * `find Spicy Chicken Rice` +
-Returns any expenditures having names `Spicy`, `Chicken`, or `Rice`.
+Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
 
-[[exp-list]]
-=== Listing expenditures: `exp list`
-
-Lists the expenditures for the current active date in the current account. +
-Format: `exp list`
-
-[TIP]
-Use this command after `find` to return back to normal daily view.
-
+=== Report command
 [[report-view]]
-=== Viewing expenditures report: `report view`
+==== Viewing expenditures report: `report view`
 
 Generates report on expenditure spending in the given period. +
-Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+
+Format: `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
 
 ****
-* Views the report of a graph type populated with data from expenditures from
-a start date to an end date.
-* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
-`BAR` or `PIE` (take note of the casing). They represent a bar chart and a pie
-char respectively.
+* Views the report of a graph type populated with expenditure data from
+start date to end date.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
+* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
+`bar` or `pie`. They represent a bar chart and a pie
+chart respectively.
+* `ORGANISATION` is how the expenditures will be grouped when generating the graph.
 ****
 
 Examples:
 
-* `report view -g PIE -sd 2020-03-01 -ed 2020-03-31`
-* `report view -g BAR -sd 2020-03-01 -ed 2020-03-31`
+* `report view -sd 2020-03-01 -ed 2020-03-31 -g pie -o tag`
+* `report view -sd 2020-03-01 -ed 2020-03-31 -g bar -o month`
 
 [[report-export]]
-=== Exporting report: `report export`
+==== Exporting report: `report export`
 
 Exports report on expenditure spending in the given period. +
-Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+
+Format: `report export -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION -f FILE_NAME`
 
 ****
-* Exports the report of a graph type populated with data from expenditures from
-a start date to an end date.
-* Refer to <<report-view>> for the details on the parameters.
+* Exports the report of a graph type populated with expenditure data from
+ start date to end date into Report folder with the file's name specified by user.
+* `START_DATE` is the date from which the report will start generating from.
+* `END_DATE` is the date from which the report will stop generating.
+* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
+`bar` or `pie`. They represent a bar chart and a pie
+chart respectively.
+* `ORGANISATION` is how the expenditures will be grouped when generating the graph.
+* `FILE_NAME` is the name of exported file. File name should not contain whitespace.
 ****
 
 Examples:
 
-* `report export -g PIE -sd 2020-03-01 -ed 2020-03-31`
-* `report export -g BAR -sd 2020-03-01 -ed 2020-03-31`
+* `report export -sd 2020-03-01 -ed 2020-03-31 -g pie -o tag -f Hello`
+* `report export -sd 2020-03-01 -ed 2020-03-31 -g bar -o month -f report`
 
 [[report-print]]
-=== Printing report: `report print`
+==== Printing report: `report print`
 
 Prints report on expenditure spending in the given period. +
-Format: `report print -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+
+Format: `report print -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
 
 ****
-* Prints the report of a graph type populated with data from expenditures from
-a start date to an end date.
+* Prints the report of a graph type populated with expenditure data from
+ start date to an end date.
 * Refer to <<report-view>> for the details on the parameters.
 ****
 
 Examples:
 
-* `report print -g PIE -sd 2020-03-01 -ed 2020-03-31`
-* `report print -g BAR -sd 2020-03-01 -ed 2020-03-31`
+* `report print -sd 2020-03-01 -ed 2020-03-31 -g pie -o month`
+* `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag`
 
 [[cmd-exit]]
-=== Exiting the program: `exit`
+==== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
@@ -467,35 +483,40 @@ These are the commands to be executed in the report window.
 The result of this command is equivalent to <<report-view>>.
 
 Generates report on expenditure spending in the given period. +
-Format: `GRAPH_TYPE START_DATE END_DATE ORGANISE`
+Format: `view START_DATE END_DATE GRAPH_TYPE ORGANISATION`
 
 ****
 * Views the report of a graph type populated with data from expenditures from
 a start date to an end date.
-* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
-`BAR` or `PIE` (take note of the casing). They represent a bar chart and a pie
-char respectively.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
-* `ORGANISE` is how the expenditures will be grouped.
+* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
+`bar` or `pie`. They represent a bar chart and a pie
+char respectively.
+* `ORGANISATION` is how the expenditures will be grouped when generating the graph.
 ****
 
 Examples:
 
-* `pie 2020-03-01 2020-03-31 tag`
-* `bar 2020-03-01 2020-03-31 month`
+* `view 2020-03-01 2020-03-31 pie tag`
+* `view 2020-03-01 2020-03-31 bar month`
 
 [[report-cmd-export]]
-=== Exporting report: `export` *[Not yet functional]*
+=== Exporting report: `export`
 
-Exports the current report shown on the report window. +
-Format: `export`
+Exports the current report shown in the report window. +
+Format: `export FILE_NAME `
+
+****
+* Exports the report to Report folder with file's name specified by user
+* `FILE_NAME` is the name of exported file. File name should not contain whitespace.
+****
 
 [[report-cmd-print]]
 === Printing report: `print`
 
 Prints the current report shown on the report window. +
-Format: `printt`
+Format: `print`
 
 [[report-cmd-exit]]
 === Exiting the report window: `exit`
@@ -565,33 +586,28 @@ e.g `repeat edit 2 -a 1.20 -ed 2020-04-02`
 * <<repeat-delete, *repeat delete*>> : `repeat delete INDEX` +
 e.g `repeat delete INDEX`
 
-=== Report (Main) Operations
+=== Report (Main Window) Operations
 
-[NOTE]
-The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
+* <<report-view, *report view*>> : `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION` +
+e.g. `report view -sd 2020-03-01 -ed 2020-03-31 -g pie -o month`
 
-* <<report-view, *report view*>> : `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
-e.g. `report view -g PIE -sd 2020-03-01 -ed 2020-03-31`
+* <<report-export, *report export*>> : `report export -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION -f FILE_NAME` +
+e.g. `report export -sd 2020-03-01 -ed 2020-03-31 -g pie -o month -f hello`
 
-* <<report-export, *report export*>> : `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
-e.g. `report export -g PIE -sd 2020-03-01 -ed 2020-03-31`
+* <<report-print, *report print*>> : `report print -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION` +
+e.g. `report export -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag`
 
-* <<report-print, *report print*>> : `report print -g GRAPH_TYPE -sd START_DATE -ed END_DATE` +
-e.g. `report export -g BAR -sd 2020-03-01 -ed 2020-03-31`
+=== Report (Report Window) Operations
 
-=== Report Window Operations
+* <<report-cmd-view, *report view _equivalence_*>> : `view START_DATE END_DATE GRAPH_TYPE ORGANISATION` +
+e.g. `view 2020-03-01 2020-03-31 bar tag`
 
-[NOTE]
-The report feature is working in progress. Currently, it accounts for expenditures as well as daily repeats only.
 
-* <<report-cmd-view, *report view _equivalence_*>> : `GRAPH_TYPE START_DATE END_DATE` +
-e.g. `PIE 2020-03-01 2020-03-31`
+* <<report-cmd-export, *report export _equivalence_*>> : `export FILE_NAME` +
+e.g. `export hello`
 
-* <<report-cmd-print, *print*>> : `print` +
+* <<report-cmd-print, *report print _equivalence_*>> : `print` +
 e.g. `print`
-
-* <<report-cmd-export, *report export _equivalence_*>> *[Not yet functional]* : `export` +
-e.g. `export`
 
 * <<report-cmd-exit, *exit*>> : `exit` +
 e.g. `exit`
