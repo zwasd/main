@@ -63,14 +63,30 @@ _{ work in progress }_
 ==== Function
 The _Report_ feature allows you to have a quick overview of your expenditures.
 It can tell you your total spending within a period of time and have your spending
-categorised either by month or tag.
+categorised either by month or tag. You can have also have a permanent copy
+of the report, through the report printing and export capabilities.
 
 image:report_bar_ss.png[]
 
-This is a
+.Bar chart report
+
+This is an example of the report in bar chart format with the expenditures grouped by months.
+The horizontal line represents the expenditures whereas the vertical line shows
+the month followed by the total spending in that month.
+Alternatively, you can also group the expenditure by tags and read off the bar chart
+in a similar fashion.
+
+If you are a visual person, you can consider using the pie chart format instead!
 
 
+image:report_pie.png[]
 
+.Pie chart report
+This is an example of report in pie chart format with the expenditures grouped by
+tags.
+
+If you are interested to find out more, you can explore <<Report command, Report Command>>
+to find out how to generate these graphs.
 
 === Autocomplete
 _{ work in progress }_
@@ -411,6 +427,18 @@ Returns `Chicken rice` and `Veg Rice`.
 Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
 
 === Report command
+This section will talk about how to use the report feature. Before we begin
+with the details of the command, here are some things to note :
+
+==== NOTE
+1. Before beginning this section, you can refer to <<Report, Report Feature>> to look
+at how the reports will look like and how to read it.
+2. If there is huge difference in expenditure amount, using a Bar chart
+will be better as overlaps might occur for Pie chart.
+3. For best usage, keep start date and end date to be *within 12 months*. Due to
+sizing issues not all months or tags might be displayed, if start and end date exceeds
+12 months.
+
 [[report-view]]
 ==== Viewing expenditures report: `report view`
 

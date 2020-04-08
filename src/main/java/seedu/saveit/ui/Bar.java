@@ -39,11 +39,11 @@ public class Bar extends Graph {
 
         if (organise.equals("tag")) {
 
-            CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel("Tag");
+            CategoryAxis yAxis = new CategoryAxis();
+            yAxis.setLabel("Tag");
 
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel("Expenditure");
+            NumberAxis xAxis = new NumberAxis();
+            xAxis.setLabel("Expenditure");
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
@@ -56,7 +56,7 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 Tag index = ((Tag) itr.next());
-                dataSeries.getData().add(new XYChart.Data(index.getTagName(), (double) stats.get(index)));
+                dataSeries.getData().add(new XYChart.Data( (double) stats.get(index),index.getTagName() + " : $" + stats.get(index)));
             }
             bar.getData().add(dataSeries);
 
@@ -66,11 +66,11 @@ public class Bar extends Graph {
 
             assert organise.equals("month");
 
-            CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel("Month");
+            CategoryAxis yAxis = new CategoryAxis();
+            yAxis.setLabel("Month");
 
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel("Expenditure");
+            NumberAxis xAxis = new NumberAxis();
+            xAxis.setLabel("Expenditure");
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
@@ -93,7 +93,7 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
-                dataSeries.getData().add(new XYChart.Data(month, (double) sortedStats.get(month)));
+                dataSeries.getData().add(new XYChart.Data( (double) sortedStats.get(month), month +  " : $" + sortedStats.get(month)));
             }
             bar.getData().add(dataSeries);
 
