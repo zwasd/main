@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
-image::logo.png[pdfwidth=3.5in,align=center]
+image::logo.png[align=center]
 
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
