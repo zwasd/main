@@ -19,15 +19,15 @@ image::logo.png[align=center]
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
-$AVE IT is a desktop budget management application. It is
-developed for tertiary students who have needs in financial budgeting and management.
+$AVE IT is a *desktop budget management application*. We are here to assist
+tertiary students who have needs in financial budgeting and management.
 Tertiary students who have to manage finance accounts from different sources
 such as school project and personal spending will find ease in using our application.
 
 
 == Quick Start
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `$AVE IT.jar` coming soon.
+.  Download the latest `$AVE IT.jar`  https://github.com/AY1920S2-CS2103T-T10-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for $AVE IT application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -41,11 +41,12 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 * `exp delete 3`: deletes the 3rd expenditure shown in the current list.
 * `exit` : exits the app.
 
-.  Refer to <<main-commands, Main Commands>> for details of each command.
+.  You can refer to <<main-commands, Main Commands>> for details of each command.
 
 
 [[Features]]
 == Features
+
 
 
 === Disjoint Accounts
@@ -58,7 +59,18 @@ _{ work in progress }_
 _{ work in progress }_
 
 === Report
-_{ work in progress }_
+
+==== Function
+The _Report_ feature allows you to have a quick overview of your expenditures.
+It can tell you your total spending within a period of time and have your spending
+categorised either by month or tag.
+
+image:report_bar_ss.png[]
+
+This is a
+
+
+
 
 === Autocomplete
 _{ work in progress }_

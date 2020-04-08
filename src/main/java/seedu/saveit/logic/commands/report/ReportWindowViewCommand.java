@@ -21,12 +21,12 @@ public class ReportWindowViewCommand extends ReportCommand {
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
     public static final String MESSAGE_USAGE = "Parameters: \n "
-            + " start date : YYYY-MM-DD  "
+            + "start date : YYYY-MM-DD  "
             + " end date :  YYYY-MM-DD  "
             + " graph type : pie  "
             + " organise : tag "
             + "\n"
-            + "eg: " + " 2020-03-22 " + " 2020-03-25 " + " PIE " + " tag ";
+            + "eg: " + "view 2020-03-22 " + " 2020-03-25 " + " pie " + " tag ";
 
     private HashMap statsToDisplay;
     private Report.GraphType format;

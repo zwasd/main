@@ -329,7 +329,7 @@
 .chart {
   -fx-background-color: rgb(113,116,141);
   -fx-border-color: rgb(56,56,56) rgb(56,56,56)
-  -fx-border-width 1;
+  -fx-border-width 0.5;
   -fx-background-radius: 0;
   -fx-background-position: left center;
 }
@@ -343,7 +343,7 @@
 
 .chart-pie-label {
     -fx-fill: #FDFDFD;
-    -fx-font-size: 11pt;
+    -fx-font-size: 9pt;
     -fx-font-family: "Segoe UI Light";
 }
 .axis {

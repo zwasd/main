@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -73,13 +75,21 @@ public class Bar extends Graph {
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
 
-            Set set = stats.keySet();
-            Iterator itr = set.iterator();
-
             XYChart.Series dataSeries = new XYChart.Series();
 
-            TreeMap sortedStats = new TreeMap(stats);
+            TreeMap<String, Double> sortedStats = new TreeMap(new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    YearMonth ym1 = YearMonth.parse(o1);
+                    YearMonth ym2 = YearMonth.parse(o2);
+                    return ym1.compareTo(ym2);
+                }
+            });
 
+            sortedStats.putAll(stats);
+
+            Set set = sortedStats.keySet();
+            Iterator itr = set.iterator();
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
@@ -91,5 +101,6 @@ public class Bar extends Graph {
         }
 
     }
+
 
 }
