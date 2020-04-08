@@ -296,22 +296,50 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-// tag::repeat[]
 
-=== Recurring Expenditure feature [In Progress]
+=== Recurring Expenditure feature `Repeat`
 Recurring expenditure is one of the main feature in `$AVE IT` and it is
-a expenditure automatically logged for user at their preferred frequency.
+an expenditure automatically logged for user at their preferred frequency.
+
 ==== Rationale
-This feature allows user to keep track of expenditures that will occur either _daily_,
+`Repeat` allows user to keep track of expenditures that will occur either _daily_, _weekly_,
 _monthly_ or _annually_ without the need to key in the expenditures every day or month.
 Hence, this will provide more convenience for users as well as address the need
 for such a feature since recurring expenditures are common. For example, day to day
 commuting expenses.
 
+==== Implementation
+Below is a class diagram shows different components that `Repeat` contains.
+
+.Class diagram for showing what `Repeat` consist.
+image::repeatClassDiagram.png[]
+
+For each account, it has its own `list` which all the `Repeat` objects are stored.
+There are different types of command that is cater for `Repeat` such as add, edit and delete.
+The following activity diagram shows what how a `Repeat` can be added.
+
+.Activity diagram for `repeat add`
+image::repeatActivityDiagram.png[]
+
+==== Design Consideration
+|===
+|Alternatives: | Pros: |Cons
+|(Current choice) Have a repeat class which extends `BaseExp`.
+|Able to mass delete and edit all the expenditures under this `Repeat` easily.
+|Hard to implement, especially when we have to calculate monthly spending so to generate report and statistics.
+|Mass operation: add `Expenditure` object to all those dates which state in the command.
+|Easy to implement.
+|User are unable to edit all the expenditures which are recurring. +
+Users have to delete such expenditures one by one.
+|===
+
+
+
+
+
 // end::repeat[]
 
-[[Implementation-Report]]
-=== Report [In progress]
+=== Report
 Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
 
@@ -890,8 +918,6 @@ Format: `find [KEYWORD...]`
 +
 
 Use case ends.
-
-*Extensions*
 
 [discrete]
 === Use case: Go
