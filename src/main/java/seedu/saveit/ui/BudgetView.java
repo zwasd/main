@@ -102,7 +102,7 @@ public class BudgetView extends UiPart<Node> {
         budget.setWrapText(true);
         Label spending = new Label();
         String spendingString = String.format("%.2f", totalSpending);
-        spending.setText("Total spending: " + totalSpending);
+        spending.setText("Total spending: " + spendingString);
         spending.setTextAlignment(TextAlignment.LEFT);
         spending.setTextFill(Paint.valueOf("000000"));
         spending.setWrapText(true);

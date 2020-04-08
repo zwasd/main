@@ -366,7 +366,7 @@ public class Repeat extends BaseExp {
      * startDate to endDate and
      * group in months.
      */
-    public HashMap calculateDailyRepeatMonth(Date startDate, Date endDate) {
+    public HashMap<String, Double> calculateDailyRepeatMonth(Date startDate, Date endDate) {
 
 
         Date adjustedStart = null;
@@ -426,7 +426,11 @@ public class Repeat extends BaseExp {
     }
 
     /**
-     *
+     * Calculate repeat (weekly, monthly, annually)
+     * total value for
+     * given months.
+     * @param givenYearMonth
+     * @return total spending for that repeat.
      */
     public double calculateForGivenYearMonth(YearMonth givenYearMonth) {
         if (this.period == Period.DAILY) {
@@ -536,7 +540,7 @@ public class Repeat extends BaseExp {
      * @param startDate the starting date.
      * @param endDate   ending date.
      */
-    public HashMap calculateWkOrMthOrYrMonth(Date startDate, Date endDate) {
+    public HashMap <String, Double> calculateWkOrMthOrYrMonth(Date startDate, Date endDate) {
         HashMap<String, Double> output = new HashMap<>();
 
 
