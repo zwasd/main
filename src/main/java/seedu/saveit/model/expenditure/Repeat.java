@@ -2,7 +2,9 @@ package seedu.saveit.model.expenditure;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
@@ -185,7 +187,7 @@ public class Repeat extends BaseExp {
         int i = 0;
         while (true) {
             LocalDate toStore = pivotDate.plusMonths(i);
-            System.out.println(toStore);
+            //System.out.println(toStore);
             if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
@@ -285,7 +287,7 @@ public class Repeat extends BaseExp {
                 // Start date is in the same month of the given year month.
                 if (YearMonth.from(endDate.localDate).equals((givenYearMonth))) {
                     // End date is in the same month of the given year month.
-                    int totalDays = this.startDate.localDate.until(this.endDate.localDate).getDays();
+                    int totalDays = this.startDate.localDate.until(this.endDate.localDate).getDays() + 1;
                     total = totalDays * this.amount.value;
                 } else {
                     // End date is not in the same month of the given year month.
@@ -311,6 +313,119 @@ public class Repeat extends BaseExp {
     }
 
     /**
+     * Calculate daily repeat for
+     * given date range.
+     *
+     * @param startDate containing the first day.
+     * @param endDate   containing the last day.
+     * @return
+     */
+    public double calculateDaily(Date startDate, Date endDate) {
+
+        LocalDate adjustedStart = null;
+        LocalDate adjustedEnd = null;
+
+        if (startDate.localDate.isAfter(this.getEndDate().localDate)
+                || endDate.localDate.isBefore(this.getStartDate().localDate)) {
+            return 0;
+        }
+
+        if (Date.isEqualOrBefore(this.getEndDate(), endDate)) {
+
+            adjustedStart = startDate.localDate;
+
+            if (Date.isEqualOrAfter(this.getStartDate(), startDate)) {
+                adjustedStart = this.getStartDate().localDate;
+            }
+            adjustedEnd = this.getEndDate().localDate;
+
+        } else {
+            adjustedStart = this.getStartDate().localDate;
+
+            if (Date.isEqualOrBefore(this.getStartDate(), startDate)) {
+                adjustedStart = startDate.localDate;
+            }
+            adjustedEnd = endDate.localDate;
+        }
+
+        //System.out.println("ADJ " + adjustedStart);
+        //System.out.println("ADJ " + adjustedEnd);
+
+        int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
+
+        //System.out.println(days);
+
+        double amount = this.getAmount().value * days;
+
+        //System.out.println("Amt " + amount);
+        return amount;
+    }
+
+    /**
+     * Calculate daily repeat from
+     * startDate to endDate and
+     * group in months.
+     */
+    public HashMap calculateDailyRepeatMonth(Date startDate, Date endDate) {
+
+
+        Date adjustedStart = null;
+        Date adjustedEnd = null;
+
+        if (startDate.localDate.isAfter(this.getEndDate().localDate)
+                || endDate.localDate.isBefore(this.getStartDate().localDate)) {
+            return new HashMap();
+        }
+
+        if (Date.isEqualOrBefore(this.getEndDate(), endDate)) {
+
+            adjustedStart = startDate;
+
+            if (Date.isEqualOrAfter(this.getStartDate(), startDate)) {
+                adjustedStart = this.getStartDate();
+            }
+            adjustedEnd = this.getEndDate();
+
+        } else {
+            adjustedStart = this.getStartDate();
+
+            if (Date.isEqualOrBefore(this.getStartDate(), startDate)) {
+                adjustedStart = startDate;
+            }
+            adjustedEnd = endDate;
+        }
+
+
+        HashMap<String, Double> output = new HashMap<>();
+
+
+        // get eom for start date
+        LocalDate endOfMonthOfStartLocalDate = YearMonth.from(adjustedStart.localDate).atEndOfMonth();
+        Date endOfMonthOfStartDate = new Date(endOfMonthOfStartLocalDate.format(DateTimeFormatter.ISO_DATE));
+
+        //first month expenditure
+        output.put(String.valueOf(YearMonth.from(endOfMonthOfStartLocalDate)),
+                calculateDaily(adjustedStart, endOfMonthOfStartDate));
+
+        //middle months expenditure
+        YearMonth currentMonth = YearMonth.from(adjustedStart.localDate.plusMonths(1));
+        YearMonth end = YearMonth.from(adjustedEnd.localDate.minusMonths(1));
+
+        while (!currentMonth.isAfter(end)) {
+            output.put(String.valueOf(currentMonth), calculateDaily(currentMonth));
+            currentMonth = currentMonth.plusMonths(1);
+        }
+
+        //last month expenditure
+        LocalDate startOfMonthOfEndLocalDate = YearMonth.from(adjustedStart.localDate).atDay(1);
+        Date startOfMonthOfEndDate = new Date(startOfMonthOfEndLocalDate.format(DateTimeFormatter.ISO_DATE));
+
+        output.put(String.valueOf(YearMonth.from(startOfMonthOfEndLocalDate)),
+                calculateDaily(startOfMonthOfEndDate, adjustedEnd));
+        return output;
+    }
+
+    /**
      *
      */
     public double calculateForGivenYearMonth(YearMonth givenYearMonth) {
@@ -324,10 +439,33 @@ public class Repeat extends BaseExp {
     }
 
     /**
-     * Calculates the total value for given start
-     * and end date.
+     * Calculate repeat (weekly, monthly, annually)
+     * total value for
+     * given range of months.
+     *
+     * @param startYearMonth first month.
+     * @param endYearMonth   last month.
+     * @return accumulated amount in these months.
+     */
+    public double calculateForGivenYearMonthRange(YearMonth startYearMonth, YearMonth endYearMonth) {
+        double total = 0;
+        YearMonth current = startYearMonth;
+
+        while (!current.isAfter(endYearMonth)) {
+            total = total + calculateForGivenYearMonth(current);
+            current = current.plusMonths(1);
+            //System.out.println("total " + total);
+        }
+
+        return total;
+    }
+
+    /**
+     * Calculates the total value from given start
+     * to end date.
+     *
      * @param startDate the starting date.
-     * @param endDate ending date.
+     * @param endDate   ending date.
      * @return total value.
      */
     public double calculateWkOrMthOrYr(Date startDate, Date endDate) {
@@ -335,7 +473,8 @@ public class Repeat extends BaseExp {
         LocalDate adjustedStart = null;
         LocalDate adjustedEnd = null;
 
-        if (startDate.localDate.isAfter(this.getEndDate().localDate)) {
+        if (startDate.localDate.isAfter(this.getEndDate().localDate)
+                || endDate.localDate.isBefore(this.getStartDate().localDate)) {
             return 0;
         }
 
@@ -379,52 +518,97 @@ public class Repeat extends BaseExp {
             LocalDate startOfMonth = YearMonth.from(adjustedEnd).atDay(1);
             amount = amount + calculateRepeatTillEndOfMonth(startOfMonth, adjustedEnd);
             adjustedEnd = startOfMonth.minusDays(1);
-            System.out.println("Amt " + amount);
+            //System.out.println("Amt " + amount);
         }
 
         //System.out.println("ADJ " + adjustedStart);
         //System.out.print("ADJ " + adjustedEnd);
-        amount = amount + calculateRepeat(YearMonth.from(adjustedStart), YearMonth.from(adjustedEnd));
+        amount = amount + calculateForGivenYearMonthRange(YearMonth.from(adjustedStart), YearMonth.from(adjustedEnd));
 
         return amount;
 
-
     }
 
-
     /**
-     * Calculate repeat (weekly, monthly, annually) for
-     * given range of months.
+     * Calculates the total value for given start
+     * and end date and group in months.
      *
-     * @param startYearMonth first month.
-     * @param endYearMonth   last month.
-     * @return accumulated amount in these months.
+     * @param startDate the starting date.
+     * @param endDate   ending date.
      */
-    public double calculateRepeat(YearMonth startYearMonth, YearMonth endYearMonth) {
-        double total = 0;
-        YearMonth current = startYearMonth;
+    public HashMap calculateWkOrMthOrYrMonth(Date startDate, Date endDate) {
+        HashMap<String, Double> output = new HashMap<>();
 
-        while (!current.isAfter(endYearMonth)) {
-            total = total + calculateForGivenYearMonth(current);
-            current = current.plusMonths(1);
-            //System.out.println("total " + total);
+
+        // get eom for start date
+        LocalDate endOfMonthOfStartLocalDate = YearMonth.from(startDate.localDate).atEndOfMonth();
+        Date endOfMonthOfStartDate = new Date(endOfMonthOfStartLocalDate.format(DateTimeFormatter.ISO_DATE));
+
+        //first month expenditure
+        output.put(String.valueOf(YearMonth.from(endOfMonthOfStartLocalDate)),
+                calculateRepeatTillEndOfMonth(startDate.localDate, endOfMonthOfStartDate.localDate));
+
+        //middle months expenditure
+        YearMonth currentMonth = YearMonth.from(startDate.localDate.plusMonths(1));
+        YearMonth end = YearMonth.from(endDate.localDate.minusMonths(1));
+
+        while (!currentMonth.isAfter(end)) {
+
+            output.put(String.valueOf(currentMonth), calculateForGivenYearMonth(currentMonth));
+            currentMonth = currentMonth.plusMonths(1);
         }
 
-        return total;
+        //last month expenditure
+        LocalDate startOfMonthOfEndLocalDate = YearMonth.from(endDate.localDate).atDay(1);
+        Date startOfMonthOfEndDate = new Date(startOfMonthOfEndLocalDate.format(DateTimeFormatter.ISO_DATE));
+
+        output.put(String.valueOf(YearMonth.from(startOfMonthOfEndLocalDate)),
+                calculateRepeatTillEndOfMonth(startOfMonthOfEndDate.localDate, endDate.localDate));
+        return output;
     }
 
     /**
      * Calculates repeat(weekly, monthly, annually)
      * from startDate to endDate in the same month.
-     *
-     * @param adjustedStart first day.
      */
-    public double calculateRepeatTillEndOfMonth(LocalDate adjustedStart, LocalDate adjustedEnd) {
+    public double calculateRepeatTillEndOfMonth(LocalDate startLocalDate, LocalDate endLocalDate) {
 
-        if (adjustedEnd.getMonth() != adjustedStart.getMonth()) {
+        if (startLocalDate.getMonth() != endLocalDate.getMonth()) {
             throw new RuntimeException("This method is for calculation within same month");
         }
 
+        LocalDate adjustedStart = null;
+        LocalDate adjustedEnd = null;
+
+        if (startLocalDate.isAfter(this.getEndDate().localDate)
+                || endLocalDate.isBefore(this.getStartDate().localDate)) {
+            return 0;
+        }
+
+        if (endDate.localDate.isBefore(startLocalDate)
+                || endDate.localDate.isEqual(startLocalDate)) {
+
+            adjustedStart = startLocalDate;
+
+
+            if (startDate.localDate.isAfter(startLocalDate)
+                    || startDate.localDate.isEqual(startLocalDate)) {
+                adjustedStart = startDate.localDate;
+            }
+            adjustedEnd = endDate.localDate;
+
+        } else {
+            adjustedStart = this.getStartDate().localDate;
+
+            if (startDate.localDate.isBefore(startLocalDate)
+                    || startDate.localDate.isEqual(startLocalDate)) {
+                adjustedStart = startLocalDate;
+            }
+            adjustedEnd = endLocalDate;
+        }
+        //System.out.println(this);
+        //System.out.println(adjustedStart);
+        //System.out.println(adjustedEnd);
 
         double amount = 0;
 
@@ -497,55 +681,6 @@ public class Repeat extends BaseExp {
         }
 
         assert amount == 0;
-        return amount;
-    }
-
-
-    /**
-     * Calculate daily repeat for
-     * given date range.
-     *
-     * @param startDate
-     * @param endDate
-     * @return
-     */
-    public double calculateDailyRepeat(Date startDate, Date endDate) {
-
-        LocalDate adjustedStart = null;
-        LocalDate adjustedEnd = null;
-
-        if (startDate.localDate.isAfter(this.getEndDate().localDate)) {
-            return 0;
-        }
-
-        if (Date.isEqualOrBefore(this.getEndDate(), endDate)) {
-
-            adjustedStart = startDate.localDate;
-
-            if (Date.isEqualOrAfter(this.getStartDate(), startDate)) {
-                adjustedStart = this.getStartDate().localDate;
-            }
-            adjustedEnd = this.getEndDate().localDate;
-
-        } else {
-            adjustedStart = this.getStartDate().localDate;
-
-            if (Date.isEqualOrBefore(this.getStartDate(), startDate)) {
-                adjustedStart = startDate.localDate;
-            }
-            adjustedEnd = endDate.localDate;
-        }
-
-        //System.out.println("ADJ " + adjustedStart);
-        //System.out.println("ADJ " + adjustedEnd);
-
-        int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
-
-        System.out.println(days);
-
-        double amount = this.getAmount().value * days;
-
-        //System.out.println("Amt " + amount);
         return amount;
     }
 

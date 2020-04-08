@@ -56,6 +56,20 @@ public class Date {
 
 
     /**
+     * returns true if the first date is equal to or comes before the second date
+     * @param d1 the first date
+     * @param d2 the second date
+     * @return true if the first date is equal to or comes before the second date
+     */
+    public static boolean isEqualOrBefore(Date d1, Date d2) {
+        return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
+    }
+
+    public static boolean isEqualOrAfter(Date d1, Date d2) {
+        return d1.value.equals(d2.value) || d1.localDate.isAfter(d2.localDate);
+    }
+
+    /**
      * Check if the date fall on a given YearMonth.
      * @param givenYearMonth the given year month which we want to check.
      * @return a boolean.
@@ -81,18 +95,6 @@ public class Date {
         return value.hashCode();
     }
 
-    /**
-     * returns true if the first date is equal to or comes before the second date
-     * @param d1 the first date
-     * @param d2 the second date
-     * @return true if the first date is equal to or comes before the second date
-     */
-    public static boolean isEqualOrBefore(Date d1, Date d2) {
-        return d1.value.equals(d2.value) || d1.localDate.isBefore(d2.localDate);
-    }
 
-    public static boolean isEqualOrAfter(Date d1, Date d2) {
-        return d1.value.equals(d2.value) || d1.localDate.isAfter(d2.localDate);
-    }
 
 }

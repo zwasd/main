@@ -7,9 +7,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,10 +17,12 @@ import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import seedu.saveit.commons.core.GuiSettings;
@@ -34,7 +33,6 @@ import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
-
 
 
 /**
@@ -232,25 +230,31 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void print(Graph graph) throws PrinterException {
         logger.fine("Printing");
-        Node graphNode;
-        graphNode = (Node) graph.constructGraph();
-        printerJob(graphNode);
+        printerJob(graph);
     }
 
     /**
      * Invokes printer job of Javafx.
      *
-     * @param graphNode Node to be printed.
      * @throws PrinterException if job cannot finish.
      */
-    public void printerJob(Node graphNode) throws PrinterException {
-        Printer printer = Printer.getDefaultPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A4,
-                PageOrientation.LANDSCAPE, Printer.MarginType.DEFAULT);
+    public void printerJob(Graph graph) throws PrinterException {
         PrinterJob printerJob = PrinterJob.createPrinterJob();
+        PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+
+        WritableImage snapshot = snapshot(graph);
+
+        ImageView ivSnapshot = new ImageView(snapshot);
+        double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
+        double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
+        double scale = Math.min(scaleX, scaleY);
+        if (scale < 1.0) {
+            ivSnapshot.getTransforms().add(new Scale(scale, scale));
+        }
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(pageLayout, graphNode);
+            boolean jobStatus = printerJob.printPage(ivSnapshot);
+            ;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
@@ -265,7 +269,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void export(ExportFile file) {
         try {
-            WritableImage img = snapshot(file);
+            WritableImage img = snapshot(file.getGraph());
             file.export(img);
         } catch (IOException e) {
 
@@ -280,11 +284,11 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Takes a snapshot of the graph
      * to be exported.
-     * @param file represents the file to be exported.
+     *
      * @return image of the graph.
      */
-    public WritableImage snapshot(ExportFile file) {
-        Node node = (Node) file.getGraph().constructGraph();
+    public WritableImage snapshot(Graph graph) {
+        Node node = (Node) graph.constructGraph();
         Scene sc = new Scene((Parent) node, 800, 600);
         Chart chart = null;
 
