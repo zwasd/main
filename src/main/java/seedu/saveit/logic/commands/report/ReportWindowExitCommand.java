@@ -10,7 +10,10 @@ import seedu.saveit.model.Model;
  */
 public class ReportWindowExitCommand extends ReportCommand {
 
+    public static final String COMMAND_WORD = "exit";
+
     public static final String MESSAGE_EXIT = "Exiting report window!";
+
     public ReportWindowExitCommand() {
 
     }

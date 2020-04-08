@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_INFO;
 
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_TAG;
@@ -79,13 +81,22 @@ public class CommandTestUtil {
     public static final String INVALID_PERIOD_DESC = " " + PREFIX_PERIOD + "MINUTE"; // empty string
 
     //report
-    public static final String VALID_GRAPH_BAR = "BAR";
-    public static final String VALID_GRAPH_PIE = "PIE";
+    public static final String VALID_GRAPH_BAR_CAPS = "bar";
+    public static final String VALID_GRAPH_PIE_CAPS = "pie";
     public static final String INVALID_GRAPH = "";
-    public static final String VALID_GRAPH_BAR_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_BAR;
-    public static final String VALID_GRAPH_PIE_DESC = " " + PREFIX_GRAPH + VALID_GRAPH_PIE;
+    public static final String VALID_GRAPH_BAR_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_BAR_CAPS;
+    public static final String VALID_GRAPH_PIE_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_PIE_CAPS;
     public static final String INVALID_GRAPH_DESC = " " + PREFIX_GRAPH + INVALID_GRAPH;
-
+    public static final String VALID_FILE_NAME = "Hello";
+    public static final String INVALID_FILE_NAME = "H e l l o";
+    public static final String VALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + VALID_FILE_NAME;
+    public static final String INVALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + INVALID_FILE_NAME;
+    public static final String VALID_ORGANISATION_TAG = "tag";
+    public static final String VALID_ORGANISATION_MONTH = "month";
+    public static final String INVALID_ORGANISATION = "";
+    public static final String VALID_ORGANISATION_TAG_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_TAG;
+    public static final String VALID_ORGANISATION_MONTH_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_MONTH;
+    public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISE + INVALID_ORGANISATION;
 
 
 
@@ -94,7 +105,7 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_BUS)
-               .withAmount(VALID_AMOUNT_BUS).withDate(VALID_DATE_BUS).build();
+                .withAmount(VALID_AMOUNT_BUS).withDate(VALID_DATE_BUS).build();
         DESC_BOB = new EditExpenditureDescriptorBuilder().withInfo(VALID_INFO_MRT)
                 .withAmount(VALID_AMOUNT_MRT).withDate(VALID_DATE_MRT)
                 .withTag(VALID_TAG_BUS).build();
@@ -106,7 +117,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -121,7 +132,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -143,6 +154,7 @@ public class CommandTestUtil {
         assertEquals(expectedAccountList, actualModel.getAccountList());
         assertEquals(expectedFilteredList, actualModel.getFilteredExpenditureList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the expenditure at the given {@code targetIndex} in the
      * {@code model}'s address book.

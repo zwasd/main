@@ -4,6 +4,7 @@ import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
@@ -16,8 +17,8 @@ import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.ParserUtil;
 import seedu.saveit.logic.parser.Prefix;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.Report;
 import seedu.saveit.model.expenditure.Date;
+import seedu.saveit.model.report.Report;
 
 /**
  * Parses for report print.
@@ -27,9 +28,9 @@ public class PrintReportCommandParser implements Parser<PrintReportCommand> {
     public PrintReportCommand parse(String userInput) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_START_DATE,
-                PREFIX_END_DATE, PREFIX_GRAPH);
+                PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH)
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_GRAPH, PREFIX_ORGANISE)
                 || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PrintReportCommand.MESSAGE_USAGE));
         }
@@ -39,7 +40,9 @@ public class PrintReportCommandParser implements Parser<PrintReportCommand> {
         Date endDate = ParserUtil.parseDate(argumentMultimap.getValue(PREFIX_END_DATE)
                 .orElseGet(() -> LocalDate.now().toString()));
         Report.GraphType graphType = ParserUtil.parseGraph(argumentMultimap.getValue(PREFIX_GRAPH)
-                .orElseGet(() -> Report.GraphType.PIE.toString()));
+                .orElseGet(() -> Report.GraphType.PIE.toString().toLowerCase()));
+        String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
+                .orElseGet(() -> "tag"));
 
 
         if (!Date.isEqualOrBefore(startDate, endDate)) {
@@ -47,7 +50,7 @@ public class PrintReportCommandParser implements Parser<PrintReportCommand> {
                     PrintReportCommand.MESSAGE_USAGE));
         }
 
-        Report report = new Report(startDate, endDate, graphType);
+        Report report = new Report(startDate, endDate, graphType, organise);
 
         return new PrintReportCommand(report);
     }

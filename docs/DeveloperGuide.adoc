@@ -287,26 +287,32 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
-.Sequence Diagram for Report View
-image::ReportViewSequence.png[]
-
 .Sequence Diagram GenerateStats and Graph
 image::GenerateStats_and_Graph.png[]
 
-If a `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
-start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
-and _Report.GraphType_ objects are used to create _ViewReportCommand_ object which will be
-executed. The result of executions is popping out the _ReportWindow_ which will showcase a expenditure breakdown report.
+.Sequence Diagram for Report View
+image::ReportViewSequence.png[]
 
-If a `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
-start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
-and _Report.GraphType_ objects are used to create _PrintReportCommand_ object which will be
-executed. The result of execution will be sending a print job to your printer, printing out the report.
+If a valid `report view` command was input, the _ViewReportCommandParser_  will parse the input and convert the Strings :
+start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _String: organisation_ object respectively.
+These objects are used to create _ViewReportCommand_ object which will be executed. The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
+The details of execution can be seen from *Figure 11*.
 
-If a `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
-start date, end date and graph into _Date_ and _Report.GraphType_ object respectively. The _Date_ objects
-and _Report.GraphType_ objects are used to create _ExportReportCommand_ object which will be
-executed. The result of execution will be exporting a PDF version of the report into your computer.
+If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
+start date, end date, graph into _Date_ , _Report.GraphType_ and _String: organisation_ object respectively. These objects
+are used to create _PrintReportCommand_ object which will be executed. The result of execution will be sending a print job to your printer, printing out the report.
+`report print` has a similar execution path to `report view`, hence you can refer to *Figure 11* to find out more.
+
+If a valid `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
+tart date, end date, graph into _Date_ , _Report.GraphType_ , _String: organisation_ and _String: file name_ object respectively.
+These objects are used to create _ExportReportCommand_ object which will be executed.
+The result of execution will be exporting a PNG version of the report into your computer with file name.
+`report export` also has a similar execution path to `report view` with the addition of _ExportFile_ class being involved.
+
+
+* *Report Window*
+
+The *Report Window* can be accessed via the  _Report button_ in the *Main Window* or via `report view` command.
 
 ==== Design Considerations
 

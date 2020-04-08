@@ -9,21 +9,21 @@ participant "r:ViewReportCommand" as ViewReportCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("report view -sd 2020-03-01\n -ed 2020-03-31 -g PIE")
+[-> LogicManager : execute("report view -sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
 activate LogicManager
 
-LogicManager -> TopLevelParser : parseCommand("report view\n -sd 2020-03-01 -ed 2020-03-31 -g PIE")
+LogicManager -> TopLevelParser : parseCommand("report view\n -sd 2020-03-01 -ed 2020-03-31 -g pie -o tag")
 activate TopLevelParser
 
 create ReportLevelParser
 TopLevelParser -> ReportLevelParser
 activate ReportLevelParser
-TopLevelParser -> ReportLevelParser : parseCommand("view -sd 2020-03-01 \n -ed 2020-03-31 -g PIE")
+TopLevelParser -> ReportLevelParser : parseCommand("view -sd 2020-03-01 \n -ed 2020-03-31 -g pie -o tag")
 
 create ViewReportCommandParser
 ReportLevelParser -> ViewReportCommandParser
 activate ViewReportCommandParser
-ReportLevelParser -> ViewReportCommandParser : parse("-sd 2020-03-01\n -ed 2020-03-31 -g PIE")
+ReportLevelParser -> ViewReportCommandParser : parse("-sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
 
 create ViewReportCommand
 ViewReportCommandParser -> ViewReportCommand

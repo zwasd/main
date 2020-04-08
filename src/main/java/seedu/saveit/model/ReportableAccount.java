@@ -1,13 +1,14 @@
 package seedu.saveit.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+
 import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Repeat;
 import seedu.saveit.model.expenditure.UniqueExpenditureList;
+
 
 /**
  * An interface containing methods that allow expenditure data to be read from an account.
@@ -31,7 +32,7 @@ public interface ReportableAccount {
      * @param endDate the inclusive end date
      * @return a Map of key: date string & value: UniqueExpenditureList
      */
-    Map<String, UniqueExpenditureList> getExpFromToInclusive(String startDate, String endDate);
+    Map<Date, UniqueExpenditureList> getExpFromToInclusive(String startDate, String endDate);
 
     /**
      * returns expenditures in the interval specified
@@ -39,7 +40,7 @@ public interface ReportableAccount {
      * @param endDate the inclusive end date
      * @return a Map of key: date string & value: UniqueExpenditureList
      */
-    Map<String, UniqueExpenditureList> getExpFromToInclusive(Date startDate, Date endDate);
+    Map<Date, UniqueExpenditureList> getExpFromToInclusive(Date startDate, Date endDate);
 
     /**
      * @param date the date
@@ -47,5 +48,19 @@ public interface ReportableAccount {
      */
     ObservableList<Repeat> getRepeatByDate(LocalDate date);
 
-    Map<Repeat, ArrayList> getRepeatFromToInclusive(Date startDate, Date endDate);
+    /**
+     * returns total repeat expenditures in interval specified
+     * @param startDate the inclusive start date.
+     * @param endDate the inclusive end date.
+     * @return a Map of key: repeat object & value : total amount
+     */
+    Map<Repeat, Double> getRepeatExpFromToInclusiveByRepeat(Date startDate, Date endDate);
+
+    /**
+     * returns total repeat expenditures in interval specified
+     * @param startDate the inclusive start date.
+     * @param endDate the inclusive end date.
+     * @return a Map of key: month string & value : total amount
+     */
+    Map<String, Double > getRepeatExpFromToInclusiveByMonth(Date startDate, Date endDate);
 }
