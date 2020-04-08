@@ -222,12 +222,53 @@ _{To be added}_
 // end::autocomplete[]
 
 
-=== Calendar feature [In progress]
+=== Calendar feature
 Calendar is a feature that has a clickable calendar which users
 can use to navigate between the different days. It also shows
 the date of the expenditures the user is viewing as well as today.
 
-==== Rationale
+==== Implementation
+The implementation of the above functions will be described separately in this section.
+
+The users are given two different choice on how to navigate between
+the days: +
+*1*. UI interaction with the calendar view. +
+*2*. Make use of `go YYYY-MM-DD` command. +
+
+The following sequence diagram shows you how the `go YYYY-MM-DD`
+(E.g `go 2020-04-01`) command works.
+
+.`UI` and `LOGIC`  component for the `go 2020-04-01` command
+image::goSquenceDiagram.png[]
+
+Upon completion of the above command, the calendar view will update the
+active date to be `2020-04-01` and expenditures records for
+`2020-04-01` will be displayed.
+
+If the user chooses to navigate through UI interaction with the calendar view
+(aka clicking on the date that is shown on the calendar). The implementation is
+very similar to the `go` command, `calendarView` will invoke `go` command when
+user click on the dates.
+
+.Activity diagram showing what happen when user wants to navigate to other date
+image::calendarActivityDiagram.png[]
+
+==== Design Consideration
+This section contains some of our design considerations for the calendar feature. +
+Consideration: How are we going to present the expenditure records. +
+|===
+|Alternatives: |Pros:  |Cons:
+|1. Make use of a month list to contain all the expenditure records of the given month.
+|This is able to provide a concise view of expenditure view especially when there are only a small number of records.
+|This looks like excel sheet and users have to scroll all the way up if they want to view a date which is much earlier.
+|2.(current choice) Make use of a calender view and only list out a given date's expenditure record.
+This automatically helps user to organize the records according to date.
+|User can make use of the calendar view to navigate between the dates,
+this is much more convenient than scrolling through a list. +
+This helps user to organize the expenditure and keep it tidy.
+Especially helpful if there is lots of records.
+|It is much more troublesome to implement.
+|===
 
 
 
@@ -610,21 +651,6 @@ Use case ends.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes in step 1.
 
-
-[discrete]
-=== Use case: Find
-
-*MSS*
-
-1.  User requests to find expenditure & repeat records with certain `keyword`(s) in the account which they are viewing right now. +
-Format: `find [KEYWORD...]`
-2.  `$AVE IT` will acknowledge and output a list of relevant records.
-+
-
-Use case ends.
-
-*Extensions*
-
 [none]
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
@@ -829,6 +855,20 @@ Use case ends.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects graph type input is invalid.
 ** Use case resumes from step 1.
+
+[discrete]
+=== Use case: Find
+
+*MSS*
+
+1.  User requests to find expenditure & repeat records with certain `keyword`(s) in the account which they are viewing right now. +
+Format: `find [KEYWORD...]`
+2.  `$AVE IT` will acknowledge and output a list of relevant records.
++
+
+Use case ends.
+
+*Extensions*
 
 [discrete]
 === Use case: Go
