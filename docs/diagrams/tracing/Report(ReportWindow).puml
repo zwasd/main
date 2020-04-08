@@ -6,13 +6,13 @@ if () then ([command is correct])
      if() then ([view command])
      :Report window shows updated graph;
      else ([print/export/exit command])
-            if () then ([export/print command])
-             if () then ([has graph)
+            if () then ([print/export command])
+             if () then ([has graph])
                 :Prints/exports the graph shown in report window;
              else ([else])
                 :Throw error message;
               endif
-            else ([else])
+            else ([exit command])
                  :Exits Report Window;
                 endif
       endif
