@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-3/main
 
+image::logo.png[align=center]
+
 By: `Team T10-3`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
@@ -465,7 +467,7 @@ These are the commands to be executed in the report window.
 The result of this command is equivalent to <<report-view>>.
 
 Generates report on expenditure spending in the given period. +
-Format: `GRAPH_TYPE START_DATE END_DATE`
+Format: `GRAPH_TYPE START_DATE END_DATE ORGANISE`
 
 ****
 * Views the report of a graph type populated with data from expenditures from
@@ -475,12 +477,13 @@ a start date to an end date.
 char respectively.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
+* `ORGANISE` is how the expenditures will be grouped.
 ****
 
 Examples:
 
-* `PIE 2020-03-01 2020-03-31`
-* `BAR 2020-03-01 2020-03-31`
+* `pie 2020-03-01 2020-03-31 tag`
+* `bar 2020-03-01 2020-03-31 month`
 
 [[report-cmd-export]]
 === Exporting report: `export` *[Not yet functional]*

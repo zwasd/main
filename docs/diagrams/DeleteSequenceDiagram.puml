@@ -37,7 +37,7 @@ activate ExpDeleteCommand
 ExpDeleteCommand --> ExpDeleteCommandParser : d
 deactivate ExpDeleteCommand
 
-ExpDeleteCommandParser -> ExpLevelParser : d
+ExpDeleteCommandParser --> ExpLevelParser : d
 deactivate ExpDeleteCommandParser
 ExpDeleteCommandParser -[hidden]-> ExpLevelParser
 destroy ExpDeleteCommandParser
