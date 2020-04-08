@@ -55,10 +55,17 @@ _{ work in progress }_
 === Expenditures
 _{ work in progress }_
 
-=== Calendar
+=== Repeat
 _{ work in progress }_
 
+=== Budget
+_{ work in progress }_
+
+
 === Report
+_{ work in progress }_
+
+=== Calendar
 _{ work in progress }_
 
 === Autocomplete
@@ -224,7 +231,7 @@ Deletes the account named `school`.
 === Setting the budget: `exp setbudget`
 
 Sets the budget amount in an account for the specified month. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
+Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH (YYYY-MM)]`
 
 ****
 * `AMOUNT` is the amount of the budget (in dollars). It must be positive up

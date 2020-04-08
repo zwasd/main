@@ -13,8 +13,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_DATE = new Prefix("-ed ");
     public static final Prefix PREFIX_PERIOD = new Prefix("-p ");
     public static final Prefix PREFIX_YEARMONTH = new Prefix("-ym ");
-    public static final Prefix PREFIX_GRAPH = new Prefix("-g");
-    public static final Prefix PREFIX_FILENAME = new Prefix("-f");
-    public static final Prefix PREFIX_ORGANISE = new Prefix("-o");
+    public static final Prefix PREFIX_GRAPH = new Prefix("-g ");
+    public static final Prefix PREFIX_FILENAME = new Prefix("-f ");
+    public static final Prefix PREFIX_ORGANISE = new Prefix("-o ");
 
 }
