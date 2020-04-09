@@ -261,7 +261,7 @@ Deletes the account named `school`.
 ==== Setting the budget: `exp setbudget`
 
 Sets the budget amount in an account for the specified month. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH (YYYY-MM)]`
+Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
 
 ****
 * `AMOUNT` is the amount of the budget (in dollars). It must be positive up
