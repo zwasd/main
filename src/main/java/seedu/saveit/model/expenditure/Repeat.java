@@ -360,6 +360,7 @@ public class Repeat extends BaseExp {
             adjustedEnd = endDate.localDate;
         }
 
+        assert adjustedStart != null && adjustedEnd != null;
         int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
 
         double amount = this.getAmount().value * days;
@@ -400,6 +401,7 @@ public class Repeat extends BaseExp {
             adjustedEnd = endDate;
         }
 
+        assert adjustedStart != null && adjustedEnd != null;
 
         HashMap<String, Double> output = new HashMap<>();
 
@@ -607,6 +609,8 @@ public class Repeat extends BaseExp {
             adjustedEnd = endLocalDate;
         }
 
+        assert adjustedStart != null && adjustedEnd != null;
+
         double amount = 0;
 
         if (this.getPeriod() == Period.WEEKLY) {
@@ -669,7 +673,6 @@ public class Repeat extends BaseExp {
 
             if (adjustedStart.getMonth()
                     == this.getStartDate().localDate.getMonth()) {
-
                 if (adjustedStart.getDayOfMonth()
                         == this.getStartDate().localDate.getDayOfMonth()) {
                     amount = this.getAmount().value;

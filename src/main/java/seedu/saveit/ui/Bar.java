@@ -47,6 +47,7 @@ public class Bar extends Graph {
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
+            bar.setLegendVisible(false);
 
             Set set = stats.keySet();
             Iterator itr = set.iterator();
@@ -75,6 +76,7 @@ public class Bar extends Graph {
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
+            bar.setLegendVisible(false);
 
             XYChart.Series dataSeries = new XYChart.Series();
 
@@ -94,14 +96,28 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
+
+
                 dataSeries.getData().add(new XYChart.Data((double) sortedStats.get(month),
                         month + " : $" + sortedStats.get(month)));
             }
+
             bar.getData().add(dataSeries);
 
             return bar;
         }
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Bar) {
+            return stats.equals(((Bar) obj).stats)
+                    && organise.equals(((Bar) obj).organise);
+        }
+        return false;
     }
 
 

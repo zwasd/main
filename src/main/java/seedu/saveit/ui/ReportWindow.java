@@ -327,7 +327,10 @@ public class ReportWindow extends UiPart<Stage> {
             throws CommandException, ParseException, PrinterException {
 
         ReportCommandResult result = null;
+
+        System.out.println(commandText);
         try {
+
             result = logic.executeReportWindowCommand(commandText);
             logger.info("command executed " + commandText);
             display.setFeedbackToUser(result.getFeedbackToUser());
@@ -336,18 +339,24 @@ public class ReportWindow extends UiPart<Stage> {
                 currentGraph = null;
                 display.clear();
                 getRoot().hide();
+            } else if (result.isShowHelp()) {
+
             } else if (result.isPrintReport() || result.isExportReport()) {
                 if (currentGraph != null) {
+
                     if (result.isPrintReport()) {
                         print();
                     } else {
-                        assert result.isPrintReport();
+                        assert result.isExportReport();
                         export(result.getFileName());
                     }
+
                 } else {
                     display.setFeedbackToUser("Construct graph before printing");
                 }
+
             } else {
+                assert result.isChangeView();
                 showResult(result);
             }
 
