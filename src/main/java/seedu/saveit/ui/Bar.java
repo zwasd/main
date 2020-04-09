@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,11 +39,11 @@ public class Bar extends Graph {
 
         if (organise.equals("tag")) {
 
-            CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel("Tag");
+            CategoryAxis yAxis = new CategoryAxis();
+            yAxis.setLabel("Tag");
 
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel("Expenditure");
+            NumberAxis xAxis = new NumberAxis();
+            xAxis.setLabel("Expenditure");
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
@@ -54,7 +56,8 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 Tag index = ((Tag) itr.next());
-                dataSeries.getData().add(new XYChart.Data(index.getTagName(), (double) stats.get(index)));
+                dataSeries.getData().add(new XYChart.Data((double) stats.get(index),
+                        index.getTagName() + " : $" + stats.get(index)));
             }
             bar.getData().add(dataSeries);
 
@@ -64,26 +67,35 @@ public class Bar extends Graph {
 
             assert organise.equals("month");
 
-            CategoryAxis xAxis = new CategoryAxis();
-            xAxis.setLabel("Month");
+            CategoryAxis yAxis = new CategoryAxis();
+            yAxis.setLabel("Month");
 
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLabel("Expenditure");
+            NumberAxis xAxis = new NumberAxis();
+            xAxis.setLabel("Expenditure");
 
             BarChart bar = new BarChart(xAxis, yAxis);
             bar.setTitle("Expenditure breakdown");
 
-            Set set = stats.keySet();
-            Iterator itr = set.iterator();
-
             XYChart.Series dataSeries = new XYChart.Series();
 
-            TreeMap sortedStats = new TreeMap(stats);
+            TreeMap<String, Double> sortedStats = new TreeMap(new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    YearMonth ym1 = YearMonth.parse(o1);
+                    YearMonth ym2 = YearMonth.parse(o2);
+                    return ym1.compareTo(ym2);
+                }
+            });
 
+            sortedStats.putAll(stats);
+
+            Set set = sortedStats.keySet();
+            Iterator itr = set.iterator();
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
-                dataSeries.getData().add(new XYChart.Data(month, (double) sortedStats.get(month)));
+                dataSeries.getData().add(new XYChart.Data((double) sortedStats.get(month),
+                        month + " : $" + sortedStats.get(month)));
             }
             bar.getData().add(dataSeries);
 
@@ -91,5 +103,6 @@ public class Bar extends Graph {
         }
 
     }
+
 
 }
