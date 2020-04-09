@@ -30,7 +30,8 @@ public class Info {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidInfo(String test) {
-        return test != null && !test.equals("");
+        requireNonNull(test);
+        return test != null && !test.trim().equals("");
     }
 
 
