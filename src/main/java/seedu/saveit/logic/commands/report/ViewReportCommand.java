@@ -1,5 +1,6 @@
 package seedu.saveit.logic.commands.report;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
@@ -25,6 +26,7 @@ public class ViewReportCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_SUCCESS = "Report is generated";
+    public static final String MESSAGE_FAIL = "Report cannot be generated";
 
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Shows the report. "
@@ -46,6 +48,7 @@ public class ViewReportCommand extends Command {
     private Graph graph;
 
     public ViewReportCommand(Report toView) {
+        requireNonNull(toView);
         this.toView = toView;
     }
 
@@ -57,6 +60,8 @@ public class ViewReportCommand extends Command {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         } else if (toView.getOrganise().equals("month")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         format = toView.getFormat();
@@ -65,7 +70,11 @@ public class ViewReportCommand extends Command {
             graph = new Pie(statsToDisplay, toView.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToDisplay, toView.getOrganise());
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
+
+
         return new CommandResult(MESSAGE_SUCCESS, graph, false, true, false);
     }
 
