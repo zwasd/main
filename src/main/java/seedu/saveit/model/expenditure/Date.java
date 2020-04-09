@@ -62,7 +62,7 @@ public class Date {
     public static boolean isValidDateRange(Date startDate, Date endDate) {
         requireNonNull(startDate);
         requireNonNull(endDate);
-       return !startDate.localDate.isAfter(endDate.localDate);
+        return !startDate.localDate.isAfter(endDate.localDate);
     }
 
 

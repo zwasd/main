@@ -152,7 +152,6 @@ public class MainWindow extends UiPart<Stage> {
         activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
         budgetView = new BudgetView();
         budgetPlaceHolder.getChildren().add(budgetView.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

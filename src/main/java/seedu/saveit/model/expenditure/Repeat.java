@@ -145,8 +145,13 @@ public class Repeat extends BaseExp {
         }
     }
 
+    /**
+     * check if the start date is before or equal to end date.
+     * @return boolean to denote.
+     * @throws CommandException if failed, tell user that there is problem.
+     */
     public boolean checkDateRange() throws CommandException {
-        if(!Date.isValidDateRange(startDate, endDate)) {
+        if (!Date.isValidDateRange(startDate, endDate)) {
             throw new CommandException(Date.START_END_MESSAGE_CONSTRAINTS);
         }
         return true;

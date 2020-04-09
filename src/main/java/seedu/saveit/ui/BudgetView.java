@@ -2,10 +2,10 @@ package seedu.saveit.ui;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
@@ -14,7 +14,7 @@ import javafx.scene.text.TextAlignment;
 /**
  * budget window view.
  */
-public class BudgetView extends UiPart<Node> {
+public class BudgetView extends UiPart<Region> {
 
     private static final String FXML = "BudgetView.fxml";
 
