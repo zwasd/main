@@ -222,6 +222,10 @@ public class MainWindow extends UiPart<Stage> {
 
     }
 
+    /**
+     * This method is called to ensure all the view are displaying the right stuff
+     * when the app is just opened up.
+     */
     public void refreshAtStart() {
         try {
             this.executeCommand("go " + LocalDate.now().toString());
