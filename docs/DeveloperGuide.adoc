@@ -309,7 +309,7 @@ The *Report Window* can be accessed via the  _Report button_ in the *Main Window
 image::Report_ReportWindow_.png[]
 
 The activity diagram shows what can happen when users enter in a new command
-in the *Report Window*
+in the *Report Window*.
 
 
 ==== Design Considerations
