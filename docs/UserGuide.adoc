@@ -93,6 +93,57 @@ If you are interested to find out more, you can explore <<Report command, Report
 to find out how to generate these graphs.
 
 === Calendar
+The _calendar_ feature aims to ease users' navigation experience. +
+  *1*. Users can click on the calendar to traverse between different dates. +
+  *2*. Users can make use of `go` command to navigate to other date.
+
+With reference to the diagram below, *Header* displays the year and month which the
+calendar is displaying. *Box 1* displays the day which you are looking at
+while *Box 2* refers to the today's date.
+
+.Calendar View
+image::calendarExplanation.png[]
+
+==== Navigate using calendar
+It is troublesome and inconvenient for users to keep on make use of command line input
+to navigate between the dates, especially when the date which user wants to view is just one or
+two days before. +
+Under this situation, user can interact with `calendar` and navigate with a simple click.
+
+For example, we are now viewing expenditure records which are on `2020-04-09`.
+And we wish to view previous day's expenditure record. We can simply click on the date on the calendar.
+Below are two diagrams which will show the operation.
+
+.Before click (9 April)
+image::beforeClick.png[]
+
+.After click (8 April)
+image::afterClick.png[]
+
+==== Navigate with `go` command
+The developer team has taken into account the case when users wish to navigate to another date
+which is way before or after. Thus, we have integrate the `calendar` with `go` command. +
+
+For example, we are now viewing expenditure records which are on `2020-04-09` and we wish to navigate to
+`2019-04-09` through `go` command. +
+*1*. We need to input `go 2019-04-09` into the command box which is shown in the diagram below.
+
+.`go` command example
+image::goCommandInput.png[]
+
+*2*. A response will be given to indicate that the date has changed.
+
+.`go` command response
+image::goCommandResponse.png[]
+
+*3*. The `calendar` and the expenditure records will update accordingly.
+
+.`calendar` and expenditure records are updated accordingly.
+image::updateViewForGoCommand.png[]
+
+
+
+
 _{ work in progress }_
 
 === Autocomplete
