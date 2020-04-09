@@ -87,8 +87,8 @@ public class ExportReportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExportReportCommand // instanceof handles nulls
-                && toExport.equals(((ExportReportCommand) other).toExport))
-                && fileName.equals(((ExportReportCommand) other).fileName);
+                && toExport.equals(((ExportReportCommand) other).toExport)
+                && fileName.equals(((ExportReportCommand) other).fileName));
 
     }
 
