@@ -373,7 +373,7 @@ public class Repeat extends BaseExp {
      * group in months.
      */
     public HashMap<String, Double> calculateDailyRepeatMonth(Date startDate, Date endDate) {
-        
+
         Date adjustedStart = null;
         Date adjustedEnd = null;
 
