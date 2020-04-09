@@ -142,10 +142,6 @@ image::goCommandResponse.png[]
 image::updateViewForGoCommand.png[]
 
 
-
-
-_{ work in progress }_
-
 === Autocomplete
 _{ work in progress }_
 
@@ -229,8 +225,8 @@ Adds a disjoint expenditure account to $AVE IT. +
 Format: `acc add ACCOUNT`
 
 ****
-* `ACCOUNT` is the account name. It is only contain letters and numbers and
-must be less than 26 characters.
+* `ACCOUNT` is the account name. It must be less than 26 characters and must not
+contain any space in between.
 * The default account is called `default`, it is automatically created when you
 first use the application.
 ****
@@ -316,7 +312,7 @@ Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
 
 ****
 * `AMOUNT` is the amount of the budget (in dollars). It must be positive up
-to 2 decimal point and less than 1 billion.
+to 2 decimal point and less than 1 billion. Please exclude any unit symbol for `AMOUNT`.
 * `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
 budget. If not specified, the current year and month will be used.
 ****
@@ -332,7 +328,8 @@ Sets the budget of $1000 for the month of March in 2020.
 ==== Adding an expenditure: `exp add`
 
 Adds an expenditure to the current account in $AVE IT. +
-Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
+Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
+*Do note that duplicate `expenditure` records are allowed*.
 
 ****
 * `INFO` is the information of the expenditure.
@@ -360,6 +357,7 @@ Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The expenditure records will be auto sorted again.
 * Refer to <<exp-add>> for what the options represent.
 ****
 
@@ -402,8 +400,8 @@ Use this command after `find` to return back to normal daily view.
 ==== Adding a repeated expenditure: `repeat add`
 
 Adds an expenditure that can be repeated. +
-Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
-
+Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
+*Do note that duplicate `repeat` records are allowed*.
 ****
 * `INFO` is the information of the expenditure.
 * `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
@@ -434,6 +432,7 @@ Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE]
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The records will be auto sorted again.
 * Refer to <<repeat-add>> for what the options represent.
 ****
 

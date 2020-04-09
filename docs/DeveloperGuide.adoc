@@ -699,7 +699,7 @@ Use case ends.
 
 1.  User requests to edit an expenditure record in the account they are viewing right now. +
 Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge, edit the relevant expenditure and the list will be auto sorted again.
 +
 
 Use case ends.
@@ -819,7 +819,7 @@ Use case ends.
 
 1.  User requests to edit a repeating expenditure record in the account which they are viewing right now. +
 Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge, edit the relevant `repeat` and the list will be auto sorted again.
 +
 
 Use case ends.
