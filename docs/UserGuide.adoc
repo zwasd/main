@@ -329,7 +329,6 @@ Sets the budget of $1000 for the month of March in 2020.
 
 Adds an expenditure to the current account in $AVE IT. +
 Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
-*Do note that duplicate `expenditure` records are allowed*.
 
 ****
 * `INFO` is the information of the expenditure.
