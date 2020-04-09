@@ -17,7 +17,7 @@ public class Date {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
+    public static final String MESSAGE_CONSTRAINTS = "Invalid date! Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
 
     public static final String START_END_MESSAGE_CONSTRAINTS = "Start date should not be after end date!";
