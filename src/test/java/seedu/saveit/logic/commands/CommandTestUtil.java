@@ -50,7 +50,7 @@ public class CommandTestUtil {
     public static final String DATE_DESC_MRT = " " + PREFIX_DATE + VALID_DATE_MRT;
     public static final String TAG_DESC_TRANSPORT = " " + PREFIX_TAG + VALID_TAG_TRANSPORT;
     public static final String TAG_DESC_BUS = " " + PREFIX_TAG + VALID_TAG_BUS;
-    public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + "James&"; // '&' not allowed in infos
+    public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + ""; // '' not allowed in infos
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "bob!yahoo"; // a string
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags

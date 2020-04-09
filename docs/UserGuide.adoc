@@ -55,8 +55,12 @@ _{ work in progress }_
 === Expenditures
 _{ work in progress }_
 
-=== Calendar
+=== Repeat
 _{ work in progress }_
+
+=== Budget
+_{ work in progress }_
+
 
 === Report
 
@@ -87,6 +91,9 @@ tags.
 
 If you are interested to find out more, you can explore <<Report command, Report Command>>
 to find out how to generate these graphs.
+
+=== Calendar
+_{ work in progress }_
 
 === Autocomplete
 _{ work in progress }_

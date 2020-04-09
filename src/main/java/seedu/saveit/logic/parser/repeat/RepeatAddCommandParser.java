@@ -48,6 +48,7 @@ public class RepeatAddCommandParser implements Parser<RepeatAddCommand> {
                 .orElseGet(() -> LocalDate.now().toString()));
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE)
                 .orElseGet(() -> LocalDate.now().toString()));
+        ParserUtil.checkDateRange(startDate, endDate);
         Tag tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).orElseGet(() -> "Others"));
         String period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_PERIOD).orElseThrow());
         Repeat repeat = new Repeat(info, amount, startDate, endDate, tag, period);

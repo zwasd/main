@@ -2,6 +2,7 @@ package seedu.saveit.ui;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -152,7 +153,6 @@ public class MainWindow extends UiPart<Stage> {
         activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
         budgetView = new BudgetView();
         budgetPlaceHolder.getChildren().add(budgetView.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -220,6 +220,18 @@ public class MainWindow extends UiPart<Stage> {
 
         reportWindow.showEmpty();
 
+    }
+
+    /**
+     * This method is called to ensure all the view are displaying the right stuff
+     * when the app is just opened up.
+     */
+    public void refreshAtStart() {
+        try {
+            this.executeCommand("go " + LocalDate.now().toString());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     /**

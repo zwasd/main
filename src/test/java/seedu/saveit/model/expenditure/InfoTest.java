@@ -27,10 +27,11 @@ public class InfoTest {
         // invalid info
         assertFalse(Info.isValidInfo("")); // empty string
         assertFalse(Info.isValidInfo(" ")); // spaces only
-        assertFalse(Info.isValidInfo("^")); // only non-alphanumeric characters
-        assertFalse(Info.isValidInfo("peter*")); // contains non-alphanumeric characters
 
         // valid info
+        assertTrue(Info.isValidInfo("-a")); // contains other prefix
+        assertTrue(Info.isValidInfo("^")); // only non-alphanumeric characters
+        assertTrue(Info.isValidInfo("peter*")); // contains non-alphanumeric characters
         assertTrue(Info.isValidInfo("peter jack")); // alphabets only
         assertTrue(Info.isValidInfo("12345")); // numbers only
         assertTrue(Info.isValidInfo("peter the 2nd")); // alphanumeric characters

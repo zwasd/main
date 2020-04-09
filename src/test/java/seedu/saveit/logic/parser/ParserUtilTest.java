@@ -15,7 +15,7 @@ import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_INFO = "R@chel";
+    private static final String INVALID_INFO = "";
     private static final String INVALID_DATE = " ";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";

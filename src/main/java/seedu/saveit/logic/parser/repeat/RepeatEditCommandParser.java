@@ -57,6 +57,7 @@ public class RepeatEditCommandParser implements Parser<RepeatEditCommand> {
         if (argMultimap.getValue(PREFIX_END_DATE).isPresent()) {
             editRepeatDescriptor.setEndDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
         }
+
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
             editRepeatDescriptor.setTag(ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get()));
         }
@@ -67,7 +68,6 @@ public class RepeatEditCommandParser implements Parser<RepeatEditCommand> {
         if (!editRepeatDescriptor.isAnyFieldEdited()) {
             throw new ParseException(RepeatEditCommand.MESSAGE_NOT_EDITED);
         }
-
         return new RepeatEditCommand(index, editRepeatDescriptor);
     }
 }
