@@ -74,4 +74,14 @@ public class Pie extends Graph {
         return pie;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Pie) {
+            return stats.equals(((Pie) obj).stats)
+                    && organise.equals(((Pie) obj).organise);
+        }
+        return false;
+    }
 }

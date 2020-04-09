@@ -1,5 +1,6 @@
 package seedu.saveit.logic.commands.report;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
@@ -48,6 +49,7 @@ public class PrintReportCommand extends Command {
 
 
     public PrintReportCommand(Report toPrint) {
+        requireNonNull(toPrint);
         this.toPrint = toPrint;
     }
 
@@ -68,6 +70,8 @@ public class PrintReportCommand extends Command {
             graph = new Pie(statsToPrint, toPrint.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToPrint, toPrint.getOrganise());
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         return new CommandResult(MESSAGE_SUCCESS, graph, false, false, true);

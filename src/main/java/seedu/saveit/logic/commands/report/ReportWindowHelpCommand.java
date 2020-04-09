@@ -16,6 +16,6 @@ public class ReportWindowHelpCommand extends ReportCommand {
 
     @Override
     public ReportCommandResult execute(Model model) {
-        return new ReportCommandResult(SHOWING_HELP_MESSAGE);
+        return new ReportCommandResult(SHOWING_HELP_MESSAGE, true);
     }
 }
