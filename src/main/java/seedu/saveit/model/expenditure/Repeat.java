@@ -12,6 +12,7 @@ import java.util.Objects;
 import javafx.scene.layout.Region;
 
 import seedu.saveit.commons.exceptions.IllegalValueException;
+import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.ui.RepeatCard;
 import seedu.saveit.ui.UiPart;
 
@@ -142,6 +143,13 @@ public class Repeat extends BaseExp {
         } else if (duration.equalsIgnoreCase(Period.ANNUALLY.toString())) {
             this.period = Period.ANNUALLY;
         }
+    }
+
+    public boolean checkDateRange() throws CommandException {
+        if(!Date.isValidDateRange(startDate, endDate)) {
+            throw new CommandException(Date.START_END_MESSAGE_CONSTRAINTS);
+        }
+        return true;
     }
 
 
