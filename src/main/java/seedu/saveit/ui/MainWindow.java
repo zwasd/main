@@ -2,6 +2,7 @@ package seedu.saveit.ui;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -219,6 +220,14 @@ public class MainWindow extends UiPart<Stage> {
 
         reportWindow.showEmpty();
 
+    }
+
+    public void refreshAtStart() {
+        try {
+            this.executeCommand("go " + LocalDate.now().toString());
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     /**
