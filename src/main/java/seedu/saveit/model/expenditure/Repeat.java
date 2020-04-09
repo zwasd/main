@@ -12,6 +12,7 @@ import java.util.Objects;
 import javafx.scene.layout.Region;
 
 import seedu.saveit.commons.exceptions.IllegalValueException;
+import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.ui.RepeatCard;
 import seedu.saveit.ui.UiPart;
 
@@ -144,6 +145,18 @@ public class Repeat extends BaseExp {
         }
     }
 
+    /**
+     * check if the start date is before or equal to end date.
+     * @return boolean to denote.
+     * @throws CommandException if failed, tell user that there is problem.
+     */
+    public boolean checkDateRange() throws CommandException {
+        if (!Date.isValidDateRange(startDate, endDate)) {
+            throw new CommandException(Date.START_END_MESSAGE_CONSTRAINTS);
+        }
+        return true;
+    }
+
 
     /**
      * Update the displayDate hashSet.
@@ -187,7 +200,6 @@ public class Repeat extends BaseExp {
         int i = 0;
         while (true) {
             LocalDate toStore = pivotDate.plusMonths(i);
-            //System.out.println(toStore);
             if (toStore.isAfter(this.endDate.localDate)) {
                 break;
             }
@@ -348,16 +360,10 @@ public class Repeat extends BaseExp {
             adjustedEnd = endDate.localDate;
         }
 
-        //System.out.println("ADJ " + adjustedStart);
-        //System.out.println("ADJ " + adjustedEnd);
-
         int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
-
-        //System.out.println(days);
 
         double amount = this.getAmount().value * days;
 
-        //System.out.println("Amt " + amount);
         return amount;
     }
 
@@ -367,7 +373,6 @@ public class Repeat extends BaseExp {
      * group in months.
      */
     public HashMap<String, Double> calculateDailyRepeatMonth(Date startDate, Date endDate) {
-
 
         Date adjustedStart = null;
         Date adjustedEnd = null;
@@ -458,7 +463,6 @@ public class Repeat extends BaseExp {
         while (!current.isAfter(endYearMonth)) {
             total = total + calculateForGivenYearMonth(current);
             current = current.plusMonths(1);
-            //System.out.println("total " + total);
         }
 
         return total;
@@ -504,9 +508,6 @@ public class Repeat extends BaseExp {
 
         double amount = 0;
 
-        //System.out.println("ADJ " + adjustedStart);
-        //System.out.println("ADJ " + adjustedEnd);
-
         if (adjustedStart.getDayOfMonth() != 1) {
 
             LocalDate endOfMonth = YearMonth.from(adjustedStart).atEndOfMonth();
@@ -514,7 +515,6 @@ public class Repeat extends BaseExp {
             amount = amount + calculateRepeatTillEndOfMonth(adjustedStart,
                     endOfMonth);
 
-            //System.out.println( "Amt " + amount);
             adjustedStart = YearMonth.from(adjustedStart.plusMonths(1)).atDay(1);
         }
 
@@ -522,11 +522,7 @@ public class Repeat extends BaseExp {
             LocalDate startOfMonth = YearMonth.from(adjustedEnd).atDay(1);
             amount = amount + calculateRepeatTillEndOfMonth(startOfMonth, adjustedEnd);
             adjustedEnd = startOfMonth.minusDays(1);
-            //System.out.println("Amt " + amount);
         }
-
-        //System.out.println("ADJ " + adjustedStart);
-        //System.out.print("ADJ " + adjustedEnd);
         amount = amount + calculateForGivenYearMonthRange(YearMonth.from(adjustedStart), YearMonth.from(adjustedEnd));
 
         return amount;
@@ -611,10 +607,6 @@ public class Repeat extends BaseExp {
             adjustedEnd = endLocalDate;
         }
 
-        System.out.println(this);
-        System.out.println(adjustedStart);
-        System.out.println(adjustedEnd);
-
         double amount = 0;
 
         if (this.getPeriod() == Period.WEEKLY) {
@@ -640,12 +632,9 @@ public class Repeat extends BaseExp {
             }
             assert current != null;
             while (!current.isAfter(adjustedEnd)) {
-                System.out.println(current);
                 amount = amount + this.getAmount().value;
                 current = current.plusWeeks(1);
             }
-
-            System.out.println("week " + amount);
 
             return amount;
 
@@ -662,7 +651,6 @@ public class Repeat extends BaseExp {
 
                 if (nextDateEnd.getMonth() != adjustedStart.getMonth()) {
                     amount = this.getAmount().value;
-                    //System.out.println("month " + amount);
                     return amount;
                 }
             } else {
@@ -674,7 +662,6 @@ public class Repeat extends BaseExp {
                 //Check if the repeat day is in between the start and end.
                 if (adjustedStartDayOfMonth <= dayOfMonthRepeat && dayOfMonthRepeat <= adjustedEndDayOfMonth) {
                     amount = this.getAmount().value;
-                    //System.out.println("month " + amount);
                     return amount;
                 }
             }
@@ -686,13 +673,10 @@ public class Repeat extends BaseExp {
                 if (adjustedStart.getDayOfMonth()
                         == this.getStartDate().localDate.getDayOfMonth()) {
                     amount = this.getAmount().value;
-                    System.out.println("annual " + amount);
                     return amount;
                 }
-
             }
         }
-
         assert amount == 0;
         return amount;
     }
@@ -718,7 +702,6 @@ public class Repeat extends BaseExp {
         boolean sameEndDate = otherRepeat.endDate.equals(this.endDate);
         boolean sameTag = otherRepeat.tag.equals(this.tag);
         boolean samePeriod = otherRepeat.period.equals(this.period);
-
         return sameAmt && sameStartDate && sameEndDate && sameInfo && sameTag && samePeriod;
     }
 

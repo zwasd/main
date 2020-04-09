@@ -41,7 +41,6 @@ public class ExpAddCommandParser implements Parser<ExpAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpAddCommand.MESSAGE_USAGE));
         }
 
-
         Info info = ParserUtil.parseInfo(argMultimap.getValue(PREFIX_INFO).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).orElseGet(() -> LocalDate.now().toString()));

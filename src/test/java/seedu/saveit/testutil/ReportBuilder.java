@@ -45,7 +45,7 @@ public class ReportBuilder {
             this.graphType = Report.GraphType.mapToGraphType(graphType);
         } catch (ParseException e) {
             e.printStackTrace();
-        };
+        }
         return this;
     }
 

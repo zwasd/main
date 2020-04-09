@@ -14,7 +14,7 @@ import seedu.saveit.model.expenditure.Date;
 import seedu.saveit.model.expenditure.Info;
 
 public class JsonAdaptedExpenditureTest {
-    private static final String INVALID_INFO = "R@chel";
+    private static final String INVALID_INFO = "";
     private static final String INVALID_DATE = " ";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";

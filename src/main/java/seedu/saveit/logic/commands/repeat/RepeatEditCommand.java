@@ -80,6 +80,7 @@ public class RepeatEditCommand extends Command {
         }
         Repeat repeatToEdit = (Repeat) baseExp;
         Repeat editedRepeat = createEditedRepeat(repeatToEdit, editRepeatDescriptor);
+        editedRepeat.checkDateRange();
 
         model.setRepeat(repeatToEdit, editedRepeat);
         MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
