@@ -69,14 +69,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Date startDate and Date endDate} into an {@code Date}.
-     * Leading and trailing whitespaces will be trimmed.
-     * @throws ParseException if the given {@code Date startDate and Date endDate}  invalid.
+     * Check if two given date {@code Date startDate and Date endDate} are in the right order.
+     * @throws ParseException if the given {@code Date startDate and Date endDate} are in the wrong order.
      */
     public static boolean checkDateRange(Date startDate, Date endDate) throws ParseException {
         requireNonNull(startDate);
         requireNonNull(endDate);
-        if (!seedu.saveit.model.expenditure.Date.isValidDateRange(startDate, endDate)) {
+        if (!Date.isValidDateRange(startDate, endDate)) {
             throw new ParseException(Date.START_END_MESSAGE_CONSTRAINTS);
         }
         return true;
