@@ -250,16 +250,16 @@ public class ReportWindow extends UiPart<Stage> {
 
         WritableImage snapshot = snapshot();
 
-        ImageView ivSnapshot = new ImageView(snapshot);
-        double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
-        double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
+        ImageView imgView = new ImageView(snapshot);
+        double scaleX = pageLayout.getPrintableWidth() / imgView.getImage().getWidth();
+        double scaleY = pageLayout.getPrintableHeight() / imgView.getImage().getHeight();
         double scale = Math.min(scaleX, scaleY);
         if (scale < 1.0) {
-            ivSnapshot.getTransforms().add(new Scale(scale, scale));
+            imgView.getTransforms().add(new Scale(scale, scale));
         }
 
         if (printerJob != null) {
-            boolean jobStatus = printerJob.printPage(ivSnapshot);
+            boolean jobStatus = printerJob.printPage(imgView);
             ;
             if (jobStatus) {
                 printerJob.endJob();
@@ -328,7 +328,6 @@ public class ReportWindow extends UiPart<Stage> {
 
         ReportCommandResult result = null;
 
-        System.out.println(commandText);
         try {
 
             result = logic.executeReportWindowCommand(commandText);
