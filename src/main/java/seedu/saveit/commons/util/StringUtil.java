@@ -92,6 +92,11 @@ public class StringUtil {
         }
     }
 
+    /**
+     * Checks if a string is alphanumeric.
+     * @param s String to test.
+     * @return True if strinc only contains alphanumeric characters and space.
+     */
     public static boolean isAlphanumeric(String s) {
         requireNonNull(s);
 
