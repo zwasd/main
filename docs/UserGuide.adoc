@@ -75,8 +75,29 @@ image::exp_list.png[]
 
 Refer to <<Expenditure command, Expenditure Command>> for more details on how to add, edit, and delete expenditures.
 
+
+//tag::repeat[]
 === Repeat
+The _Repeat_ feature allows you to add recurring _expenditures_. +
+You are able to create fixed expenditures records which will be recurring daily, weekly, monthly or annually.
+As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
+"Repeat details" includes the frequency of recurring, start date and end date are displayed.
+
+.`Repeat` display
+image::repeatDisplay.png[]
+
+==== `Repeat` type commands
+`Repeat` has very similar command as `Expenditure`, with just a few of values to be specified. +
+
+Here, we will be using `repeat add` command as an example, while other commands works the same way.
+
+
+
+
+
 _{ work in progress }_
+//end::repeat[]
+
 
 Refer to <<Repeat command, Repeat Command>> for more details.
 
@@ -93,9 +114,10 @@ It can tell you your total spending within a period of time and have your spendi
 categorised either by month or tag. You can have also have a permanent copy
 of the report, through the report printing and export capabilities.
 
-image:report_bar_ss.png[]
-
 .Bar chart report
+image::report_bar_ss.png[]
+
+
 
 This is an example of the report in bar chart format with the expenditures grouped by months.
 The horizontal line represents the expenditures whereas the vertical line shows
@@ -105,20 +127,23 @@ in a similar fashion.
 
 If you are a visual person, you can consider using the pie chart format instead!
 
-
-image:report_pie.png[]
-
 .Pie chart report
+image::report_pie.png[]
+
+
 This is an example of report in pie chart format with the expenditures grouped by
 tags.
 
 If you are interested to find out more, you can explore <<Report command, Report Command>>
 to find out how to generate these graphs.
 
+
+//tag::calendar[]
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
-  *1*. Users can click on the calendar to traverse between different dates. Or, +
-  *2*. Users can make use of `go` command to navigate to another date.
+  *1*. Users are able to traverse between different dates by clicking on the calendar. +
+Or +
+  *2*. Users are able to make use of `go` command to navigate to another date.
 
 With reference to the diagram below, *Header* displays the year and month which the
 calendar is displaying. *Box 1* displays the day which you are looking at
@@ -164,11 +189,7 @@ image::goCommandResponse.png[]
 .`calendar` and expenditure records are updated accordingly.
 image::updateViewForGoCommand.png[]
 
-
-
-
-_{ work in progress }_
-
+// end::calendar[]
 === Autocomplete
 _{ work in progress }_
 
@@ -252,9 +273,9 @@ Adds a new disjoint account to $AVE IT. +
 Format: `acc add ACCOUNT`
 
 ****
-* `ACCOUNT` is the account name. It is only contain letters and numbers and
-must be less than 26 characters.
-* `ACCOUNT` is also case-sensitive.
+* `ACCOUNT` is the account name. It must be less than 26 characters and must not
+contain any space in between.
+* `ACCOUNT` must only contain letters and numbers, and it is also case-sensitive.
 * The default account is called `default`, it is automatically created when you
 first use the application.
 ****
@@ -341,12 +362,11 @@ Deletes the account named `school`.
 
 === Expenditure command
 
-
 [[exp-add]]
 ==== Adding an expenditure: `exp add`
 
 Adds an expenditure to the current account in $AVE IT. +
-Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
+Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 
 ****
 * `INFO` contains a description of what you spent on.
@@ -374,6 +394,7 @@ Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The expenditure records will be auto sorted again.
 * Refer to <<exp-add>> for what the options represent.
 ****
 
@@ -417,8 +438,8 @@ Use this command after `find` to return back to normal daily view.
 ==== Adding a repeated expenditure: `repeat add`
 
 Adds an expenditure that can be repeated. +
-Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
-
+Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
+*Do note that duplicate `repeat` records are allowed*.
 ****
 * `INFO` is the information of the expenditure.
 * `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
@@ -449,6 +470,7 @@ Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE]
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The records will be auto sorted again.
 * Refer to <<repeat-add>> for what the options represent.
 ****
 

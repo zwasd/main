@@ -197,7 +197,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 ==== Design Consideration
 
-
+//tag::repeat[]
 === Recurring Expenditure feature `Repeat`
 Recurring expenditure is one of the main features in `$AVE IT` and it is
 an expenditure automatically logged for user at their preferred frequency.
@@ -233,6 +233,8 @@ image::repeatActivityDiagram.png[]
 |User are unable to edit all the expenditures which are recurring. +
 Users have to delete such expenditures one by one.
 |===
+//end::repeat[]
+
 
 
 === Budget
@@ -404,7 +406,7 @@ that to keep the date range within 12 months due to sizing issues.
 2. Overlaps can occur in PieChart when there are huge difference in expenditure values,
 hence it is recommended to users that Bar Chart should be used in such instances.
 
-
+//tag::calendar[]
 === Calendar feature
 ==== Rationale
 Calendar is a feature that has a clickable calendar which users
@@ -455,7 +457,7 @@ This helps user to organize the expenditure and keep it tidy.
 Especially helpful if there is lots of records.
 |It is much more troublesome to implement.
 |===
-
+//end::calendar[]
 
 === Autocomplete feature
 Completes the command that the user is typing in the command box.
@@ -800,7 +802,7 @@ Use case ends.
 
 1.  User requests to edit an expenditure record in the account they are viewing right now. +
 Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge, edit the relevant expenditure and the list will be auto sorted again.
 +
 
 Use case ends.
@@ -920,7 +922,7 @@ Use case ends.
 
 1.  User requests to edit a repeating expenditure record in the account which they are viewing right now. +
 Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE] [-p PERIOD] [-t TAG]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge, edit the relevant `repeat` and the list will be auto sorted again.
 +
 
 Use case ends.

@@ -15,7 +15,7 @@ public class AccRenameCommandParserTest {
     @Test
     public void parse_validArgs_returnsAccRenameCommand() {
         assertParseSuccess(parser, "school work", new AccRenameCommand("school", "work"));
-        assertParseSuccess(parser, "work", new AccRenameCommand(null,"work"));
+        assertParseSuccess(parser, "work", new AccRenameCommand(null, "work"));
     }
 
     @Test

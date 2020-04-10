@@ -10,7 +10,6 @@ import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalExpenditures.ALICE;
 import static seedu.saveit.testutil.TypicalExpenditures.BOB;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
