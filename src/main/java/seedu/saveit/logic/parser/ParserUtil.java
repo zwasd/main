@@ -134,7 +134,7 @@ public class ParserUtil {
      */
     public static YearMonth parseYearMonth(String yearMonth) throws ParseException {
         requireNonNull(yearMonth);
-        if (yearMonth.equalsIgnoreCase("")) {
+        if (yearMonth.isEmpty()) {
             return null;
         }
         String[] trimmedYearMonth = yearMonth.trim().split("-");

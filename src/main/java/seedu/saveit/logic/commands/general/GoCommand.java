@@ -28,36 +28,23 @@ public class GoCommand extends Command {
 
 
     private final LocalDate toDate;
-    private final boolean fromUi;
 
-    public GoCommand(LocalDate toDate, boolean fromUi) {
+    public GoCommand(LocalDate toDate) {
         this.toDate = toDate;
-        this.fromUi = fromUi;
     }
 
     public LocalDate getToDate() {
         return toDate;
     }
 
-    public boolean getFromUi() {
-        return fromUi;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateActiveDate(toDate);
-        YearMonth target = YearMonth.of(toDate.getYear(), toDate.getMonthValue());
+        YearMonth target = YearMonth.from(toDate);
         MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(target);
-        if (fromUi) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate),
-                    monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
-
-        } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate,
-                    monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
-
-        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toDate), toDate,
+                monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
 
     @Override
@@ -66,8 +53,7 @@ public class GoCommand extends Command {
         if (obj == this) {
             return true;
         } else {
-            return ((GoCommand) obj).getToDate().equals(this.toDate)
-                    && (((GoCommand) obj).getFromUi() == this.fromUi);
+            return ((GoCommand) obj).getToDate().equals(this.toDate);
         }
     }
 }

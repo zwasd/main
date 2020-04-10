@@ -27,16 +27,21 @@ public class AccRenameCommandParser implements Parser<AccRenameCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccRenameCommand.MESSAGE_USAGE));
         }
         String [] allName = trimmedArgs.split("\\s+");
-
-        if (allName.length != 2) {
+        String oldName;
+        String newName;
+        if (allName.length == 2) {
+            oldName = allName[0];
+            newName = allName[1];
+        } else if (allName.length == 1) {
+            oldName = null;
+            newName = allName[0];
+        } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     "The number of parameters is incorrect\n" + AccRenameCommand.MESSAGE_USAGE));
         }
 
-        String oldName = allName[0];
-        String newName = allName[1];
 
-        if (oldName.length() >= 26 || newName.length() >= 26 || oldName.length() == 0 || newName.length() == 0) {
+        if ((oldName != null && oldName.length() >= 26) || newName.length() >= 26) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NAME_TOO_LONG + "\n" + AccRenameCommand.MESSAGE_USAGE));
         }

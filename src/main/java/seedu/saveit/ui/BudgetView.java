@@ -96,7 +96,8 @@ public class BudgetView extends UiPart<Region> {
             this.isSaving = true;
         }
         Label budget = new Label();
-        budget.setText("Budget: " + budgetAmount);
+        String budgetString = String.format("%.2f", budgetAmount);
+        budget.setText("Budget: " + budgetString);
         budget.setTextAlignment(TextAlignment.LEFT);
         budget.setTextFill(Paint.valueOf("000000"));
         budget.setWrapText(true);

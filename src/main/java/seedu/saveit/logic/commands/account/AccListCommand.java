@@ -24,7 +24,7 @@ public class AccListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        String list = model.getAccountList().listAllName();
+        String list = model.getAccountList().listAllNames();
         return new CommandResult(MESSAGE + list);
     }
 

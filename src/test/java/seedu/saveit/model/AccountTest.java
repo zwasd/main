@@ -8,10 +8,8 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalExpenditures.ALICE;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.model.expenditure.Repeat;
-import seedu.saveit.model.expenditure.exceptions.DuplicateExpenditureException;
 import seedu.saveit.testutil.ExpenditureBuilder;
 
 public class AccountTest {
@@ -45,6 +42,7 @@ public class AccountTest {
      }
     */
 
+    /*
     @Test
     public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {
         // Two expenditures with the same identity fields
@@ -53,6 +51,7 @@ public class AccountTest {
         AccountStub newData = new AccountStub(newExpenditures);
         assertThrows(DuplicateExpenditureException.class, () -> account.resetData(newData));
     }
+     */
 
     @Test
     public void hasExpenditure_nullExpenditure_throwsNullPointerException() {
