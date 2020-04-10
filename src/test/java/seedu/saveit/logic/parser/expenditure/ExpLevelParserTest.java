@@ -48,7 +48,7 @@ public class ExpLevelParserTest {
 
     @Test
     public void parseExpCommand_setBudget() throws Exception {
-        YearMonth inputYearMonth = YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue());
+        YearMonth inputYearMonth = YearMonth.from(LocalDate.now());
         ExpSetBudgetCommand command = (ExpSetBudgetCommand) parser.parseCommand(ExpSetBudgetCommand.COMMAND_WORD
                 + " -a 500 -ym " + inputYearMonth.toString());
 

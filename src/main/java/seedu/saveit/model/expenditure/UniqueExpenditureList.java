@@ -99,10 +99,6 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public void setExpenditures(List<Expenditure> expenditures) {
         requireAllNonNull(expenditures);
-        if (!expendituresAreUnique(expenditures)) {
-            throw new DuplicateExpenditureException();
-        }
-
         internalList.setAll(expenditures);
     }
 

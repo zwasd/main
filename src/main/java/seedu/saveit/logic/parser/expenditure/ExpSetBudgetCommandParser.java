@@ -20,8 +20,6 @@ import seedu.saveit.model.expenditure.Amount;
  * Parse set budget.
  */
 public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
-    public ExpSetBudgetCommandParser() {
-    }
 
     @Override
     public ExpSetBudgetCommand parse(String userInput) throws ParseException {
@@ -30,13 +28,11 @@ public class ExpSetBudgetCommandParser implements Parser<ExpSetBudgetCommand> {
                 ArgumentTokenizer.tokenize(userInput, PREFIX_AMOUNT, PREFIX_YEARMONTH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpSetBudgetCommand.MESSAGE_FAIL));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExpSetBudgetCommand.MESSAGE_USAGE));
         }
 
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEARMONTH)
-                .orElseGet(() -> new StringBuilder()
-                        .toString()));
+        YearMonth yearMonth = ParserUtil.parseYearMonth(argMultimap.getValue(PREFIX_YEARMONTH).orElse(""));
         return new ExpSetBudgetCommand(yearMonth, amount);
     }
 

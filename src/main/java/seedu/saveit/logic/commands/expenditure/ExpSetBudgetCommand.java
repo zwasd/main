@@ -1,12 +1,15 @@
 package seedu.saveit.logic.commands.expenditure;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.saveit.logic.parser.CliSyntax.PREFIX_YEARMONTH;
 
 import java.time.YearMonth;
 
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
+import seedu.saveit.logic.parser.expenditure.ExpLevelParser;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.MonthlySpendingCalculator;
 import seedu.saveit.model.budget.Budget;
@@ -19,8 +22,15 @@ public class ExpSetBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "setbudget";
 
-    public static final String MESSAGE_FAIL = "Budget cannot be set";
     public static final String MESSAGE_SUCCESS = "Budget for %s set to $%.2f.";
+    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": Sets the budget for a certain month. "
+            + "\n" + "Parameters: "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + "[" + PREFIX_YEARMONTH + "YEARMONTH] "
+            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " "
+            + PREFIX_AMOUNT + "200.0 "
+            + PREFIX_YEARMONTH + "2020-04";
 
     private YearMonth yearMonth;
     private Amount budgetAmount;
@@ -35,10 +45,10 @@ public class ExpSetBudgetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (this.yearMonth == null) {
-            this.yearMonth = YearMonth.of(model.getActiveDate().getYear(), model.getActiveDate().getMonthValue());
+            this.yearMonth = YearMonth.from(model.getActiveDate());
         }
         model.setBudget(new Budget(yearMonth, budgetAmount));
-        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending(yearMonth);
+        MonthlySpendingCalculator monthlyCalculator = model.getMonthlySpending();
         return new CommandResult(String.format(MESSAGE_SUCCESS, yearMonth.toString(), budgetAmount.value),
                 monthlyCalculator.getBudget(), monthlyCalculator.getTotalSpending());
     }
