@@ -457,6 +457,11 @@ This helps user to organize the expenditure and keep it tidy.
 Especially helpful if there is lots of records.
 |It is much more troublesome to implement.
 |===
+
+==== NOTE
+Dates with negative year are allowed. E.g `-1234-03-21` is allowed. +
+The developer team follows the range which is specified in the
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[LocalDate Api, released by Oracle].
 //end::calendar[]
 
 === Autocomplete feature
