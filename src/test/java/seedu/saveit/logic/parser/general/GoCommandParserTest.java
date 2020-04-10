@@ -37,7 +37,7 @@ public class GoCommandParserTest {
         // no leading and trailing whitespaces
         LocalDate pivot = LocalDate.now();
 
-        GoCommand expectedGoCommand = new GoCommand(pivot, false);
+        GoCommand expectedGoCommand = new GoCommand(pivot);
         assertParseSuccess(parser, pivot.toString(), expectedGoCommand);
 
     }

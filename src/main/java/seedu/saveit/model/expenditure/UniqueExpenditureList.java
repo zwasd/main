@@ -53,9 +53,6 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public void add(Expenditure toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateExpenditureException();
-        }
         internalList.add(toAdd);
     }
 
@@ -102,10 +99,6 @@ public class UniqueExpenditureList implements Iterable<Expenditure> {
      */
     public void setExpenditures(List<Expenditure> expenditures) {
         requireAllNonNull(expenditures);
-        if (!expendituresAreUnique(expenditures)) {
-            throw new DuplicateExpenditureException();
-        }
-
         internalList.setAll(expenditures);
     }
 

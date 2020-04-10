@@ -82,7 +82,7 @@ public class TopLevelParserTest {
     public void parseCommand_go() throws Exception {
         LocalDate goTo = LocalDate.now();
         GoCommand command = (GoCommand) parser.parseCommand(GoCommand.COMMAND_WORD + " " + goTo.toString());
-        assertEquals(new GoCommand(goTo, false), command);
+        assertEquals(new GoCommand(goTo), command);
     }
 
     @Test

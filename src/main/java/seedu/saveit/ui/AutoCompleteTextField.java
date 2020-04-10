@@ -42,7 +42,7 @@ public class AutoCompleteTextField extends TextField {
                 } else {
                     LinkedList<String> searchResult = new LinkedList<>();
                     searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
-                    if (entries.size() > 0) {
+                    if (searchResult.size() > 0) {
                         populatePopup(searchResult);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -66,9 +66,10 @@ public class AutoCompleteTextField extends TextField {
         // TODO: remove this part and make use of AutoCompleteMenuItem
         entries.addAll(Arrays.asList(
             "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
-            "exp add", "exp delete", "exp edit", "exp setbudget",
+            "exp add", "exp edit", "exp delete", "exp list",
             "repeat add", "repeat edit", "repeat delete",
-            "report view", "report export", "report print ", "go", "go today", "help", "exit", "find"
+            "report view", "report export", "report print ",
+            "go", "go today", "help", "exit", "find", "setbudget"
         ));
     }
 

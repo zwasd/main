@@ -14,10 +14,10 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 
 end box
 
-user -> MainWindow : "exp setbudget \n-a 123 -ym 2020-04"
+user -> MainWindow : "setbudget \n-a 123 -ym 2020-04"
 activate MainWindow
 
-MainWindow -> LogicManager : execute("exp setbudget \n-a 123 -ym 2020-04")
+MainWindow -> LogicManager : execute("setbudget \n-a 123 -ym 2020-04")
 activate LogicManager
 
 LogicManager --> MainWindow : result

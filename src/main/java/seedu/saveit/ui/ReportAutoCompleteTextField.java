@@ -49,7 +49,7 @@ public class ReportAutoCompleteTextField extends TextField {
                 } else {
                     LinkedList<String> searchResult = new LinkedList<>();
                     searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
-                    if (entries.size() > 0) {
+                    if (searchResult.size() > 0) {
                         populatePopup(searchResult);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(ReportAutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -103,6 +103,7 @@ public class ReportAutoCompleteTextField extends TextField {
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
                     entriesPopup.hide();
+                    ReportAutoCompleteTextField.this.end();
                 }
             });
             menuItems.add(item);
