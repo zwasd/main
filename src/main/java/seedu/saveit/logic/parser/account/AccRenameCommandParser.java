@@ -25,7 +25,8 @@ public class AccRenameCommandParser implements Parser<AccRenameCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccRenameCommand.MESSAGE_USAGE));
         }
         String [] allName = trimmedArgs.split("\\s+");
-        String oldName, newName;
+        String oldName;
+        String newName;
         if (allName.length == 2) {
             oldName = allName[0];
             newName = allName[1];
@@ -38,7 +39,7 @@ public class AccRenameCommandParser implements Parser<AccRenameCommand> {
         }
 
 
-        if ((oldName != null && oldName.length() >= 26 ) || newName.length() >= 26) {
+        if ((oldName != null && oldName.length() >= 26) || newName.length() >= 26) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NAME_TOO_LONG + "\n" + AccRenameCommand.MESSAGE_USAGE));
         }

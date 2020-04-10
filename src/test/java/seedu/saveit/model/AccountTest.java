@@ -45,6 +45,7 @@ public class AccountTest {
      }
     */
 
+    /*
     @Test
     public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {
         // Two expenditures with the same identity fields
@@ -53,6 +54,7 @@ public class AccountTest {
         AccountStub newData = new AccountStub(newExpenditures);
         assertThrows(DuplicateExpenditureException.class, () -> account.resetData(newData));
     }
+     */
 
     @Test
     public void hasExpenditure_nullExpenditure_throwsNullPointerException() {

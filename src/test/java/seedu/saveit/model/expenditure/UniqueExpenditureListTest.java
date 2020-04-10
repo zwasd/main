@@ -54,11 +54,13 @@ public class UniqueExpenditureListTest {
         assertThrows(NullPointerException.class, () -> uniqueExpenditureList.add(null));
     }
 
+    /*
     @Test
     public void add_duplicateExpenditure_throwsDuplicateExpenditureException() {
         uniqueExpenditureList.add(ALICE);
         assertThrows(DuplicateExpenditureException.class, () -> uniqueExpenditureList.add(ALICE));
     }
+     */
 
     @Test
     public void setExpenditure_nullTargetExpenditure_throwsNullPointerException() {
@@ -160,12 +162,14 @@ public class UniqueExpenditureListTest {
         assertEquals(expectedUniqueExpenditureList, uniqueExpenditureList);
     }
 
+    /*
     @Test
     public void setExpenditures_listWithDuplicateExpenditures_throwsDuplicateExpenditureException() {
         List<Expenditure> listWithDuplicateExpenditures = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateExpenditureException.class, () ->
                 uniqueExpenditureList.setExpenditures(listWithDuplicateExpenditures));
     }
+     */
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {

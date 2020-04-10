@@ -47,6 +47,7 @@ public class AccRenameCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AccRenameCommand // instanceof handles nulls
                 && newName.equals(((AccRenameCommand) other).newName)
-                && oldName.equals(((AccRenameCommand) other).oldName));
+                && (oldName == null && ((AccRenameCommand) other).oldName == null
+                        || oldName != null && oldName.equals(((AccRenameCommand) other).oldName)));
     }
 }
