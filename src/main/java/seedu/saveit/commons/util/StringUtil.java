@@ -91,4 +91,10 @@ public class StringUtil {
             return false;
         }
     }
+
+    public static boolean isAlphanumeric(String s) {
+        requireNonNull(s);
+
+        return s.matches("[a-zA-Z0-9 ]+");
+    }
 }

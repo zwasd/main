@@ -3,6 +3,8 @@ package seedu.saveit.model.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.AppUtil.checkArgument;
 
+import seedu.saveit.commons.util.StringUtil;
+
 /**
  * Represents a Expenditure's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidInfo(String)}
@@ -31,7 +33,7 @@ public class Info {
      */
     public static boolean isValidInfo(String test) {
         requireNonNull(test);
-        return test != null && !test.trim().equals("");
+        return test != null && !test.trim().equals("") && StringUtil.isAlphanumeric(test);
     }
 
 

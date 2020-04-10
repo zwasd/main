@@ -1,8 +1,10 @@
 package seedu.saveit.logic.parser.account;
 
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.saveit.logic.commands.account.AccAddCommand.NAME_CONTAINS_INVALID_CHAR;
 import static seedu.saveit.logic.commands.account.AccAddCommand.NAME_TOO_LONG;
 
+import seedu.saveit.commons.util.StringUtil;
 import seedu.saveit.logic.commands.account.AccRenameCommand;
 import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
@@ -37,6 +39,11 @@ public class AccRenameCommandParser implements Parser<AccRenameCommand> {
         if (oldName.length() >= 26 || newName.length() >= 26 || oldName.length() == 0 || newName.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NAME_TOO_LONG + "\n" + AccRenameCommand.MESSAGE_USAGE));
+        }
+
+        if (!StringUtil.isAlphanumeric(oldName) || !StringUtil.isAlphanumeric(newName)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    NAME_CONTAINS_INVALID_CHAR + "\n" + AccRenameCommand.MESSAGE_USAGE));
         }
 
         return new AccRenameCommand(oldName, newName);

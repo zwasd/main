@@ -320,17 +320,11 @@ public class AccountList implements ReadOnlyAccountList {
         return this.activeAccount.calculateMonthly(givenYearMonth);
     }
 
-
     public MonthlySpendingCalculator getMonthlySpending(String newAccount) {
         YearMonth givenYearMonth = YearMonth.of(this.activeDate.getYear(), this.activeDate.getMonthValue());
         Account acc = accounts.get(newAccount);
         return acc.calculateMonthly(givenYearMonth);
     }
-
-
-
-
-
 
     @Override
     public String getActiveAccount() {

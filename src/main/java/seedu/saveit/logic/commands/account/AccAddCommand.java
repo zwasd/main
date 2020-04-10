@@ -17,6 +17,7 @@ public class AccAddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String NAME_CONTAIN_SPACE = "The account name contains space";
     public static final String NAME_TOO_LONG = "The account name should be less than 26 characters";
+    public static final String NAME_CONTAINS_INVALID_CHAR = "The account name should be alphanumeric";
     public static final String MESSAGE_SUCCESS = "New account added: ";
     public static final String MESSAGE_DUPLICATE_ACCOUNT = "This account name already exists in the $AVE IT";
     public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
