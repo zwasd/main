@@ -19,14 +19,14 @@ Class HiddenLogic #FFFFFF
 }
 
 MainWindow -up-> Logic
-ReportWindow *-- Graph
+ReportWindow *--> Graph
 ReportWindow -up-> Logic
-MainWindow --* ReportWindow
+MainWindow *--> ReportWindow
 
 
-ReportWindow *-down- ReportCommandBox
-ReportWindow *-down- MenuBar
-ReportWindow *-- ResultDisplay
+ReportWindow *-down-> ReportCommandBox
+ReportWindow *-down-> MenuBar
+ReportWindow *--> ResultDisplay
 
 MainWindow -down-|> UiPart
 ReportWindow -down-|> UiPart
