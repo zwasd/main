@@ -46,6 +46,18 @@ public class ExpenditureCard extends UiPart<Region> {
         info.setText(expenditure.getInfo().fullInfo);
         amount.setText("$" + TWO_DP.format(expenditure.getAmount().value));
         tag.setText(expenditure.getTag().tagName);
+
+        if (expenditure.getInfo().fullInfo.length() <= 10) {
+            info.setMinWidth(20 + (10 * expenditure.getInfo().fullInfo.length()));
+        } else {
+            info.setMinWidth(120);
+        }
+
+        if (expenditure.getTag().tagName.length() <= 8) {
+            tag.setMinWidth(20 + (10 * expenditure.getTag().tagName.length()));
+        } else {
+            tag.setMinWidth(100);
+        }
     }
 
     @Override

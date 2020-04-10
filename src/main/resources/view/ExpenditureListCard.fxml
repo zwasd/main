@@ -29,7 +29,7 @@
                         <Insets />
                     </HBox.margin>
                 </Label>
-                <Label fx:id="tag" styleClass="cell_small_label" wrapText="true" minWidth="100" alignment="CENTER" />
+                <Label fx:id="tag" styleClass="cell_small_label" wrapText="true" alignment="CENTER" />
                 <Label fx:id="info" styleClass="cell_big_label" text="\$first" wrapText="true" />
             </HBox>
             <HBox alignment="CENTER_RIGHT">
