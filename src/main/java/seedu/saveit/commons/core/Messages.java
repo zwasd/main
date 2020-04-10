@@ -14,8 +14,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_ACCOUNT_NAME = "The account with the specified name "
             + "\"%1$s\" was not found.\nEnter \"acc list\" to view all accounts";
     public static final String MESSAGE_INVALID_DATE = "The start date provided should be before or equal to end date.";
-    public static final String MESSAGE_INVALID_TYPE_AT_INDEX = "The entry at the index is a(n) %1$s, "
-                                                                + "please use the correct command";
+    public static final String MESSAGE_INVALID_TYPE_AT_INDEX = "The entry at the index is not a %1$s, "
+                                                                + "please use the correct command.";
     public static final String MESSAGE_INVALID_REPEAT_DISPLAYED_INDEX =
             "The repeat index provided is invalid";
 

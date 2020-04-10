@@ -13,35 +13,52 @@ $AVE IT is a desktop budget management application. The user interacts with it u
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Enhancement added*: `calendar` feature in cooperate with  `go` command which provides easy navigation between dates for users.
+** What it does: The `calendar` enables users to navigate between nearby dates easily by just a simple click. While `go` command allows user to navigate to any valid date with just a simple line of command.
+** Justification: There will be occasions when users will just like to view the nearby dates just check their expenditure records.
+Despite that users prefer command line input,but I feel that it is inconvenient for them to keep on type in command line for each of the navigation, thus `calendar` is developed to solve such problem.
+On the other hand, users may also want to navigate to a date which is far away. In this situation, `calendar` will not be helpful, thus `go` command is developed to resolve such issue,
+enable the users to navigate with just a simple line of command. In any of the scenario, we ensure that
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Highlights:
+*** This feature works with other features such as `budget` and `find`.
+**** When users navigate to a different `month`, `budget` will be auto updated to display relevant data for that `month`.
+**** Similarly, this feature is able to function as usual when the user enters `find` mode.
+*** I felt that the implementation was quite challenging because it requires a certain knowledge on how to use tools such as JavaFX and SceneBuilder
+which were used to design the graphical user interface (GUI).
+With no prior experience, the learning curve was steep which required more effort to learn about these tools.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Enhancement added*: `repeat` feature which is a recurring expenditure.
+** What it does: Users can record a fix expenditure records which is recurring daily, weekly, monthly or annually.
+** Justification: It is a norm that users have a certain fixed type of spending such as transport. Thus, the team has take
+into account of such situation and developed `repeat` which caters to such need.
+
+** Highlights:
+*** Initial stage, there is consideration to just make it a mass operation of `exp` type command.
+This approach is much more simpler for the developers, however it will cause lots of inconvenience to the users.
+For example, when users wants to edit all those recurring expenditures' `info`,
+they have to spend time to edit each of them individually and this is very troublesome.
+Thus, I have to change the implementation approach by introducing a `repeat` class.
+This implementation is much more challenging especially when there is data structure and storage involved.
+
+* *Minor enhancement*: helps to develop in developing `budget` feature.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=sp-shaopeng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true[RepoSense Code Dashboard]]
+[https://github.com/sp-shaopeng/SAVEIT[GitHub Repository]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI for calendar view (Pull requests https://github.com/AY1920S2-CS2103T-T10-3/main/pull/86[#86], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/88[#88], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/102[#102])
+*** Wrote additional tests for existing features to increase coverage from 40% to 50% (Pull requests https://github.com/AY1920S2-CS2103T-T10-3/main/pull/213[#213], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/215[#215], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/216[#216])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated developer guide to standardise the style and formatting(Pull requests https://github.com/AY1920S2-CS2103T-T10-3/main/pull/122[#122]).
+*** Added documentation for `calendar` feature in the User Guide. (: https://github.com/AY1920S2-CS2103T-T10-3/main/pull/230[#230]).
+*** Added documentation for `calendar` and `repeat` feature in the Developer Guide. (: https://github.com/AY1920S2-CS2103T-T10-3/main/pull/225[#225]).
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-T10-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/148[#148], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/159[#159]
 
 == Contributions to the User Guide
 
@@ -50,9 +67,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=calendar]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=repeat]
 
 == Contributions to the Developer Guide
 
@@ -60,7 +77,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=repeat]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=calendar]
 
