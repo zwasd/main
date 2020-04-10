@@ -58,6 +58,23 @@ _{ work in progress }_
 
 //tag::repeat[]
 === Repeat
+The _Repeat_ feature allows you to add recurring _expenditures_. +
+You are able to create fixed expenditures records which will be recurring daily, weekly, monthly or annually.
+As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
+"Repeat details" includes the frequency of recurring, start date and end date are displayed.
+
+.`Repeat` display
+image::repeatDisplay.png[]
+
+==== `Repeat` type commands
+`Repeat` has very similar command as `Expenditure`, with just a few of values to be specified. +
+
+Here, we will be using `repeat add` command as an example, while other commands works the same way.
+
+
+
+
+
 _{ work in progress }_
 //end::repeat[]
 
@@ -74,9 +91,10 @@ It can tell you your total spending within a period of time and have your spendi
 categorised either by month or tag. You can have also have a permanent copy
 of the report, through the report printing and export capabilities.
 
-image:report_bar_ss.png[]
-
 .Bar chart report
+image::report_bar_ss.png[]
+
+
 
 This is an example of the report in bar chart format with the expenditures grouped by months.
 The horizontal line represents the expenditures whereas the vertical line shows
@@ -86,10 +104,10 @@ in a similar fashion.
 
 If you are a visual person, you can consider using the pie chart format instead!
 
-
-image:report_pie.png[]
-
 .Pie chart report
+image::report_pie.png[]
+
+
 This is an example of report in pie chart format with the expenditures grouped by
 tags.
 
@@ -100,8 +118,8 @@ to find out how to generate these graphs.
 //tag::calendar[]
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
-  *1*. Users can click on the calendar to traverse between different dates. +
-  *2*. Users can make use of `go` command to navigate to other date.
+  *1*. Users is able to traverse between different dates by clicking on the calendar. +
+  *2*. Users is able to make use of `go` command to navigate to other date.
 
 With reference to the diagram below, *Header* displays the year and month which the
 calendar is displaying. *Box 1* displays the day which you are looking at

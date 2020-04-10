@@ -1,4 +1,4 @@
-== Zheng Shaopeng - Project Portfolio
+= Zheng Shaopeng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
