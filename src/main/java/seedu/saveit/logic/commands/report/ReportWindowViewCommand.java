@@ -1,5 +1,7 @@
 package seedu.saveit.logic.commands.report;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashMap;
 
 import seedu.saveit.logic.commands.ReportCommand;
@@ -11,6 +13,7 @@ import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 import seedu.saveit.ui.Pie;
 
+
 /**
  * View report command in report window.
  */
@@ -20,13 +23,15 @@ public class ReportWindowViewCommand extends ReportCommand {
 
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
+    public static final String MESSAGE_FAIL = "Report cannot be generated";
+
     public static final String MESSAGE_USAGE = "Parameters: \n "
-            + " start date : YYYY-MM-DD  "
+            + "start date : YYYY-MM-DD  "
             + " end date :  YYYY-MM-DD  "
             + " graph type : pie  "
             + " organise : tag "
             + "\n"
-            + "eg: " + " 2020-03-22 " + " 2020-03-25 " + " PIE " + " tag ";
+            + "eg: " + "view 2020-03-22 " + " 2020-03-25 " + " pie " + " tag ";
 
     private HashMap statsToDisplay;
     private Report.GraphType format;
@@ -34,6 +39,7 @@ public class ReportWindowViewCommand extends ReportCommand {
     private Graph graph;
 
     public ReportWindowViewCommand(Report toView) {
+        requireNonNull(toView);
         this.toView = toView;
     }
 
@@ -44,6 +50,8 @@ public class ReportWindowViewCommand extends ReportCommand {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByTags();
         } else if (toView.getOrganise().equals("month")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         format = toView.getFormat();
@@ -52,8 +60,18 @@ public class ReportWindowViewCommand extends ReportCommand {
             graph = new Pie(statsToDisplay, toView.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToDisplay, toView.getOrganise());
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         return new ReportCommandResult(MESSAGE_SUCCESS, graph);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReportWindowViewCommand// instanceof handles nulls
+                && toView.equals(((ReportWindowViewCommand) other).toView));
+
     }
 }

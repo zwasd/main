@@ -69,6 +69,19 @@ public class ParserUtil {
     }
 
     /**
+     * Check if two given date {@code Date startDate and Date endDate} are in the right order.
+     * @throws ParseException if the given {@code Date startDate and Date endDate} are in the wrong order.
+     */
+    public static boolean checkDateRange(Date startDate, Date endDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        if (!Date.isValidDateRange(startDate, endDate)) {
+            throw new ParseException(Date.START_END_MESSAGE_CONSTRAINTS);
+        }
+        return true;
+    }
+
+    /**
      * Parses a {@code String amount} into an {@code Amount}.
      * Leading and trailing whitespaces will be trimmed.
      *

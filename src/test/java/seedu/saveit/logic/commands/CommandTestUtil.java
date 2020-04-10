@@ -50,7 +50,7 @@ public class CommandTestUtil {
     public static final String DATE_DESC_MRT = " " + PREFIX_DATE + VALID_DATE_MRT;
     public static final String TAG_DESC_TRANSPORT = " " + PREFIX_TAG + VALID_TAG_TRANSPORT;
     public static final String TAG_DESC_BUS = " " + PREFIX_TAG + VALID_TAG_BUS;
-    public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + "James&"; // '&' not allowed in infos
+    public static final String INVALID_INFO_DESC = " " + PREFIX_INFO + ""; // '' not allowed in infos
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "bob!yahoo"; // a string
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -59,6 +59,7 @@ public class CommandTestUtil {
 
 
     public static final String VALID_START_DATE_BUS = "2019-01-02";
+    public static final String VALID_START_DATE_BUS_ALT = "2019-02-01";
     public static final String VALID_END_DATE_BUS = "2019-04-03";
     public static final String START_DATE_DESC_BUS = " " + PREFIX_START_DATE + VALID_START_DATE_BUS;
     public static final String END_DATE_DESC_BUS = " " + PREFIX_END_DATE + VALID_END_DATE_BUS;
@@ -88,7 +89,8 @@ public class CommandTestUtil {
     public static final String VALID_GRAPH_PIE_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_PIE_CAPS;
     public static final String INVALID_GRAPH_DESC = " " + PREFIX_GRAPH + INVALID_GRAPH;
     public static final String VALID_FILE_NAME = "Hello";
-    public static final String INVALID_FILE_NAME = "H e l l o";
+    public static final String VALID_FILE_NAME_ALT = "hey";
+    public static final String INVALID_FILE_NAME = " ";
     public static final String VALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + VALID_FILE_NAME;
     public static final String INVALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + INVALID_FILE_NAME;
     public static final String VALID_ORGANISATION_TAG = "tag";
@@ -97,7 +99,6 @@ public class CommandTestUtil {
     public static final String VALID_ORGANISATION_TAG_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_TAG;
     public static final String VALID_ORGANISATION_MONTH_DESC = " " + PREFIX_ORGANISE + VALID_ORGANISATION_MONTH;
     public static final String INVALID_ORGANISATION_DESC = " " + PREFIX_ORGANISE + INVALID_ORGANISATION;
-
 
 
     public static final EditExpenditureDescriptor DESC_AMY;
@@ -128,6 +129,23 @@ public class CommandTestUtil {
     }
 
     /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(ReportCommand command, Model actualModel,
+                                            ReportCommandResult expectedCommandResult,
+                                            Model expectedModel) {
+        try {
+            ReportCommandResult result = command.execute(actualModel);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
@@ -135,6 +153,35 @@ public class CommandTestUtil {
                                             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(ReportCommand command, Model actualModel, String expectedMessage,
+                                            Model expectedModel) {
+        ReportCommandResult expectedCommandResult = new ReportCommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book, filtered expenditure list and selected expenditure in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(ReportCommand command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+
+        AccountList expectedAccountList = new AccountList(actualModel.getAccountList());
+        List<Expenditure> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenditureList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedAccountList, actualModel.getAccountList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredExpenditureList());
     }
 
     /**

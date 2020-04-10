@@ -39,7 +39,7 @@ public class Amount {
      */
     public static boolean isValidAmount(double test) {
         requireNonNull(test);
-        return test >= 0 && test < 1000000000 && Math.floor(test * 100) / 100 == test;
+        return test > 0 && test < 1000000000 && Math.floor(test * 100) / 100 == test;
     }
 
     /**

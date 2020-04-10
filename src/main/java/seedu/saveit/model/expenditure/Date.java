@@ -17,8 +17,10 @@ public class Date {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_DATE;
 
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in a format of (YYYY-MM-DD), "
+    public static final String MESSAGE_CONSTRAINTS = "Invalid date! Date should be in a format of (YYYY-MM-DD), "
                                                         + "and it should not be blank";
+
+    public static final String START_END_MESSAGE_CONSTRAINTS = "Start date should not be after end date!";
 
     public static final String YEARMONTH_MESSAGE_CONSTRAINTS = "Year and Month should be in the format of (YYYY-MM), "
                                                                 + "and it should not be blank";
@@ -52,6 +54,15 @@ public class Date {
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if two given date, first is after the another.
+     */
+    public static boolean isValidDateRange(Date startDate, Date endDate) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        return !startDate.localDate.isAfter(endDate.localDate);
     }
 
 

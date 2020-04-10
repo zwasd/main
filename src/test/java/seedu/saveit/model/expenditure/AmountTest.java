@@ -45,6 +45,6 @@ public class AmountTest {
         // valid
         assertTrue(Amount.isValidAmount(123.33));
         assertTrue(Amount.isValidAmount("123.1"));
-        assertTrue(Amount.isValidAmount("0"));
+        assertTrue(Amount.isValidAmount("0.1"));
     }
 }

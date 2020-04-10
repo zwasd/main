@@ -28,7 +28,7 @@ public class ReportBuilder {
 
     public ReportBuilder() {
         try {
-            this.graphType = Report.GraphType.mapToGraphType(VALID_GRAPH_BAR_CAPS);
+            this.graphType = Report.GraphType.mapToGraphType(DEFAULT_GRAPH_TYPE);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class ReportBuilder {
             this.graphType = Report.GraphType.mapToGraphType(graphType);
         } catch (ParseException e) {
             e.printStackTrace();
-        };
+        }
         return this;
     }
 

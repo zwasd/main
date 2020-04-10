@@ -25,7 +25,6 @@ public class ExportFile {
     private Graph graph;
 
     public ExportFile(String fileName, Graph graph) {
-
         this.fileName = fileName;
         this.graph = graph;
     }
@@ -53,16 +52,29 @@ public class ExportFile {
 
     /**
      * Checks if {@code String fileName} is a valid file name
+     *
      * @param fileName of file.
      * @return true if fileName if valid and false, otherwise.
      */
     public static boolean isValidFileName(String fileName) {
 
-        if (fileName.contains(" ")) {
+        if (fileName.contains(" ") || !(fileName.length() > 0)) {
             return false;
         }
         return true;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else {
+            if (obj instanceof ExportFile) {
+                ExportFile f = (ExportFile) obj;
+                return graph.equals(f.graph)
+                        && fileName.equals(f.fileName);
+            }
+        }
+        return false;
+    }
 }

@@ -1,5 +1,6 @@
 package seedu.saveit.logic.commands.report;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
@@ -41,7 +42,7 @@ public class ExportReportCommand extends Command {
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "
             + PREFIX_GRAPH + " pie "
-            + PREFIX_ORGANISE + " tag"
+            + PREFIX_ORGANISE + " tag "
             + PREFIX_FILENAME + " Report ";
 
     private final Report toExport;
@@ -51,6 +52,8 @@ public class ExportReportCommand extends Command {
     private String fileName;
 
     public ExportReportCommand(Report toExport, String fileName) {
+        requireNonNull(toExport);
+        requireNonNull(fileName);
         this.toExport = toExport;
         this.fileName = fileName;
     }
@@ -62,6 +65,8 @@ public class ExportReportCommand extends Command {
             statsToExport = new GenerateStats(toExport, model).generateStatsByTags();
         } else if (toExport.getOrganise().equals("month")) {
             statsToExport = new GenerateStats(toExport, model).generateStatsByMonth();
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         format = toExport.getFormat();
@@ -70,6 +75,8 @@ public class ExportReportCommand extends Command {
             graph = new Pie(statsToExport, toExport.getOrganise());
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToExport, toExport.getOrganise());
+        } else {
+            throw new CommandException(MESSAGE_FAIL);
         }
 
         ExportFile f = new ExportFile(fileName, graph);
@@ -80,7 +87,8 @@ public class ExportReportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExportReportCommand // instanceof handles nulls
-                && toExport.equals(((ExportReportCommand) other).toExport));
+                && toExport.equals(((ExportReportCommand) other).toExport)
+                && fileName.equals(((ExportReportCommand) other).fileName));
 
     }
 

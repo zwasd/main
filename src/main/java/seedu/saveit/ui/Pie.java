@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,13 +34,13 @@ public class Pie extends Graph {
 
         PieChart pie = new PieChart();
         pie.setTitle("Expenditure Breakdown");
-        pie.setLabelLineLength(10);
+        pie.setStartAngle(180.0);
         pie.setLegendSide(Side.RIGHT);
-        Set set = stats.keySet();
-        Iterator itr = set.iterator();
 
         if (organise.equals("tag")) {
 
+            Set set = stats.keySet();
+            Iterator itr = set.iterator();
             while (itr.hasNext()) {
 
                 Tag index = ((Tag) itr.next());
@@ -50,7 +52,18 @@ public class Pie extends Graph {
 
             assert organise.equals("month");
 
-            TreeMap sortedStats = new TreeMap(stats);
+            TreeMap sortedStats = new TreeMap(new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    YearMonth ym1 = YearMonth.parse(o1);
+                    YearMonth ym2 = YearMonth.parse(o2);
+                    return ym1.compareTo(ym2);
+                }
+            });
+
+            sortedStats.putAll(stats);
+            Set set = sortedStats.keySet();
+            Iterator itr = set.iterator();
             while (itr.hasNext()) {
                 String month = (String) itr.next();
                 PieChart.Data data = new PieChart.Data(month, (double) sortedStats.get(month));
@@ -61,4 +74,14 @@ public class Pie extends Graph {
         return pie;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Pie) {
+            return stats.equals(((Pie) obj).stats)
+                    && organise.equals(((Pie) obj).organise);
+        }
+        return false;
+    }
 }
