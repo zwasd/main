@@ -17,7 +17,7 @@ import seedu.saveit.logic.commands.expenditure.ExpAddCommand;
 import seedu.saveit.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.saveit.logic.commands.expenditure.ExpSetBudgetCommand;
+import seedu.saveit.logic.commands.expenditure.SetBudgetCommand;
 import seedu.saveit.logic.commands.general.HelpCommand;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.model.expenditure.Amount;
@@ -49,10 +49,10 @@ public class ExpLevelParserTest {
     @Test
     public void parseExpCommand_setBudget() throws Exception {
         YearMonth inputYearMonth = YearMonth.from(LocalDate.now());
-        ExpSetBudgetCommand command = (ExpSetBudgetCommand) parser.parseCommand(ExpSetBudgetCommand.COMMAND_WORD
+        SetBudgetCommand command = (SetBudgetCommand) parser.parseCommand(SetBudgetCommand.COMMAND_WORD
                 + " -a 500 -ym " + inputYearMonth.toString());
 
-        assertEquals(new ExpSetBudgetCommand(inputYearMonth, new Amount(500)), command);
+        assertEquals(new SetBudgetCommand(inputYearMonth, new Amount(500)), command);
     }
 
 

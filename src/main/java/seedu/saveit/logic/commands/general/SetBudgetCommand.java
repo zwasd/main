@@ -1,4 +1,4 @@
-package seedu.saveit.logic.commands.expenditure;
+package seedu.saveit.logic.commands.general;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_AMOUNT;
@@ -18,7 +18,7 @@ import seedu.saveit.model.expenditure.Amount;
 /**
  * Set budget.
  */
-public class ExpSetBudgetCommand extends Command {
+public class SetBudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "setbudget";
 
@@ -35,7 +35,7 @@ public class ExpSetBudgetCommand extends Command {
     private YearMonth yearMonth;
     private Amount budgetAmount;
 
-    public ExpSetBudgetCommand(YearMonth yearMonth, Amount budgetAmount) {
+    public SetBudgetCommand(YearMonth yearMonth, Amount budgetAmount) {
         requireNonNull(budgetAmount);
         this.yearMonth = yearMonth;
         this.budgetAmount = budgetAmount;
@@ -56,8 +56,8 @@ public class ExpSetBudgetCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExpSetBudgetCommand // instanceof handles nulls
-                && yearMonth.equals(((ExpSetBudgetCommand) other).yearMonth)
-                && budgetAmount.equals(((ExpSetBudgetCommand) other).budgetAmount));
+                || (other instanceof SetBudgetCommand // instanceof handles nulls
+                && yearMonth.equals(((SetBudgetCommand) other).yearMonth)
+                && budgetAmount.equals(((SetBudgetCommand) other).budgetAmount));
     }
 }

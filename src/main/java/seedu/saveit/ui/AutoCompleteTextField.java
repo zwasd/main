@@ -66,9 +66,10 @@ public class AutoCompleteTextField extends TextField {
         // TODO: remove this part and make use of AutoCompleteMenuItem
         entries.addAll(Arrays.asList(
             "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
-            "exp add", "exp edit", "exp delete", "exp list", "exp setbudget",
+            "exp add", "exp edit", "exp delete", "exp list",
             "repeat add", "repeat edit", "repeat delete",
-            "report view", "report export", "report print ", "go", "go today", "help", "exit", "find"
+            "report view", "report export", "report print ",
+            "go", "go today", "help", "exit", "find", "setbudget"
         ));
     }
 
