@@ -67,9 +67,13 @@ image:acc_checkout_Home.png[]
 Refer to <<Account command, Account Command>> for more details on commands, including renaming, deletion and clearing of data.
 
 === Expenditures
-_{ work in progress }_
+This feature forms the basis of our application. Use it to track your daily expenses!
 
-Refer to <<Expenditure command, Expenditure Command>> for more details.
+
+.Example list of expenditures
+image::exp_list.png[]
+
+Refer to <<Expenditure command, Expenditure Command>> for more details on how to add, edit, and delete expenditures.
 
 === Repeat
 _{ work in progress }_
@@ -337,10 +341,10 @@ Deletes the account named `school`.
 === Expenditure command
 
 [[exp-setbudget]]
-==== Setting the budget: `exp setbudget`
+==== Setting the budget: `setbudget`  {work in progress}
 
 Sets the budget amount in an account for the specified month. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
 
 ****
 * `AMOUNT` is the amount of the budget (in dollars). It must be positive up
@@ -363,13 +367,13 @@ Adds an expenditure to the current account in $AVE IT. +
 Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
 
 ****
-* `INFO` is the information of the expenditure.
-* `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
+* `INFO` contains a description of what you spent on.
+* `AMOUNT` is how much you have spent (in dollars). It must be positive up
 to 2 decimal point and less than 1 billion.
-* `TAG` is the category of the expenditure. The default category is `Others`.
-You can only specify a category.
-* `DATE` is the date of the expenditure. The date will be the day's date when
-not specified.
+* `TAG` is the category of the expenditure. The default tag is `Others`.
+Each expenditure belongs to only one tag.
+* `DATE` is the date on which the expenditure happened. When not specified, will default to the active date
+(as shown in the middle section, or by the coloured date in the calendar)
 ****
 
 Examples:
@@ -394,9 +398,10 @@ Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
 Examples:
 
 * `exp edit 1 -i veg rice` +
-Edits the info of expenditure with index `1` to `veg rice`.
+Updates the info of expenditure with index `1` to `veg rice`.
 
-* `exp edit 3 -a 3.23 -t transport -d 2020-02-02`
+* `exp edit 3 -a 3.23 -t transport -d 2020-02-02` +
+Updates the amount, tag & date attributes to the new values.
 
 [[exp-delete]]
 ==== Deleting an expenditure: `exp delete`
@@ -490,7 +495,7 @@ Example:
 Deletes the repeated expenditure with index `4`.
 
 [[cmd-find]]
-=== Locating both repeat and normal expenditures by keyword: `find`
+=== Locating both repeats and normal expenditures by keyword: `find`
 
 Find expenditures (both single and repeated) which contain the keyword(s). +
 Format: `find [KEYWORD...]`
