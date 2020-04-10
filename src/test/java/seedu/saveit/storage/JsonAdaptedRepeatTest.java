@@ -15,7 +15,7 @@ import seedu.saveit.model.expenditure.Tag;
 import seedu.saveit.testutil.TypicalRepeats;
 
 public class JsonAdaptedRepeatTest {
-    private static final String INVALID_INFO = "  ";
+    private static final String INVALID_INFO = "F@od";
     private static final String INVALID_START_DATE = " ";
     private static final String INVALID_END_DATE = "2020-02-31";
     private static final double INVALID_AMOUNT = -1;

@@ -33,7 +33,7 @@ public class Info {
      */
     public static boolean isValidInfo(String test) {
         requireNonNull(test);
-        return test != null && !test.trim().equals("") && StringUtil.isAlphanumeric(test);
+        return !test.trim().equals("") && StringUtil.isAlphanumeric(test);
     }
 
 

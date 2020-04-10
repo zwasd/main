@@ -20,7 +20,7 @@ public class AccRenameCommand extends Command {
 
     public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": renames an account to the specified new name\n"
-            + "Parameters: OLD_NAME NEW_NAME "
+            + "Parameters: [OLD_NAME] NEW_NAME "
             + "(each is one word containing only alphanumeric characters, less than 26 characters)\n"
             + "Example: " + AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " default school";
 
