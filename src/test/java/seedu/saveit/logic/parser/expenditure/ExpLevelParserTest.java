@@ -7,9 +7,6 @@ import static seedu.saveit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalIndexes.INDEX_FIRST_EXPENDITURE;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.saveit.logic.commands.expenditure.ExpAddCommand;
@@ -17,10 +14,8 @@ import seedu.saveit.logic.commands.expenditure.ExpAddCommand;
 import seedu.saveit.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand.EditExpenditureDescriptor;
-import seedu.saveit.logic.commands.expenditure.ExpSetBudgetCommand;
 import seedu.saveit.logic.commands.general.HelpCommand;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.expenditure.Amount;
 import seedu.saveit.model.expenditure.Expenditure;
 import seedu.saveit.testutil.EditExpenditureDescriptorBuilder;
 import seedu.saveit.testutil.ExpenditureBuilder;
@@ -46,14 +41,16 @@ public class ExpLevelParserTest {
         assertEquals(new ExpDeleteCommand(INDEX_FIRST_EXPENDITURE), command);
     }
 
+    /* TODO budget test class
     @Test
     public void parseExpCommand_setBudget() throws Exception {
-        YearMonth inputYearMonth = YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue());
-        ExpSetBudgetCommand command = (ExpSetBudgetCommand) parser.parseCommand(ExpSetBudgetCommand.COMMAND_WORD
+        YearMonth inputYearMonth = YearMonth.from(LocalDate.now());
+        SetBudgetCommand command = (SetBudgetCommand) parser.parseCommand(SetBudgetCommand.COMMAND_WORD
                 + " -a 500 -ym " + inputYearMonth.toString());
 
-        assertEquals(new ExpSetBudgetCommand(inputYearMonth, new Amount(500)), command);
+        assertEquals(new SetBudgetCommand(inputYearMonth, new Amount(500)), command);
     }
+     */
 
 
     @Test

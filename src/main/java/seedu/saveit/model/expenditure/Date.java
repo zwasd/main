@@ -41,7 +41,7 @@ public class Date {
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         value = date;
         localDate = LocalDate.parse(date, FORMATTER);
-        this.yearMonth = YearMonth.of(localDate.getYear(), localDate.getMonthValue());
+        this.yearMonth = YearMonth.from(localDate);
     }
 
     /**

@@ -31,12 +31,12 @@ public class GoCommandParser implements Parser<GoCommand> {
         }
 
         if (trimmedArgs.equals("today")) {
-            return new GoCommand(LocalDate.now(), false);
+            return new GoCommand(LocalDate.now());
         }
 
         try {
             LocalDate targetDate = LocalDate.parse(trimmedArgs, DateTimeFormatter.ISO_DATE);
-            return new GoCommand(targetDate, false);
+            return new GoCommand(targetDate);
         } catch (DateTimeParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoCommand.MESSAGE_USAGE));
         }

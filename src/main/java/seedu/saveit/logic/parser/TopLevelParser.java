@@ -12,12 +12,14 @@ import seedu.saveit.logic.commands.general.ExitCommand;
 import seedu.saveit.logic.commands.general.FindCommand;
 import seedu.saveit.logic.commands.general.GoCommand;
 import seedu.saveit.logic.commands.general.HelpCommand;
+import seedu.saveit.logic.commands.general.SetBudgetCommand;
 import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 import seedu.saveit.logic.parser.expenditure.ExpLevelParser;
 import seedu.saveit.logic.parser.general.FindCommandParser;
 import seedu.saveit.logic.parser.general.GoCommandParser;
 import seedu.saveit.logic.parser.general.HelpCommandParser;
+import seedu.saveit.logic.parser.general.SetBudgetCommandParser;
 import seedu.saveit.logic.parser.repeat.RepeatLevelParser;
 import seedu.saveit.logic.parser.report.ReportLevelParser;
 
@@ -76,6 +78,9 @@ public class TopLevelParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case SetBudgetCommand.COMMAND_WORD:
+            return new SetBudgetCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
