@@ -10,14 +10,13 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS_ALT;
 import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
 
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.saveit.logic.commands.CommandResult;
+import seedu.saveit.logic.commands.ReportCommandResult;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.ModelManager;
 import seedu.saveit.model.UserPrefs;
@@ -25,14 +24,8 @@ import seedu.saveit.testutil.ReportBuilder;
 import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 
+public class ReportWindowViewCommandTest {
 
-public class ViewReportCommandTest {
-
-
-    @Test
-    public void constructor_nullExpenditure_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ViewReportCommand(null));
-    }
 
     @Test
     public void equals() {
@@ -43,21 +36,21 @@ public class ViewReportCommandTest {
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(VALID_ORGANISATION_MONTH);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
-        ViewReportCommand command2 = new ViewReportCommand(rp.build());
+        ReportWindowViewCommand command1 = new ReportWindowViewCommand(rp.build());
+        ReportWindowViewCommand command2 = new ReportWindowViewCommand(rp.build());
 
         assertTrue(command1.equals(command2));
 
         //different start date
         rp.withStartDate(VALID_START_DATE_BUS_ALT);
-        ViewReportCommand command3 = new ViewReportCommand(rp.build());
+        ReportWindowViewCommand command3 = new ReportWindowViewCommand(rp.build());
         assertFalse(command1.equals(command3));
 
         rp.withStartDate(VALID_START_DATE_BUS);
 
         //different end date
         rp.withEndDate(VALID_START_DATE_BUS_ALT);
-        ViewReportCommand command4 = new ViewReportCommand(rp.build());
+        ReportWindowViewCommand command4 = new ReportWindowViewCommand(rp.build());
         assertFalse(command1.equals(command4));
 
     }
@@ -70,10 +63,10 @@ public class ViewReportCommandTest {
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(VALID_ORGANISATION_MONTH);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
+        ReportWindowViewCommand command1 = new ReportWindowViewCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
         Graph graph = new Bar(new HashMap(), VALID_ORGANISATION_MONTH);
-        CommandResult r = new CommandResult(ViewReportCommand.MESSAGE_SUCCESS, graph, false, true, false);
+        ReportCommandResult r = new ReportCommandResult(ReportWindowViewCommand.MESSAGE_SUCCESS, graph);
 
         assertCommandSuccess(command1, model, r, model);
     }
@@ -87,9 +80,9 @@ public class ViewReportCommandTest {
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(INVALID_ORGANISATION);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
+        ReportWindowViewCommand command1 = new ReportWindowViewCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-        assertCommandFailure(command1, model, ViewReportCommand.MESSAGE_FAIL);
+        assertCommandFailure(command1, model, ReportWindowViewCommand.MESSAGE_FAIL);
     }
 }

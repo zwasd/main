@@ -70,7 +70,7 @@ public class ReportAutoCompleteTextField extends TextField {
         });
 
         entries.addAll(Arrays.asList(
-                "export", "exit", "print", "view"
+                "export", "exit", "print", "view", "help"
         ));
     }
 

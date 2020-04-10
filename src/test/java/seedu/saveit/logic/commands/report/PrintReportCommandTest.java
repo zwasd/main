@@ -26,12 +26,13 @@ import seedu.saveit.ui.Bar;
 import seedu.saveit.ui.Graph;
 
 
-public class ViewReportCommandTest {
-
+public class PrintReportCommandTest {
 
     @Test
     public void constructor_nullExpenditure_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ViewReportCommand(null));
+
+        assertThrows(NullPointerException.class, () -> new PrintReportCommand(null));
+
     }
 
     @Test
@@ -43,53 +44,54 @@ public class ViewReportCommandTest {
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(VALID_ORGANISATION_MONTH);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
-        ViewReportCommand command2 = new ViewReportCommand(rp.build());
+        PrintReportCommand command1 = new PrintReportCommand(rp.build());
+        PrintReportCommand command2 = new PrintReportCommand(rp.build());
 
         assertTrue(command1.equals(command2));
 
         //different start date
         rp.withStartDate(VALID_START_DATE_BUS_ALT);
-        ViewReportCommand command3 = new ViewReportCommand(rp.build());
+        PrintReportCommand command3 = new PrintReportCommand(rp.build());
         assertFalse(command1.equals(command3));
 
         rp.withStartDate(VALID_START_DATE_BUS);
 
         //different end date
         rp.withEndDate(VALID_START_DATE_BUS_ALT);
-        ViewReportCommand command4 = new ViewReportCommand(rp.build());
+        PrintReportCommand command4 = new PrintReportCommand(rp.build());
         assertFalse(command1.equals(command4));
 
     }
 
     @Test
     public void executeSuccess() {
+
         ReportBuilder rp = new ReportBuilder()
                 .withStartDate(VALID_START_DATE_BUS)
                 .withEndDate(VALID_END_DATE_BUS)
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(VALID_ORGANISATION_MONTH);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
+        PrintReportCommand command1 = new PrintReportCommand(rp.build());
         Graph graph = new Bar(new HashMap(), VALID_ORGANISATION_MONTH);
-        CommandResult r = new CommandResult(ViewReportCommand.MESSAGE_SUCCESS, graph, false, true, false);
-
+        CommandResult r = new CommandResult(PrintReportCommand.MESSAGE_SUCCESS, graph, false, false, true);
         assertCommandSuccess(command1, model, r, model);
     }
 
     @Test
     public void executeFailure() {
-
         ReportBuilder rp = new ReportBuilder()
                 .withStartDate(VALID_START_DATE_BUS)
                 .withEndDate(VALID_END_DATE_BUS)
                 .withGraphType(VALID_GRAPH_BAR_CAPS)
                 .withOrganise(INVALID_ORGANISATION);
 
-        ViewReportCommand command1 = new ViewReportCommand(rp.build());
+        PrintReportCommand command1 = new PrintReportCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-        assertCommandFailure(command1, model, ViewReportCommand.MESSAGE_FAIL);
+        assertCommandFailure(command1, model, PrintReportCommand.MESSAGE_FAIL);
     }
+
+
 }

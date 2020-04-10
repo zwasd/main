@@ -16,6 +16,6 @@ public class ReportWindowPrintCommand extends ReportCommand {
 
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
-        return new ReportCommandResult(MESSAGE_PRINT, false, false, true);
+        return new ReportCommandResult(MESSAGE_PRINT, false, false, true, false, false);
     }
 }

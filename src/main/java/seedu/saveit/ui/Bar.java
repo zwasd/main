@@ -109,5 +109,16 @@ public class Bar extends Graph {
 
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Bar) {
+            return stats.equals(((Bar) obj).stats)
+                    && organise.equals(((Bar) obj).organise);
+        }
+        return false;
+    }
+
 
 }
