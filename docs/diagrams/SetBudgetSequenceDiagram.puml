@@ -1,0 +1,102 @@
+@startuml
+!include style.puml
+title Set Budget Sequence Diagram
+box Logic LOGIC_COLOR_T1
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":ExpLevelParser" as ExpLevelParser LOGIC_COLOR
+participant ":ExpSetBudgetCommandParser" as ExpSetBudgetCommandParser LOGIC_COLOR
+participant ":ExpSetBudgetCommand" as ExpSetBudgetCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "budget:Budget" as Budget MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":MonthlySpendingCalculator" as MonthlySpendingCalculator MODEL_COLOR
+end box
+
+box Pie UI_COLOR_T1
+end box
+
+[-> TopLevelParser : parseCommand(\n"exp setbudget \n-a 123 -ym 2020-04")
+activate TopLevelParser
+
+create ExpLevelParser
+TopLevelParser -> ExpLevelParser
+activate ExpLevelParser
+TopLevelParser -> ExpLevelParser : parseCommand(\n"setbudget \n-a 123 -ym 2020-04")
+
+create ExpSetBudgetCommandParser
+ExpLevelParser -> ExpSetBudgetCommandParser
+activate ExpSetBudgetCommandParser
+ExpLevelParser -> ExpSetBudgetCommandParser : parse(\n"-a 123 -ym 2020-04")
+
+create ExpSetBudgetCommand
+ExpSetBudgetCommandParser -> ExpSetBudgetCommand
+activate ExpSetBudgetCommand
+
+ExpSetBudgetCommand --> ExpSetBudgetCommandParser : sbc
+deactivate ExpSetBudgetCommand
+
+ExpSetBudgetCommandParser --> ExpLevelParser : sbc
+deactivate ExpSetBudgetCommandParser
+
+[<-[hidden]- ExpSetBudgetCommandParser
+destroy ExpSetBudgetCommandParser
+
+TopLevelParser <-- ExpLevelParser : sbc
+deactivate ExpLevelParser
+
+[<-- TopLevelParser
+deactivate TopLevelParser
+
+[<-[hidden]-ExpLevelParser
+destroy ExpLevelParser
+
+[<-[hidden]- TopLevelParser
+destroy TopLevelParser
+
+
+
+[-> ExpSetBudgetCommand : execute()
+activate ExpSetBudgetCommand
+
+create Budget
+ExpSetBudgetCommand -> Budget
+activate Budget
+
+Budget --> ExpSetBudgetCommand : budget
+deactivate Budget
+
+ExpSetBudgetCommand -> Model : setBudget(budget)
+activate Model
+
+Model --> ExpSetBudgetCommand
+deactivate Model
+
+ExpSetBudgetCommand -> Model : getMonthlySpending()
+activate Model
+
+Model -> MonthlySpendingCalculator
+activate MonthlySpendingCalculator
+
+MonthlySpendingCalculator --> Model : m
+deactivate MonthlySpendingCalculator
+
+Model --> ExpSetBudgetCommand : m
+deactivate Model
+
+create CommandResult
+ExpSetBudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ExpSetBudgetCommand : result
+deactivate CommandResult
+
+[<-- ExpSetBudgetCommand : result
+deactivate ExpSetBudgetCommand
+
+[<-[hidden]- ExpSetBudgetCommand
+destroy ExpSetBudgetCommand
+
+@enduml

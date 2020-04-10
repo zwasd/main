@@ -19,7 +19,7 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Expenditure {
-Class BaseExp <<Abstract>>
+Class "{abstract}\nBaseExp" as BaseExp
 Class Expenditure
 Class Repeat
 Class Amount
@@ -49,8 +49,8 @@ Account *--> "1" UniqueExpenditureList
 Account *--> "*" Repeat
 AccountList *--> "*" Account
 
-Repeat .up.|> BaseExp
-Expenditure .up.|> BaseExp
+Repeat -up-|> BaseExp
+Expenditure -up-|> BaseExp
 UniqueExpenditureList o--> "*" Expenditure
 BaseExp *--> "1" Amount
 BaseExp *--> "1" Tag
