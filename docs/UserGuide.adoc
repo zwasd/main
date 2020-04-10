@@ -55,8 +55,12 @@ _{ work in progress }_
 === Expenditures
 _{ work in progress }_
 
+
+//tag::repeat[]
 === Repeat
 _{ work in progress }_
+//end::repeat[]
+
 
 === Budget
 _{ work in progress }_
@@ -92,6 +96,8 @@ tags.
 If you are interested to find out more, you can explore <<Report command, Report Command>>
 to find out how to generate these graphs.
 
+
+//tag::calendar[]
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
   *1*. Users can click on the calendar to traverse between different dates. +
@@ -141,7 +147,7 @@ image::goCommandResponse.png[]
 .`calendar` and expenditure records are updated accordingly.
 image::updateViewForGoCommand.png[]
 
-
+// end::calendar[]
 === Autocomplete
 _{ work in progress }_
 
