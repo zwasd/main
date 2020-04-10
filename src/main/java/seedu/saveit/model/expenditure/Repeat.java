@@ -406,6 +406,14 @@ public class Repeat extends BaseExp {
 
         HashMap<String, Double> output = new HashMap<>();
 
+        //if is same month and year
+        if (adjustedStart.localDate.getMonth() == adjustedEnd.localDate.getMonth()
+                && adjustedStart.localDate.getYear() == adjustedEnd.localDate.getYear()) {
+            output.put(String.valueOf(YearMonth.from(adjustedStart.localDate)),
+                    calculateDaily(adjustedStart, adjustedEnd));
+            return output;
+        }
+
 
         // get eom for start date
         LocalDate endOfMonthOfStartLocalDate = YearMonth.from(adjustedStart.localDate).atEndOfMonth();
@@ -416,12 +424,12 @@ public class Repeat extends BaseExp {
                 calculateDaily(adjustedStart, endOfMonthOfStartDate));
 
         //middle months expenditure
-        YearMonth currentMonth = YearMonth.from(adjustedStart.localDate.plusMonths(1));
+        YearMonth currentMonthYear = YearMonth.from(adjustedStart.localDate.plusMonths(1));
         YearMonth end = YearMonth.from(adjustedEnd.localDate.minusMonths(1));
 
-        while (!currentMonth.isAfter(end)) {
-            output.put(String.valueOf(currentMonth), calculateDaily(currentMonth));
-            currentMonth = currentMonth.plusMonths(1);
+        while (!currentMonthYear.isAfter(end)) {
+            output.put(String.valueOf(currentMonthYear), calculateDaily(currentMonthYear));
+            currentMonthYear = currentMonthYear.plusMonths(1);
         }
 
         //last month expenditure
@@ -482,11 +490,6 @@ public class Repeat extends BaseExp {
      */
     public double calculateWkOrMthOrYr(Date startDate, Date endDate) {
 
-        //if is same month
-        if (startDate.localDate.getMonth() == endDate.localDate.getMonth()) {
-            return calculateRepeatTillEndDate(startDate.localDate, endDate.localDate);
-        }
-
 
         LocalDate adjustedStart = null;
         LocalDate adjustedEnd = null;
@@ -516,6 +519,12 @@ public class Repeat extends BaseExp {
 
         assert adjustedEnd != null && adjustedStart != null;
 
+        //if is same month and year
+        if (adjustedStart.getMonth() == adjustedEnd.getMonth()
+                && adjustedStart.getYear() == adjustedEnd.getYear()) {
+            return calculateRepeatTillEndDate(adjustedStart, adjustedEnd);
+        }
+
         double amount = 0;
 
         if (adjustedStart.getDayOfMonth() != 1) {
@@ -528,6 +537,7 @@ public class Repeat extends BaseExp {
             adjustedStart = YearMonth.from(adjustedStart.plusMonths(1)).atDay(1);
         }
 
+        //check if adjusted end lies on eom
         if (adjustedEnd.plusDays(1).getMonth() == adjustedEnd.getMonth()) {
             LocalDate startOfMonth = YearMonth.from(adjustedEnd).atDay(1);
             amount = amount + calculateRepeatTillEndDate(startOfMonth, adjustedEnd);
@@ -551,8 +561,9 @@ public class Repeat extends BaseExp {
     public HashMap<String, Double> calculateWkOrMthOrYrMonth(Date startDate, Date endDate) {
         HashMap<String, Double> output = new HashMap<>();
 
-        //if is same month
-        if (startDate.localDate.getMonth() == endDate.localDate.getMonth()) {
+        //if is same month and year
+        if (startDate.localDate.getMonth() == endDate.localDate.getMonth()
+                && startDate.localDate.getYear() == endDate.localDate.getYear()) {
             output.put(String.valueOf(YearMonth.from(startDate.localDate)),
                     calculateRepeatTillEndDate(startDate.localDate, endDate.localDate));
             return output;
@@ -567,13 +578,13 @@ public class Repeat extends BaseExp {
                 calculateRepeatTillEndDate(startDate.localDate, endOfMonthOfStartDate.localDate));
 
         //middle months expenditure
-        YearMonth currentMonth = YearMonth.from(startDate.localDate.plusMonths(1));
+        YearMonth currentMonthYear = YearMonth.from(startDate.localDate.plusMonths(1));
         YearMonth end = YearMonth.from(endDate.localDate.minusMonths(1));
 
-        while (!currentMonth.isAfter(end)) {
+        while (!currentMonthYear.isAfter(end)) {
 
-            output.put(String.valueOf(currentMonth), calculateForGivenYearMonth(currentMonth));
-            currentMonth = currentMonth.plusMonths(1);
+            output.put(String.valueOf(currentMonthYear), calculateForGivenYearMonth(currentMonthYear));
+            currentMonthYear = currentMonthYear.plusMonths(1);
         }
 
         //last month expenditure
@@ -587,12 +598,13 @@ public class Repeat extends BaseExp {
 
     /**
      * Calculates repeat(weekly, monthly, annually)
-     * from startDate to endDate in the same month.
+     * from startDate to endDate in the same month and year.
      */
     public double calculateRepeatTillEndDate(LocalDate startLocalDate, LocalDate endLocalDate) {
 
-        if (startLocalDate.getMonth() != endLocalDate.getMonth()) {
-            throw new RuntimeException("This method is for calculation within same month");
+        if (startLocalDate.getMonth() != endLocalDate.getMonth()
+                || startLocalDate.getYear() != endLocalDate.getYear()) {
+            throw new RuntimeException("This method is for calculation within same month and year");
         }
 
         LocalDate adjustedStart = null;

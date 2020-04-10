@@ -304,14 +304,12 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                     if (repeat.getPeriod() == Repeat.Period.DAILY) {
                         double amt = repeat.calculateDaily(startDate, endDate);
                         repMap.put(repeat, amt);
-                        System.out.println(amt);
 
                     } else if (repeat.getPeriod() == Repeat.Period.WEEKLY
                             || repeat.getPeriod() == Repeat.Period.MONTHLY
                             || repeat.getPeriod() == Repeat.Period.ANNUALLY) {
                         double amt = repeat.calculateWkOrMthOrYr(startDate, endDate);
                         repMap.put(repeat, amt);
-                        System.out.println(amt);
                     }
                 }
         );
@@ -328,7 +326,6 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         ).forEach(repeat -> {
 
                     HashMap<String, Double> monthlyExpenditures = null;
-                    System.out.println(repeat);
 
                     if (repeat.getPeriod() == Repeat.Period.DAILY) {
                         monthlyExpenditures = repeat.calculateDailyRepeatMonth(startDate, endDate);
@@ -354,7 +351,6 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
                 }
         );
 
-        System.out.println(repMap);
         return repMap;
     }
 
