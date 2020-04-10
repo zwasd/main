@@ -15,7 +15,7 @@ public interface ReadOnlyAccountList extends ReadOnlyAccount {
     /**
      * @return a string which consists of all account name
      */
-    String listAllName();
+    String listAllNames();
 
     /**
      * Gets the date of expenditures shown.

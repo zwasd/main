@@ -16,7 +16,7 @@ public class AccRenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
-    public static final String MESSAGE_SUCCESS = "The account's name has changed from:";
+    public static final String MESSAGE_SUCCESS = "%1$s has been renamed to %2$s";
 
     public static final String MESSAGE_USAGE = AccLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": renames an account to the specified new name\n"
@@ -29,7 +29,6 @@ public class AccRenameCommand extends Command {
     private final String oldName;
 
     public AccRenameCommand(String oldName, String newName) {
-        requireNonNull(oldName);
         requireNonNull(newName);
         this.newName = newName;
         this.oldName = oldName;
@@ -39,7 +38,8 @@ public class AccRenameCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         String accountName = model.renameAccount(this.oldName, this.newName);
-        return new CommandResult(MESSAGE_SUCCESS + " " + oldName + " to " + newName, accountName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, oldName == null
+                ? "This account" : "The account " + oldName, newName), accountName);
     }
 
     @Override

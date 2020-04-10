@@ -50,13 +50,31 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
 
 === Disjoint Accounts
-_{ work in progress }_
+This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
+
+You can add any many accounts as you like:
+image:acc_add.png[]
+
+View your list of accounts using the command `acc list`: +
+image:acc_listed.png[]
+
+Switch to a different account using the command +
+`acc checkout ACCOUNT`: +
+image:acc_checkout_CCA.png[]
+
+image:acc_checkout_Home.png[]
+
+Refer to <<Account command, Account Command>> for more details on commands, including renaming, deletion and clearing of data.
 
 === Expenditures
 _{ work in progress }_
 
+Refer to <<Expenditure command, Expenditure Command>> for more details.
+
 === Repeat
 _{ work in progress }_
+
+Refer to <<Repeat command, Repeat Command>> for more details.
 
 === Budget
 _{ work in progress }_
@@ -94,8 +112,8 @@ to find out how to generate these graphs.
 
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
-  *1*. Users can click on the calendar to traverse between different dates. +
-  *2*. Users can make use of `go` command to navigate to other date.
+  *1*. Users can click on the calendar to traverse between different dates. Or, +
+  *2*. Users can make use of `go` command to navigate to another date.
 
 With reference to the diagram below, *Header* displays the year and month which the
 calendar is displaying. *Box 1* displays the day which you are looking at
@@ -105,10 +123,10 @@ while *Box 2* refers to the today's date.
 image::calendarExplanation.png[]
 
 ==== Navigate using calendar
-It is troublesome and inconvenient for users to keep on make use of command line input
-to navigate between the dates, especially when the date which user wants to view is just one or
+It may be troublesome and inconvenient for you to keep on making use of the command line input
+to navigate between the dates, especially when the date you want to view is just one or
 two days before. +
-Under this situation, user can interact with `calendar` and navigate with a simple click.
+In this situation, you can interact with the `calendar` and navigate with a simple click.
 
 For example, we are now viewing expenditure records which are on `2020-04-09`.
 And we wish to view previous day's expenditure record. We can simply click on the date on the calendar.
@@ -225,12 +243,13 @@ Examples:
 [[acc-add]]
 ==== Adding an account: `acc add`
 
-Adds a disjoint expenditure account to $AVE IT. +
+Adds a new disjoint account to $AVE IT. +
 Format: `acc add ACCOUNT`
 
 ****
 * `ACCOUNT` is the account name. It is only contain letters and numbers and
 must be less than 26 characters.
+* `ACCOUNT` is also case-sensitive.
 * The default account is called `default`, it is automatically created when you
 first use the application.
 ****
@@ -239,6 +258,11 @@ Examples:
 
 * `acc add school`
 * `acc add SpendLess1`
+
+[TIP]
+The application does not automatically switch to the new account.
+Use `acc checkout ACCOUNT` to do so.
+
 
 [[acc-list]]
 ==== Listing all accounts: `acc list`
@@ -250,16 +274,19 @@ Format: `acc list`
 ==== Renaming an account: `acc rename`
 
 Renames an existing account in $AVE IT. +
-Format: `acc rename OLD_NAME NEW_NAME`
+Format: `acc rename [OLD_NAME] NEW_NAME`
 
 ****
-* `OLD_NAME` is the name of the account you want to rename from. It has to exist.
-* `NEW_NAME` is the name of the account you want to rename to.
+* `OLD_NAME` is the name of an already existing account.
+* if `OLD_NAME` is not specified, the current account will be renamed.
+* `NEW_NAME` should not be the name of an existing account.
 * See <<acc-add>> for account naming constraints.
 ****
 
 Example:
 
+* `acc rename project2` +
+Renames the current account to `project2`.
 * `acc rename school uni` +
 Renames the account `school` to `uni`.
 
@@ -277,7 +304,8 @@ Did you know git's `git checkout` command is our inspiration for `acc checkout`?
 
 Example:
 
-* `acc checkout cca`
+* `acc checkout cca` +
+Sets `cca` to be the current account.
 
 [[acc-clear]]
 ==== Clearing account information: `acc clear`
@@ -286,7 +314,7 @@ Reset the current account to a clean state. +
 Format: `acc clear`
 
 [WARNING]
-All information in an account will be deleted, use with care.
+All information in the current account will be deleted, use with care.
 
 [[acc-delete]]
 ==== Deleting an account: `acc delete`

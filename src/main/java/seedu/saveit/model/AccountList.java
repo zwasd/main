@@ -108,11 +108,13 @@ public class AccountList implements ReadOnlyAccountList {
 
     /**
      * Renames account by copying the account data.
-     * @param oldName The old account name.
+     * @param oldName The old account name, if this is null, then it defaults to the active account name.
      * @param newName The new account name to be renamed to.
      * @String a string to denote the current active account name.
      */
     public String renameAccount(String oldName, String newName) throws CommandException {
+        oldName = oldName != null ? oldName : activeAccount.getAccountName();
+        boolean renameActiveAccount = this.activeAccount.getAccountName().equals(oldName);
         requireAllNonNull(oldName, newName);
         //TODO: THIS EXCEPTION HAS TO CHANGE.
         if (!accounts.containsKey(oldName)) {
@@ -128,7 +130,8 @@ public class AccountList implements ReadOnlyAccountList {
         Account replaceAccount = targetAccount.copyAccountWithNewName(newName);
         this.accounts.put(newName, replaceAccount);
         this.accounts.remove(oldName, targetAccount);
-        if (this.activeAccount.getAccountName().equals(oldName)) {
+        if (renameActiveAccount) {
+            updateActiveAccount(newName);
             return newName;
         } else {
             return this.activeAccount.getAccountName();
@@ -182,6 +185,7 @@ public class AccountList implements ReadOnlyAccountList {
      * Clears all expenditures of the active account.
      */
     public void clearActiveAccount() {
+        expAddIndex = 0;
         activeAccount.resetData(new Account());
         displayedBaseExpList.setAll(new ArrayList<>());
     }
@@ -343,7 +347,7 @@ public class AccountList implements ReadOnlyAccountList {
     }
 
     @Override
-    public String listAllName() {
+    public String listAllNames() {
         StringBuilder list = new StringBuilder();
         this.accounts.keySet().iterator().forEachRemaining(accName -> list.append(accName + " "));
         //this is too ugly, so i turn into an array then reformat to look better.

@@ -181,7 +181,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 === Disjoint Account
 //TODO ACCOUNT @JIAHUI
-==== Rational
+==== Rationale
 
 ==== Implementation
 
@@ -191,7 +191,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 === Expenditure
 //TODO  @JIAHUI
-==== Rational
+==== Rationale
 
 ==== Implementation
 
@@ -199,7 +199,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 
 === Recurring Expenditure feature `Repeat`
-Recurring expenditure is one of the main feature in `$AVE IT` and it is
+Recurring expenditure is one of the main features in `$AVE IT` and it is
 an expenditure automatically logged for user at their preferred frequency.
 
 ==== Rationale
@@ -246,7 +246,7 @@ Users have to delete such expenditures one by one.
 
 
 === Report
-Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
+Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
 
 ==== Rationale
