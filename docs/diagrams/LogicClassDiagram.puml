@@ -40,6 +40,8 @@ LogicManager -->"1" TopLevelParser
 TopLevelParser .down.> XYZCommandParser: creates >
 TopLevelParser .left.> SubLevelParser : refers to >
 SubLevelParser ..> XYZCommandParser : creates >
+note right of SubLevelParser: SubLevelParser = \nExpLevelParser,\nAccLevelParser etc.
+
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -57,6 +59,7 @@ LogicManager .left.> Command : executes >
 LogicManager --> Model
 Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

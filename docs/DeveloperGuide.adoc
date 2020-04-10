@@ -181,7 +181,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 === Disjoint Account
 //TODO ACCOUNT @JIAHUI
-==== Rational
+==== Rationale
 
 ==== Implementation
 
@@ -191,7 +191,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 === Expenditure
 //TODO  @JIAHUI
-==== Rational
+==== Rationale
 
 ==== Implementation
 
@@ -224,8 +224,8 @@ image::repeatActivityDiagram.png[]
 
 ==== Design Consideration
 |===
-|Alternatives: | Pros: |Cons
-|(Current choice) Have a repeat class which extends `BaseExp`.
+|*Alternatives* |*Pros* |*Cons*
+|*(Current choice)* Have a repeat class which extends `BaseExp`.
 |Able to mass delete and edit all the expenditures under this `Repeat` easily.
 |Hard to implement, especially when we have to calculate monthly spending so to generate report and statistics.
 |Mass operation: add `Expenditure` object to all those dates which state in the command.
@@ -238,14 +238,81 @@ Users have to delete such expenditures one by one.
 
 
 === Budget
-//TODO  @Fengyue
-==== Rational
+Budget feature allows user to input their budget for any month, and calculates
+the balance from the total spending. Depending on the amount of balance and
+whether the budget is set, different piggy bank images will be shown.
+
+==== Rationale
+As the application is about budget management and expenditure tracking. Budgeting
+is an essential feature to allow user to keep track on how they are spending
+their money.
 
 ==== Implementation
+The budget feature consists of using a command, and a part of the UI display.
+
+The following activity diagram shows what happens to the `BudgetView` which
+displays the budget details when a command is entered.
+
+.Activity Diagram of Budget View
+image::BudgetActivityDiagram.png[]
+
+The implementation of setting the budget of the month is through the command
+format of `exp setbudget -a AMOUNT -ym YEAR_MONTH`. The process of how the command
+is parsed is shown below using an example, `exp setbudget -a 123 -ym 2020-04`.
+
+.Set Budget Sequence Diagram (UI and Logic)
+image::BudgetSequenceDiagram.png[]
+
+The above sequence diagram shows the interaction of the user and the UI. After entering
+the command, the `BudgetView` will be updated using the result returned by
+the `LogicManager`.
+
+The information displayed are:
+
+. The budget amount, e.g `$123.00`
+. The total spending in `2020-04` (month)
+. The balance, which is the difference between the budget amount and the total
+spending
+. An image as visual feedback
+
+The sequence diagram below shows a more detailed view of what happens inside the
+`LogicManager`.
+
+.Set Budget Sequence Diagram (Logic and Model)
+image::SetBudgetSequenceDiagram.png[]
 
 ==== Design Consideration
+===== Aspect: Calculation of Budget
+|===
+|*Alternatives* |*Pros*  |*Cons*
 
+|*[current choice]* Budgets are set monthly only.
+|- Most common budget setting type. +
+- Easy to implement.
+|- It is not useful for users who prefer other kinds of calculation of budget.
 
+|Variability in how budget is calculated, e.g. weekly, monthly, yearly.
+|- Gives users more choice on how they want to budget.
+|- Way more difficult to implement.
+|===
+
+===== Aspect: Visual Display of Budget
+|===
+|*Alternatives* |*Pros*  |*Cons*
+
+|*[current choice]* Display 3 states of budget balance in image.
+|- Easier to see if the budget is being met.
+|- Requires a bit more code, and finding images.
+
+|No visual display, just text display.
+|- Very easy to implement.
+|- The UI may look a bit plain.
+
+|Better UI display, showing different variations of whether budget is met e.g.
+a chart.
+|- Gives users better insight on how they are handling their budget.
+|- More work is required.
+|===
 
 === Report
 Report is one of the main feature in `$AVE IT`  and its purpose is to collate and
@@ -341,7 +408,7 @@ hence it is recommended to users that Bar Chart should be used in such instances
 
 //tag::calendar[]
 === Calendar feature
-==== Rational
+==== Rationale
 Calendar is a feature that has a clickable calendar which users
 can use to navigate between the different days. It also shows
 the date of the expenditures the user is viewing as well as today.
@@ -373,14 +440,16 @@ user click on the dates.
 image::calendarActivityDiagram.png[]
 
 ==== Design Consideration
-This section contains some of our design considerations for the calendar feature. +
-Consideration: How are we going to present the expenditure records. +
+This section contains some of our design considerations for the calendar feature.
+
+*Consideration:* How are we going to present the expenditure records.
+
 |===
-|Alternatives: |Pros:  |Cons:
+|*Alternatives* |*Pros*  |*Cons*
 |1. Make use of a month list to contain all the expenditure records of the given month.
 |This is able to provide a concise view of expenditure view especially when there are only a small number of records.
 |This looks like excel sheet and users have to scroll all the way up if they want to view a date which is much earlier.
-|2.(current choice) Make use of a calender view and only list out a given date's expenditure record.
+|2. *[current choice]* Make use of a calender view and only list out a given date's expenditure record.
 This automatically helps user to organize the records according to date.
 |User can make use of the calendar view to navigate between the dates,
 this is much more convenient than scrolling through a list. +
@@ -391,45 +460,70 @@ Especially helpful if there is lots of records.
 //end::calendar[]
 
 === Autocomplete feature
+Completes the command that the user is typing in the command box.
 
-==== Proposed Implementation
+==== Rationale
+The autocomplete feature makes it easier for user to know what commands there
+are in the application. As the application is also catered for users who prefer
+typing, this feature can be of great assistance and helps in efficiency.
 
-The autocomplete feature is facilitated by `AutoCompleteTextField.java`.
-It extends the `TextField` component of JavaFx and provides a dropdown of possible commands.
+==== Implementation
+The autocomplete feature is facilitated by `AutoCompleteTextField`.
+It extends the `TextField` component of JavaFx and provides a dropdown of
+possible commands using `ContextMenu`.
 
-To make use of the autocomplete feature. The backend will have to include the commands to be +
-added which will be shown to the users. This allows easy configuration of what commands will +
-be searched.
+Given below is an example usage scenario of the autocompletion.
 
-Given below is the example usage scenario of how the autocompletion works.
+.Autocomplete Sequence Diagram
+image::AutocompleteSequenceDiagram.png[]
 
-Step 1. Type into the command box. The function search and filter potential commands that the user might use. +
-The commands will then be displayed in a dropdown format which the user can refer to when keying commands.
+. Type into the command box. The function searches and filters potential commands
+that the user might use.
+. The commands will then be displayed in a dropdown format which the user can
+refer to when keying commands.
 
-[NOTE]
-For the current implementation, it checks whether the typed command matches the starting characters of any commands.
-To be improved in later versions.
+During the start up of the application, a list of commands are added to the
+`AutoCompleteTextField`. These commands will then be sorted lexicographically in
+the java implementation of `TreeSet`.
+
+A `ChangeListener` is added the text field to 'listen' for changes in the input.
+`TreeSet#subSet()` is used to obtain all the commands between the previous text
+and the current text. For example, the textbox shows `ex` and a `p` is added, so
+the current text is `exp`. `TreeSet#subSet()` will obtain the commands that are
+lexicographically between `ex` and `exp`. These commands will then be shown in the
+autocomplete dropdown.
+
+.Autocomplete Activity Diagram
+image::AutocompleteActivityDiagram.png[]
 
 ==== Design Consideration
-
 ===== Aspect: Usage of autocompletion
+|===
+|*Alternatives* |*Pros*  |*Cons*
 
-* **Alternative 1 (current choice):** Moving mouse over to select commands.
-** Pros: Easy to implement.
-** Cons: Does not meet target user needs who strongly prefers typing.
-* **Alternative 2:** Use of tab to simulate autocompletion like a terminal.
-** Pros: Intuitive for people used to using a terminal.
-** Cons: Will have to direct the tab keystroke to be used for autocompletion.
+|*[current choice]* Using up and down arrow keys to select autocompletion.
+|- Easy to implement.
+|- Requires the text field to be in focus.
 
-===== Aspect: How autocompletion searches for completion items
+|Use of tab to simulate autocompletion like a terminal.
+|- Intuitive for people used to using a terminal.
+|- Will have to direct the tab keystroke to be used for autocompletion.
+|===
 
-_{To be added}_
+===== Aspect: Data structure
 
-===== Aspect: Data structure to support more powerful autocompletion
+|===
+|*Alternatives* |*Pros*  |*Cons*
 
-_{To be added}_
+|*[current choice]* Sorting lexicographically using `TreeSet`.
+|- Easy to implement.
+|- Can be slow if sorting through a huge number of strings.
 
-// end::autocomplete[]
+|Using a prefix trie.
+|- Extremely fast.
+|- Takes up a lot of space.
+|===
+
 
 [[Implementation-Configuration]]
 === Configuration
