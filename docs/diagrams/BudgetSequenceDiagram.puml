@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+title Budget Sequence Diagram
+
+Actor User as user USER_COLOR
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":BudgetView" as BudgetView UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+
+end box
+
+user -> MainWindow : "setbudget \n-a 123 -ym 2020-04"
+activate MainWindow
+
+MainWindow -> LogicManager : execute("setbudget \n-a 123 -ym 2020-04")
+activate LogicManager
+
+LogicManager --> MainWindow : result
+deactivate LogicManager
+
+MainWindow -> BudgetView : setBudgetExist()
+activate BudgetView
+BudgetView --> MainWindow
+deactivate BudgetView
+
+MainWindow -> BudgetView : setBudgetAmount()
+activate BudgetView
+BudgetView --> MainWindow
+deactivate BudgetView
+
+MainWindow -> BudgetView : setTotalSpending()
+activate BudgetView
+BudgetView --> MainWindow
+deactivate BudgetView
+
+MainWindow -> BudgetView : updateView()
+activate BudgetView
+
+BudgetView -> BudgetView : display()
+activate BudgetView
+deactivate BudgetView
+
+BudgetView --> MainWindow
+deactivate BudgetView
+
+MainWindow --> user
+deactivate MainWindow
+
+@enduml

@@ -15,6 +15,7 @@ public class AccRenameCommandParserTest {
     @Test
     public void parse_validArgs_returnsAccRenameCommand() {
         assertParseSuccess(parser, "school work", new AccRenameCommand("school", "work"));
+        assertParseSuccess(parser, "work", new AccRenameCommand(null, "work"));
     }
 
     @Test
@@ -28,9 +29,6 @@ public class AccRenameCommandParserTest {
         // more than 2 words
         assertParseFailure(parser, "my school work", expectedMessage1);
 
-        // only one word
-        assertParseFailure(parser, "work", expectedMessage1);
-
         // empty
         assertParseFailure(parser, "", expectedMessage);
 
@@ -39,11 +37,5 @@ public class AccRenameCommandParserTest {
 
         // new account name at least 26 characters
         assertParseFailure(parser, "school thisIsAVeryLongAccountName", expectedMessage2);
-
-        // old account name empty
-        assertParseFailure(parser, " work", expectedMessage1);
-
-        // new account name empty
-        assertParseFailure(parser, "work ", expectedMessage1);
     }
 }

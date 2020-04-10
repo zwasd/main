@@ -1,0 +1,21 @@
+@startuml
+title Autocomplete
+
+start
+:User types in command box;
+:TextField detects changes;
+
+if () then ([text is empty])
+    :Hide dropdown;
+else ([else])
+    :Gets subset of changes;
+    if () then ([subset is empty])
+        :Hide dropdown;
+    else ([else])
+        :Adds result to dropdown;
+        :Display dropdown;
+    endif
+endif
+
+stop
+@enduml

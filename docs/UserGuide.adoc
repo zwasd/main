@@ -50,17 +50,61 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
 
 === Disjoint Accounts
-_{ work in progress }_
+This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
+
+You can add any many accounts as you like:
+image:acc_add.png[]
+
+View your list of accounts using the command `acc list`: +
+image:acc_listed.png[]
+
+Switch to a different account using the command +
+`acc checkout ACCOUNT`: +
+image:acc_checkout_CCA.png[]
+
+image:acc_checkout_Home.png[]
+
+Refer to <<Account command, Account Command>> for more details on commands, including renaming, deletion and clearing of data.
 
 === Expenditures
-_{ work in progress }_
+This feature forms the basis of our application. Use it to track your daily expenses!
 
+
+.Example list of expenditures
+image::exp_list.png[]
+
+Refer to <<Expenditure command, Expenditure Command>> for more details on how to add, edit, and delete expenditures.
+
+
+//tag::repeat[]
 === Repeat
+The _Repeat_ feature allows you to add recurring _expenditures_. +
+You are able to create fixed expenditures records which will be recurring daily, weekly, monthly or annually.
+As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
+"Repeat details" includes the frequency of recurring, start date and end date are displayed.
+
+.`Repeat` display
+image::repeatDisplay.png[]
+
+==== `Repeat` type commands
+`Repeat` has very similar command as `Expenditure`, with just a few of values to be specified. +
+
+Here, we will be using `repeat add` command as an example, while other commands works the same way.
+
+
+
+
+
 _{ work in progress }_
+//end::repeat[]
+
+
+Refer to <<Repeat command, Repeat Command>> for more details.
 
 === Budget
 _{ work in progress }_
 
+Refer to <<Budget command: `setbudget`, Budget Command>> for more details.
 
 === Report
 
@@ -70,9 +114,10 @@ It can tell you your total spending within a period of time and have your spendi
 categorised either by month or tag. You can have also have a permanent copy
 of the report, through the report printing and export capabilities.
 
-image:report_bar_ss.png[]
-
 .Bar chart report
+image::report_bar_ss.png[]
+
+
 
 This is an example of the report in bar chart format with the expenditures grouped by months.
 The horizontal line represents the expenditures whereas the vertical line shows
@@ -82,20 +127,23 @@ in a similar fashion.
 
 If you are a visual person, you can consider using the pie chart format instead!
 
-
-image:report_pie.png[]
-
 .Pie chart report
+image::report_pie.png[]
+
+
 This is an example of report in pie chart format with the expenditures grouped by
 tags.
 
 If you are interested to find out more, you can explore <<Report command, Report Command>>
 to find out how to generate these graphs.
 
+
+//tag::calendar[]
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
-  *1*. Users can click on the calendar to traverse between different dates. +
-  *2*. Users can make use of `go` command to navigate to other date.
+  *1*. Users are able to traverse between different dates by clicking on the calendar. +
+Or +
+  *2*. Users are able to make use of `go` command to navigate to another date.
 
 With reference to the diagram below, *Header* displays the year and month which the
 calendar is displaying. *Box 1* displays the day which you are looking at
@@ -105,10 +153,10 @@ while *Box 2* refers to the today's date.
 image::calendarExplanation.png[]
 
 ==== Navigate using calendar
-It is troublesome and inconvenient for users to keep on make use of command line input
-to navigate between the dates, especially when the date which user wants to view is just one or
+It may be troublesome and inconvenient for you to keep on making use of the command line input
+to navigate between the dates, especially when the date you want to view is just one or
 two days before. +
-Under this situation, user can interact with `calendar` and navigate with a simple click.
+In this situation, you can interact with the `calendar` and navigate with a simple click.
 
 For example, we are now viewing expenditure records which are on `2020-04-09`.
 And we wish to view previous day's expenditure record. We can simply click on the date on the calendar.
@@ -141,11 +189,7 @@ image::goCommandResponse.png[]
 .`calendar` and expenditure records are updated accordingly.
 image::updateViewForGoCommand.png[]
 
-
-
-
-_{ work in progress }_
-
+// end::calendar[]
 === Autocomplete
 _{ work in progress }_
 
@@ -225,12 +269,13 @@ Examples:
 [[acc-add]]
 ==== Adding an account: `acc add`
 
-Adds a disjoint expenditure account to $AVE IT. +
+Adds a new disjoint account to $AVE IT. +
 Format: `acc add ACCOUNT`
 
 ****
-* `ACCOUNT` is the account name. It is only contain letters and numbers and
-must be less than 26 characters.
+* `ACCOUNT` is the account name. It must be less than 26 characters and must not
+contain any space in between.
+* `ACCOUNT` must only contain letters and numbers, and it is also case-sensitive.
 * The default account is called `default`, it is automatically created when you
 first use the application.
 ****
@@ -239,6 +284,11 @@ Examples:
 
 * `acc add school`
 * `acc add SpendLess1`
+
+[TIP]
+The application does not automatically switch to the new account.
+Use `acc checkout ACCOUNT` to do so.
+
 
 [[acc-list]]
 ==== Listing all accounts: `acc list`
@@ -250,16 +300,19 @@ Format: `acc list`
 ==== Renaming an account: `acc rename`
 
 Renames an existing account in $AVE IT. +
-Format: `acc rename OLD_NAME NEW_NAME`
+Format: `acc rename [OLD_NAME] NEW_NAME`
 
 ****
-* `OLD_NAME` is the name of the account you want to rename from. It has to exist.
-* `NEW_NAME` is the name of the account you want to rename to.
+* `OLD_NAME` is the name of an already existing account.
+* if `OLD_NAME` is not specified, the current account will be renamed.
+* `NEW_NAME` should not be the name of an existing account.
 * See <<acc-add>> for account naming constraints.
 ****
 
 Example:
 
+* `acc rename project2` +
+Renames the current account to `project2`.
 * `acc rename school uni` +
 Renames the account `school` to `uni`.
 
@@ -277,7 +330,8 @@ Did you know git's `git checkout` command is our inspiration for `acc checkout`?
 
 Example:
 
-* `acc checkout cca`
+* `acc checkout cca` +
+Sets `cca` to be the current account.
 
 [[acc-clear]]
 ==== Clearing account information: `acc clear`
@@ -286,7 +340,7 @@ Reset the current account to a clean state. +
 Format: `acc clear`
 
 [WARNING]
-All information in an account will be deleted, use with care.
+All information in the current account will be deleted, use with care.
 
 [[acc-delete]]
 ==== Deleting an account: `acc delete`
@@ -308,40 +362,20 @@ Deletes the account named `school`.
 
 === Expenditure command
 
-[[exp-setbudget]]
-==== Setting the budget: `exp setbudget`
-
-Sets the budget amount in an account for the specified month. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
-
-****
-* `AMOUNT` is the amount of the budget (in dollars). It must be positive up
-to 2 decimal point and less than 1 billion.
-* `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
-budget. If not specified, the current year and month will be used.
-****
-
-Examples:
-
-* `exp setbudget -a 1000` +
-Sets the budget of $1000 for this month.
-* `exp setbudget -a 1000 -ym 2020-03` +
-Sets the budget of $1000 for the month of March in 2020.
-
 [[exp-add]]
 ==== Adding an expenditure: `exp add`
 
 Adds an expenditure to the current account in $AVE IT. +
-Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]`
+Format: `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 
 ****
-* `INFO` is the information of the expenditure.
-* `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
+* `INFO` contains a description of what you spent on.
+* `AMOUNT` is how much you have spent (in dollars). It must be positive up
 to 2 decimal point and less than 1 billion.
-* `TAG` is the category of the expenditure. The default category is `Others`.
-You can only specify a category.
-* `DATE` is the date of the expenditure. The date will be the day's date when
-not specified.
+* `TAG` is the category of the expenditure. The default tag is `Others`.
+Each expenditure belongs to only one tag.
+* `DATE` is the date on which the expenditure happened. When not specified, will default to the active date
+(as shown in the middle section, or by the coloured date in the calendar)
 ****
 
 Examples:
@@ -360,15 +394,17 @@ Format: `exp edit INDEX [-i INFO] [-a AMOUNT] [-t TAG] [-d DATE]`
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The expenditure records will be auto sorted again.
 * Refer to <<exp-add>> for what the options represent.
 ****
 
 Examples:
 
 * `exp edit 1 -i veg rice` +
-Edits the info of expenditure with index `1` to `veg rice`.
+Updates the info of expenditure with index `1` to `veg rice`.
 
-* `exp edit 3 -a 3.23 -t transport -d 2020-02-02`
+* `exp edit 3 -a 3.23 -t transport -d 2020-02-02` +
+Updates the amount, tag & date attributes to the new values.
 
 [[exp-delete]]
 ==== Deleting an expenditure: `exp delete`
@@ -402,8 +438,8 @@ Use this command after `find` to return back to normal daily view.
 ==== Adding a repeated expenditure: `repeat add`
 
 Adds an expenditure that can be repeated. +
-Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
-
+Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
+*Do note that duplicate `repeat` records are allowed*.
 ****
 * `INFO` is the information of the expenditure.
 * `AMOUNT` is the amount of the expenditure (in dollars). It must be positive up
@@ -434,6 +470,7 @@ Format: `repeat edit INDEX [-i INFO] [-a AMOUNT] [-sd START_DATE] [-ed END_DATE]
 `INDEX` refers to the index number assigned to each expenditure based on the order.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* The records will be auto sorted again.
 * Refer to <<repeat-add>> for what the options represent.
 ****
 
@@ -461,8 +498,27 @@ Example:
 * `repeat delete 4`
 Deletes the repeated expenditure with index `4`.
 
+[[setbudget]]
+=== Budget command: `setbudget`
+Sets the budget amount in an account for the specified month. +
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
+
+****
+* `AMOUNT` is the amount of the budget (in dollars). It must be positive up
+to 2 decimal point and less than 1 billion.
+* `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
+budget. If not specified, the current year and month will be used.
+****
+
+Examples:
+
+* `setbudget -a 1000` +
+Sets the budget of $1000 for this month.
+* `setbudget -a 1000 -ym 2020-03` +
+Sets the budget of $1000 for the month of March in 2020.
+
 [[cmd-find]]
-=== Locating both repeat and normal expenditures by keyword: `find`
+=== Locating both repeats and normal expenditures by keyword: `find`
 
 Find expenditures (both single and repeated) which contain the keyword(s). +
 Format: `find [KEYWORD...]`
@@ -662,7 +718,7 @@ e.g. `acc delete Personal`
 
 === Expenditure Operations
 * <<exp-setbudget, *exp setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
-e.g `exp setbudget -a 1000 -ym 2020-04`
+e.g `setbudget -a 1000 -ym 2020-04`
 
 * <<exp-add, *exp add*>> : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`

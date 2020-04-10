@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+title Set Budget Sequence Diagram
+box Logic LOGIC_COLOR_T1
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":SetBudgetCommandParser" as SetBudgetCommandParser LOGIC_COLOR
+participant ":SetBudgetCommand" as SetBudgetCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "budget:Budget" as Budget MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":MonthlySpendingCalculator" as MonthlySpendingCalculator MODEL_COLOR
+end box
+
+box Pie UI_COLOR_T1
+end box
+
+[-> TopLevelParser : parseCommand(\n"exp setbudget \n-a 123 -ym 2020-04")
+activate TopLevelParser
+
+create SetBudgetCommandParser
+TopLevelParser -> SetBudgetCommandParser
+activate SetBudgetCommandParser
+TopLevelParser -> SetBudgetCommandParser : parse(\n"-a 123 -ym 2020-04")
+
+create SetBudgetCommand
+SetBudgetCommandParser -> SetBudgetCommand
+activate SetBudgetCommand
+
+SetBudgetCommand --> SetBudgetCommandParser : sbc
+deactivate SetBudgetCommand
+
+SetBudgetCommandParser --> TopLevelParser : sbc
+deactivate SetBudgetCommandParser
+
+[<-[hidden]- SetBudgetCommandParser
+destroy SetBudgetCommandParser
+
+[<-- TopLevelParser
+deactivate TopLevelParser
+
+[<-[hidden]- TopLevelParser
+destroy TopLevelParser
+
+
+
+[-> SetBudgetCommand : execute()
+activate SetBudgetCommand
+
+create Budget
+SetBudgetCommand -> Budget
+activate Budget
+
+Budget --> SetBudgetCommand : budget
+deactivate Budget
+
+SetBudgetCommand -> Model : setBudget(budget)
+activate Model
+
+Model --> SetBudgetCommand
+deactivate Model
+
+SetBudgetCommand -> Model : getMonthlySpending()
+activate Model
+
+Model -> MonthlySpendingCalculator
+activate MonthlySpendingCalculator
+
+MonthlySpendingCalculator --> Model : m
+deactivate MonthlySpendingCalculator
+
+Model --> SetBudgetCommand : m
+deactivate Model
+
+create CommandResult
+SetBudgetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SetBudgetCommand : result
+deactivate CommandResult
+
+[<-- SetBudgetCommand : result
+deactivate SetBudgetCommand
+
+[<-[hidden]- SetBudgetCommand
+destroy SetBudgetCommand
+
+@enduml
