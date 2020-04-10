@@ -23,7 +23,7 @@ public class ExpLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "exp";
 
-    public static final String MESSAGE_USAGE = "exp add\nexp edit\nexp delete\nexp setsubget\n";
+    public static final String MESSAGE_USAGE = "exp add\nexp edit\nexp delete\n";
 
     /**
      * Used for initial separation of command word and args.

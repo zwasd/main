@@ -3,9 +3,8 @@
 title Set Budget Sequence Diagram
 box Logic LOGIC_COLOR_T1
 participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
-participant ":ExpLevelParser" as ExpLevelParser LOGIC_COLOR
-participant ":ExpSetBudgetCommandParser" as ExpSetBudgetCommandParser LOGIC_COLOR
-participant ":ExpSetBudgetCommand" as ExpSetBudgetCommand LOGIC_COLOR
+participant ":SetBudgetCommandParser" as SetBudgetCommandParser LOGIC_COLOR
+participant ":SetBudgetCommand" as SetBudgetCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -21,60 +20,49 @@ end box
 [-> TopLevelParser : parseCommand(\n"exp setbudget \n-a 123 -ym 2020-04")
 activate TopLevelParser
 
-create ExpLevelParser
-TopLevelParser -> ExpLevelParser
-activate ExpLevelParser
-TopLevelParser -> ExpLevelParser : parseCommand(\n"setbudget \n-a 123 -ym 2020-04")
+create SetBudgetCommandParser
+TopLevelParser -> SetBudgetCommandParser
+activate SetBudgetCommandParser
+TopLevelParser -> SetBudgetCommandParser : parse(\n"-a 123 -ym 2020-04")
 
-create ExpSetBudgetCommandParser
-ExpLevelParser -> ExpSetBudgetCommandParser
-activate ExpSetBudgetCommandParser
-ExpLevelParser -> ExpSetBudgetCommandParser : parse(\n"-a 123 -ym 2020-04")
+create SetBudgetCommand
+SetBudgetCommandParser -> SetBudgetCommand
+activate SetBudgetCommand
 
-create ExpSetBudgetCommand
-ExpSetBudgetCommandParser -> ExpSetBudgetCommand
-activate ExpSetBudgetCommand
+SetBudgetCommand --> SetBudgetCommandParser : sbc
+deactivate SetBudgetCommand
 
-ExpSetBudgetCommand --> ExpSetBudgetCommandParser : sbc
-deactivate ExpSetBudgetCommand
+SetBudgetCommandParser --> TopLevelParser : sbc
+deactivate SetBudgetCommandParser
 
-ExpSetBudgetCommandParser --> ExpLevelParser : sbc
-deactivate ExpSetBudgetCommandParser
-
-[<-[hidden]- ExpSetBudgetCommandParser
-destroy ExpSetBudgetCommandParser
-
-TopLevelParser <-- ExpLevelParser : sbc
-deactivate ExpLevelParser
+[<-[hidden]- SetBudgetCommandParser
+destroy SetBudgetCommandParser
 
 [<-- TopLevelParser
 deactivate TopLevelParser
-
-[<-[hidden]-ExpLevelParser
-destroy ExpLevelParser
 
 [<-[hidden]- TopLevelParser
 destroy TopLevelParser
 
 
 
-[-> ExpSetBudgetCommand : execute()
-activate ExpSetBudgetCommand
+[-> SetBudgetCommand : execute()
+activate SetBudgetCommand
 
 create Budget
-ExpSetBudgetCommand -> Budget
+SetBudgetCommand -> Budget
 activate Budget
 
-Budget --> ExpSetBudgetCommand : budget
+Budget --> SetBudgetCommand : budget
 deactivate Budget
 
-ExpSetBudgetCommand -> Model : setBudget(budget)
+SetBudgetCommand -> Model : setBudget(budget)
 activate Model
 
-Model --> ExpSetBudgetCommand
+Model --> SetBudgetCommand
 deactivate Model
 
-ExpSetBudgetCommand -> Model : getMonthlySpending()
+SetBudgetCommand -> Model : getMonthlySpending()
 activate Model
 
 Model -> MonthlySpendingCalculator
@@ -83,20 +71,20 @@ activate MonthlySpendingCalculator
 MonthlySpendingCalculator --> Model : m
 deactivate MonthlySpendingCalculator
 
-Model --> ExpSetBudgetCommand : m
+Model --> SetBudgetCommand : m
 deactivate Model
 
 create CommandResult
-ExpSetBudgetCommand -> CommandResult
+SetBudgetCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ExpSetBudgetCommand : result
+CommandResult --> SetBudgetCommand : result
 deactivate CommandResult
 
-[<-- ExpSetBudgetCommand : result
-deactivate ExpSetBudgetCommand
+[<-- SetBudgetCommand : result
+deactivate SetBudgetCommand
 
-[<-[hidden]- ExpSetBudgetCommand
-destroy ExpSetBudgetCommand
+[<-[hidden]- SetBudgetCommand
+destroy SetBudgetCommand
 
 @enduml

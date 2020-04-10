@@ -83,6 +83,7 @@ Refer to <<Repeat command, Repeat Command>> for more details.
 === Budget
 _{ work in progress }_
 
+Refer to <<Budget command: `setbudget`, Budget Command>> for more details.
 
 === Report
 
@@ -340,25 +341,6 @@ Deletes the account named `school`.
 
 === Expenditure command
 
-[[exp-setbudget]]
-==== Setting the budget: `setbudget`  {work in progress}
-
-Sets the budget amount in an account for the specified month. +
-Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
-
-****
-* `AMOUNT` is the amount of the budget (in dollars). It must be positive up
-to 2 decimal point and less than 1 billion.
-* `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
-budget. If not specified, the current year and month will be used.
-****
-
-Examples:
-
-* `exp setbudget -a 1000` +
-Sets the budget of $1000 for this month.
-* `exp setbudget -a 1000 -ym 2020-03` +
-Sets the budget of $1000 for the month of March in 2020.
 
 [[exp-add]]
 ==== Adding an expenditure: `exp add`
@@ -493,6 +475,25 @@ Example:
 
 * `repeat delete 4`
 Deletes the repeated expenditure with index `4`.
+
+[[setbudget]]
+=== Budget command: `setbudget`
+Sets the budget amount in an account for the specified month. +
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
+
+****
+* `AMOUNT` is the amount of the budget (in dollars). It must be positive up
+to 2 decimal point and less than 1 billion.
+* `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
+budget. If not specified, the current year and month will be used.
+****
+
+Examples:
+
+* `setbudget -a 1000` +
+Sets the budget of $1000 for this month.
+* `setbudget -a 1000 -ym 2020-03` +
+Sets the budget of $1000 for the month of March in 2020.
 
 [[cmd-find]]
 === Locating both repeats and normal expenditures by keyword: `find`
@@ -694,7 +695,7 @@ e.g. `acc delete Personal`
 
 === Expenditure Operations
 * <<exp-setbudget, *exp setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
-e.g `exp setbudget -a 1000 -ym 2020-04`
+e.g `setbudget -a 1000 -ym 2020-04`
 
 * <<exp-add, *exp add*>> : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`
