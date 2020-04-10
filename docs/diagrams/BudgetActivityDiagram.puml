@@ -1,0 +1,26 @@
+@startuml
+title Budget View
+
+start
+:User enters command;
+
+if () then ([command is correct])
+    :Executes command;
+else ([else])
+    :Throws error message;
+endif
+
+:Updates display;
+
+if () then ([budget is set])
+    if () then ([budget > spending])
+        :Displays piggy bank with money;
+    else ([else]) 
+        :Displays dead piggy bank;
+    endif
+else ([else])
+    :Displays normal piggy bank;
+endif
+
+stop
+@enduml
