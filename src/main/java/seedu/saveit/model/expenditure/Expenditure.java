@@ -78,7 +78,7 @@ public class Expenditure extends BaseExp {
         final StringBuilder builder = new StringBuilder();
         builder.append(getInfo())
                 .append(" Amount: ")
-                .append(getAmount())
+                .append(String.format("%.2f", getAmount().value))
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Tag: ")

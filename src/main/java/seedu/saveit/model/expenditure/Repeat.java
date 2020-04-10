@@ -748,7 +748,7 @@ public class Repeat extends BaseExp {
         final StringBuilder builder = new StringBuilder();
         builder.append(getInfo())
                 .append(" Amount: ")
-                .append(getAmount())
+                .append(String.format("%.2f", getAmount().value))
                 .append(" Start Date: ")
                 .append(getStartDate())
                 .append(" End Date: ")
