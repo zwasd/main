@@ -57,8 +57,11 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 Tag index = ((Tag) itr.next());
-                dataSeries.getData().add(new XYChart.Data((double) stats.get(index),
-                        index.getTagName() + " : $" + stats.get(index)));
+                double amount = (double) stats.get(index);
+                String amtToStr = String.format("%.2f", amount);
+
+                dataSeries.getData().add(new XYChart.Data(amount,
+                        index.getTagName() + " : $" + amtToStr));
             }
             bar.getData().add(dataSeries);
 
@@ -96,10 +99,12 @@ public class Bar extends Graph {
             while (itr.hasNext()) {
 
                 String month = (String) itr.next();
+                double amt = sortedStats.get(month);
+                String amtStr = String.format("%.2f", amt);
 
 
-                dataSeries.getData().add(new XYChart.Data((double) sortedStats.get(month),
-                        month + " : $" + sortedStats.get(month)));
+                dataSeries.getData().add(new XYChart.Data(amt,
+                        month + " : $" + amtStr));
             }
 
             bar.getData().add(dataSeries);
@@ -108,6 +113,7 @@ public class Bar extends Graph {
         }
 
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -119,6 +125,5 @@ public class Bar extends Graph {
         }
         return false;
     }
-
 
 }
