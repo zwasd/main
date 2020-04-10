@@ -64,7 +64,6 @@ public class LogicManager implements Logic {
         ReportCommandResult commandResult;
         ReportCommand command = reportWindowParser.parse(commandText);
         commandResult = command.execute(model);
-        System.out.println(commandResult);
         return commandResult;
     }
 
