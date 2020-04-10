@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+title Autocomplete Sequence Diagram
+
+Actor User as user USER_COLOR
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":AutoCompleteTextField" as AutoCompleteTextField UI_COLOR
+end box
+
+user -> MainWindow : types
+activate MainWindow
+
+MainWindow -> AutoCompleteTextField
+activate AutoCompleteTextField
+
+AutoCompleteTextField -> AutoCompleteTextField : populatePopup()
+activate AutoCompleteTextField
+deactivate AutoCompleteTextField
+
+AutoCompleteTextField --> MainWindow
+deactivate AutoCompleteTextField
+
+MainWindow --> user
+deactivate MainWindow
+
+@enduml
