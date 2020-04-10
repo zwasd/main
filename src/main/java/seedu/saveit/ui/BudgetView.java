@@ -97,20 +97,20 @@ public class BudgetView extends UiPart<Region> {
         }
         Label budget = new Label();
         String budgetString = String.format("%.2f", budgetAmount);
-        budget.setText("Budget: " + budgetString);
+        budget.setText("Budget: $" + budgetString);
         budget.setTextAlignment(TextAlignment.LEFT);
         budget.setTextFill(Paint.valueOf("000000"));
         budget.setWrapText(true);
         Label spending = new Label();
         String spendingString = String.format("%.2f", totalSpending);
-        spending.setText("Total spending: " + spendingString);
+        spending.setText("Total spending: $" + spendingString);
         spending.setTextAlignment(TextAlignment.LEFT);
         spending.setTextFill(Paint.valueOf("000000"));
         spending.setWrapText(true);
         Label leftOver = new Label();
 
         String balanceString = String.format("%.2f", balance);
-        leftOver.setText("Balance: " + balanceString);
+        leftOver.setText("Balance: $" + balanceString);
         leftOver.setTextAlignment(TextAlignment.LEFT);
         leftOver.setTextFill(Paint.valueOf("000000"));
         leftOver.setWrapText(true);

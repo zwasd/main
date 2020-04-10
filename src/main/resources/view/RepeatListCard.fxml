@@ -26,7 +26,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="repeatTag" styleClass="cell_small_label" wrapText="true">
+                <Label fx:id="repeatTag" styleClass="cell_small_label" wrapText="true" alignment="CENTER">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
