@@ -53,7 +53,7 @@ autocomplete and auto-saving of data.
 === Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
-You can add any many accounts as you like:
+You can add any many accounts as you like: +
 
 .Add account
 image::acc_add.png[]
@@ -813,6 +813,9 @@ e.g `go 2020-04-01`
 * <<cmd-find, *find*>> : `find [KEYWORD...]` +
 e.g. `find chicken rice`
 
+* <<Budget command: `setbudget`, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
+e.g `setbudget -a 1000 -ym 2020-04`
+
 * <<cmd-exit, *exit*>> : `exit`
 
 === Account Operations
@@ -833,9 +836,6 @@ e.g. `acc checkout Personal`
 e.g. `acc delete Personal`
 
 === Expenditure Operations
-* <<exp-setbudget, *exp setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
-e.g `setbudget -a 1000 -ym 2020-04`
-
 * <<exp-add, *exp add*>> : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`
 
