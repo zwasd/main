@@ -377,7 +377,7 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Invalid command: " + commandText);
             } else {
                 assert e instanceof PrinterException;
-                logger.info("Invalid printer.");
+                logger.info("Invalid or no printer.");
             }
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
