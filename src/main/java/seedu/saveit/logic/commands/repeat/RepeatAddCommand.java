@@ -20,7 +20,6 @@ import seedu.saveit.model.expenditure.Repeat;
 
 /**
  * Add repeat object.
- * TODO: NEED MODIFY
  */
 public class RepeatAddCommand extends Command {
     public static final String COMMAND_WORD = "add";
