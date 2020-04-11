@@ -48,7 +48,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 
 
 
-=== Disjoint Accounts
+=== Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
 You can add any many accounts as you like:
@@ -65,7 +65,7 @@ image:acc_checkout_Home.png[]
 
 Refer to <<Account command, Account Command>> for more details on commands, including renaming, deletion and clearing of data.
 
-=== Expenditures
+=== Expenditures (Jiang Jiahui)
 This feature forms the basis of our application. Use it to track your daily expenses!
 
 
@@ -76,7 +76,7 @@ Refer to <<Expenditure command, Expenditure Command>> for more details on how to
 
 
 //tag::repeat[]
-=== Repeat
+=== Repeat (Zheng Shaopeng)
 The _Repeat_ feature allows you to add recurring _expenditures_. +
 You are able to create fixed expenditures records which will be recurring daily, weekly, monthly or annually.
 As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
@@ -107,6 +107,7 @@ thus the first record will be at 2020-04-01 and last record will be on 2020-04-2
 .Added to 2020-04-01
 image::firstRepeatRecord.png[]
 
+
 .Added to 2020-04-29
 image::lastRepeatRecord.png[]
 
@@ -121,13 +122,13 @@ Hence, this expenditure record will be shown on `2020-04-30` instead. For May, i
 
 Refer to <<Repeat command, Repeat Command>> for more details.
 
-=== Budget
+=== Budget (Lim Fengyue)
 _{ work in progress }_
 
 Refer to <<Budget command: `setbudget`, Budget Command>> for more details.
 
 //tag::Report[]
-=== Report
+=== Report (Ng Xinpei)
 
 ==== Function
 The _Report_ feature allows you to have a quick overview of your expenditures.
@@ -160,7 +161,7 @@ to find out how to generate these graphs.
 //end::Report[]
 
 //tag::calendar[]
-=== Calendar
+=== Calendar (Zheng Shaopeng)
 The _calendar_ feature aims to ease users' navigation experience. +
   *1*. Users are able to traverse between different dates by clicking on the calendar. +
 Or +
@@ -211,7 +212,7 @@ image::goCommandResponse.png[]
 image::updateViewForGoCommand.png[]
 
 // end::calendar[]
-=== Autocomplete
+=== Autocomplete (Lim Fengyue)
 _{ work in progress }_
 
 === Saving the data
