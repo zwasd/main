@@ -50,7 +50,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 recurring expenditure, budgeting, report. Additional features are calendar,
 autocomplete and auto-saving of data.
 
-=== Disjoint Accounts
+=== Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
 You can add any many accounts as you like:
@@ -73,7 +73,7 @@ image::acc_checkout_Home.png[]
 
 Refer to <<Account commands, Account Commands>> for more details on commands, including renaming, deletion and clearing of data.
 
-=== Expenditures
+=== Expenditures (Jiang Jiahui)
 This feature forms the basis of our application. Use it to track your daily expenses!
 
 
@@ -84,7 +84,7 @@ Refer to <<Expenditure commands, Expenditure Commands>> for more details on how 
 
 
 //tag::repeat[]
-=== Repeat
+=== Repeat (Zheng Shaopeng)
 The _Repeat_ feature allows you to add recurring _expenditures_. +
 You are able to create fixed expenditures records which will be recurring daily, weekly, monthly or annually.
 As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
@@ -115,6 +115,7 @@ thus the first record will be at 2020-04-01 and last record will be on 2020-04-2
 .Added to 2020-04-01
 image::firstRepeatRecord.png[]
 
+
 .Added to 2020-04-29
 image::lastRepeatRecord.png[]
 
@@ -130,7 +131,8 @@ Hence, this expenditure record will be shown on `2020-04-30` instead. For May, i
 Refer to <<Repeat commands, Repeat Commands>> for more details on how to add, edit
 and delete `Repeat` type expenditures.
 
-=== Budget
+
+=== Budget (Lim Fengyue)
 The _Budget_ feature allows you to set your budget monthly, and give you a better
 sense of whether you are on track to your financial goals. You can see your budget
 at the right panel of the application.
@@ -181,7 +183,7 @@ image::view_may2020_budget.png[]
 For example, going to _8 May 2020_ allows you to view the budget set for _May 2020_.
 
 //tag::Report[]
-=== Report
+=== Report (Ng Xinpei)
 
 ==== Function
 The _Report_ feature allows you to have a quick overview of your expenditures.
@@ -214,7 +216,7 @@ to find out how to generate these graphs.
 //end::Report[]
 
 //tag::calendar[]
-=== Calendar
+=== Calendar (Zheng Shaopeng)
 The _calendar_ feature aims to ease users' navigation experience. +
 
 . Users are able to traverse between different dates by clicking on the calendar. +
@@ -268,7 +270,7 @@ image::updateViewForGoCommand.png[]
 
 // end::calendar[]
 
-=== Autocomplete
+=== Autocomplete (Lim Fengyue)
 The _Autocomplete_ feature allows you to complete the basic commands of the
 application. It matches the what you type into the command box and tries to
 complete the command.
