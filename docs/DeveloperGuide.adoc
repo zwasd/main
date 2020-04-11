@@ -181,7 +181,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 == Implementation
 
-=== Disjoint Account
+=== Disjoint Account (Jiang Jiahui)
 The disjoint accounts feature aims to help users better organise their expenditures by allowing them to separate the expenditures into different accounts.
 
 ==== Rationale
@@ -222,22 +222,40 @@ This section contains some of our design considerations for the account feature.
 
 |===
 |*Alternatives* |*Pros*  |*Cons*
+|Exposing the repeat and expendiure lists in the accounts
 |Less troublesome when a repeat or expenditure command is executed.
 |More difficult to implement. Every time the active account is changed, the ListView has to be replaced as the backing list cannot be changed.
 |2. *[current choice]* Maintain a single list in the AccountList class as a backing list of the ListView.
-|There is no ambiguity as to which list is currently being displayed. +
-This is safer as the lists in the accounts cannot be directly modified outside the Account class.
+|There is no ambiguity as to which list is currently being displayed. This is safer as the lists in the accounts cannot be directly modified outside the Account class.
 |More troublesome when a repeat or expenditure command is executed, since both the active account and the list has to be updated.
 |===
 
 === Expenditure (Jiang Jiahui)
-//TODO  @JIAHUI
+This is the most essential and basic feature of the application.
+
 ==== Rationale
+The user can create expenditures to keep track of what they spend on, how much they have spent, and when it happens.
 
 [#Expenditure-Implementation]
 ==== Implementation
+Below is a class diagram that shows the Expenditure class and how it relates to other classes.
+
+.Expenditure class diagram
+image::ExpenditureClassDiagram.png[]
 
 ==== Design Consideration
+
+*Consideration:* Number of tags an expenditure can have
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|One expenditure can have multiple tags.
+|More flexibility for the user.
+|More difficult to implement. This also makes it impossible to calculate total spendings for each tag due to possible overlapping.
+|2. *[current choice]* An expenditure has exactly one tag.
+|This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
+|Less flexibility for the user.
+|===
 
 //tag::repeat[]
 === Recurring Expenditure feature `Repeat` (Zheng Shaopeng)
@@ -357,7 +375,7 @@ a chart.
 |- More work is required.
 |===
 
-//tag::Report[]
+[#Report]
 === Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
@@ -440,7 +458,7 @@ likely that Main Window can continue running.
 ** Pros: As report is not using any space in Main Window,
 we could introduce and showcase other smaller and useful features in
 the Main Window UI.
-** Cons: It could be more different to implement
+** Cons: It could be more complicated to implement
 
 Due to the above considerations, we implemented report viewing in a pop up window.
 
