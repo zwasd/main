@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
-import javafx.print.PageLayout;
-import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,11 +17,9 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -51,12 +47,12 @@ public class ReportWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
+    private static Graph currentGraph;
 
     private Logic logic;
     private ReportCommandBox box;
     private ResultDisplay display;
     private MenuBar menuBar;
-    private Graph currentGraph;
 
     /**
      * Creates a new Report Window.
@@ -222,56 +218,10 @@ public class ReportWindow extends UiPart<Stage> {
         setScene((Node) currentGraph.constructGraph());
     }
 
-    /**
-     * Sends a print job of report from report window to printer.
-     *
-     * @throws PrinterException is thrown when printer cannot
-     *                          successfully finish a job.
-     */
-    public void print() throws PrinterException {
-
-        assert currentGraph != null;
-        printerJob();
-
+    public static Graph getGraph() {
+        return currentGraph;
     }
 
-    /**
-     * Invokes printer job from Javafx.
-     *
-     * @throws PrinterException if job cannot finish.
-     */
-    public void printerJob() throws PrinterException {
-
-        try {
-            PrinterJob printerJob = PrinterJob.createPrinterJob();
-            PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-
-            WritableImage snapshot = snapshot();
-
-            ImageView imgView = new ImageView(snapshot);
-            double scaleX = pageLayout.getPrintableWidth() / imgView.getImage().getWidth();
-            double scaleY = pageLayout.getPrintableHeight() / imgView.getImage().getHeight();
-            double scale = Math.min(scaleX, scaleY);
-            if (scale < 1.0) {
-                imgView.getTransforms().add(new Scale(scale, scale));
-            }
-
-            boolean jobStatus = printerJob.printPage(imgView);
-            if (jobStatus) {
-                printerJob.endJob();
-
-            } else {
-                printerJob.cancelJob();
-                throw new PrinterException("Set available printer as default "
-                        + "printer before printing.");
-            }
-
-        } catch (Exception e) {
-            throw new PrinterException("Set available printer as default "
-                    + "printer before printing.");
-        }
-
-    }
 
     /**
      * Exports report.
@@ -342,35 +292,13 @@ public class ReportWindow extends UiPart<Stage> {
                 display.clear();
                 getRoot().hide();
 
-            } else if (result.isShowHelp()) {
-
-            } else if (result.isPrintReport() || result.isExportReport()) {
-                if (currentGraph != null) {
-
-                    if (result.isPrintReport()) {
-                        print();
-                    } else {
-                        assert result.isExportReport();
-                        export(result.getFileName());
-                    }
-
-                } else {
-                    display.setFeedbackToUser("Construct graph before printing");
-                }
-
-            } else {
-                assert result.isChangeView();
+            } else if (result.isChangeView()) {
                 showResult(result);
             }
 
-        } catch (CommandException | ParseException | PrinterException e) {
+        } catch (CommandException | ParseException e) {
 
-            if (e instanceof CommandException || e instanceof ParseException) {
-                logger.info("Invalid command :" + commandText);
-            } else if (e instanceof PrinterException) {
-                logger.info("Invalid or no printer");
-            }
-
+            logger.info("Invalid command :" + commandText);
             display.setFeedbackToUser(e.getMessage());
             throw e;
         }

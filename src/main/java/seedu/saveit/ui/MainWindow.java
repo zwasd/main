@@ -1,29 +1,15 @@
 package seedu.saveit.ui;
 
-import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.print.PageLayout;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.Chart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 import seedu.saveit.commons.core.GuiSettings;
@@ -32,7 +18,6 @@ import seedu.saveit.logic.Logic;
 import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
 
 
@@ -235,96 +220,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sends a print job of report from main window to printer.
-     *
-     * @throws PrinterException is thrown when printer cannot
-     *                          successfully finish a job.
-     */
-    public void print(Graph graph) throws PrinterException {
-        logger.fine("Printing");
-        printerJob(graph);
-    }
-
-    /**
-     * Invokes printer job of Javafx.
-     *
-     * @throws PrinterException if job cannot finish.
-     */
-    public void printerJob(Graph graph) throws PrinterException {
-
-        try {
-            PrinterJob printerJob = PrinterJob.createPrinterJob();
-            PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-
-            WritableImage snapshot = snapshot(graph);
-
-            ImageView ivSnapshot = new ImageView(snapshot);
-            double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
-            double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
-            double scale = Math.min(scaleX, scaleY);
-            if (scale < 1.0) {
-                ivSnapshot.getTransforms().add(new Scale(scale, scale));
-            }
-            boolean jobStatus = printerJob.printPage(ivSnapshot);
-            if (jobStatus) {
-                printerJob.endJob();
-            } else {
-                printerJob.cancelJob();
-                throw new PrinterException("Set available printer as default "
-                        + "printer before printing");
-            }
-
-        } catch (Exception e) {
-            throw new PrinterException("Set available printer as default "
-                    + "printer before printing.");
-        }
-    }
-
-    /**
-     * Exports report.
-     */
-    public void export(ExportFile file) {
-        try {
-            WritableImage img = snapshot(file.getGraph());
-            file.export(img);
-        } catch (IOException e) {
-
-            if (e instanceof FileAlreadyExistsException) {
-                resultDisplay.setFeedbackToUser("The file " + file.getFileName() + " already exists.");
-            } else {
-                resultDisplay.setFeedbackToUser("Reported cannot be exported.");
-            }
-        }
-    }
-
-    /**
-     * Takes a snapshot of the graph
-     * to be exported.
-     *
-     * @return image of the graph.
-     */
-    public WritableImage snapshot(Graph graph) {
-        Node node = (Node) graph.constructGraph();
-        Scene sc = new Scene((Parent) node, 800, 600);
-        Chart chart = null;
-
-        if (node instanceof PieChart) {
-            chart = (PieChart) node;
-
-        } else if (node instanceof BarChart) {
-            chart = (BarChart) node;
-        }
-
-        assert chart != null;
-
-        chart.setAnimated(false);
-        WritableImage img = new WritableImage(800, 600);
-        node.snapshot(new SnapshotParameters(), img);
-
-        return img;
-    }
-
-    /**
      * Executes the command and returns the result.
      *
      * @see seedu.saveit.logic.Logic#execute(String)
@@ -341,14 +236,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowReport()) {
                 reportWindow.showResult(commandResult);
-            }
-
-            if (commandResult.isExportReport()) {
-                export(commandResult.getFile());
-            }
-
-            if (commandResult.isPrintReport()) {
-                print(commandResult.getGraph());
             }
 
             if (commandResult.isUpdateCalendar()) {
@@ -373,14 +260,9 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException | PrinterException e) {
+        } catch (CommandException | ParseException e) {
 
-            if (e instanceof CommandException || e instanceof ParseException) {
-                logger.info("Invalid command: " + commandText);
-            } else {
-                assert e instanceof PrinterException;
-                logger.info("Invalid or no printer.");
-            }
+            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
