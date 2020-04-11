@@ -415,7 +415,6 @@ public class Repeat extends BaseExp {
             return output;
         }
 
-
         // get eom for start date
         LocalDate endOfMonthOfStartLocalDate = YearMonth.from(adjustedStart.localDate).atEndOfMonth();
         Date endOfMonthOfStartDate = new Date(endOfMonthOfStartLocalDate.format(DateTimeFormatter.ISO_DATE));
@@ -423,6 +422,7 @@ public class Repeat extends BaseExp {
         //first month expenditure
         output.put(String.valueOf(YearMonth.from(endOfMonthOfStartLocalDate)),
                 calculateDaily(adjustedStart, endOfMonthOfStartDate));
+
 
         //middle months expenditure
         YearMonth currentMonthYear = YearMonth.from(adjustedStart.localDate.plusMonths(1));
@@ -434,11 +434,12 @@ public class Repeat extends BaseExp {
         }
 
         //last month expenditure
-        LocalDate startOfMonthOfEndLocalDate = YearMonth.from(adjustedStart.localDate).atDay(1);
+        LocalDate startOfMonthOfEndLocalDate = YearMonth.from(adjustedEnd.localDate).atDay(1);
         Date startOfMonthOfEndDate = new Date(startOfMonthOfEndLocalDate.format(DateTimeFormatter.ISO_DATE));
 
         output.put(String.valueOf(YearMonth.from(startOfMonthOfEndLocalDate)),
                 calculateDaily(startOfMonthOfEndDate, adjustedEnd));
+
         return output;
     }
 
