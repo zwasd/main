@@ -46,24 +46,32 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-
+`$AVE IT` consists of features such as disjoint account, expenditure management,
+recurring expenditure, budgeting, report. Additional features are calendar,
+autocomplete and auto-saving of data.
 
 === Disjoint Accounts
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
 You can add any many accounts as you like:
-image:acc_add.png[]
 
-View your list of accounts using the command `acc list`: +
-image:acc_listed.png[]
+.Add account
+image::acc_add.png[]
 
-Switch to a different account using the command +
-`acc checkout ACCOUNT`: +
-image:acc_checkout_CCA.png[]
+View your list of accounts using the command `acc list`:
 
-image:acc_checkout_Home.png[]
+.List all accounts
+image::acc_listed.png[]
 
-Refer to <<Account command, Account Command>> for more details on commands, including renaming, deletion and clearing of data.
+Switch to a different account using the command, `acc checkout ACCOUNT`:
+
+.Switch account to `CCA`
+image::acc_checkout_CCA.png[]
+
+.Switch account to `Home`
+image::acc_checkout_Home.png[]
+
+Refer to <<Account commands, Account Commands>> for more details on commands, including renaming, deletion and clearing of data.
 
 === Expenditures
 This feature forms the basis of our application. Use it to track your daily expenses!
@@ -72,7 +80,7 @@ This feature forms the basis of our application. Use it to track your daily expe
 .Example list of expenditures
 image::exp_list.png[]
 
-Refer to <<Expenditure command, Expenditure Command>> for more details on how to add, edit, and delete expenditures.
+Refer to <<Expenditure commands, Expenditure Commands>> for more details on how to add, edit, and delete expenditures.
 
 
 //tag::repeat[]
@@ -82,7 +90,7 @@ You are able to create fixed expenditures records which will be recurring daily,
 As shown in the diagram below, a `repeat` will have a different display as compared to `expenditure`.
 "Repeat details" includes the frequency of recurring, start date and end date are displayed.
 
-.`Repeat` display
+.Display difference between `Expenditure` and `Repeat`
 image::repeatDisplay.png[]
 
 ==== `Repeat` type commands
@@ -90,18 +98,18 @@ image::repeatDisplay.png[]
 Here, we will be using `repeat add` command as an example, while other `repeat` commands works the same way. +
 Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
 
-*1* Key in the command into the command box. We will be using `repeat add -i bubble tea -a 3.50 -sd 2020-04-01 -ed 2020-04-30 -p weekly -t drink`
+*1.* Key in the command into the command box. We will be using `repeat add -i bubble tea -a 3.50 -sd 2020-04-01 -ed 2020-04-30 -p weekly -t drink`
 as an example.
 
 .Input command
 image::repeatInput.png[]
 
-*2* A response will be given to indicate that this recurring expenditure has been recorded.
+*2.* A response will be given to indicate that this recurring expenditure has been recorded.
 
 .Response given
 image::repeatResponse.png[]
 
-*3* As the `START_DATE` is 2020-04-01 and the `PERIOD` is set to weekly,
+*3.* As the `START_DATE` is 2020-04-01 and the `PERIOD` is set to weekly,
 thus the first record will be at 2020-04-01 and last record will be on 2020-04-29.
 
 .Added to 2020-04-01
@@ -110,23 +118,67 @@ image::firstRepeatRecord.png[]
 .Added to 2020-04-29
 image::lastRepeatRecord.png[]
 
-==== NOTE
+[NOTE]
 For `repeat add -i rental fee -a 300 -sd 2020-03-31 -ed 2021-03-31 -p monthly -t housing`,
 as the start date is `2020-03-31`, the next tentative date should be `2020-04-31` but this date is invalid.
 Hence, this expenditure record will be shown on `2020-04-30` instead. For May, it will be still shown on `2020-05-31`. +
 *This applies to leap year too*
 
-
-_{ work in progress }_
 //end::repeat[]
 
 
-Refer to <<Repeat command, Repeat Command>> for more details.
+Refer to <<Repeat commands, Repeat Commands>> for more details on how to add, edit
+and delete `Repeat` type expenditures.
 
 === Budget
-_{ work in progress }_
+The _Budget_ feature allows you to set your budget monthly, and give you a better
+sense of whether you are on track to your financial goals. You can see your budget
+at the right panel of the application.
 
-Refer to <<Budget command: `setbudget`, Budget Command>> for more details.
+Initially, you will see this:
+
+.No budget set
+image::no_budget.png[]
+
+It means that there is not budget set for the month.
+
+In order to know which month `this month` in the above image refers to, you can
+look at the date in the middle panel.
+
+.No budget set for April 2020
+image::no_budget_2020_04.png[]
+
+==== Setting a budget
+
+To set a budget you can use the <<Budget setting command: `setbudget`, `setbudget` Command>>. Shown below is an example:
+
+.Setting this month's budget to $100
+image::setting_a_budget.png[]
+
+After setting a budget, you will see that the information on the right panel has
+changed:
+
+.After setting a budget for April 2020
+image::budget_is_set.png[]
+
+If your budget has been met, you will see the piggy bank from above. If your
+budget is not met, you will see something like this:
+
+.Budget not met
+image::budget_not_met.png[]
+
+[NOTE]
+To meet your budget, your balance have to be positive.
+
+==== Viewing budget from another month
+
+To view budget from another month, you can use the <<cmd-go, `go` command>>, or
+the <<Calendar>> feature to view any date of the month.
+
+.View May 2020 budget
+image::view_may2020_budget.png[]
+
+For example, going to _8 May 2020_ allows you to view the budget set for _May 2020_.
 
 //tag::Report[]
 === Report
@@ -164,9 +216,10 @@ to find out how to generate these graphs.
 //tag::calendar[]
 === Calendar
 The _calendar_ feature aims to ease users' navigation experience. +
-  *1*. Users are able to traverse between different dates by clicking on the calendar. +
-Or +
-  *2*. Users are able to make use of `go` command to navigate to another date.
+
+. Users are able to traverse between different dates by clicking on the calendar. +
+Or,
+. Users are able to make use of `go` command to navigate to another date.
 
 With reference to the diagram below, *Header* displays the year and month which the
 calendar is displaying. *Box 1* displays the day which you are looking at
@@ -196,7 +249,8 @@ The developer team has taken into account the case when users wish to navigate t
 which is way before or after. Thus, we have integrate the `calendar` with `go` command. +
 
 For example, we are now viewing expenditure records which are on `2020-04-09` and we wish to navigate to
-`2019-04-09` through `go` command. +
+`2019-04-09` through `go` command.
+
 *1*. We need to input `go 2019-04-09` into the command box which is shown in the diagram below.
 
 .`go` command example
@@ -213,8 +267,22 @@ image::goCommandResponse.png[]
 image::updateViewForGoCommand.png[]
 
 // end::calendar[]
+
 === Autocomplete
-_{ work in progress }_
+The _Autocomplete_ feature allows you to complete the basic commands of the
+application. It matches the what you type into the command box and tries to
+complete the command.
+
+.Autocomplete feature
+image::autocomplete_ex.png[]
+
+[NOTE]
+If no dropdown appear, it means that either: the text does not match any commands,
+or the dropdown is hidden after clicking away.
+
+You can use the kbd:[Up] or kbd:[Down] arrow keys to navigate the dropdown, then
+press kbd:[Enter] to select the command you want to complete.
+
 
 === Saving the data
 
@@ -238,6 +306,10 @@ belongs to the expenditure operations.
 category, in this case, `add`.
 * Words starting with `-` e.g. `-i`, `-a` and `-t` are the *option prefix*. Not all
 commands have options, an example is deleting an expenditure, `exp delete 1`.
+
+[NOTE]
+Refer to <<Prefix Notation>> for what each prefix means.
+
 * Words in caps are the *parameters* to be supplied by the user. `INFO`, `AMOUNT`
 and `TAG` are parameters representing information, amount and tag of the
 expenditure respectively. It can be used as such,
@@ -288,7 +360,7 @@ Examples:
 * `go 2020-05-05`
 * `go today`
 
-=== Account command
+=== Account commands
 [[acc-add]]
 ==== Adding an account: `acc add`
 
@@ -383,7 +455,7 @@ Example:
 * `acc delete school` +
 Deletes the account named `school`.
 
-=== Expenditure command
+=== Expenditure commands
 
 [[exp-add]]
 ==== Adding an expenditure: `exp add`
@@ -442,7 +514,7 @@ Format: `exp delete INDEX`
 
 Example:
 
-* `exp delete 4`
+* `exp delete 4` +
 Deletes the expenditure with index `4`.
 
 [[exp-list]]
@@ -455,7 +527,7 @@ Format: `exp list`
 Use this command after `find` to return back to normal daily view.
 
 
-=== Repeat command
+=== Repeat commands
 
 [[repeat-add]]
 ==== Adding a repeated expenditure: `repeat add`
@@ -522,7 +594,7 @@ Example:
 Deletes the repeated expenditure with index `4`.
 
 [[setbudget]]
-=== Budget command: `setbudget`
+=== Budget setting command: `setbudget`
 Sets the budget amount in an account for the specified month. +
 Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
 
@@ -564,11 +636,10 @@ Returns `Chicken rice` and `Veg Rice`.
 Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
 
 //tag::ReportCommand[]
-=== Report command
+=== Report commands
 This section will talk about how to use the report feature. Before we begin
 with the details of the command, here are some things to note :
 
-==== NOTE
 1. Before beginning this section, you can refer to <<Report, Report Feature>> to look
 at how the reports will look like and how to read it.
 2. If there is huge difference in expenditure amount, using a Bar chart
@@ -646,7 +717,7 @@ Examples:
 //end::ReportCommand[]
 
 [[cmd-exit]]
-==== Exiting the program: `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
@@ -717,18 +788,18 @@ Format: `exit`
 
 === Prefix Notation
 |===
-|Prefix: | Meaning
-|-i      | information
-|-a      | amount
-|-d      | date
-|-t      | tag
-|-sd     | start date
-|-ed     | end date
-|-ym     | year month
-|-p      | period
-|-g      | graph type
-|-f      | file name
-|-o      | organised by
+|*Prefix*  | *Meaning*
+|`-i`      | information
+|`-a`      | amount
+|`-d`      | date
+|`-t`      | tag
+|`-sd`     | start date
+|`-ed`     | end date
+|`-ym`     | year month
+|`-p`      | period
+|`-g`      | graph type
+|`-f`      | file name
+|`-o`      | organised by
 |===
 
 === General Operations

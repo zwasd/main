@@ -31,12 +31,13 @@ public class AmountTest {
         // random letters
         assertFalse(Amount.isValidAmount("fjksjd"));
 
-        // not double
+        // not double or integer
         assertFalse(Amount.isValidAmount("3.2.1"));
 
-        // negative values
+        // not positive
         assertFalse(Amount.isValidAmount("-2"));
         assertFalse(Amount.isValidAmount(-3));
+        assertFalse(Amount.isValidAmount(0));
 
         // more than 2 decimal point
         assertFalse(Amount.isValidAmount(123.333));
@@ -45,6 +46,6 @@ public class AmountTest {
         // valid
         assertTrue(Amount.isValidAmount(123.33));
         assertTrue(Amount.isValidAmount("123.1"));
-        assertTrue(Amount.isValidAmount("0.1"));
+        assertTrue(Amount.isValidAmount("1"));
     }
 }

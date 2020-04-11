@@ -15,17 +15,15 @@ import seedu.saveit.model.expenditure.Info;
 import seedu.saveit.model.expenditure.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_INFO = "";
-    private static final String INVALID_DATE = " ";
+    private static final String INVALID_INFO = "F@od";
+    private static final String INVALID_DATE = "2020";
     private static final double INVALID_AMOUNT = -1;
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_INFO = "Rachel Walker";
+    private static final String VALID_INFO = "phone";
     private static final String VALID_DATE = "2019-09-11";
     private static final double VALID_AMOUNT = 3.14;
-    private static final String EMPTY_TAG = "";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TAG = "friend";
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
@@ -130,14 +128,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        Tag expectedTag = new Tag(VALID_TAG);
+        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
+        String tagWithWhitespace = WHITESPACE + VALID_TAG + WHITESPACE;
+        Tag expectedTag = new Tag(VALID_TAG);
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
     }
 }

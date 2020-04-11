@@ -49,6 +49,18 @@ public class RepeatCard extends UiPart<Region> {
         repeatAmount.setText("$" + TWO_DP.format(repeat.getAmount().value));
         repeatTag.setText(repeat.getTag().tagName);
 
+        if (repeat.getInfo().fullInfo.length() <= 10) {
+            repeatInfo.setMinWidth(20 + (10 * repeat.getInfo().fullInfo.length()));
+        } else {
+            repeatInfo.setMinWidth(120);
+        }
+
+        if (repeat.getTag().tagName.length() <= 8) {
+            repeatTag.setMinWidth(20 + (10 * repeat.getTag().tagName.length()));
+        } else {
+            repeatTag.setMinWidth(100);
+        }
+
         String startDate = repeat.getStartDate().toString();
         String endDate = repeat.getEndDate().toString();
         String period = repeat.getPeriod().name();

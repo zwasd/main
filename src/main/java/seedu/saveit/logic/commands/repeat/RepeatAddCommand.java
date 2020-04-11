@@ -32,13 +32,13 @@ public class RepeatAddCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_START_DATE + "STARTDATE "
             + PREFIX_END_DATE + "ENDDATE "
-            + PREFIX_PERIOD + "[daily|monthly|weekly|annually]"
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_PERIOD + "[daily|monthly|weekly|annually] "
+            + "[" + PREFIX_TAG + "TAG]\n"
 
             + "Example: " + RepeatLevelParser.COMMAND_WORD
             + " " + COMMAND_WORD + " "
             + PREFIX_INFO + " MRT topup "
-            + PREFIX_AMOUNT + " 50.0"
+            + PREFIX_AMOUNT + " 50.0 "
             + PREFIX_START_DATE + " 2019-01-01 "
             + PREFIX_END_DATE + "2019-12-31 "
             + PREFIX_PERIOD + "monthly "
