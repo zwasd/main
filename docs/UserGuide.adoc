@@ -183,7 +183,7 @@ image::view_may2020_budget.png[]
 For example, going to _8 May 2020_ allows you to view the budget set for _May 2020_.
 
 //tag::Report[]
-=== Report (Ng Xinpei)
+=== Report (Ng Xin Pei)
 
 ==== Function
 The _Report_ feature allows you to have a quick overview of your expenditures.
