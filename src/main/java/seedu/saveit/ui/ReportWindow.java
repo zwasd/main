@@ -66,7 +66,6 @@ public class ReportWindow extends UiPart<Stage> {
     public ReportWindow(Stage root) {
         super(FXML, root);
         root.initModality(Modality.APPLICATION_MODAL);
-
     }
 
     /**
@@ -115,13 +114,11 @@ public class ReportWindow extends UiPart<Stage> {
         label1.setFont(new Font("Segoe UI Light", 14));
         label1.setOnMouseClicked(click -> {
             try {
-                if (currentGraph != null) {
-                    print();
-                } else {
-                    display.setFeedbackToUser("Construct graph before printing.");
-                }
-            } catch (PrinterException e) {
-                logger.info("Invalid printer");
+
+                executeReportWindowCommand("print");
+
+            } catch (Exception e) {
+                logger.info("Invalid or no printer");
                 display.setFeedbackToUser(e.getMessage());
             }
         });
@@ -141,6 +138,7 @@ public class ReportWindow extends UiPart<Stage> {
         getRoot().setOnCloseRequest(new EventHandler<>() {
             @Override
             public void handle(WindowEvent event) {
+                currentGraph = null;
                 display.clear();
                 getRoot().hide();
             }
@@ -231,8 +229,6 @@ public class ReportWindow extends UiPart<Stage> {
      *                          successfully finish a job.
      */
     public void print() throws PrinterException {
-        logger.fine("Printing");
-        display.setFeedbackToUser("Printing");
 
         assert currentGraph != null;
         printerJob();
@@ -246,29 +242,33 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void printerJob() throws PrinterException {
 
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
+        try {
+            PrinterJob printerJob = PrinterJob.createPrinterJob();
+            PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
 
-        WritableImage snapshot = snapshot();
+            WritableImage snapshot = snapshot();
 
-        ImageView imgView = new ImageView(snapshot);
-        double scaleX = pageLayout.getPrintableWidth() / imgView.getImage().getWidth();
-        double scaleY = pageLayout.getPrintableHeight() / imgView.getImage().getHeight();
-        double scale = Math.min(scaleX, scaleY);
-        if (scale < 1.0) {
-            imgView.getTransforms().add(new Scale(scale, scale));
-        }
+            ImageView imgView = new ImageView(snapshot);
+            double scaleX = pageLayout.getPrintableWidth() / imgView.getImage().getWidth();
+            double scaleY = pageLayout.getPrintableHeight() / imgView.getImage().getHeight();
+            double scale = Math.min(scaleX, scaleY);
+            if (scale < 1.0) {
+                imgView.getTransforms().add(new Scale(scale, scale));
+            }
 
-        if (printerJob != null) {
             boolean jobStatus = printerJob.printPage(imgView);
             if (jobStatus) {
                 printerJob.endJob();
+
             } else {
                 printerJob.cancelJob();
-                throw new PrinterException("Set available printer as default printer");
+                throw new PrinterException("Set available printer as default "
+                        + "printer before printing.");
             }
-        } else {
-            throw new PrinterException("Set available printer as default printer");
+
+        } catch (Exception e) {
+            throw new PrinterException("Set available printer as default "
+                    + "printer before printing.");
         }
 
     }
@@ -337,9 +337,11 @@ public class ReportWindow extends UiPart<Stage> {
             display.setFeedbackToUser(result.getFeedbackToUser());
 
             if (result.isExitReport()) {
+
                 currentGraph = null;
                 display.clear();
                 getRoot().hide();
+
             } else if (result.isShowHelp()) {
 
             } else if (result.isPrintReport() || result.isExportReport()) {
