@@ -2,6 +2,7 @@ package seedu.saveit.logic.parser.account;
 
 import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.saveit.commons.util.StringUtil;
 import seedu.saveit.logic.commands.account.AccAddCommand;
 import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
@@ -29,6 +30,10 @@ public class AccAddCommandParser implements Parser<AccAddCommand> {
         if (trimmedArgs.length() >= 26) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AccAddCommand.NAME_TOO_LONG + "\n" + AccAddCommand.MESSAGE_USAGE));
+        }
+        if (!StringUtil.isAlphanumeric(trimmedArgs)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AccAddCommand.NAME_CONTAINS_INVALID_CHAR + "\n" + AccAddCommand.MESSAGE_USAGE));
         }
         Account newAccount = new Account(trimmedArgs);
         return new AccAddCommand(newAccount);
