@@ -251,30 +251,32 @@ public class MainWindow extends UiPart<Stage> {
      * @throws PrinterException if job cannot finish.
      */
     public void printerJob(Graph graph) throws PrinterException {
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
 
-        WritableImage snapshot = snapshot(graph);
+        try {
+            PrinterJob printerJob = PrinterJob.createPrinterJob();
+            PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
 
-        ImageView ivSnapshot = new ImageView(snapshot);
-        double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
-        double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
-        double scale = Math.min(scaleX, scaleY);
-        if (scale < 1.0) {
-            ivSnapshot.getTransforms().add(new Scale(scale, scale));
-        }
+            WritableImage snapshot = snapshot(graph);
 
-        if (printerJob != null) {
+            ImageView ivSnapshot = new ImageView(snapshot);
+            double scaleX = pageLayout.getPrintableWidth() / ivSnapshot.getImage().getWidth();
+            double scaleY = pageLayout.getPrintableHeight() / ivSnapshot.getImage().getHeight();
+            double scale = Math.min(scaleX, scaleY);
+            if (scale < 1.0) {
+                ivSnapshot.getTransforms().add(new Scale(scale, scale));
+            }
             boolean jobStatus = printerJob.printPage(ivSnapshot);
-            ;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
                 printerJob.cancelJob();
-                throw new PrinterException("Set available printer as default printer");
+                throw new PrinterException("Set available printer as default "
+                        + "printer before printing");
             }
-        } else {
-            throw new PrinterException("Set available printer as default printer");
+
+        } catch (Exception e) {
+            throw new PrinterException("Set available printer as default "
+                    + "printer before printing.");
         }
     }
 

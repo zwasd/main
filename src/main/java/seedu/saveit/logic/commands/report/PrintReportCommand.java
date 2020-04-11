@@ -25,7 +25,7 @@ import seedu.saveit.ui.Pie;
 public class PrintReportCommand extends Command {
 
     public static final String COMMAND_WORD = "print";
-    public static final String MESSAGE_SUCCESS = "Printing report.";
+    public static final String MESSAGE_SUCCESS = "Setting up print job.";
     public static final String MESSAGE_FAIL = "Report cannot be printed";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Prints the report. "
