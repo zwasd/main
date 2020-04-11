@@ -180,6 +180,7 @@ image::view_may2020_budget.png[]
 
 For example, going to _8 May 2020_ allows you to view the budget set for _May 2020_.
 
+//tag::Report[]
 === Report
 
 ==== Function
@@ -210,7 +211,7 @@ tags.
 
 If you are interested to find out more, you can explore <<Report command, Report Command>>
 to find out how to generate these graphs.
-
+//end::Report[]
 
 //tag::calendar[]
 === Calendar
@@ -634,6 +635,7 @@ Returns `Chicken rice` and `Veg Rice`.
 * `find Spicy Chicken Rice` +
 Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
 
+//tag::ReportCommand[]
 === Report commands
 This section will talk about how to use the report feature. Before we begin
 with the details of the command, here are some things to note :
@@ -712,13 +714,15 @@ Examples:
 * `report print -sd 2020-03-01 -ed 2020-03-31 -g pie -o month`
 * `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag`
 
+//end::ReportCommand[]
+
 [[cmd-exit]]
 === Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
 
-
+//tag::ReportWindowCommand[]
 [[report-commands]]
 == Report Window Commands
 
@@ -771,6 +775,7 @@ Format: `print`
 
 Exits the report window. +
 Format: `exit`
+//end::ReportWindowCommand[]
 
 
 == FAQ

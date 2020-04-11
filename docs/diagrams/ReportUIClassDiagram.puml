@@ -17,15 +17,16 @@ Class MainWindow
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
-MainWindow -left-> ReportWindow
+
 MainWindow -up-> Logic
-ReportWindow -left-> Graph
+ReportWindow *--> Graph
 ReportWindow -up-> Logic
+MainWindow *--> ReportWindow
 
 
-ReportWindow *-down- ReportCommandBox
-ReportWindow *-down- MenuBar
-ReportWindow *-- ResultDisplay
+ReportWindow *-down-> ReportCommandBox
+ReportWindow *-down-> MenuBar
+ReportWindow *--> ResultDisplay
 
 MainWindow -down-|> UiPart
 ReportWindow -down-|> UiPart

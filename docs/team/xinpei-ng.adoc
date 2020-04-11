@@ -9,60 +9,88 @@
 
 == Overview
 
-$AVE IT is a desktop budget management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+$AVE IT is a desktop budget management application.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability view report*
-** What it does: allows the user to generate a report based on their expenditures. User can specify the date range of
-the report and how they would like the data to be generated; by months or tags.
-** Justification: This feature improves the product significantly because it gives user a overview to
-see what they are spending on, which can equip them with better knowledge of their spending habits.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *Report Feature*
+** What it does:
+*** It allows the user to *generate a report* based on their expenditures (including repeat). User can specify the date range and type of
+the report (bar chart or pie chart) and how they want their spending to be categorised (month or tag).
+*** Added functionality to *print* and *export* the report.
+*** Report is shown in a *pop out window* which also allow users to type in `Report commands` only.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification:
+*** This feature improves the product significantly because it gives user a overview of what they are spending on,
+which can equip them with better knowledge of their spending habits.
+*** Some users might want to have a permanent copy of their report,
+hence the *print* and *export* report function was introduced
+which give users the choice of having both hard and soft copy of their report.
+*** The pop out window was added avoid cluttering the Main Window.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=xinpei-ng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=XinPei-ng&tabRepo=AY1920S2-CS2103T-T10-3%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Highlights:
+*** This feature works together with `expenditure` and `repeat` feature. As the `repeat` feature
+allowed expenditures to occur at varying frequency : daily, weekly, monthly or annually,
+calculation of spending became complex especially since users are able to have specified start and end date
+eg: 2020-03-12 to 2020-04-28.
+*** When user types `report view` command, a Report Window will pop out showcasing the report
+user has requested. This made implementation challenging as I had to set up the UI.
+*** User is able to *print* or *export* the report so long it is showcased in
+the report window.
 
-* *Other contributions*:
+** Credits: JavaFXSwingUtils is used for exporting and printing.
+
+* *Major enhancement* : added *Report Window*
+** What it does:
+*** Show cases the report user requested for.
+*** It is able to take in `Report command` , execute and show case the result of the command.
+
+** Justification:
+*** Avoid cluttering the Main Window UI with report showing there.
+*** It is likely that users only needed report at specified occasions and not all the time, hence I
+implemented a pop out window which user can close when they no longer need the report.
+
+** Highlights:
+*** This feature works with `Report` feature.
+*** Users can also access the Report Window via `report button` in Main Window, which made
+implementation slightly challenging as I had to take care of cases where there is no
+report generated.
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=xinpei-ng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=XinPei-ng&tabRepo=AY1920S2-CS2103T-T10-3%2Fmain%5Bmaster%5D[RepoSense]
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release  `v1.1` - `v1.2` (3 releases)  on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI layout (Pull request :  https://github.com/AY1920S2-CS2103T-T10-3/main/pull/81/commits/bc0186cf6d2cd69b0d10aafff15a837337d8634a[#81)]
+*** Wrote additional tests for existing features to increase coverage from 47% to 50%  (Pull request : https://github.com/AY1920S2-CS2103T-T10-3/main/pull/240[#240])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-T10-3/main/pull/162/files[#162], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/222[#222]
+*** Added format to Developer Guide: https://github.com/AY1920S2-CS2103T-T10-3/main/pull/210/files[#210]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed : https://github.com/AY1920S2-CS2103T-T10-3/main/pull/2[#2], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/216[#216], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/230[#230]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/XinPei-ng/ped/issues/2[2], https://github.com/XinPei-ng/ped/issues/6[6], https://github.com/XinPei-ng/ped/issues/10[10])
 
-_{you can add/remove categories in the list above}_
+** Tools:
+*** Integrated a third party library (JavaFxSwing) to the project (https://github.com/AY1920S2-CS2103T-T10-3/main/pull/219[#219])
+
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=Report]
-
-include::../UserGuide.adoc[tag=ReportCommand]
+include::../UserGuide.adoc[tag=ReportWindowCommand]
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Report]
+include::../DeveloperGuide.adoc[tag=ReportUI]
 
