@@ -131,8 +131,8 @@ Hence, this expenditure record will be shown on `2020-04-30` instead. For May, i
 Refer to <<Repeat commands, Repeat Commands>> for more details on how to add, edit
 and delete `Repeat` type expenditures.
 
-
-=== Budget (Lim Fengyue)
+//tag::budget[]
+=== Budget (Lim Feng Yue)
 The _Budget_ feature allows you to set your budget monthly, and give you a better
 sense of whether you are on track to your financial goals. You can see your budget
 at the right panel of the application.
@@ -181,6 +181,7 @@ the <<Calendar>> feature to view any date of the month.
 image::view_may2020_budget.png[]
 
 For example, going to _8 May 2020_ allows you to view the budget set for _May 2020_.
+//end::budget[]
 
 //tag::Report[]
 === Report (Ng Xinpei)
@@ -270,7 +271,8 @@ image::updateViewForGoCommand.png[]
 
 // end::calendar[]
 
-=== Autocomplete (Lim Fengyue)
+//tag::autocomplete[]
+=== Autocomplete (Lim Feng Yue)
 The _Autocomplete_ feature allows you to complete the basic commands of the
 application. It matches the what you type into the command box and tries to
 complete the command.
@@ -284,7 +286,7 @@ or the dropdown is hidden after clicking away.
 
 You can use the kbd:[Up] or kbd:[Down] arrow keys to navigate the dropdown, then
 press kbd:[Enter] to select the command you want to complete.
-
+//end::autocomplete[]
 
 === Saving the data
 
@@ -606,6 +608,9 @@ to 2 decimal point and less than 1 billion.
 * `YEAR_MONTH` is in the format `YYYY-MM`, which is the year and month for the
 budget. If not specified, the current year and month will be used.
 ****
+
+[NOTE]
+Budget cannot be unset after setting it.
 
 Examples:
 
