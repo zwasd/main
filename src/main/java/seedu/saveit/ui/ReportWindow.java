@@ -245,6 +245,7 @@ public class ReportWindow extends UiPart<Stage> {
      * @throws PrinterException if job cannot finish.
      */
     public void printerJob() throws PrinterException {
+
         PrinterJob printerJob = PrinterJob.createPrinterJob();
         PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
 
@@ -260,7 +261,6 @@ public class ReportWindow extends UiPart<Stage> {
 
         if (printerJob != null) {
             boolean jobStatus = printerJob.printPage(imgView);
-            ;
             if (jobStatus) {
                 printerJob.endJob();
             } else {
