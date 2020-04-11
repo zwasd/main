@@ -273,6 +273,8 @@ public class MainWindow extends UiPart<Stage> {
                 printerJob.cancelJob();
                 throw new PrinterException("Set available printer as default printer");
             }
+        } else {
+            throw new PrinterException("Set available printer as default printer");
         }
     }
 
