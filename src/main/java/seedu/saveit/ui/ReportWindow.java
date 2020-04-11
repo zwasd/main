@@ -267,6 +267,8 @@ public class ReportWindow extends UiPart<Stage> {
                 printerJob.cancelJob();
                 throw new PrinterException("Set available printer as default printer");
             }
+        } else {
+            throw new PrinterException("Set available printer as default printer");
         }
 
     }
@@ -364,7 +366,7 @@ public class ReportWindow extends UiPart<Stage> {
             if (e instanceof CommandException || e instanceof ParseException) {
                 logger.info("Invalid command :" + commandText);
             } else if (e instanceof PrinterException) {
-                logger.info("Invalid printer");
+                logger.info("Invalid or no printer");
             }
 
             display.setFeedbackToUser(e.getMessage());

@@ -273,6 +273,8 @@ public class MainWindow extends UiPart<Stage> {
                 printerJob.cancelJob();
                 throw new PrinterException("Set available printer as default printer");
             }
+        } else {
+            throw new PrinterException("Set available printer as default printer");
         }
     }
 
@@ -375,7 +377,7 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Invalid command: " + commandText);
             } else {
                 assert e instanceof PrinterException;
-                logger.info("Invalid printer.");
+                logger.info("Invalid or no printer.");
             }
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
