@@ -337,7 +337,7 @@ The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
 .Sequence Diagram for Report View
-image::ReportViewSequence.png[]
+image::ReportViewSquence.png[]
 
 If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
 start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
@@ -359,14 +359,15 @@ _ReportableAccount_ object requested from _Model_ through `getReportableAccount`
 
 If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
 start date, end date, graph into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively. These objects
-are used to create _PrintReportCommand_ object which will be executed. The result of execution will be sending a print job to your printer, printing out the report.
-`report print` has a similar execution path to `report view`, hence you can refer to *Figure 11* to find out more.
+are used to create _PrintReportCommand_ object which will be executed.
+The result of execution will be sending a print job to your printer, printing out the report.
+
 
 If a valid `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
 tart date, end date, graph into _Date_ , _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
 These objects are used to create _ExportReportCommand_ object which will be executed.
 The result of execution will be exporting a PNG version of the report into your computer with file name.
-`report export` also has a similar execution path to `report view` with the addition of _ExportFile_ class being involved.
+
 
 .Activity Diagram for Report in Main Window
 image::Report_MainWindow_.png[]
