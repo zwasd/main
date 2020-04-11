@@ -1,5 +1,7 @@
 package seedu.saveit.model.expenditure;
 
+import java.math.BigDecimal;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.AppUtil.checkArgument;
 
@@ -39,7 +41,7 @@ public class Amount {
      */
     public static boolean isValidAmount(double test) {
         requireNonNull(test);
-        return test > 0 && test < 1000000000;
+        return test > 0 && test < 1000000000 && BigDecimal.valueOf(test).scale() <= 2;
     }
 
     /**
