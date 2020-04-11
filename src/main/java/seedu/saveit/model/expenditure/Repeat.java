@@ -3,6 +3,7 @@ package seedu.saveit.model.expenditure;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -362,7 +363,7 @@ public class Repeat extends BaseExp {
         }
 
         assert adjustedStart != null && adjustedEnd != null;
-        int days = (adjustedStart).until(adjustedEnd).getDays() + 1;
+        long days = ChronoUnit.DAYS.between(adjustedStart, adjustedEnd) + 1;
 
         double amount = this.getAmount().value * days;
 
