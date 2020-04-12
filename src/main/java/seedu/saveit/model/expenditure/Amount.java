@@ -61,7 +61,6 @@ public class Amount {
 
     @Override
     public boolean equals(Object other) {
-        // TODO use value - other.value < epsilon ?
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
                 && value == ((Amount) other).value); // state check

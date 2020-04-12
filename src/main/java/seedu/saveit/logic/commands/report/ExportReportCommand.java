@@ -7,7 +7,17 @@ import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_ORGANISE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.io.IOException;
 import java.util.HashMap;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.image.WritableImage;
 
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
@@ -58,6 +68,46 @@ public class ExportReportCommand extends Command {
         this.fileName = fileName;
     }
 
+    /**
+     * Exports the report.
+     */
+    public void export(ExportFile file) throws CommandException {
+        try {
+            WritableImage img = snapshot(file.getGraph());
+            file.export(img);
+        } catch (IOException e) {
+            throw new CommandException("File already exists.");
+        }
+    }
+
+    /**
+     * Takes a snapshot of the graph
+     * to be exported.
+     *
+     * @return image of the graph.
+     */
+    public WritableImage snapshot(Graph graph) {
+        Node node = (Node) graph.constructGraph();
+        Scene sc = new Scene((Parent) node, 800, 600);
+        Chart chart = null;
+
+        if (node instanceof PieChart) {
+            chart = (PieChart) node;
+
+        } else if (node instanceof BarChart) {
+            chart = (BarChart) node;
+        }
+
+        assert chart != null;
+
+        chart.setAnimated(false);
+        WritableImage img = new WritableImage(800, 600);
+        node.snapshot(new SnapshotParameters(), img);
+
+        return img;
+    }
+
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
@@ -80,6 +130,8 @@ public class ExportReportCommand extends Command {
         }
 
         ExportFile f = new ExportFile(fileName, graph);
+        export(f);
+
         return new CommandResult(MESSAGE_SUCCESS, f, true);
     }
 

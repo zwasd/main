@@ -8,9 +8,6 @@ import seedu.saveit.ui.Graph;
 public class ReportCommandResult {
 
     private final boolean isExitReport;
-    private final boolean isExportReport;
-    private final boolean isPrintReport;
-    private final boolean isShowHelp;
     private final boolean isChangeView;
     private final String feedbackToUser;
 
@@ -18,49 +15,31 @@ public class ReportCommandResult {
     private String fileName;
 
     public ReportCommandResult(String feedbackToUser, boolean isExitReport,
-                               boolean isExportReport, boolean isPrintReport,
-                               boolean isShowHelp, boolean isChangeView) {
+                               boolean isChangeView) {
         this.feedbackToUser = feedbackToUser;
         this.isExitReport = isExitReport;
-        this.isExportReport = isExportReport;
-        this.isPrintReport = isPrintReport;
-        this.isShowHelp = isShowHelp;
         this.isChangeView = isChangeView;
 
     }
 
     public ReportCommandResult(String feedbackToUser, Graph graph) {
-        this(feedbackToUser, false, false, false, false, true);
+        //change view true
+        this(feedbackToUser, false, true);
         this.graph = graph;
     }
 
     public ReportCommandResult(String feedbackToUser, String fileName) {
-        this(feedbackToUser, false, true, false, false, false);
+        this(feedbackToUser, false, false);
         this.fileName = fileName;
     }
 
-    public ReportCommandResult(String feedbackToUser, boolean isShowHelp) {
-        this(feedbackToUser, false, false, false, isShowHelp, false);
+    public ReportCommandResult(String feedbackToUser) {
+        this(feedbackToUser, false, false);
     }
 
-    public ReportCommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false);
-    }
 
     public boolean isExitReport() {
         return isExitReport;
-    }
-
-    public boolean isExportReport() {
-        return isExportReport;
-    }
-
-    public boolean isPrintReport() {
-        return isPrintReport;
-    }
-
-    public boolean isShowHelp() {
-        return isShowHelp;
     }
 
     public boolean isChangeView() {
@@ -86,11 +65,8 @@ public class ReportCommandResult {
         } else if (obj instanceof ReportCommandResult) {
             ReportCommandResult r = (ReportCommandResult) obj;
             return feedbackToUser.equals(r.feedbackToUser)
-                    && isExportReport == r.isExportReport
-                    && isChangeView == r.isChangeView
-                    && isShowHelp == r.isShowHelp
-                    && isPrintReport == r.isPrintReport
-                    && isExitReport == r.isExitReport;
+                    && isExitReport == r.isExitReport
+                    && isChangeView == r.isChangeView;
         }
 
         return false;

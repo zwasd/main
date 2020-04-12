@@ -17,7 +17,6 @@ import seedu.saveit.model.expenditure.Repeat;
 
 /**
  * Delete repeat object.
- * TODO: NEED MODIFY
  */
 public class RepeatDeleteCommand extends Command {
 

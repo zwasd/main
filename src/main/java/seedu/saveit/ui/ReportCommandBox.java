@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.util.Arrays;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -19,13 +21,16 @@ public class ReportCommandBox extends UiPart<Region> {
     private final ReportCommandExecutor commandExecutor;
 
     @FXML
-    private ReportAutoCompleteTextField commandTextField;
+    private AutoCompleteTextField commandTextField;
 
     public ReportCommandBox(ReportCommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEntries(Arrays.asList(
+            "export", "exit", "print", "view", "help"
+        ));
     }
     /**
      * Handles the Enter button pressed event.

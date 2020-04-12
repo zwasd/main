@@ -131,14 +131,6 @@ public class CommandResult {
         return isShowReport;
     }
 
-    public boolean isExportReport() {
-        return isExportReport;
-    }
-
-    public boolean isPrintReport() {
-        return isPrintReport;
-    }
-
     public ExportFile getFile() {
         return file;
     }
