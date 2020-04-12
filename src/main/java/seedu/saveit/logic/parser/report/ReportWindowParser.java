@@ -2,8 +2,6 @@ package seedu.saveit.logic.parser.report;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.saveit.logic.commands.ReportCommand;
 import seedu.saveit.logic.commands.report.ReportWindowExitCommand;
 import seedu.saveit.logic.commands.report.ReportWindowHelpCommand;
@@ -26,19 +24,19 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
         switch (userInputArray[0]) {
         case "exit":
             if (!userInputTrimmed.equals("exit")) {
-                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+                throw new ParseException("Invalid Command.");
             }
 
             return new ReportWindowExitCommand();
         case "help":
             if (!userInputTrimmed.equals("help")) {
-                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+                throw new ParseException("Invalid Command.");
             }
             return new ReportWindowHelpCommand();
 
         case "print":
             if (!userInputTrimmed.equals("print")) {
-                throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+                throw new ParseException("Invalid Command.");
             }
             return new ReportWindowPrintCommand();
 

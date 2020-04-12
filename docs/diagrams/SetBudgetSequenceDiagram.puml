@@ -17,7 +17,7 @@ end box
 box Pie UI_COLOR_T1
 end box
 
-[-> TopLevelParser : parseCommand(\n"exp setbudget \n-a 123 -ym 2020-04")
+[-> TopLevelParser : parseCommand(\n"setbudget \n-a 123 -ym 2020-04")
 activate TopLevelParser
 
 create SetBudgetCommandParser

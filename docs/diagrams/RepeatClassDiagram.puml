@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+title = Repeat Class Diagram
+skinparam arrowThickness 1.1
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor MODEL_COLOR
+
+show method
+show field
+
+abstract class BaseExp <<abstract>>
+class Repeat
+class Info
+class Amount
+class Date
+class Tag
+enum Period
+
+class Info {
+
+    <color:white> + fullInfo : String </color>
+    <color:white>  {static} + isValidInfo(String) :boolean; </color>
+
+}
+
+class Amount {
+    <color:white>  + value : double </color>
+    <color:white>  {static} + isValidAmount(double) : boolean </color>
+    <color:white>  {static} + isValidAmount(String) : boolean </color>
+}
+
+class Tag {
+    <color:white> + tagName : String </color>
+    <color:white> {static} + isValidTagString) : boolean </color>
+    <color:white> + isEmpty() : boolean </color>
+}
+
+class Date {
+    <color:white> + value : String </color>
+    <color:white> + localDate : LocalDate </color>
+    <color:white> + yearMonth : YearMonth </color>
+    <color:white> {static} + isValidDate(String) : boolean </color>
+    <color:white> {static} + isValidDateRange(Date, Date) : boolean </color>
+}
+
+abstract class BaseExp {
+    <color:white> # info : Info </color>
+    <color:white> # amount : Amount </color>
+    <color:white> # tag : Tag </color>
+    <color:white> + getUiCard(int) : UiPart<Region> { abstract } </color>
+    <color:white> + isOn(LocalDate) : boolean { abstract } </color>
+}
+
+class Repeat {
+    <color:white> - startDate : Date </color>
+    <color:white> - endDate : Date </color>
+    <color:white> - relevantDate : HashSet<LocalDate> </color>
+    <color:white> - period : Period </color>
+
+    <color:white> {static} + generatePeriod(String) : Period </color>
+    <color:white> + CheckDateRange() : boolean </color>
+    <color:white> + setInfo(Info) </color>
+    <color:white> + setAmount(Amount) </color>
+    <color:white> + setStartDate(Date) </color>
+    <color:white> + setEndDate(Date) </color>
+    <color:white> + setPeriod(String) </color>
+    <color:white> + isOn(LocalDate) : boolean </color>
+    <color:white> + calculateDailyRepeatMonth(Date, Date) : HashMap <String, double> </color>
+    <color:white> + calculateForGivenYearMonth(YearMonth) : double </color>
+    <color:white> + calculateForGivenYearMonthRange(YearMonth, YearMonth) : double </color>
+    <color:white> + calculateWkOrMthOrYr(Date, Date) : double </color>
+    <color:white> + calculateWkOrMthOrYrMonth(Date, Date) :HashMap <String, double> </color>
+    <color:white> + calculateRepeatTillEndDate(LocalDate, LocalDate) : double </color>
+    <color:white> - generateRelevantDate() </color>
+    <color:white> - generateWeeklyDate() </color>
+    <color:white> - generateMonthlyDate() </color>
+    <color:white> - generateAnnuallyDate() </color>
+    <color:white> - checkDaily(LocalDate) : boolean </color>
+    <color:white> - checkWeeklyOrMonthlyOrAnnually(LocalDate) : boolean </color>
+    <color:white> - isOnYearMonth(YearMonth) : ArrayList <LocalDate> </color>
+    <color:white> - calculateDaily(YearMonth) : double </color>
+}
+
+enum Period {
+<color:white> DAILY </color>
+<color:white> WEEKLY </color>
+<color:white> MONTHLY </color>
+<color:white> ANNUALLY </color>
+<color:white> {static} isValidPeriod(String) : boolean </color>
+}
+
+BaseExp "1" -up---> "1" Amount : contains
+BaseExp "1" -left---> "1" Tag : contains
+BaseExp "1" -right---> "1" Info : contains
+
+Repeat -up---|> BaseExp
+Repeat "1" -right---> "1" Period : contains
+Repeat "1" -left--> "2" Date : contains      \n startDate      \n and endDate      \n
+
+@enduml

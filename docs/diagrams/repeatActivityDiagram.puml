@@ -1,0 +1,26 @@
+@startuml
+title Repeat Activity Diagram
+start
+:User keys in to add a repeat expenditure;
+if () then ([Valid Command Format])
+    if () then ([Tag is not\n specified in\n the command]\n)
+        : Set the tag to "Others";
+    else ([Else])
+    endif
+    :Create repeat object;
+        fork
+        if () then ([Budget is\n set for the\n given month]\n)
+            :Update budget view;
+        else ([Else])
+        endif
+        fork again
+        if () then ([Repeat adds\n to active date])
+            :Update expenditure view;
+        else ([Else])
+        endif
+        end fork
+else ([Else])
+    :Throw ParserException;
+endif
+stop
+@enduml

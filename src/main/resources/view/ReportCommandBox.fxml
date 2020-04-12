@@ -2,8 +2,8 @@
 
 <?import javafx.scene.layout.StackPane?>
 
-<?import seedu.saveit.ui.ReportAutoCompleteTextField?>
+<?import seedu.saveit.ui.AutoCompleteTextField?>
 
 <StackPane styleClass="command-box-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ReportAutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered"/>
+    <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandEntered"/>
 </StackPane>

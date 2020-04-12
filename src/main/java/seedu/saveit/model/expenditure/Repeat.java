@@ -196,7 +196,7 @@ public class Repeat extends BaseExp {
     /**
      * Update if it is a monthly repeat.
      */
-    public void generateMonthlyDate() {
+    private void generateMonthlyDate() {
         this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
         int i = 0;
@@ -213,7 +213,7 @@ public class Repeat extends BaseExp {
     /**
      * Update if it is a annually repeat.
      */
-    public void generateAnnuallyDate() {
+    private void generateAnnuallyDate() {
         this.relevantDate.clear();
         LocalDate pivotDate = this.startDate.localDate;
         int i = 0;

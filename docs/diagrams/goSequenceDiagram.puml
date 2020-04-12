@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+title Add Repeat Sequence Diagram
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":calendarView" as calendarView UI_COLOR
+participant ":activeNameAndDateView" as activeNameAndDateView UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":GoCommandParser" as GoCommandParser LOGIC_COLOR
+participant "GC: GoCommand" as GoCommand LOGIC_COLOR
+participant "CR: CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+
+actor user
+
+[-> MainWindow : User input\n"go 2020-04-01"
+activate MainWindow
+
+MainWindow -> LogicManager : execute("go 2020-04-01")
+activate LogicManager
+
+LogicManager -> TopLevelParser : parseCommand("go 2020-04-01")
+activate TopLevelParser
+
+create GoCommandParser
+TopLevelParser -> GoCommandParser
+activate GoCommandParser
+GoCommandParser --> TopLevelParser
+deactivate GoCommandParser
+
+TopLevelParser -> GoCommandParser : parse("2020-04-01")
+activate GoCommandParser
+
+create GoCommand
+GoCommandParser -> GoCommand
+activate GoCommand
+GoCommand --> GoCommandParser :GC
+deactivate GoCommand
+
+GoCommandParser --> TopLevelParser : GC
+deactivate GoCommandParser
+
+TopLevelParser --> LogicManager : GC
+destroy GoCommandParser
+
+LogicManager -> GoCommand : execute()
+activate GoCommand
+
+create CommandResult
+GoCommand -> CommandResult
+activate CommandResult
+CommandResult --> GoCommand : CR
+deactivate CommandResult
+
+GoCommand --> LogicManager : CR
+deactivate GoCommand
+
+LogicManager --> MainWindow : CR
+
+MainWindow -> MainWindow : isUpdateCalendar()
+activate MainWindow
+
+MainWindow -> calendarView : updateActiveDate(Date)
+activate calendarView
+
+calendarView --> MainWindow
+deactivate calendarView
+
+MainWindow -> activeNameAndDateView : setActiveDate(Date)
+activate activeNameAndDateView
+
+activeNameAndDateView --> MainWindow
+deactivate activeNameAndDateView
+
+MainWindow --> MainWindow
+deactivate MainWindow
+
+<-- MainWindow
+deactivate MainWindow
+
+@enduml

@@ -1,5 +1,7 @@
 package seedu.saveit.ui;
 
+import java.util.Arrays;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -26,6 +28,13 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEntries(Arrays.asList(
+            "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
+            "exp add", "exp edit", "exp delete", "exp list",
+            "repeat add", "repeat edit", "repeat delete",
+            "report view", "report export", "report print ",
+            "go", "go today", "help", "exit", "find", "setbudget"
+        ));
     }
 
     /**

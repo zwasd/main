@@ -31,7 +31,7 @@ public class AccountList implements ReadOnlyAccountList {
     public static final String DEFAULT_ACCOUNT_NAME = "default";
 
     private Map<String, Account> accounts = new HashMap<>();
-    private Account activeAccount; //TODO: make it static ?? (XP)
+    private Account activeAccount;
     private final ObservableList<BaseExp> displayedBaseExpList = FXCollections.observableArrayList();
     private LocalDate activeDate;
     private int expAddIndex = 0;
@@ -274,7 +274,6 @@ public class AccountList implements ReadOnlyAccountList {
 
     public void setBudget(Budget budget) {
         activeAccount.setBudget(budget);
-        //TODO need to add in UI.
     }
 
     public BudgetMap getBudgets() {

@@ -9,21 +9,15 @@ import static seedu.saveit.logic.commands.CommandTestUtil.VALID_ORGANISATION_MON
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_START_DATE_BUS_ALT;
 import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.saveit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
 
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 
-import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.model.Model;
 import seedu.saveit.model.ModelManager;
 import seedu.saveit.model.UserPrefs;
 import seedu.saveit.testutil.ReportBuilder;
-import seedu.saveit.ui.Bar;
-import seedu.saveit.ui.Graph;
 
 
 public class PrintReportCommandTest {
@@ -61,22 +55,6 @@ public class PrintReportCommandTest {
         PrintReportCommand command4 = new PrintReportCommand(rp.build());
         assertFalse(command1.equals(command4));
 
-    }
-
-    @Test
-    public void executeSuccess() {
-
-        ReportBuilder rp = new ReportBuilder()
-                .withStartDate(VALID_START_DATE_BUS)
-                .withEndDate(VALID_END_DATE_BUS)
-                .withGraphType(VALID_GRAPH_BAR_CAPS)
-                .withOrganise(VALID_ORGANISATION_MONTH);
-
-        Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
-        PrintReportCommand command1 = new PrintReportCommand(rp.build());
-        Graph graph = new Bar(new HashMap(), VALID_ORGANISATION_MONTH);
-        CommandResult r = new CommandResult(PrintReportCommand.MESSAGE_SUCCESS, graph, false, false, true);
-        assertCommandSuccess(command1, model, r, model);
     }
 
     @Test
