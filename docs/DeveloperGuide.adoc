@@ -1362,8 +1362,6 @@ There is a report generated and a printer set up.
 .. Test case: `print` +
 Expected: The current graph shown in report window will be printed.
 
-
-
 === General command
 
 ==== Go

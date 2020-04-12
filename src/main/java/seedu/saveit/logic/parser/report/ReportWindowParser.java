@@ -15,6 +15,8 @@ import seedu.saveit.logic.parser.exceptions.ParseException;
  */
 public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
 
+    public static final String MESSAGE_INVALID_COMMAND = "Invalid Command.";
+
     @Override
     public ReportCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
@@ -24,19 +26,19 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
         switch (userInputArray[0]) {
         case "exit":
             if (!userInputTrimmed.equals("exit")) {
-                throw new ParseException("Invalid Command.");
+                throw new ParseException(MESSAGE_INVALID_COMMAND);
             }
 
             return new ReportWindowExitCommand();
         case "help":
             if (!userInputTrimmed.equals("help")) {
-                throw new ParseException("Invalid Command.");
+                throw new ParseException(MESSAGE_INVALID_COMMAND);
             }
             return new ReportWindowHelpCommand();
 
         case "print":
             if (!userInputTrimmed.equals("print")) {
-                throw new ParseException("Invalid Command.");
+                throw new ParseException(MESSAGE_INVALID_COMMAND);
             }
             return new ReportWindowPrintCommand();
 
@@ -49,7 +51,7 @@ public class ReportWindowParser implements ParserReportWindow<ReportCommand> {
             return new ViewReportWindowCommandParser().parse(userInputTrimmed);
 
         default:
-            throw new ParseException("Unknown Command");
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
     }
