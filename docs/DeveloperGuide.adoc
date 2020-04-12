@@ -73,11 +73,6 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -127,12 +122,15 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+.Structure of the Parser Component
+image::LogicParserClassDiagram.png[]
+
 *API* :
 link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TopLevelParser` class to parse the user command.
-.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
-to parse the command instead.
+.  Depending on the command, the `TopLevelParser` class may use the
+`SubLevelParser` class e.g. `ExpLevelParser` to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -157,8 +155,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `$AVE IT` data.
-* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<BaseExp>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+.Structure of the Expenditure Component
+image::ModelExpClassDiagram.png[]
+
+The above image shows how the `expenditure` package interaction within itself,
+and other model components.
 
 
 [[Design-Storage]]
@@ -182,6 +186,7 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 == Implementation
 
 //tag::account[]
+
 === Disjoint Account (Jiang Jiahui)
 The disjoint accounts feature aims to help users better organise their expenditures by allowing them to separate the expenditures into different accounts.
 
@@ -230,9 +235,11 @@ This section contains some of our design considerations for the account feature.
 |There is no ambiguity as to which list is currently being displayed. This is safer as the lists in the accounts cannot be directly modified outside the Account class.
 |More troublesome when a repeat or expenditure command is executed, since both the active account and the list has to be updated.
 |===
+
 //end::account[]
 
 //tag::expenditure[]
+
 === Expenditure (Jiang Jiahui)
 This is the most essential and basic feature of the application.
 
@@ -259,6 +266,7 @@ image::ExpenditureClassDiagram.png[]
 |This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
 |Less flexibility for the user.
 |===
+
 //end::expenditure[]
 
 //tag::repeat[]
@@ -381,6 +389,7 @@ a chart.
 //end::budget[]
 
 [#Report]
+//tag::Report[]
 === Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
@@ -603,6 +612,9 @@ image::AutocompleteActivityDiagram.png[]
 |- Extremely fast.
 |- Takes up a lot of space.
 |===
+
+The curent choice is chosen as the number of commands is not a lot, so high
+performance is not required.
 //end::autocomplete[]
 
 [[Implementation-Configuration]]
@@ -744,7 +756,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to rename an account. Format: `acc rename OLD_NAME NEW_NAME`
+1.  User requests to rename an account. Format: `acc rename [OLD_NAME] NEW_NAME`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -903,42 +915,6 @@ Use case ends.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes in step 1.
 
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes from step 1.
-
-
-[discrete]
-=== Use case: Exp SetBudget
-
-*MSS*
-
-1.  User requests to set an budget for a given month in the account which they are viewing right now. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
-** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that date input is invalid.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** Use case resumes from step 1.
-* 2a. `$AVE IT` detects that date is not specified.
-** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2a2. `$AVE IT` will acknowledge.
-** use case end.
-
-
 
 [discrete]
 === Use case: Repeat Add
@@ -973,7 +949,7 @@ Use case ends.
 ** Use case ends.
 
 [discrete]
-=== Use case: Repeat Delete [TO BE IMPLEMENTED]
+=== Use case: Repeat Delete
 
 *MSS*
 
@@ -1033,7 +1009,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -1063,12 +1039,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Report Export [TO BE IMPLEMENTED]
+=== Use case: Report Export
 
 *MSS*
 
 1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
-Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION -f FILE_NAME`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -1107,6 +1083,36 @@ Use case ends.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects graph type input is invalid.
 ** Use case resumes from step 1.
+
+[discrete]
+=== Use case: Set Budget
+
+*MSS*
+
+1.  User requests to set an budget for a given month in the account which they are viewing right now. +
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
+** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes from step 1.
+* 2a. `$AVE IT` detects that date is not specified.
+** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 2a2. `$AVE IT` will acknowledge.
+** use case end.
+
 
 [discrete]
 === Use case: Find
@@ -1166,11 +1172,6 @@ Use case ends.
 
 
 
-
-
-
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1186,6 +1187,11 @@ _{More to be added}_
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[mainstream-os]] Command Line Input::
+Command line interface (CLI) is a text-based interface that is used to operate software
+and operating systems while allowing the user to respond to visual prompts by typing
+single commands into the interface and receiving a reply in the same way.
 
 
 [appendix]
@@ -1214,24 +1220,116 @@ _{ more test cases ... }_
 
 
 
-=== Deleting an expenditure
+=== Account command test
+==== Add a new account
+.. Prerequisites: +
+The `new account name` must not exist in the system. +
+Name must be a word(contains no space).
+.. Test case: `acc add project-xyz` +
+Expected: A new account named `project-xyz` is added to the account list.
 
-. Deleting an expenditure while all expenditure are listed
+==== View all account
+Test case: acc list. +
+Expected: All the account which you own, will be displayed.
 
-.. Prerequisites: List all expenditure using the `exp list` command. Multiple expenditure in the list.
+==== Rename account
+.. Prerequisites: +
+The account whose name you wanted to change, must exist in account list. +
+The new name must not be another account's name.
+.. Test case: `acc rename projectXYZ projectABC` +
+Expected: the account's name with project-xyz change to project-abc.
+
+==== Checkout to an account
+.. Prerequisites: +
+The account which you wanted to checkout to, must exist in account list. +
+.. Test case acc checkout personal. +
+Expected: A response will be given to denote a change in account.
+
+
+==== Delete account
+.. Prerequisites: +
+The account which you wanted to delete, must exist in account list. +
+.. Test case: `acc delete projectABC` +
+Expected: the account will be deleted. +
+
+    Note:
+    If that is the only account, a new default account will be auto generated.
+    If you deleted the account which you are viewing on, you will be auto checkout to another account after deletion.
+
+==== Clear data of an account
+.. Prerequisites: +
+The active account will be the account whose data will be cleared.
+.. Test case: `acc clear` +
+Expected: the current account's data will be all cleared.
+
+=== Expenditure command test
+
+==== Add a new expenditure
+.. Prerequisites: +
+The command input must be in the right format.
+.. Test case: `exp add -i Chicken rice -a 3.50 -t Lunch` +
+Expected: New expenditure added: Chicken rice Amount: 3.50 Date: 2020-04-12 Tag: lunch.
+will be added to current date (For this test case: current date is set to 2020-04-12").
+.. Test case: `exp add -i Chicken rice -a 3.50 -t Lunch -d 2020-04-01` +
+Expected: New expenditure added: Chicken rice Amount: 3.50 Date: 2020-04-01 Tag: lunch.
+
+==== Delete an expenditure
+.. Prerequisites: +
+The index provided must be valid and it is an `expenditure` record.
 .. Test case: `exp delete 1` +
-   Expected: First expenditure is deleted from the list. Details of the deleted expenditure shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `exp delete 0` +
-   Expected: No expenditure is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `exp delete`, `exp delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+Expected: Deleted Expenditure: Chicken rice Amount: 3.50 Date: 2020-04-12 Tag: lunch.
 
-_{ more test cases ... }_
+==== Edit an expenditure
+.. Prerequisites: +
+The command input must be valid, index provided must refer to an `expenditure` record.
+.. Test case: `exp edit 1 -t meal` +
+Expected: Edited Expenditure: Chicken rice Amount: 3.50 Date: 2020-04-01 Tag: meal.
 
-=== Saving input
+==== Expenditure list
 
-. Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Repeat command test
 
-_{ more test cases ... }_
+==== Add a new repeat expenditure
+.. Prerequisites: +
+The command input must be in the right format. +
+The end date must be equal or after the start date.
+.. Test case: `repeat add -i bus far -a 1.50 -sd 2020-01-01 -ed 2021-01-01 -p daily -t Transport` +
+Expected: New repeat added: bus far Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
+will be added to current date (For this test case: current date is set to 2020-04-12").
+
+==== Delete a repeat
+.. Prerequisites: +
+The index provided must be valid and it is an `repeat` record.
+.. Test case: `repeat delete 1`
+Expected: Deleted Repeat: bus far Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
+
+==== Edit a repeat
+.. Prerequisites: +
+The command input must be valid, index provided must be refer to an `repeat` record.
+.. Test case: `repeat edit 2 -sd 2020-04-01 -ed 2020-05-01` +
+Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2020-05-01 Interval: daily Tags: Transport.
+
+
+=== Report command test
+
+==== View report
+
+==== Export report
+
+==== Print report
+
+
+=== General command
+
+==== Go
+.. Prerequisites: +
+The date input must be valid.
+.. Test case: `go 2020-03-11` +
+Expected: We are at : 2020-03-11.
+==== Find
+
+==== Help
+
+==== Exit
+
