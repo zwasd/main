@@ -414,7 +414,8 @@ image::ReportViewCreation.png[]
 
 If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
 start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
-These objects are used to create the  _ViewReportCommand_ object. *Figure 19*  provides a detailed flow for how _ViewReportCommand_ object is created.
+These objects are used to create the  _ViewReportCommand_ object. *Figure 19*  shows how the different objects interact to create
+_ViewReportCommand_ object.
 
 As shown in *Figure 19*, when a user inputs a valid `report  view` command:
 
@@ -426,9 +427,7 @@ image::ReportViewExecution.png[]
 
 The _ViewReportCommand_ object will be executed.
 The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
-
-*Figure 20* provides a detailed flow for how _ViewReportCommand_ object is executed.
-
+*Figure 20*
 
 As shown in *Figure 20*,
 
