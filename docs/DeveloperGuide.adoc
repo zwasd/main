@@ -381,6 +381,7 @@ a chart.
 //end::budget[]
 
 [#Report]
+//tag::Report[]
 === Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
