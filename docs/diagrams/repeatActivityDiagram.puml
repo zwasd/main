@@ -1,6 +1,6 @@
 @startuml
 title Repeat Activity Diagram
-
+start
 :User keys in to add a repeat expenditure;
 if () then ([Valid Command Format])
     if () then ([Tag is not\n specified in\n the command]\n)
