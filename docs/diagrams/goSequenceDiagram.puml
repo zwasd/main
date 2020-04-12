@@ -1,6 +1,8 @@
 @startuml
 !include style.puml
 title Add Repeat Sequence Diagram
+
+actor user
 box UI UI_COLOR_T1
 participant ":MainWindow" as MainWindow UI_COLOR
 participant ":calendarView" as calendarView UI_COLOR
@@ -16,9 +18,9 @@ participant "CR: CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 
-actor user
 
-[-> MainWindow : User input\n"go 2020-04-01"
+
+user -> MainWindow : User input\n"go 2020-04-01"
 activate MainWindow
 
 MainWindow -> LogicManager : execute("go 2020-04-01")
@@ -80,7 +82,7 @@ deactivate activeNameAndDateView
 MainWindow --> MainWindow
 deactivate MainWindow
 
-<-- MainWindow
+user <-- MainWindow
 deactivate MainWindow
 
 @enduml
