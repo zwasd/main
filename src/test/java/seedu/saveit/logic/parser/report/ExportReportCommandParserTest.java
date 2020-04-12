@@ -44,7 +44,7 @@ public class ExportReportCommandParserTest {
                 .withOrganise(VALID_ORGANISATION_TAG)
                 .build();
 
-        String expectedFileName = "Hello";
+        String expectedFileName = "hello";
 
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + START_DATE_DESC_MRT + END_DATE_DESC_MRT
                         + VALID_GRAPH_BAR_DESC_CAPS + VALID_ORGANISATION_TAG_DESC + VALID_FILE_NAME_DESC,

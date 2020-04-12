@@ -63,7 +63,7 @@ public class ViewReportWindowCommandParser implements ParserReportWindow<ReportW
             return new ReportWindowViewCommand(report1);
 
         default:
-            throw new ParseException("Invalid organisation type.");
+            throw new ParseException(Report.ORGANISE_TYPE_MESSAGE_CONSTRAINT);
 
         }
     }
