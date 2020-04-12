@@ -1,7 +1,8 @@
 @startuml
 !include style.puml
-title Report View Command Creation Sequence
+title Report View Command Execution Sequence
 box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "vc:ViewReportCommand" as ViewReportCommand LOGIC_COLOR
 participant ":GenerateStats" as GenerateStats LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -16,9 +17,13 @@ box UI UI_COLOR_T1
 participant ":Pie" as Pie UI_COLOR
 end box
 
-
+activate LogicManager
+[-> LogicManager
+LogicManager -> ViewReportCommand : execute()
 activate ViewReportCommand
-[-> ViewReportCommand : execute()
+activate Report
+ViewReportCommand -> Report : getOrganise()
+Report --> ViewReportCommand : organise
 create GenerateStats
 ViewReportCommand -> GenerateStats
 activate GenerateStats
@@ -31,16 +36,14 @@ GenerateStats --> ViewReportCommand : stats
 deactivate GenerateStats
 GenerateStats -[hidden]-> ViewReportCommand
 destroy GenerateStats
-activate Report
-ViewReportCommand -> Report : getOrganise()
-Report --> ViewReportCommand : organise
+
 ViewReportCommand -> Report : getFormat()
 Report --> ViewReportCommand : format
 deactivate Report
 Report -[hidden]-> ViewReportCommand
 destroy Report
 create Pie
-ViewReportCommand -> Pie : new Pie (stats, organise)
+ViewReportCommand -> Pie
 activate Pie
 Pie --> ViewReportCommand
 deactivate Pie
@@ -49,8 +52,10 @@ ViewReportCommand -> CommandResult
 activate CommandResult
 CommandResult --> ViewReportCommand : result
 deactivate CommandResult
-[<- ViewReportCommand : result
+LogicManager <-- ViewReportCommand : result
 deactivate ViewReportCommand
-[<-[hidden]- ViewReportCommand
+ViewReportCommand -[hidden]-> LogicManager
 destroy ViewReportCommand
+[<-- LogicManager : result
+deactivate LogicManager
 @enduml

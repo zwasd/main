@@ -70,6 +70,6 @@ deactivate CommandResult
 ExpDeleteCommand --> LogicManager : result
 deactivate ExpDeleteCommand
 
-[<--LogicManager
+[<--LogicManager : result
 deactivate LogicManager
 @enduml
