@@ -26,7 +26,7 @@ public class ReportWindowExportCommand extends ReportCommand {
 
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_EXPORT = "Trying to export.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " fileName" + "\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " filename" + "\n"
             + "eg export hello";
 
     private String fileName;
@@ -52,7 +52,7 @@ public class ReportWindowExportCommand extends ReportCommand {
             if (e instanceof NullPointerException) {
                 throw new CommandException("Generate report before printing.");
             } else if (e instanceof IOException) {
-                throw new CommandException("File already exists");
+                throw new CommandException("File already exists.");
             }
         }
     }
