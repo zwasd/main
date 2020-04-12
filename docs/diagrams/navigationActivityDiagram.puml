@@ -1,0 +1,23 @@
+@startuml
+title Navigation Activity Diagram
+start
+:Users wish to navigate to other dates;
+
+if () then ([Go Command])
+
+    : User input in (YYYY-MM-DD) format;
+    if () then ([Valid Input])
+        : Update the calendar view, expenditure records and budget view;
+    else([Else])
+        : Throw ParserException;
+    endif
+else ([UI interaction])
+        : detect onClick;
+        : Update the calendar view, expenditure records and budget view;
+
+
+endif
+stop
+
+
+@enduml

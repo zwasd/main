@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+title Account Rename Sequence Diagram
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":AccountList" as AccountList MODEL_COLOR
+participant "default:Account" as defaultAccount MODEL_COLOR
+participant "work:Account" as workAccount MODEL_COLOR
+end box
+
+[-> MainWindow : executeCommand(\n"acc rename \ndefault work")
+activate MainWindow
+
+MainWindow -> LogicManager : execute(\n"acc rename \ndefault work")
+activate LogicManager
+
+
+LogicManager -> ModelManager : renameAccount(\noldName, newName)
+activate ModelManager
+
+ModelManager -> AccountList : renameAccount(\noldName, newName)
+activate AccountList
+
+AccountList -> defaultAccount : copyAccountWithNewName(\nnewName)
+activate defaultAccount
+
+create workAccount
+defaultAccount -> workAccount : Account(newName)
+activate workAccount
+workAccount -[hidden]-> defaultAccount
+return
+defaultAccount -> workAccount : resetData(newData)
+activate workAccount
+return
+
+
+return work
+defaultAccount -[hidden]-> AccountList
+destroy defaultAccount
+
+return newAccountName
+return newAccountName
+
+return result
+return result
+
+@enduml

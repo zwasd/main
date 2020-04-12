@@ -32,8 +32,6 @@ public class FindCommand extends Command {
 
     public FindCommand(Predicate<BaseExp> predicate, String keywordsString, String tag) {
         requireNonNull(predicate);
-        requireNonNull(keywordsString);
-        requireNonNull(tag);
         this.predicate = predicate;
         this.keywordsString = keywordsString;
         this.tag = tag;

@@ -3,6 +3,8 @@ package seedu.saveit.model.expenditure;
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.AppUtil.checkArgument;
 
+import java.math.BigDecimal;
+
 /**
  * Represents an Expenditure's amount in the account.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
@@ -39,7 +41,7 @@ public class Amount {
      */
     public static boolean isValidAmount(double test) {
         requireNonNull(test);
-        return test > 0 && test < 1000000000 && Math.floor(test * 100) / 100 == test;
+        return test > 0 && test < 1000000000 && BigDecimal.valueOf(test).scale() <= 2;
     }
 
     /**
