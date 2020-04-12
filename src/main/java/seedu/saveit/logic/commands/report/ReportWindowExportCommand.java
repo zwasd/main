@@ -50,7 +50,7 @@ public class ReportWindowExportCommand extends ReportCommand {
         } catch (Exception e) {
 
             if (e instanceof NullPointerException) {
-                throw new CommandException("Construct graph before printing.");
+                throw new CommandException("Generate report before printing.");
             } else if (e instanceof IOException) {
                 throw new CommandException("File already exists");
             }
