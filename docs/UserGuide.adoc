@@ -50,6 +50,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 recurring expenditure, budgeting, report. Additional features are calendar,
 autocomplete and auto-saving of data.
 
+//tag::account[]
 === Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
@@ -72,7 +73,9 @@ image::acc_checkout_CCA.png[]
 image::acc_checkout_Home.png[]
 
 Refer to <<Account commands, Account Commands>> for more details on commands, including renaming, deletion and clearing of data.
+//end::account[]
 
+//tag::expenditure[]
 === Expenditures (Jiang Jiahui)
 This feature forms the basis of our application. Use it to track your daily expenses!
 
@@ -81,6 +84,7 @@ This feature forms the basis of our application. Use it to track your daily expe
 image::exp_list.png[]
 
 Refer to <<Expenditure commands, Expenditure Commands>> for more details on how to add, edit, and delete expenditures.
+//end::expenditure[]
 
 
 //tag::repeat[]
