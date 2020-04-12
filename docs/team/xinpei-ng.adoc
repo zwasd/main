@@ -17,8 +17,8 @@ It is written in Java, and has about 10 kLoC.
 
 * *Major enhancement*: added *Report Feature*
 ** What it does:
-*** It allows the user to *generate a report* based on their expenditures (including repeat). User can specify the date range and type of
-the report (bar chart or pie chart) and how they want their spending to be categorised (month or tag).
+*** It allows the user to *generate a report* based on their spending. User can specify the date range and type of
+graph for their report and how they want their spending to be categorised.
 *** Added functionality to *print* and *export* the report.
 *** Report is shown in a *pop out window* which also allow users to type in `Report commands` only.
 
@@ -28,28 +28,31 @@ which can equip them with better knowledge of their spending habits.
 *** Some users might want to have a permanent copy of their report,
 hence the *print* and *export* report function was introduced
 which give users the choice of having both hard and soft copy of their report.
-*** The pop out window was added avoid cluttering the Main Window.
+*** The pop out window was added to avoid cluttering the Main Window.
 
 ** Highlights:
-*** This feature works together with `expenditure` and `repeat` feature. As the `repeat` feature
-allowed expenditures to occur at varying frequency : daily, weekly, monthly or annually,
-calculation of spending became complex especially since users are able to have specified start and end date
-eg: 2020-03-12 to 2020-04-28.
-*** When user types `report view` command, a Report Window will pop out showcasing the report
-user has requested. This made implementation challenging as I had to set up the UI.
-*** User is able to *print* or *export* the report so long it is showcased in
-the report window.
+*** This feature works together with `expenditure` and `repeat` feature.  `repeat` feature
+allowed expenditures to occur at varying frequency : daily, weekly, monthly or annually. This caused the
+calculation of spending to become complex especially since users are able to specify start and end date
+eg: 2020-03-12 to 2020-04-28 for report.
+*** Users can *print* or *export* report from either the Main Window or
+Report Window. This make implementation tedious as I had to ensure that the command input into
+Report Window does not reflect on Main Window.
+*** Users can *print* or *export* report in Report Window at any time, so
+long the report is not changed by a `view` command.
 
-** Credits: JavaFXSwingUtils is used for exporting and printing.
+** Credits:
+*** JavaFXSwingUtils is used for exporting and printing.
+*** AB3 code for primary setup of Report Window.
 
 * *Major enhancement* : added *Report Window*
 ** What it does:
 *** Show cases the report user requested for.
-*** It is able to take in `Report command` , execute and show case the result of the command.
+*** It is able to take in `Report commands` , execute and show case the result of the command.
 
 ** Justification:
 *** Avoid cluttering the Main Window UI with report showing there.
-*** It is likely that users only needed report at specified occasions and not all the time, hence I
+*** It is likely that users only needs report at specified occasions and not all the time, hence I
 implemented a pop out window which user can close when they no longer need the report.
 
 ** Highlights:
@@ -57,6 +60,7 @@ implemented a pop out window which user can close when they no longer need the r
 *** Users can also access the Report Window via `report button` in Main Window, which made
 implementation slightly challenging as I had to take care of cases where there is no
 report generated.
+
 
 * *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=xinpei-ng&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=XinPei-ng&tabRepo=AY1920S2-CS2103T-T10-3%2Fmain%5Bmaster%5D[RepoSense]
 
