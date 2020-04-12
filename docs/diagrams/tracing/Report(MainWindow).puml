@@ -4,9 +4,9 @@ start
 if () then ([command is correct])
     :Executes command;
      if() then ([view command])
-     :Pops up report window and shows graph;
+     :Pops up report window and shows report;
      else ([print/export command])
-     :Prints/export the graph.;
+     :Prints/export the report;
      endif
 else ([else])
     :Throw error message;
