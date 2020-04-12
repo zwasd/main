@@ -11,8 +11,8 @@ import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.expenditure.ExpAddCommand;
 import seedu.saveit.logic.commands.expenditure.ExpDeleteCommand;
 import seedu.saveit.logic.commands.expenditure.ExpEditCommand;
-import seedu.saveit.logic.commands.general.HelpCommand;
 import seedu.saveit.logic.commands.expenditure.ExpListCommand;
+import seedu.saveit.logic.commands.general.HelpCommand;
 import seedu.saveit.logic.parser.TopLevelParser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
 
