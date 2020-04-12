@@ -24,3 +24,4 @@ JsonSerializableAccount .down.> JsonAdaptedExpenditure
 JsonSerializableAccount .right.> JsonAdaptedRepeat
 JsonAdaptedExpenditure .right.> JsonAdaptedTag
 @enduml
+

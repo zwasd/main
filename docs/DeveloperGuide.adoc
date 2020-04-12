@@ -436,7 +436,7 @@ The following sequence diagram shows you how the `go YYYY-MM-DD`
 (E.g `go 2020-04-01`) command works.
 
 .`UI` and `LOGIC`  component for the `go 2020-04-01` command
-image::goSquenceDiagram.png[]
+image::goSequenceDiagram.png[]
 
 Upon completion of the above command, the calendar view will update the
 active date to be `2020-04-01` and expenditures records for
@@ -1126,23 +1126,6 @@ Windows, Linux, Unix, OS-X
 
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1165,6 +1148,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
+
+
 
 === Deleting an expenditure
 
