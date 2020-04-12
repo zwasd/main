@@ -185,6 +185,8 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 
 == Implementation
 
+//tag::account[]
+
 === Disjoint Account (Jiang Jiahui)
 The disjoint accounts feature aims to help users better organise their expenditures by allowing them to separate the expenditures into different accounts.
 
@@ -234,6 +236,10 @@ This section contains some of our design considerations for the account feature.
 |More troublesome when a repeat or expenditure command is executed, since both the active account and the list has to be updated.
 |===
 
+//end::account[]
+
+//tag::expenditure[]
+
 === Expenditure (Jiang Jiahui)
 This is the most essential and basic feature of the application.
 
@@ -260,6 +266,8 @@ image::ExpenditureClassDiagram.png[]
 |This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
 |Less flexibility for the user.
 |===
+
+//end::expenditure[]
 
 //tag::repeat[]
 === Recurring Expenditure feature `Repeat` (Zheng Shaopeng)
