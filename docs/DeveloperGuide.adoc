@@ -182,22 +182,80 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 == Implementation
 
 === Disjoint Account (Jiang Jiahui)
-//TODO ACCOUNT @JIAHUI
+The disjoint accounts feature aims to help users better organise their expenditures by allowing them to separate the expenditures into different accounts.
+
 ==== Rationale
+The user may be involved in different projects or have different roles which require expenditure tracking. Disjoint accounts aim to provide a higher degree of organization than just organising by date or tag.
 
 ==== Implementation
+Below is a simplified class diagram that shows how the Account class relates to other classes (interfaces not shown).
+
+.Simplified Account class diagram
+image::AccountClassDiagram.png[]
+
+Refer to <<Expenditure-Implementation, Expenditure Implementation>> and <<Repeat-Implementation, Repeat Implementation>> for more details on these classes.
+
+There are many commands that allow the user to add, delete, rename accounts and so on.
+Below is a sequence diagram that shows how a command to rename an account takes place.
+
+.Sequence Diagram for execution of `acc rename` command
+image::AccountRenameSequenceDiagram.png[]
 
 ==== Design Consideration
 
 
+This section contains some of our design considerations for the account feature.
+
+*Consideration:* Storage of expenditures and repeats.
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|1. Store expenditures and repeats in the same list.
+|Fewer methods, since we can use the same method to add, edit or delete an expenditure/repeat.
+|Worse time complexity for some tasks which need to differentiate between expenditures and repeats.
+|2. *[current choice]* Store expenditures and repeats in separate lists.
+|Better time complexity for tasks such as calculation of total spending.
+|There needs to be double the number of getters, setters, methods to add, edit & delete the items.
+|===
+
+*Consideration:* What to use for the backing list of the ListView UI component.
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|Exposing the repeat and expendiure lists in the accounts
+|Less troublesome when a repeat or expenditure command is executed.
+|More difficult to implement. Every time the active account is changed, the ListView has to be replaced as the backing list cannot be changed.
+|2. *[current choice]* Maintain a single list in the AccountList class as a backing list of the ListView.
+|There is no ambiguity as to which list is currently being displayed. This is safer as the lists in the accounts cannot be directly modified outside the Account class.
+|More troublesome when a repeat or expenditure command is executed, since both the active account and the list has to be updated.
+|===
 
 === Expenditure (Jiang Jiahui)
-//TODO  @JIAHUI
-==== Rationale
+This is the most essential and basic feature of the application.
 
+==== Rationale
+The user can create expenditures to keep track of what they spend on, how much they have spent, and when it happens.
+
+[#Expenditure-Implementation]
 ==== Implementation
+Below is a class diagram that shows the Expenditure class and how it relates to other classes.
+
+.Expenditure class diagram
+image::ExpenditureClassDiagram.png[]
 
 ==== Design Consideration
+
+*Consideration:* Number of tags an expenditure can have
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|One expenditure can have multiple tags.
+|More flexibility for the user.
+|More difficult to implement. This also makes it impossible to calculate total spendings for each tag due to possible overlapping.
+|2. *[current choice]* An expenditure has exactly one tag.
+|This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
+|Less flexibility for the user.
+|===
 
 //tag::repeat[]
 === Recurring Expenditure feature `Repeat` (Zheng Shaopeng)
@@ -211,6 +269,7 @@ Hence, this will provide more convenience for users as well as address the need
 for such a feature since recurring expenditures are common. For example, day to day
 commuting expenses.
 
+[#Repeat-Implementation]
 ==== Implementation
 Below is a class diagram shows different components that `Repeat` contains.
 
@@ -317,8 +376,8 @@ a chart.
 |===
 //end::budget[]
 
-//tag::Report[]
-=== Report (Ng Xin Pei)
+[#Report]
+=== Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
 
@@ -401,7 +460,7 @@ likely that Main Window can continue running.
 ** Pros: As report is not using any space in Main Window,
 we could introduce and showcase other smaller and useful features in
 the Main Window UI.
-** Cons: It could be more different to implement
+** Cons: It could be more complicated to implement
 
 Due to the above considerations, we implemented report viewing in a pop up window.
 

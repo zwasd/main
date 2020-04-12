@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class "{abstract}\nBaseExp" as BaseExp
+Class Expenditure
+Class Amount
+Class Date
+Class Info
+Class Tag
+
+
+Class HiddenOutside #FFFFFF
+
+Expenditure -left-|> BaseExp
+BaseExp *--> "1" Amount
+BaseExp *--> "1" Tag
+BaseExp *--> "1" Info
+Expenditure *--> "1" Date
+
+@enduml
