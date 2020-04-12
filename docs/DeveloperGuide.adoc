@@ -1319,9 +1319,15 @@ Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2
 The date input must be valid.
 .. Test case: `go 2020-03-11` +
 Expected: We are at : 2020-03-11.
-==== Find
 
-==== Help
+==== Find
+.. Test case: 'find rice' +
+Expected: Will enter find mode: Expenditure and repeat records which contain `rice` will be shown. +
+
+    Note:
+    Users have to make use of "exp list" to exit find mode.
 
 ==== Exit
+.. Test case: `exit`
+Expected: `$AVEIT` will terminate.
 

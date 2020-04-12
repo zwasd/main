@@ -1,16 +1,22 @@
-package seedu.saveit.logic.commands.general;
+package seedu.saveit.logic.commands.expenditure;
 
 import seedu.saveit.commons.core.Messages;
 import seedu.saveit.logic.commands.Command;
 import seedu.saveit.logic.commands.CommandResult;
+import seedu.saveit.logic.parser.expenditure.ExpLevelParser;
 import seedu.saveit.model.Model;
 
 /**
  * Terminates the program.
  */
-public class ListCommand extends Command {
+public class ExpListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+            + ": lists expenditure records\n" + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD;
+
+
+
 
     @Override
     public CommandResult execute(Model model) {
