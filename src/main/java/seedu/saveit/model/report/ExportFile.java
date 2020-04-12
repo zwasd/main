@@ -36,7 +36,7 @@ public class ExportFile {
     public void export(WritableImage img) throws IOException {
         File f = new File("Report/" + fileName + ".png");
         f.getParentFile().mkdir();
-        if (f.isFile()) {
+        if (f.exists()) {
             throw new FileAlreadyExistsException(fileName);
         }
         ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", f);
