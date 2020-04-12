@@ -1,9 +1,9 @@
 package seedu.saveit.model.expenditure;
 
-import java.math.BigDecimal;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.saveit.commons.util.AppUtil.checkArgument;
+
+import java.math.BigDecimal;
 
 /**
  * Represents an Expenditure's amount in the account.
