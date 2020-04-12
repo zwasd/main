@@ -73,11 +73,6 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -127,12 +122,15 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+.Structure of the Parser Component
+image::LogicParserClassDiagram.png[]
+
 *API* :
 link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TopLevelParser` class to parse the user command.
-.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
-to parse the command instead.
+.  Depending on the command, the `TopLevelParser` class may use the
+`SubLevelParser` class e.g. `ExpLevelParser` to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -157,8 +155,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `$AVE IT` data.
-* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<BaseExp>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+.Structure of the Expenditure Component
+image::ModelExpClassDiagram.png[]
+
+The above image shows how the `expenditure` package interaction within itself,
+and other model components.
 
 
 [[Design-Storage]]
@@ -182,22 +186,80 @@ Classes used by multiple components are in the `seedu.saveit.commons` package.
 == Implementation
 
 === Disjoint Account (Jiang Jiahui)
-//TODO ACCOUNT @JIAHUI
+The disjoint accounts feature aims to help users better organise their expenditures by allowing them to separate the expenditures into different accounts.
+
 ==== Rationale
+The user may be involved in different projects or have different roles which require expenditure tracking. Disjoint accounts aim to provide a higher degree of organization than just organising by date or tag.
 
 ==== Implementation
+Below is a simplified class diagram that shows how the Account class relates to other classes (interfaces not shown).
+
+.Simplified Account class diagram
+image::AccountClassDiagram.png[]
+
+Refer to <<Expenditure-Implementation, Expenditure Implementation>> and <<Repeat-Implementation, Repeat Implementation>> for more details on these classes.
+
+There are many commands that allow the user to add, delete, rename accounts and so on.
+Below is a sequence diagram that shows how a command to rename an account takes place.
+
+.Sequence Diagram for execution of `acc rename` command
+image::AccountRenameSequenceDiagram.png[]
 
 ==== Design Consideration
 
 
+This section contains some of our design considerations for the account feature.
+
+*Consideration:* Storage of expenditures and repeats.
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|1. Store expenditures and repeats in the same list.
+|Fewer methods, since we can use the same method to add, edit or delete an expenditure/repeat.
+|Worse time complexity for some tasks which need to differentiate between expenditures and repeats.
+|2. *[current choice]* Store expenditures and repeats in separate lists.
+|Better time complexity for tasks such as calculation of total spending.
+|There needs to be double the number of getters, setters, methods to add, edit & delete the items.
+|===
+
+*Consideration:* What to use for the backing list of the ListView UI component.
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|Exposing the repeat and expendiure lists in the accounts
+|Less troublesome when a repeat or expenditure command is executed.
+|More difficult to implement. Every time the active account is changed, the ListView has to be replaced as the backing list cannot be changed.
+|2. *[current choice]* Maintain a single list in the AccountList class as a backing list of the ListView.
+|There is no ambiguity as to which list is currently being displayed. This is safer as the lists in the accounts cannot be directly modified outside the Account class.
+|More troublesome when a repeat or expenditure command is executed, since both the active account and the list has to be updated.
+|===
 
 === Expenditure (Jiang Jiahui)
-//TODO  @JIAHUI
-==== Rationale
+This is the most essential and basic feature of the application.
 
+==== Rationale
+The user can create expenditures to keep track of what they spend on, how much they have spent, and when it happens.
+
+[#Expenditure-Implementation]
 ==== Implementation
+Below is a class diagram that shows the Expenditure class and how it relates to other classes.
+
+.Expenditure class diagram
+image::ExpenditureClassDiagram.png[]
 
 ==== Design Consideration
+
+*Consideration:* Number of tags an expenditure can have
+
+|===
+|*Alternatives* |*Pros*  |*Cons*
+|One expenditure can have multiple tags.
+|More flexibility for the user.
+|More difficult to implement. This also makes it impossible to calculate total spendings for each tag due to possible overlapping.
+|2. *[current choice]* An expenditure has exactly one tag.
+|This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
+|Less flexibility for the user.
+|===
 
 //tag::repeat[]
 === Recurring Expenditure feature `Repeat` (Zheng Shaopeng)
@@ -211,6 +273,7 @@ Hence, this will provide more convenience for users as well as address the need
 for such a feature since recurring expenditures are common. For example, day to day
 commuting expenses.
 
+[#Repeat-Implementation]
 ==== Implementation
 Below is a class diagram shows different components that `Repeat` contains.
 
@@ -317,8 +380,9 @@ a chart.
 |===
 //end::budget[]
 
+[#Report]
 //tag::Report[]
-=== Report (Ng Xin Pei)
+=== Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
 
@@ -401,7 +465,7 @@ likely that Main Window can continue running.
 ** Pros: As report is not using any space in Main Window,
 we could introduce and showcase other smaller and useful features in
 the Main Window UI.
-** Cons: It could be more different to implement
+** Cons: It could be more complicated to implement
 
 Due to the above considerations, we implemented report viewing in a pop up window.
 
@@ -540,6 +604,9 @@ image::AutocompleteActivityDiagram.png[]
 |- Extremely fast.
 |- Takes up a lot of space.
 |===
+
+The curent choice is chosen as the number of commands is not a lot, so high
+performance is not required.
 //end::autocomplete[]
 
 [[Implementation-Configuration]]
@@ -681,7 +748,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to rename an account. Format: `acc rename OLD_NAME NEW_NAME`
+1.  User requests to rename an account. Format: `acc rename [OLD_NAME] NEW_NAME`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -840,42 +907,6 @@ Use case ends.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes in step 1.
 
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes from step 1.
-
-
-[discrete]
-=== Use case: Exp SetBudget
-
-*MSS*
-
-1.  User requests to set an budget for a given month in the account which they are viewing right now. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
-** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that date input is invalid.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** Use case resumes from step 1.
-* 2a. `$AVE IT` detects that date is not specified.
-** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2a2. `$AVE IT` will acknowledge.
-** use case end.
-
-
 
 [discrete]
 === Use case: Repeat Add
@@ -910,7 +941,7 @@ Use case ends.
 ** Use case ends.
 
 [discrete]
-=== Use case: Repeat Delete [TO BE IMPLEMENTED]
+=== Use case: Repeat Delete
 
 *MSS*
 
@@ -970,7 +1001,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -1000,12 +1031,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Report Export [TO BE IMPLEMENTED]
+=== Use case: Report Export
 
 *MSS*
 
 1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
-Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION -f FILE_NAME`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -1044,6 +1075,36 @@ Use case ends.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects graph type input is invalid.
 ** Use case resumes from step 1.
+
+[discrete]
+=== Use case: Set Budget
+
+*MSS*
+
+1.  User requests to set an budget for a given month in the account which they are viewing right now. +
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
+** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes from step 1.
+* 2a. `$AVE IT` detects that date is not specified.
+** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 2a2. `$AVE IT` will acknowledge.
+** use case end.
+
 
 [discrete]
 === Use case: Find
@@ -1102,11 +1163,6 @@ Use case ends.
 Use case ends.
 
 
-
-
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1268,6 +1324,4 @@ Expected: We are at : 2020-03-11.
 ==== Help
 
 ==== Exit
-
-
 

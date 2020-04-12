@@ -1,0 +1,21 @@
+@startuml
+title Adding and editing an expenditure
+
+start
+:User enters a command to add an expenditure;
+
+while () is ([else])
+    :Error message shown;
+    :User corrects command;
+endwhile ([valid prefixes & values])
+    :Expenditure added to the account;
+    while () is ([careless mistake found])
+        :User enters edit expenditure command;
+        while () is ([else])
+            :Error message shown;
+            :User corrects command;
+        endwhile ([valid prefixes & values])
+            :Expenditure is edited;
+    endwhile ([else])
+        stop
+@enduml

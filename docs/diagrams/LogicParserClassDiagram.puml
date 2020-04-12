@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Parser {
+Interface Parser <<Interface>>
+Class TopLevelParser
+Class SubLevelParser
+Class XYZCommandParser
+Class CliSyntax
+Class ParserUtil
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class Prefix
+}
+
+package Command {
+}
+
+
+Class HiddenOutside #FFFFFF
+HiddenOutside --> TopLevelParser
+
+TopLevelParser .down.> XYZCommandParser: creates >
+TopLevelParser .right.> SubLevelParser : refers to >
+SubLevelParser ..> XYZCommandParser : creates >
+note right of SubLevelParser: SubLevelParser = \nExpLevelParser,\nAccLevelParser etc.
+
+
+XYZCommandParser .right.> Command
+XYZCommandParser .left.|> Parser
+XYZCommandParser ..> ArgumentMultimap
+XYZCommandParser ..> ArgumentTokenizer
+ArgumentTokenizer .left.> ArgumentMultimap
+XYZCommandParser ..> CliSyntax
+CliSyntax ..> Prefix
+XYZCommandParser ..> ParserUtil
+ParserUtil .down.> Prefix
+ArgumentTokenizer .down.> Prefix
+
+
+@enduml

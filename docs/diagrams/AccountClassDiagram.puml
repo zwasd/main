@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class ModelManager
+Class AccountList
+Class Account
+
+Class "{abstract}\nBaseExp" as BaseExp
+Class Expenditure
+Class Repeat
+Class UniqueExpenditureList
+
+Account *--> "1" UniqueExpenditureList
+Account *--> "*" Repeat
+AccountList *--> "*" Account
+ModelManager o--> "1" AccountList
+
+Repeat -up-|> BaseExp
+Expenditure -up-|> BaseExp
+UniqueExpenditureList o--> "*" Expenditure
+
+@enduml

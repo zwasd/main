@@ -53,7 +53,7 @@ autocomplete and auto-saving of data.
 === Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
-You can add any many accounts as you like:
+You can add any many accounts as you like: +
 
 .Add account
 image::acc_add.png[]
@@ -280,12 +280,21 @@ complete the command.
 .Autocomplete feature
 image::autocomplete_ex.png[]
 
-[NOTE]
+[TIP]
 If no dropdown appear, it means that either: the text does not match any commands,
 or the dropdown is hidden after clicking away.
 
 You can use the kbd:[Up] or kbd:[Down] arrow keys to navigate the dropdown, then
 press kbd:[Enter] to select the command you want to complete.
+
+[NOTE]
+The existence of the dropdown menu may require you to press kbd:[Enter] 2 times
+before the command is executed, due to how the autocompletion works.
+
+[NOTE]
+When pressing kbd:[Down] arrow key does not allow you to select the commands, it
+means that the text box is not focused. Clear all texts and try again.
+
 //end::autocomplete[]
 
 === Saving the data
@@ -670,10 +679,13 @@ Format: `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
 start date to end date.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
-* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
-`bar` or `pie`. They represent a bar chart and a pie
-chart respectively.
+* `GRAPH_TYPE` is the type of the graph you want to generate. Possible values are:
+** `bar`: bar graph
+** `pie`: pie chart
 * `ORGANISATION` is how the expenditures will be grouped when generating the graph.
+Possible values are:
+** `tag`: organised by tags
+** `month`: organised by months
 ****
 
 Examples:
@@ -693,12 +705,20 @@ Format: `report export -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION
  start date to end date into Report folder with the file's name specified by user.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
-* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
-`bar` or `pie`. They represent a bar chart and a pie
-chart respectively.
+* `GRAPH_TYPE` is the type of the graph you want to generate. Possible values are:
+** `bar`: bar graph
+** `pie`: pie chart
 * `ORGANISATION` is how the expenditures will be grouped when generating the graph.
+Possible values are:
+** `tag`: organised by tags
+** `month`: organised by months
 * `FILE_NAME` is the name of exported file. File name should not contain whitespace.
 ****
+
+[NOTE]
+The exported file will be located at the same directory of the application, under
+the `Report` folder. The file can be identified by `FILE_NAME.png` whereby
+`FILE_NAME` is specified by your input in the command.
 
 Examples:
 
@@ -751,10 +771,13 @@ Format: `view START_DATE END_DATE GRAPH_TYPE ORGANISATION`
 a start date to an end date.
 * `START_DATE` is the date from which the report will start generating from.
 * `END_DATE` is the date from which the report will stop generating.
-* `GRAPH_TYPE` is the type of the graph you want to generate. It can be either
-`bar` or `pie`. They represent a bar chart and a pie
-char respectively.
+* `GRAPH_TYPE` is the type of the graph you want to generate. Possible values are:
+** `bar`: bar graph
+** `pie`: pie chart
 * `ORGANISATION` is how the expenditures will be grouped when generating the graph.
+Possible values are:
+** `tag`: organised by tags
+** `month`: organised by months
 ****
 
 Examples:
@@ -766,12 +789,17 @@ Examples:
 === Exporting report: `export`
 
 Exports the current report shown in the report window. +
-Format: `export FILE_NAME `
+Format: `export FILE_NAME`
 
 ****
 * Exports the report to Report folder with file's name specified by user
 * `FILE_NAME` is the name of exported file. File name should not contain whitespace.
 ****
+
+[NOTE]
+The exported file will be located at the same directory of the application, under
+the `Report` folder. The file can be identified by `FILE_NAME.png` whereby
+`FILE_NAME` is specified by your input in the command.
 
 [[report-cmd-print]]
 === Printing report: `print`
@@ -820,6 +848,9 @@ e.g `go 2020-04-01`
 * <<cmd-find, *find*>> : `find [KEYWORD...]` +
 e.g. `find chicken rice`
 
+* <<Budget command: `setbudget`, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
+e.g `setbudget -a 1000 -ym 2020-04`
+
 * <<cmd-exit, *exit*>> : `exit`
 
 === Account Operations
@@ -840,9 +871,6 @@ e.g. `acc checkout Personal`
 e.g. `acc delete Personal`
 
 === Expenditure Operations
-* <<exp-setbudget, *exp setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
-e.g `setbudget -a 1000 -ym 2020-04`
-
 * <<exp-add, *exp add*>> : `exp add -i INFO -a AMOUNT [-t TAG] [-d DATE]` +
 e.g `exp add -i chicken rice -a 3.50 -t meal -d 2020-04-01`
 

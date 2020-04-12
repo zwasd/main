@@ -7,15 +7,6 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Interface Parser <<Interface>>
-Class TopLevelParser
-Class SubLevelParser
-Class XYZCommandParser
-Class CliSyntax
-Class ParserUtil
-Class ArgumentMultimap
-Class ArgumentTokenizer
-Class Prefix
 }
 
 package Command {
@@ -35,34 +26,20 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" TopLevelParser
-TopLevelParser .down.> XYZCommandParser: creates >
-TopLevelParser .left.> SubLevelParser : refers to >
-SubLevelParser ..> XYZCommandParser : creates >
-note right of SubLevelParser: SubLevelParser = \nExpLevelParser,\nAccLevelParser etc.
+LogicManager .right.|> Logic
+LogicManager -down-> Parser
 
+Parser .right.> XYZCommand : creates
 
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+XYZCommand -|> Command
+LogicManager ..> Command : executes >
 
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Command ..> Model
+note bottom of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
 
-Logic ..> CommandResult
+Logic .down.> CommandResult
 LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
+Command .> CommandResult
 @enduml
