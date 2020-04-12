@@ -19,15 +19,6 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Expenditure {
-Class "{abstract}\nBaseExp" as BaseExp
-Class Expenditure
-Class Repeat
-Class Amount
-Class Date
-Class Info
-Class Tag
-Class UniqueExpenditureList
-Class Period <<enumeration>>
 }
 
 
@@ -45,20 +36,8 @@ ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 ReadOnlyAccountList .down.|> ReadOnlyAccount
-Account *--> "1" UniqueExpenditureList
-Account *--> "*" Repeat
+Account -left-> Expenditure
 AccountList *--> "*" Account
 
-Repeat -up-|> BaseExp
-Expenditure -up-|> BaseExp
-UniqueExpenditureList o--> "*" Expenditure
-BaseExp *--> "1" Amount
-BaseExp *--> "1" Tag
-BaseExp *--> "1" Info
-Expenditure *--> "1" Date
-Repeat *--> "1" Date : startDate >
-Repeat *--> "1" Date : endDate >
-Repeat *--> "1" Period
-
-ModelManager --> "1" BaseExp : filtered list
+ModelManager --> Expenditure
 @enduml

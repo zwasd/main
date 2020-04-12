@@ -73,11 +73,6 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -127,12 +122,15 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+.Structure of the Parser Component
+image::LogicParserClassDiagram.png[]
+
 *API* :
 link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TopLevelParser` class to parse the user command.
-.  Depending on the command, the `TopLevelParser` class may use the `SubLevelParser` class e.g. `ExpLevelParser` +
-to parse the command instead.
+.  Depending on the command, the `TopLevelParser` class may use the
+`SubLevelParser` class e.g. `ExpLevelParser` to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -157,8 +155,14 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the `$AVE IT` data.
-* exposes an unmodifiable `ObservableList<Expenditure>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<BaseExp>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+.Structure of the Expenditure Component
+image::ModelExpClassDiagram.png[]
+
+The above image shows how the `expenditure` package interaction within itself,
+and other model components.
 
 
 [[Design-Storage]]
@@ -377,6 +381,7 @@ a chart.
 //end::budget[]
 
 [#Report]
+//tag::Report[]
 === Report (Ng Xinpei)
 Report is one of the main features in `$AVE IT`  and its purpose is to collate and
 show users their expenditure breakdowns.
@@ -599,6 +604,9 @@ image::AutocompleteActivityDiagram.png[]
 |- Extremely fast.
 |- Takes up a lot of space.
 |===
+
+The curent choice is chosen as the number of commands is not a lot, so high
+performance is not required.
 //end::autocomplete[]
 
 [[Implementation-Configuration]]
@@ -740,7 +748,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to rename an account. Format: `acc rename OLD_NAME NEW_NAME`
+1.  User requests to rename an account. Format: `acc rename [OLD_NAME] NEW_NAME`
 2.  `$AVE IT` will acknowledge and state that the account has being renamed.
 +
 
@@ -899,42 +907,6 @@ Use case ends.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes in step 1.
 
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes from step 1.
-
-
-[discrete]
-=== Use case: Exp SetBudget
-
-*MSS*
-
-1.  User requests to set an budget for a given month in the account which they are viewing right now. +
-Format: `exp setbudget -a AMOUNT [-ym YEAR_MONTH]`
-2.  `$AVE IT` will acknowledge.
-+
-
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. `$AVE IT` detects that input is in wrong format.
-** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
-** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that date input is invalid.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
-** Use case resumes from step 1.
-* 2a. `$AVE IT` detects that date is not specified.
-** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
-** 2a2. `$AVE IT` will acknowledge.
-** use case end.
-
-
 
 [discrete]
 === Use case: Repeat Add
@@ -969,7 +941,7 @@ Use case ends.
 ** Use case ends.
 
 [discrete]
-=== Use case: Repeat Delete [TO BE IMPLEMENTED]
+=== Use case: Repeat Delete
 
 *MSS*
 
@@ -1029,7 +1001,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -1059,12 +1031,12 @@ Use case ends.
 
 
 [discrete]
-=== Use case: Report Export [TO BE IMPLEMENTED]
+=== Use case: Report Export
 
 *MSS*
 
 1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
-Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE`
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION -f FILE_NAME`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -1103,6 +1075,36 @@ Use case ends.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects graph type input is invalid.
 ** Use case resumes from step 1.
+
+[discrete]
+=== Use case: Set Budget
+
+*MSS*
+
+1.  User requests to set an budget for a given month in the account which they are viewing right now. +
+Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
+2.  `$AVE IT` will acknowledge.
++
+
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes in step 1.
+* 1b. `$AVE IT` detects that amount input is invalid.
+** 1b1. `$AVE IT` will request for amount to be a double.
+** Use case resumes from step 1.
+* 1c. `$AVE IT` detects that date input is invalid.
+** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** Use case resumes from step 1.
+* 2a. `$AVE IT` detects that date is not specified.
+** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
+** 2a2. `$AVE IT` will acknowledge.
+** use case end.
+
 
 [discrete]
 === Use case: Find
@@ -1162,11 +1164,6 @@ Use case ends.
 
 
 
-
-
-
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1224,10 +1221,3 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving input
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
