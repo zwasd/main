@@ -17,17 +17,23 @@ public class ExportReportWindowCommandParser implements ParserReportWindow<Repor
 
         String[] userInputArray = userInputTrimmed.split("\\s+");
 
+
         if (userInputArray.length != 2) {
 
             if (userInputArray.length > 2) {
                 throw new ParseException(ExportFile.FILENAME_CONSTRAINT);
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ReportWindowExportCommand.MESSAGE_USAGE));
             }
-
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ReportWindowExportCommand.MESSAGE_USAGE));
-        } else {
-            String fileName = userInputArray[1];
-            return new ReportWindowExportCommand(fileName);
         }
+
+        if (!ExportFile.isValidFileName(userInputArray[1].trim())) {
+            throw new ParseException(ExportFile.FILENAME_CONSTRAINT);
+        }
+
+        String fileName = userInputArray[1];
+        return new ReportWindowExportCommand(fileName);
+
     }
 }

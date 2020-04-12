@@ -75,7 +75,7 @@ public class ReportWindowPrintCommand extends ReportCommand {
 
         Graph currentGraph = ReportWindow.getGraph();
         if (currentGraph == null) {
-            throw new CommandException("Construct graph before printing.");
+            throw new CommandException("Generate report before printing.");
         }
         Node node;
         node = (Node) currentGraph.constructGraph();

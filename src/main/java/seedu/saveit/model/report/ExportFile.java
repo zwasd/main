@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 
+import seedu.saveit.commons.util.StringUtil;
 import seedu.saveit.ui.Graph;
 
 /**
@@ -19,7 +20,7 @@ public class ExportFile {
 
 
     public static final String FILENAME_CONSTRAINT = "File name "
-            + "should not have whitespace.";
+            + "should not have whitespace and should be in lower case and alphanumeric.";
 
     private String fileName;
     private Graph graph;
@@ -58,9 +59,13 @@ public class ExportFile {
      */
     public static boolean isValidFileName(String fileName) {
 
-        if (fileName.contains(" ") || !(fileName.length() > 0)) {
+        if (fileName.contains(" ")
+                || !(fileName.length() > 0)
+                || !(fileName.toLowerCase().equals(fileName))
+                || !(StringUtil.isAlphanumeric(fileName))) {
             return false;
         }
+
         return true;
     }
 

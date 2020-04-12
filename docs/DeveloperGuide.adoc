@@ -407,27 +407,37 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 * *Main Window*
 
 The input from user is parsed using a specific command parser
-depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
+depending on which of the 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
-.Sequence Diagram for Report View
-image::ReportViewSquence.png[]
+.Sequence Diagram for View Report Command Creation
+image::ReportViewCreation.png[]
 
 If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
 start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
-These objects are used to create _ViewReportCommand_ object which will be executed. The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
-*Figure 11* provides a detailed execution flow for `report view` command.
+These objects are used to create the  _ViewReportCommand_ object. *Figure 19*  provides a detailed flow for how _ViewReportCommand_ object is created.
 
-As stated in *Figure 11*, when a user inputs a valid `report  view` command:
+As shown in *Figure 19*, when a user inputs a valid `report  view` command:
 
 1. `report view` command will be parsed and a new _Report_ object will be created.
 2. A new _ViewReportCommand_ object containing the _Report_ object will be created.
-3. The _ViewReportCommand_ object will be executed and a new _GenerateStats_ object will be created.
-4. The _GenerateStats_ object will calculate and generate statistics from
+
+.Sequence Diagram for View Report Command Execution
+image::ReportViewExecution.png[]
+
+The _ViewReportCommand_ object will be executed.
+The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
+
+*Figure 20* provides a detailed flow for how _ViewReportCommand_ object is executed.
+
+
+As shown in *Figure 20*,
+
+1. The _ViewReportCommand_ object will be executed and a new _GenerateStats_ object will be created.
+2. The _GenerateStats_ object will calculate and generate statistics from
 _ReportableAccount_ object requested from _Model_ through `getReportableAccount` method.
-5. A new _Pie_ object will be created.
-6. The _Pie_ object will construct a graph using statistics from _GenerateStats_ object.
-7. A new _CommandResult_ will be constructed and returned.
-8. Report Window will pop out.
+3. A new _Pie_ object will be created.
+4. A new _CommandResult_ will be constructed and returned.
+5. Report Window will pop out.
 
 
 If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
@@ -484,8 +494,8 @@ tags* due to sizing issues.
 2. Overlaps can occur in PieChart when there are huge differences in expenditure values,
 hence it is recommended to users that Bar Chart should be used in such instances.
 3. While it is allowed for users to send multiple print jobs, users are recommended
-to only send one print job at a time to avoid unexpected results.
-
+to avoid sending multiple print jobs in a short interval.
+4. Only months or tags with total spending of more than 0 dollars will be reported.
 
 //end::Report[]
 
@@ -1027,12 +1037,8 @@ Use case ends.
 * 1c. `$AVE IT` detects that graph type input is invalid.
 ** 1c1. `$AVE IT` will request a valid graph type.
 ** Use case resumes from step 1.
-* 1d. `$AVE IT` detects that there is a report window showing and input is correct.
-** 1d1. `$AVE IT` will reflect result of input in opened report window.
-** 1d2. `$AVE IT` will acknowledge.
-** Use case ends.
-* 1e. `$AVE IT` detects that there is a report window showing and input is wrong.
-** 1e1. `$AVE IT` will reflect input is wrong.
+** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d1. `$AVE IT` will request a valid organisation.
 ** Use case resumes from step 1.
 
 
@@ -1058,10 +1064,19 @@ Use case ends.
 ** 1a2. Back to step 1.
 ** use case end.
 * 1b. Invalid start date or end date.
-** 1b1. `$AVE IT` will request a valid end date.
-** 1b2. `$AVE IT` will ensure that the `end date` is same or after the `start date`.
-** 1b3. Back to step 1.
+** 1b1. `$AVE IT` will request a valid start and end date.
+** 1b2. Back to step 1.
 ** use case end.
+* 1c. `$AVE IT` detects that graph type input is invalid.
+** 1c1. `$AVE IT` will request a valid graph type.
+** Use case resumes from step 1.
+** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d1. `$AVE IT` will request a valid organisation.
+** Use case resumes from step 1.
+** 1d. `$AVE IT` detects that file name input is invalid.
+** 1d1. `$AVE IT` will request a valid file name.
+** Use case resumes from step 1.
+
 
 [discrete]
 === Use case: Generate report in report window
@@ -1077,11 +1092,17 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. `$AVE IT` detects input is in incorrect format.
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects date input is invalid.
+* 1b. `$AVE IT` detects that start date or end date input is invalid.
+** 1b1. `$AVE IT` will request a valid start and end date.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects graph type input is invalid.
+* 1c. `$AVE IT` detects that graph type input is invalid.
+** 1c1. `$AVE IT` will request a valid graph type.
+** Use case resumes from step 1.
+** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d1. `$AVE IT` will request a valid organisation.
 ** Use case resumes from step 1.
 
 [discrete]
@@ -1319,11 +1340,58 @@ Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2
 === Report command test
 
 ==== View report
+===== Main Window
+.. Prerequisites:  +
+The input parameters must be valid.
+
+.. Test case: `report view -sd 2020-04-01 -ed 2020-05-31 -g pie -o month` +
+Expected: Pie chart with months where spending is not zero will be
+shown on the report window. If all months have zero dollar
+spending, then an empty Pie Chart will be created.
+
+===== Report Window
+.. Prerequisites:  +
+The input parameters must be valid.
+
+.. Test case: `view 2020-04-01 2020-05-31 bar tag` +
+Expected: Bar chart with spending categorised by tags will be
+shown on the report window. If there are no tags, then
+an empty Bar chart will be shown.
 
 ==== Export report
+===== Main Window
+.. Prerequisites: +
+The input parameters must be valid.
+
+.. Test case: `report export -sd 2020-04-01 -ed 2020-05-31 -g bar -o tag -f filename` +
+Expected: Bar chart with spending categorised by tags will be
+exported to file with filename. If there are no tags, then
+an empty Bar chart will be exported.
+
+===== Report Window
+.. Prerequisites: +
+There is a report generated and input parameters must be valid.
+
+.. Test case: `export filename`
+Expected: Exports the current graph shown in report window to file named filename.
+
 
 ==== Print report
+===== Main Window
+.. Prerequisites: +
+There is a printer set up and input parameters must be valid.
 
+.. Test case: `report print -sd 2020-04-01 -ed 2020-05-31 -g pie -o month` +
+Expected: Pie chart with months where spending is not zero will be
+printed. If all months have zero dollar
+spending, then an empty Pie Chart will be printed.
+
+===== Report Window
+.. Prerequisites: +
+There is a report generated and a printer set up.
+
+.. Test case: `print` +
+Expected: The current graph shown in report window will be printed.
 
 === General command test
 

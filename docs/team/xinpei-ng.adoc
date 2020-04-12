@@ -84,6 +84,7 @@ They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=Report]
+include::../UserGuide.adoc[tag=ReportCommand]
 include::../UserGuide.adoc[tag=ReportWindowCommand]
 
 == Contributions to the Developer Guide
