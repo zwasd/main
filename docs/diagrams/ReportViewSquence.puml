@@ -57,6 +57,8 @@ destroy GenerateStats
 activate Report
 ViewReportCommand -> Report : getOrganise()
 Report --> ViewReportCommand : organise
+ViewReportCommand -> Report : getFormat()
+Report --> ViewReportCommand : format
 deactivate Report
 Report -[hidden]-> ViewReportCommand
 destroy Report

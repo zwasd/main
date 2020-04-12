@@ -1,29 +1,17 @@
 package seedu.saveit.ui;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
-import javafx.print.PageLayout;
-import javafx.print.PrinterJob;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.Chart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -35,7 +23,6 @@ import seedu.saveit.logic.commands.CommandResult;
 import seedu.saveit.logic.commands.ReportCommandResult;
 import seedu.saveit.logic.commands.exceptions.CommandException;
 import seedu.saveit.logic.parser.exceptions.ParseException;
-import seedu.saveit.model.report.ExportFile;
 import seedu.saveit.ui.exceptions.PrinterException;
 
 /**
@@ -51,12 +38,12 @@ public class ReportWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
+    private static Graph currentGraph;
 
     private Logic logic;
     private ReportCommandBox box;
     private ResultDisplay display;
     private MenuBar menuBar;
-    private Graph currentGraph;
 
     /**
      * Creates a new Report Window.
@@ -206,7 +193,7 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showResult(CommandResult result) {
         logger.fine("Showing report page.");
-        this.currentGraph = result.getGraph();
+        currentGraph = result.getGraph();
         setScene((Node) currentGraph.constructGraph());
     }
 
@@ -218,109 +205,14 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public void showResult(ReportCommandResult result) {
         logger.fine("Showing report page.");
-        this.currentGraph = result.getGraph();
+        currentGraph = result.getGraph();
         setScene((Node) currentGraph.constructGraph());
     }
 
-    /**
-     * Sends a print job of report from report window to printer.
-     *
-     * @throws PrinterException is thrown when printer cannot
-     *                          successfully finish a job.
-     */
-    public void print() throws PrinterException {
-
-        assert currentGraph != null;
-        printerJob();
-
+    public static Graph getGraph() {
+        return currentGraph;
     }
 
-    /**
-     * Invokes printer job from Javafx.
-     *
-     * @throws PrinterException if job cannot finish.
-     */
-    public void printerJob() throws PrinterException {
-
-        try {
-            PrinterJob printerJob = PrinterJob.createPrinterJob();
-            PageLayout pageLayout = printerJob.getJobSettings().getPageLayout();
-
-            WritableImage snapshot = snapshot();
-
-            ImageView imgView = new ImageView(snapshot);
-            double scaleX = pageLayout.getPrintableWidth() / imgView.getImage().getWidth();
-            double scaleY = pageLayout.getPrintableHeight() / imgView.getImage().getHeight();
-            double scale = Math.min(scaleX, scaleY);
-            if (scale < 1.0) {
-                imgView.getTransforms().add(new Scale(scale, scale));
-            }
-
-            boolean jobStatus = printerJob.printPage(imgView);
-            if (jobStatus) {
-                printerJob.endJob();
-
-            } else {
-                printerJob.cancelJob();
-                throw new PrinterException("Set available printer as default "
-                        + "printer before printing.");
-            }
-
-        } catch (Exception e) {
-            throw new PrinterException("Set available printer as default "
-                    + "printer before printing.");
-        }
-
-    }
-
-    /**
-     * Exports report.
-     *
-     * @param fileName fileName of the file to export to.
-     */
-    public void export(String fileName) {
-
-        try {
-            display.setFeedbackToUser("Exporting.");
-            WritableImage img = snapshot();
-            ExportFile file = new ExportFile(fileName, currentGraph);
-            file.export(img);
-        } catch (IOException e) {
-
-            if (e instanceof FileAlreadyExistsException) {
-                display.setFeedbackToUser("The file " + fileName + " already exists.");
-            } else {
-                display.setFeedbackToUser("Reported cannot be exported.");
-            }
-        }
-    }
-
-    /**
-     * Snapshot of current graph.
-     *
-     * @return image of graph.
-     */
-    public WritableImage snapshot() {
-        assert currentGraph != null;
-        Node node;
-        node = (Node) currentGraph.constructGraph();
-        Scene sc = new Scene((Parent) node, 800, 600);
-        Chart chart = null;
-
-        if (node instanceof PieChart) {
-            chart = (PieChart) node;
-
-        } else if (node instanceof BarChart) {
-            chart = (BarChart) node;
-        }
-
-        assert chart != null;
-
-        chart.setAnimated(false);
-        WritableImage img = new WritableImage(800, 600);
-        node.snapshot(new SnapshotParameters(), img);
-        return img;
-    }
 
     /**
      * Executor method for report command box.
@@ -342,35 +234,13 @@ public class ReportWindow extends UiPart<Stage> {
                 display.clear();
                 getRoot().hide();
 
-            } else if (result.isShowHelp()) {
-
-            } else if (result.isPrintReport() || result.isExportReport()) {
-                if (currentGraph != null) {
-
-                    if (result.isPrintReport()) {
-                        print();
-                    } else {
-                        assert result.isExportReport();
-                        export(result.getFileName());
-                    }
-
-                } else {
-                    display.setFeedbackToUser("Construct graph before printing");
-                }
-
-            } else {
-                assert result.isChangeView();
+            } else if (result.isChangeView()) {
                 showResult(result);
             }
 
-        } catch (CommandException | ParseException | PrinterException e) {
+        } catch (CommandException | ParseException e) {
 
-            if (e instanceof CommandException || e instanceof ParseException) {
-                logger.info("Invalid command :" + commandText);
-            } else if (e instanceof PrinterException) {
-                logger.info("Invalid or no printer");
-            }
-
+            logger.info("Invalid command :" + commandText);
             display.setFeedbackToUser(e.getMessage());
             throw e;
         }
