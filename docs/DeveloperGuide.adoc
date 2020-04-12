@@ -226,7 +226,7 @@ This section contains some of our design considerations for the account feature.
 
 |===
 |*Alternatives* |*Pros*  |*Cons*
-|Exposing the repeat and expendiure lists in the accounts
+|Exposing the repeat and expenditure lists in the accounts
 |Less troublesome when a repeat or expenditure command is executed.
 |More difficult to implement. Every time the active account is changed, the ListView has to be replaced as the backing list cannot be changed.
 |2. *[current choice]* Maintain a single list in the AccountList class as a backing list of the ListView.
@@ -401,8 +401,11 @@ The report feature can be accessed from 2 platforms either *Main Window* or *Rep
 The input from user is parsed using a specific command parser
 depending on which of 3 commands: `report view`, `report print` and `report export` were inputted by user.
 
-.Sequence Diagram for Report View
-image::ReportViewSquence.png[]
+.Sequence Diagram for Report View Command Creation
+image::ReportViewCreation.png[]
+
+.Sequence Diagram for Report View Command Execution
+image::ReportViewExecution.png[]
 
 If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
 start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
@@ -476,8 +479,8 @@ tags* due to sizing issues.
 2. Overlaps can occur in PieChart when there are huge differences in expenditure values,
 hence it is recommended to users that Bar Chart should be used in such instances.
 3. While it is allowed for users to send multiple print jobs, users are recommended
-to only send one print job at a time to avoid unexpected results.
-
+to avoid sending multiple print jobs in a short interval.
+4. Only months with expenditures more than 0 dollars will be reported.
 
 //end::Report[]
 
@@ -1306,10 +1309,59 @@ Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2
 === Report command test
 
 ==== View report
+===== Main Window
+.. Prerequisites:  +
+The input parameters must be valid.
+
+.. Test case: `report view -sd 2020-04-01 -ed 2020-05-31 -g pie -o month` +
+Expected: Pie chart with months where spending is not zero will be
+shown on the report window. If all months have zero dollar
+spending, then an empty Pie Chart will be created.
+
+===== Report Window
+.. Prerequisites:  +
+The input parameters must be valid.
+
+.. Test case: `view 2020-04-01 2020-05-31 bar tag`
+Expected: Bar chart with spending categorised by tags will be
+shown on the report window. If there are no tags, then
+an empty Bar chart will be shown.
 
 ==== Export report
+===== Main Window
+.. Prerequisites: +
+The input parameters must be valid.
+
+.. Test case: `report export -sd 2020-04-01 -ed 2020-05-31 -g bar -o tag -f file` +
+Expected: Bar chart with spending categorised by tags will be
+exported. If there are no tags, then
+an empty Bar chart will be exported.
+
+===== Report Window
+.. Prerequisites: +
+There is a report generated and input parameters must be valid.
+
+.. Test case: `export filename`
+Expected: Exports the current graph shown in report window to file named filename.
+
 
 ==== Print report
+===== Main Window
+.. Prerequisites: +
+There is a printer set up and input parameters must be valid.
+
+.. Test case: `report print -sd 2020-04-01 -ed 2020-05-31 -g pie -o month`
+Expected: Pie chart with months where spending is not zero will be
+printed. If all months have zero dollar
+spending, then an empty Pie Chart will be printed.
+
+===== Report Window
+.. Prerequisites: +
+There is a report generated and a printer set up.
+
+.. Test case: `print` +
+Expected: The current graph shown in report window will be printed.
+
 
 
 === General command

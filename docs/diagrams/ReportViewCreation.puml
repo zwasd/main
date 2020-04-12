@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+title Report View Command Creation Sequence
+box Logic LOGIC_COLOR_T1
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":ReportLevelParser" as ReportLevelParser LOGIC_COLOR
+participant ":ViewReportCommandParser" as ViewReportCommandParser LOGIC_COLOR
+participant "vc:ViewReportCommand" as ViewReportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Report" as Report MODEL_COLOR
+end box
+activate TopLevelParser
+create ReportLevelParser
+TopLevelParser  -> ReportLevelParser
+activate ReportLevelParser
+TopLevelParser -> ReportLevelParser : parse("view -sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+create ViewReportCommandParser
+ReportLevelParser -> ViewReportCommandParser
+activate ViewReportCommandParser
+ReportLevelParser -> ViewReportCommandParser : parse("-sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+create Report
+ViewReportCommandParser -> Report
+activate Report
+Report ---> ViewReportCommandParser
+deactivate Report
+create ViewReportCommand
+ViewReportCommandParser -> ViewReportCommand
+activate ViewReportCommand
+ViewReportCommand --> ViewReportCommandParser : vc
+ViewReportCommandParser --> ReportLevelParser : vc
+deactivate ViewReportCommandParser
+[<-[hidden]- ViewReportCommandParser
+destroy ViewReportCommandParser
+[<--ReportLevelParser :vc
+deactivate ReportLevelParser
+[<-[hidden]-ReportLevelParser
+destroy ReportLevelParser
+
+@enduml
