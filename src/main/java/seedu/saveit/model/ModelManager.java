@@ -179,7 +179,6 @@ public class ModelManager implements Model {
     private void showAll() {
         updateFilteredExpenditureList(PREDICATE_SHOW_ALL_EXPENDITURES);
         updateFilteredBaseExpList(PREDICATE_SHOW_ALL_BASEEXP);
-        // TODO
     }
 
     @Override

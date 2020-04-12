@@ -30,7 +30,6 @@ import seedu.saveit.model.expenditure.Tag;
 
 /**
  * Edit repeat object.
- * TODO: NEED MODIFY
  */
 public class RepeatEditCommand extends Command {
     public static final String COMMAND_WORD = "edit";

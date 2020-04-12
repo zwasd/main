@@ -119,7 +119,7 @@ public class ReportWindow extends UiPart<Stage> {
     }
 
     /**
-     * TODO: ADD DOC
+     * Initialises close handler.
      */
     private void initCloseHandler() {
         getRoot().setOnCloseRequest(new EventHandler<>() {

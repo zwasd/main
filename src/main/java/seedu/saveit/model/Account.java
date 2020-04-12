@@ -256,8 +256,6 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
 
     @Override
     public String toString() {
-        // return expenditures.asUnmodifiableObservableList().size() + " expenditures";
-        // TODO: refine later
         return "Account: " + accountName;
     }
 
@@ -298,9 +296,6 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
         repeats.stream().filter(repeat -> Date.isEqualOrAfter(repeat.getEndDate(), startDate)
                 && Date.isEqualOrBefore(repeat.getStartDate(), endDate)
         ).forEach(repeat -> {
-
-            System.out.println(repeat);
-
                     if (repeat.getPeriod() == Repeat.Period.DAILY) {
                         double amt = repeat.calculateDaily(startDate, endDate);
                         repMap.put(repeat, amt);

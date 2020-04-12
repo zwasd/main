@@ -238,8 +238,8 @@ Users have to delete such expenditures one by one.
 //end::repeat[]
 
 
-
-=== Budget (Lim Fengyue)
+//tag::budget[]
+=== Budget (Lim Feng Yue)
 Budget feature allows user to input their budget for any month, and calculates
 the balance from the total spending. Depending on the amount of balance and
 whether the budget is set, different piggy bank images will be shown.
@@ -315,6 +315,7 @@ a chart.
 |- Gives users better insight on how they are handling their budget.
 |- More work is required.
 |===
+//end::budget[]
 
 //tag::Report[]
 === Report (Ng Xin Pei)
@@ -474,7 +475,8 @@ The developer team follows the range which is specified in the
 https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[LocalDate Api, released by Oracle].
 //end::calendar[]
 
-=== Autocomplete feature (Lim Fengyue)
+//tag::autocomplete[]
+=== Autocomplete feature (Lim Feng Yue)
 Completes the command that the user is typing in the command box.
 
 ==== Rationale
@@ -538,7 +540,7 @@ image::AutocompleteActivityDiagram.png[]
 |- Extremely fast.
 |- Takes up a lot of space.
 |===
-
+//end::autocomplete[]
 
 [[Implementation-Configuration]]
 === Configuration

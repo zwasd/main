@@ -1,6 +1,5 @@
 package seedu.saveit.ui;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -61,16 +60,13 @@ public class AutoCompleteTextField extends TextField {
                 entriesPopup.hide();
             }
         });
+    }
 
-        // initial population of entries with some commands
-        // TODO: remove this part and make use of AutoCompleteMenuItem
-        entries.addAll(Arrays.asList(
-            "acc add", "acc checkout", "acc clear", "acc delete", "acc list", "acc rename",
-            "exp add", "exp edit", "exp delete", "exp list",
-            "repeat add", "repeat edit", "repeat delete",
-            "report view", "report export", "report print ",
-            "go", "go today", "help", "exit", "find", "setbudget"
-        ));
+    /**
+     * Add completed entries.
+     */
+    public void addEntries(List<String> entries) {
+        this.entries.addAll(entries);
     }
 
     /**
@@ -108,6 +104,5 @@ public class AutoCompleteTextField extends TextField {
 
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
-
     }
 }
