@@ -51,7 +51,7 @@ public class ExportReportCommandParser implements Parser<ExportReportCommand> {
         String organise = ParserUtil.parseOrganise(argumentMultimap.getValue(PREFIX_ORGANISE)
                 .orElseGet(() -> "tag"));
         String fileName = ParserUtil.parseFileName(argumentMultimap.getValue(PREFIX_FILENAME)
-                .orElseGet(() -> "default name"));
+                .orElseGet(() -> "default"));
 
 
 

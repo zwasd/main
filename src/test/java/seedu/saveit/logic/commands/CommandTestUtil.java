@@ -88,7 +88,7 @@ public class CommandTestUtil {
     public static final String VALID_GRAPH_BAR_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_BAR_CAPS;
     public static final String VALID_GRAPH_PIE_DESC_CAPS = " " + PREFIX_GRAPH + VALID_GRAPH_PIE_CAPS;
     public static final String INVALID_GRAPH_DESC = " " + PREFIX_GRAPH + INVALID_GRAPH;
-    public static final String VALID_FILE_NAME = "Hello";
+    public static final String VALID_FILE_NAME = "hello";
     public static final String VALID_FILE_NAME_ALT = "hey";
     public static final String INVALID_FILE_NAME = " ";
     public static final String VALID_FILE_NAME_DESC = " " + PREFIX_FILENAME + VALID_FILE_NAME;

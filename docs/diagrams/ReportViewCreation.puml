@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+title Report View Command Creation Sequence
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
+participant ":ReportLevelParser" as ReportLevelParser LOGIC_COLOR
+participant ":ViewReport\nCommandParser" as ViewReportCommandParser LOGIC_COLOR
+participant "vc:ViewReport\nCommand" as ViewReportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Report" as Report MODEL_COLOR
+end box
+activate LogicManager
+[-> LogicManager: execute("report view -sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+activate TopLevelParser
+LogicManager -> TopLevelParser : parseCommand("report view -sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+create ReportLevelParser
+TopLevelParser  -> ReportLevelParser
+activate ReportLevelParser
+TopLevelParser -> ReportLevelParser : parseCommand("view -sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+create ViewReportCommandParser
+ReportLevelParser -> ViewReportCommandParser
+activate ViewReportCommandParser
+ReportLevelParser -> ViewReportCommandParser : parse("-sd 2020-03-01\n -ed 2020-03-31 -g pie -o tag")
+create Report
+ViewReportCommandParser -> Report
+activate Report
+Report ---> ViewReportCommandParser : report
+deactivate Report
+create ViewReportCommand
+ViewReportCommandParser -> ViewReportCommand : new ViewReport\nCommand(report)
+activate ViewReportCommand
+ViewReportCommand --> ViewReportCommandParser : vc
+deactivate ViewReportCommand
+ViewReportCommandParser --> ReportLevelParser : vc
+deactivate ViewReportCommandParser
+[<-[hidden]- ViewReportCommandParser
+destroy ViewReportCommandParser
+ReportLevelParser --> TopLevelParser :vc
+deactivate ReportLevelParser
+ReportLevelParser -[hidden]-> TopLevelParser
+destroy ReportLevelParser
+TopLevelParser --> LogicManager:vc
+deactivate TopLevelParser
+[<-- LogicManager : vc
+
+
+@enduml
