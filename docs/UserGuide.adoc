@@ -50,6 +50,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window.
 recurring expenditure, budgeting, report. Additional features are calendar,
 autocomplete and auto-saving of data.
 
+//tag::account[]
 === Disjoint Accounts (Jiang Jiahui)
 This feature aims to help you better organise your expenditures by allowing you to separate them into disjoint accounts. +
 
@@ -72,6 +73,9 @@ image::acc_checkout_CCA.png[]
 image::acc_checkout_Home.png[]
 
 Refer to <<Account commands, Account Commands>> for more details on commands, including renaming, deletion and clearing of data.
+//end::account[]
+
+//tag::expenditure[]
 
 === Expenditures (Jiang Jiahui)
 This feature forms the basis of our application. Use it to track your daily expenses!
@@ -81,6 +85,8 @@ This feature forms the basis of our application. Use it to track your daily expe
 image::exp_list.png[]
 
 Refer to <<Expenditure commands, Expenditure Commands>> for more details on how to add, edit, and delete expenditures.
+
+//end::expenditure[]
 
 
 //tag::repeat[]
@@ -175,7 +181,7 @@ To meet your budget, your balance have to be positive.
 ==== Viewing budget from another month
 
 To view budget from another month, you can use the <<cmd-go, `go` command>>, or
-the <<Calendar>> feature to view any date of the month.
+the <<Calendar, Calendar>> feature to view any date of the month.
 
 .View May 2020 budget
 image::view_may2020_budget.png[]
@@ -212,11 +218,12 @@ image::report_pie.png[]
 This is an example of report in pie chart format with the expenditures grouped by
 tags.
 
-If you are interested to find out more, you can explore <<Report commands, Report Command>>
+If you are interested to find out more, you can explore <<Report-command, Report Command>>
 to find out how to generate these graphs.
 //end::Report[]
 
 //tag::calendar[]
+[#Calendar]
 === Calendar (Zheng Shaopeng)
 The _calendar_ feature aims to ease users' navigation experience. +
 
@@ -652,6 +659,7 @@ Returns `Chicken rice` and `Veg Rice`.
 Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
 
 //tag::ReportCommand[]
+[#Report-command]
 === Report commands
 This section will talk about how you can use report feature. Before we begin
 with the details of the command, here are some tips:
@@ -876,7 +884,7 @@ e.g `go 2020-04-01`
 * <<cmd-find, *find*>> : `find [KEYWORD...]` +
 e.g. `find chicken rice`
 
-* <<Budget command: `setbudget`, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
+* <<setbudget, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
 e.g `setbudget -a 1000 -ym 2020-04`
 
 * <<cmd-exit, *exit*>> : `exit`

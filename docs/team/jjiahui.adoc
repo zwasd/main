@@ -13,35 +13,32 @@ $AVE IT is a desktop budget management application. The user interacts with it u
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the disjoint accounts feature*
+** What it does: The disjoint accounts feature allows the user to better organise their expenditures in multiple accounts.
+** Justification: As the user may have taken on multiple roles/project that require them to manage expenses, they can create one account for each of their roles/projects, in addition to one for their personal expenses. This way, they can track all of their expenditures in this one application, while keep them organised in disjoint accounts.
+** Highlights:
+*** This feature required major changed to the backend Storage package as the structure of the Model classes has changed significantly.
+*** It was challenging to ensure that this feature works seamlessly with the UI. For example, when a different account is checked-out, multiple UI components are updated.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: improved the `find` command
+** What it does: Allows the user to search for multiple keywords, a tag, or both together.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: improved the `ExpenditureListPanel` UI component
+** What it does: Used polymorphism to allow expenditures and repeats to be displayed in the same list.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=JJiahui&tabRepo=AY1920S2-CS2103T-T10-3%2Fmain%5Bmaster%5D[RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated error messages of commands to be more informative and helpful to the user.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added documentation for `Account` and `Expenditure` to the User Guide and Developer Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-T10-3/main/pull/6[#6], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/8[#8], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/15[#15]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/JJiahui/ped/issues/1[#1], https://github.com/JJiahui/ped/issues/2[#2], https://github.com/JJiahui/ped/issues/3[#3])
 
 == Contributions to the User Guide
 
@@ -50,9 +47,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=account]
+include::../UserGuide.adoc[tag=expenditure]
 
 == Contributions to the Developer Guide
 
@@ -60,7 +56,5 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=account]
+include::../DeveloperGuide.adoc[tag=expenditure]

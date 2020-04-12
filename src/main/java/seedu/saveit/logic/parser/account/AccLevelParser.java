@@ -26,6 +26,13 @@ public class AccLevelParser extends TopLevelParser {
 
     public static final String MESSAGE_USAGE = "acc add\nacc checkout\nacc clear\nacc delete\nacc list\nacc rename\n";
 
+    public static final String HELP_MESSAGE = AccAddCommand.MESSAGE_USAGE + "\n\n"
+                                                + AccDeleteCommand.MESSAGE_USAGE + "\n\n"
+                                                + AccCheckoutCommand.MESSAGE_USAGE + "\n\n"
+                                                + AccRenameCommand.MESSAGE_USAGE + "\n\n"
+                                                + AccListCommand.MESSAGE_USAGE + "\n\n"
+                                                + AccClearCommand.MESSAGE_USAGE;
+
     /**
      * Used for initial separation of command word and args.
      */
