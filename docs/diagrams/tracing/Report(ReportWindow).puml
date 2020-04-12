@@ -7,7 +7,7 @@ if () then ([command is correct])
      :Report window shows updated report;
      else ([print/export/exit command])
             if () then ([print/export command])
-             if () then ([has graph])
+             if () then ([has report])
                 :Prints/exports the report shown in report window;
              else ([else])
                 :Throw error message;
