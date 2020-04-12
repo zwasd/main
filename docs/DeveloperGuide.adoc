@@ -1278,6 +1278,11 @@ The command input must be valid, index provided must refer to an `expenditure` r
 Expected: Edited Expenditure: Chicken rice Amount: 3.50 Date: 2020-04-01 Tag: meal.
 
 ==== Expenditure list
+.. Test case: `exp list` +
+Expected: View all the expenditure records.
+
+    Note:
+    This is mainly use to exit the find mode.
 
 
 === Repeat command test
@@ -1312,7 +1317,7 @@ Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2
 ==== Print report
 
 
-=== General command
+=== General command test
 
 ==== Go
 .. Prerequisites: +
