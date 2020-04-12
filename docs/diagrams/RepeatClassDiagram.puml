@@ -1,0 +1,28 @@
+@startuml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+abstract class BaseExp
+class Repeat
+class Info
+class Amount
+class Date
+class Tag
+enum Period
+
+class Info {
+    public String fullInfo;
+    public static boolean isValidInfo(String);
+}
+
+enum Period {
+DAILY
+WEEKLY
+MONTHLY
+ANNUALLY
+}
+
+BaseExp .up.|> Info
+
+@enduml
