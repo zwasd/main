@@ -1,9 +1,9 @@
 @startuml
+title = Repeat Class Diagram
 skinparam arrowThickness 1.1
-skinparam arrowColor MODEL_COLOR
-skinparam classBackgroundColor MODEL_COLOR
+skinparam classAttributeIconSize 0
 
-abstract class BaseExp
+abstract class BaseExp <<abstract>>
 class Repeat
 class Info
 class Amount
@@ -12,8 +12,66 @@ class Tag
 enum Period
 
 class Info {
-    public String fullInfo;
-    public static boolean isValidInfo(String);
+    + fullInfo : String
+    {static} + isValidInfo(String) :boolean;
+}
+
+class Amount {
+    + value : double
+    {static} + isValidAmount(double) : boolean
+    {static} + isValidAmount(String) : boolean
+}
+
+class Tag {
+    + tagName : String
+    {static} + isValidTagString) : boolean
+    + isEmpty() : boolean
+}
+
+class Date {
+    + value : String
+    + localDate : LocalDate
+    + yearMonth : YearMonth
+    {static} + isValidDate(String) : boolean
+    {static} + isValidDateRange(Date, Date) : boolean
+}
+
+abstract class BaseExp {
+    # info : Info
+    # amount : Amount
+    # tag : Tag
+    + getUiCard(int) : UiPart<Region> { abstract }
+    + isOn(LocalDate) : boolean { abstract }
+}
+
+class Repeat {
+    - startDate : Date
+    - endDate : Date
+    - relevantDate : HashSet<LocalDate>
+    - period : Period
+
+    {static} + generatePeriod(String) : Period
+    + CheckDateRange() : boolean
+    + setInfo(Info)
+    + setAmount(Amount)
+    + setStartDate(Date)
+    + setEndDate(Date)
+    + setPeriod(String)
+    + isOn(LocalDate) : boolean
+    + calculateDailyRepeatMonth(Date, Date) : HashMap <String, double>
+    + calculateForGivenYearMonth(YearMonth) : double
+    + calculateForGivenYearMonthRange(YearMonth, YearMonth) : double
+    + calculateWkOrMthOrYr(Date, Date) : double
+    + calculateWkOrMthOrYrMonth(Date, Date) :HashMap <String, double>
+    + calculateRepeatTillEndDate(LocalDate, LocalDate) : double
+    - generateRelevantDate()
+    - generateWeeklyDate()
+    - generateMonthlyDate()
+    - generateAnnuallyDate()
+    - checkDaily(LocalDate) : boolean
+    - checkWeeklyOrMonthlyOrAnnually(LocalDate) : boolean
+    - isOnYearMonth(YearMonth) : ArrayList <LocalDate>
+    - calculateDaily(YearMonth) : double
 }
 
 enum Period {
@@ -21,8 +79,15 @@ DAILY
 WEEKLY
 MONTHLY
 ANNUALLY
+{static} isValidPeriod(String) : boolean
 }
 
-BaseExp .up.|> Info
+BaseExp "1" -up---> "1" Amount : contains
+BaseExp "1" -left---> "1" Tag : contains
+BaseExp "1" -right---> "1" Info : contains
+
+Repeat -up---|> BaseExp
+Repeat "1" -right---> "1" Period : contains
+Repeat "1" -left--> "2" Date : contains startDate and endDate
 
 @enduml
