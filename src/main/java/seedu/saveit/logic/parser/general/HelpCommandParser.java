@@ -26,19 +26,19 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         switch (args.trim()) {
 
         case ExpLevelParser.COMMAND_WORD:
-            return new HelpCommand(ExpLevelParser.MESSAGE_USAGE);
+            return new HelpCommand(ExpLevelParser.HELP_MESSAGE);
+
+        case RepeatLevelParser.COMMAND_WORD:
+            return new HelpCommand(RepeatLevelParser.HELP_MESSAGE);
 
         case ReportLevelParser.COMMAND_WORD:
-            return new HelpCommand(ReportLevelParser.MESSAGE_USAGE);
+            return new HelpCommand(ReportLevelParser.HELP_MESSAGE);
 
         case AccLevelParser.COMMAND_WORD:
-            return new HelpCommand(AccLevelParser.MESSAGE_USAGE);
+            return new HelpCommand(AccLevelParser.HELP_MESSAGE);
 
         case GoCommand.COMMAND_WORD:
             return new HelpCommand(GoCommand.MESSAGE_USAGE);
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new HelpCommand(ExitCommand.MESSAGE_USAGE);
@@ -46,8 +46,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case FindCommand.COMMAND_WORD:
             return new HelpCommand(FindCommand.MESSAGE_USAGE);
 
-        case RepeatLevelParser.COMMAND_WORD:
-            return new HelpCommand(RepeatLevelParser.MESSAGE_USAGE);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
 
         default:
             return new HelpCommand(args.trim(), true);

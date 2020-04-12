@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-title Add Repeat Sequence Diagram
+title Go Command Sequence Diagram
 
 actor user
 box UI UI_COLOR_T1
