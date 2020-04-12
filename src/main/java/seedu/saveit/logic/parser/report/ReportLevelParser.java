@@ -22,6 +22,9 @@ public class ReportLevelParser extends TopLevelParser {
 
     public static final String COMMAND_WORD = "report";
     public static final String MESSAGE_USAGE = "report view\nreport export\nreport print\n";
+    public static final String HELP_MESSAGE = ViewReportCommand.MESSAGE_USAGE + "\n\n"
+                                                + ExportReportCommand.MESSAGE_USAGE + "\n\n"
+                                                + PrintReportCommand.MESSAGE_USAGE;
 
     /**
      * Used for initial separation of command word and args.

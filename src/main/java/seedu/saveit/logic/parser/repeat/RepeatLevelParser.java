@@ -25,6 +25,10 @@ public class RepeatLevelParser extends TopLevelParser {
 
     public static final String MESSAGE_USAGE = "repeat add\nrepeat edit\nrepeat delete\n";
 
+    public static final String HELP_MESSAGE = RepeatAddCommand.MESSAGE_USAGE + "\n\n"
+                                            + RepeatEditCommand.MESSAGE_USAGE + "\n\n"
+                                            + RepeatDeleteCommand.MESSAGE_USAGE;
+
     /**
      * Used for initial separation of command word and args.
      */
