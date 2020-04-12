@@ -427,7 +427,7 @@ image::ReportViewExecution.png[]
 
 The _ViewReportCommand_ object will be executed.
 The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
-*Figure 20*
+*Figure 20* shows how the objects interact to execute _ViewReportCommand_ object.
 
 As shown in *Figure 20*,
 

@@ -1,6 +1,6 @@
 @startuml
 start
-:User types in  command;
+:User types in report command;
 if () then ([command is correct])
     :Executes command;
      if() then ([view command])
