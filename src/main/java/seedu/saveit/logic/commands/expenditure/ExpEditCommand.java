@@ -41,7 +41,7 @@ public class ExpEditCommand extends Command {
             + "[" + PREFIX_INFO + "INFO] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.3";
 
