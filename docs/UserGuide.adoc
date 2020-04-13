@@ -884,7 +884,7 @@ e.g `go 2020-04-01`
 * <<cmd-find, *find*>> : `find [KEYWORD...]` +
 e.g. `find chicken rice`
 
-* <<setbudget, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
+* <<setbudget, *setbudget*>> : `setbudget -a AMOUNT [-ym YEAR_MONTH]` +
 e.g `setbudget -a 1000 -ym 2020-04`
 
 * <<cmd-exit, *exit*>> : `exit`

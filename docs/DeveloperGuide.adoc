@@ -331,8 +331,8 @@ displays the budget details when a command is entered.
 image::BudgetActivityDiagram.png[]
 
 The implementation of setting the budget of the month is through the command
-format of `exp setbudget -a AMOUNT -ym YEAR_MONTH`. The process of how the command
-is parsed is shown below using an example, `exp setbudget -a 123 -ym 2020-04`.
+format of `setbudget -a AMOUNT -ym YEAR_MONTH`. The process of how the command
+is parsed is shown below using an example, `setbudget -a 123 -ym 2020-04`.
 
 .Set Budget Sequence Diagram (UI and Logic)
 image::BudgetSequenceDiagram.png[]
