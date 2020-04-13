@@ -129,7 +129,7 @@ image::LogicParserClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/saveit/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `TopLevelParser` class to parse the user command.
+.  `Logic` uses the `TopLevelParser` class to parse the user command from Main Window.
 .  Depending on the command, the `TopLevelParser` class may use the
 `SubLevelParser` class e.g. `ExpLevelParser` to parse the command instead.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -446,13 +446,13 @@ _ReportableAccount_ object requested from _Model_ through `getReportableAccount`
 
 
 If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
-start date, end date, graph into _Date_, _Report.GraphType_ and _organisation(String)_ object respectively. These objects
+start date, end date, graph type into _Date_, _Report.GraphType_ and _organisation(String)_ object respectively. These objects
 are used to create _PrintReportCommand_ object which will be executed.
 The result of execution will be sending a print job to your printer, printing out the report.
 
 
 If a valid `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
-tart date, end date, graph into _Date_, _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
+start date, end date, graph type into _Date_, _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
 These objects are used to create _ExportReportCommand_ object which will be executed.
 The result of execution will be exporting a PNG version of the report into your computer with file name.
 
