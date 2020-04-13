@@ -254,6 +254,11 @@ Below is a class diagram that shows the Expenditure class and how it relates to 
 .Expenditure class diagram
 image::ExpenditureClassDiagram.png[]
 
+The activity diagram below shows what happens when the user enters an expenditure add command.
+
+.Expenditure add activity diagram
+image::ExpenditureActivityDiagram.png[]
+
 ==== Design Consideration
 
 *Consideration:* Number of tags an expenditure can have

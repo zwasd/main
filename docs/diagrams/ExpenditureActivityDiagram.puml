@@ -1,0 +1,22 @@
+@startuml
+
+start
+:User enters an expenditure add command;
+
+if () then ([invalid command])
+    :Show error message;
+else ([command is correct])
+    if () then ([date is not specified])
+        :A new Expenditure object with is created \nwith the current displayed date;
+    else ([otherwise])
+        :A new Expenditure object with \nthe specified date is created;
+    endif
+    if () then ([the date of the new Expenditure \n = current displayed date])
+        :The UI is updated \nwith the new Expenditure;
+    else ([otherwise])
+        :No UI updates are needed;
+    endif
+    :An acknowledgement message is shown;
+endif
+    stop
+@enduml
