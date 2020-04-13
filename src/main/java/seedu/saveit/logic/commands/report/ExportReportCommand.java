@@ -133,7 +133,7 @@ public class ExportReportCommand extends Command {
         ExportFile f = new ExportFile(fileName, graph);
         export(f);
 
-        return new CommandResult(MESSAGE_SUCCESS, f, true);
+        return new CommandResult(MESSAGE_SUCCESS, f);
     }
 
     @Override

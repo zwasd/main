@@ -4,13 +4,16 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
+show field
+
 package UI <<Rectangle>>{
 Class "{abstract}\nUiPart" as UiPart
-Class ReportWindow
+Class ReportWindow  {
+  <color:white> {field} {static} currentGraph:Graph
+                   }
 Class ResultDisplay
 Class ReportCommandBox
 Class MenuBar
-Class Graph
 Class MainWindow
 }
 
@@ -19,7 +22,7 @@ Class HiddenLogic #FFFFFF
 }
 
 MainWindow -up-> Logic
-ReportWindow *--> Graph
+
 ReportWindow -up-> Logic
 MainWindow *--> ReportWindow
 
