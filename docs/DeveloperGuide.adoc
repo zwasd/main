@@ -1459,7 +1459,7 @@ from `AB3` , for example changing `Person` from `AB3` to `Expenditure` in `$AVE 
 had to create the other entities from scratch.
 
 === UI
-`AB3` only has one list panel view whereas `$AVE UT` boosts a calendar view and budget
+`AB3` only has one list panel view whereas `$AVE IT` boosts a calendar view and budget
 view on top of the list panel. Furthermore, an additional pop out window, Report Window is
 also added. This meant that much work was required to change `AB3` 's UI to the current UI
 we have. On top of that, we also needed in new UI components that are not present in `AB3`
@@ -1468,7 +1468,7 @@ it will automatically show today's date as well list panel of expenditures. This
 more challenging as we had to ensure that our UI responds to changes in timing.
 
 === Features
-On top of `AB3`'s feature such as `adding` and `editing` an entity, we have implemented
+On top of `AB3` 's feature such as `adding` and `editing` an entity, we have implemented
 additional features such as `acc checkout` , `report export` and `go today`.
 
 === Others
