@@ -30,7 +30,7 @@ public class ExpAddCommand extends Command {
             + PREFIX_INFO + "INFO "
             + PREFIX_AMOUNT + "AMOUNT "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_INFO + "Chicken rice "
             + PREFIX_AMOUNT + "3.5 "

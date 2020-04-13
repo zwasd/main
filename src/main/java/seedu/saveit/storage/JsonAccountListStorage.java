@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 import seedu.saveit.commons.core.LogsCenter;
@@ -12,6 +13,7 @@ import seedu.saveit.commons.exceptions.DataConversionException;
 import seedu.saveit.commons.exceptions.IllegalValueException;
 import seedu.saveit.commons.util.FileUtil;
 import seedu.saveit.commons.util.JsonUtil;
+import seedu.saveit.model.AccountList;
 import seedu.saveit.model.ReadOnlyAccountList;
 
 /**
@@ -56,6 +58,18 @@ public class JsonAccountListStorage implements SaveItStorage {
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
+        }
+    }
+
+    @Override
+    public ReadOnlyAccountList readSampleSaveIt() {
+        String jsonString = (new Scanner(getClass().getResourceAsStream("/files/saveit-demo.json")))
+                .useDelimiter("\\A").next();
+        try {
+            return JsonUtil.fromJsonString(jsonString, JsonSerializableAccountList.class).toModelType();
+        } catch (IllegalValueException | IOException ive) {
+            logger.info("Illegal values found in saveit-demo.json");
+            return new AccountList(true);
         }
     }
 

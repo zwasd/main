@@ -4,6 +4,7 @@ import seedu.saveit.logic.commands.general.ExitCommand;
 import seedu.saveit.logic.commands.general.FindCommand;
 import seedu.saveit.logic.commands.general.GoCommand;
 import seedu.saveit.logic.commands.general.HelpCommand;
+import seedu.saveit.logic.commands.general.SetBudgetCommand;
 import seedu.saveit.logic.parser.Parser;
 import seedu.saveit.logic.parser.account.AccLevelParser;
 import seedu.saveit.logic.parser.exceptions.ParseException;
@@ -46,9 +47,11 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case FindCommand.COMMAND_WORD:
             return new HelpCommand(FindCommand.MESSAGE_USAGE);
 
+        case SetBudgetCommand.COMMAND_WORD:
+            return new HelpCommand(SetBudgetCommand.MESSAGE_USAGE);
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
 
         default:
             return new HelpCommand(args.trim(), true);

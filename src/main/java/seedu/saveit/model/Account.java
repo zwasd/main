@@ -167,7 +167,7 @@ public class Account implements ReadOnlyAccount, ReportableAccount {
      */
     public void setBudget(Budget budget) {
         requireNonNull(budget);
-        //This can use to reset the budget too.
+        //This can be used to change the budget too.
         this.budgetList.setBudget(budget);
     }
 

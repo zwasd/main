@@ -42,12 +42,13 @@ public class ExportReportCommand extends Command {
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Exports the report. "
             + "\n" + "Parameters: "
-            + PREFIX_START_DATE + " STAR DATE "
-            + PREFIX_END_DATE + " END DATE "
-            + PREFIX_GRAPH + " GRAPH TYPE "
-            + PREFIX_ORGANISE + " ORGANISE "
-            + PREFIX_FILENAME + " FILE NAME "
+            + PREFIX_START_DATE + " START_DATE "
+            + PREFIX_END_DATE + " END_DATE "
+            + PREFIX_GRAPH + " GRAPH_TYPE "
+            + PREFIX_ORGANISE + " ORGANISATION "
+            + PREFIX_FILENAME + " FILE_NAME "
             + "\n"
+            + "\tGRAPH_TYPE = pie | bar, ORGANISATION = tag | month\n"
             + "Example: " + ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + " " + PREFIX_START_DATE + " 2020-03-22 "
             + PREFIX_END_DATE + " 2020-03-25 "

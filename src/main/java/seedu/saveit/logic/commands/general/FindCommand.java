@@ -22,7 +22,7 @@ public class FindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all expenditures which contain any of "
             + "the specified keyword(s) (case-insensitive) AND the specified tag (if present).\n"
-            + "Parameters: [KEYWORD] [-t TAG]\n"
+            + "Parameters: [KEYWORD...] [-t TAG]\n"
             + "Example: " + COMMAND_WORD + " apple -t Food\n"
             + "Note: at least one keyword OR the tag must be specified";
 
