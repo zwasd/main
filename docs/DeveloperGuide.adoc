@@ -1419,3 +1419,38 @@ Expected: Will enter find mode: Expenditure and repeat records which contain the
 .. Test case: `exit` +
 Expected: `$AVEIT` will terminate.
 
+[appendix]
+== Effort (Ng Xinpei)
+
+To date, our application has 13kLOC combined. This meant that
+much coordination was needed between all of the team members.
+The COVID-19 situation has made communication tougher, however we
+managed to do online Skype calls routinely which improved coordination
+efforts.
+
+=== Entities
+`AB3` contains and deals mainly with the `Person` entity only. However,
+in `$AVE IT`, there are multiple entities such as `Expenditure`, `Repeat`
+`Account` and `Report` that are required. While we managed to refactor some code
+from `AB3` , for example changing `Person` from `AB3` to `Expenditure` in `$AVE It` we
+had to create the other entities from scratch.
+
+=== UI
+`AB3` only has one list panel view whereas `$AVE UT` boosts a calendar view and budget
+view on top of the list panel. Furthermore, an additional pop out window, Report Window is
+also added. This meant that much work was required to change `AB3` 's UI to the current UI
+we have. On top of that, we also needed in new UI components that are not present in `AB3`
+such as the `calendar` UI. Our UI is time sensitive ,meaning that when users open the app
+it will automatically show today's date as well list panel of expenditures. This made implementation
+more challenging as we had to ensure that our UI responds to changes in timing.
+
+=== Features
+On top of `AB3`'s feature such as `adding` and `editing` an entity, we have implemented
+additional features such as `acc checkout` , `report export` and `go today`.
+
+=== Others
+Throughout the whole process, the team has ensured that we maintained
+high level of code quality through the usage of CI.
+
+
+
