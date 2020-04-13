@@ -19,8 +19,6 @@ public class CommandResult {
      * Indicates the action of report command.
      **/
     private final boolean isShowReport;
-    private final boolean isExportReport;
-    private final boolean isPrintReport;
     private Graph graph;
     private ExportFile file;
 
@@ -50,14 +48,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowReport,
-                         boolean isExportReport, boolean isPrintReport, boolean updateCalendar,
+    public CommandResult(String feedbackToUser, boolean exit, boolean isShowReport,
+                         boolean updateCalendar,
                          boolean updateAccountName, boolean updateBudgetView) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.exit = exit;
         this.isShowReport = isShowReport;
-        this.isExportReport = isExportReport;
-        this.isPrintReport = isPrintReport;
         this.updateCalendar = updateCalendar;
         this.updateAccountName = updateAccountName;
         this.updateBudgetView = updateBudgetView;
@@ -65,7 +61,7 @@ public class CommandResult {
 
 
     public CommandResult(String feedbackToUser, LocalDate newActiveDate, Double budget, double totalSpending) {
-        this(feedbackToUser, false, false, false, false, false,
+        this(feedbackToUser, false, false,
                 true, false, true);
         this.newActiveDate = newActiveDate;
         this.budget = budget;
@@ -73,29 +69,28 @@ public class CommandResult {
 
     }
 
-    public CommandResult(String feedbackToUser, Graph graph,
-                         boolean exportReport, boolean showReport, boolean printReport) {
-        this(feedbackToUser, false, false, showReport,
-                exportReport, printReport, false, false, false);
+    public CommandResult(String feedbackToUser, Graph graph, boolean showReport) {
+        this(feedbackToUser, false, showReport,
+                false, false, false);
         this.graph = graph;
     }
 
-    public CommandResult(String feedbackToUser, ExportFile fileToExport, boolean exportReport) {
-        this(feedbackToUser, false, false, false,
-                exportReport, false, false, false, false);
+    public CommandResult(String feedbackToUser, ExportFile fileToExport) {
+        this(feedbackToUser, false, false,
+                false, false, false);
         this.file = fileToExport;
     }
 
     //rename
     public CommandResult(String feedbackToUser, String newAccountName) {
-        this(feedbackToUser, false, false, false, false, false,
+        this(feedbackToUser, false, false,
                 false, true, false);
         this.activeAccountName = newAccountName;
     }
 
     //checkout another account
     public CommandResult(String feedbackToUser, String newAccountName, Double budget, double totalSpending) {
-        this(feedbackToUser, false, false, false, false, false,
+        this(feedbackToUser, false, false,
                 false, true, true);
         this.activeAccountName = newAccountName;
         this.budget = budget;
@@ -107,13 +102,11 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false,
-                false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     public CommandResult(String feedbackToUser, Double budget, double totalSpending) {
-        this(feedbackToUser, false, false, false, false,
-                false, false, false, true);
+        this(feedbackToUser, false, false, false, false, true);
         this.budget = budget;
         this.totalSpending = totalSpending;
     }
@@ -182,8 +175,6 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && exit == otherCommandResult.exit
                 && isShowReport == otherCommandResult.isShowReport
-                && isExportReport == otherCommandResult.isExportReport
-                && isPrintReport == otherCommandResult.isPrintReport
                 && updateCalendar == otherCommandResult.updateCalendar
                 && updateAccountName == otherCommandResult.updateAccountName
                 && updateBudgetView == otherCommandResult.updateBudgetView;
@@ -191,8 +182,7 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, exit, isShowReport, isExportReport,
-                isPrintReport, updateCalendar, updateAccountName);
+        return Objects.hash(feedbackToUser, exit, isShowReport, updateCalendar, updateAccountName);
     }
 
 }

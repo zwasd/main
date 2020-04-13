@@ -73,7 +73,7 @@ public class ViewReportCommandTest {
         ViewReportCommand command1 = new ViewReportCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
         Graph graph = new Bar(new HashMap(), VALID_ORGANISATION_MONTH);
-        CommandResult r = new CommandResult(ViewReportCommand.MESSAGE_SUCCESS, graph, false, true, false);
+        CommandResult r = new CommandResult(ViewReportCommand.MESSAGE_SUCCESS, graph, true);
 
         assertCommandSuccess(command1, model, r, model);
     }
