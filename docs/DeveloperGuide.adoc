@@ -106,7 +106,7 @@ image::ReportUIClassDiagram.png[]
 
 The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `Result Display` etc.
 The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
-A
+
 The `Report UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu/saveit/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/saveit/ui[`ReportWindow.java`].
 Layout of `ReportCommandBox` is defined in the matching `.fxml` file that is in the `src/main/resources/view` folder.
 For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/saveit/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`].
