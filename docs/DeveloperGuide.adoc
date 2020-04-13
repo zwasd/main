@@ -1222,6 +1222,10 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+Only the last valid prefix will be taken into account.
+E.g. exp add -i chicken rice -a 3.5 -a 4.0. The new expenditure record will have an amount fo 4.00 instead of 3.50.
+*This applies to all other command*.
+
 
 === Launch and Shutdown
 
