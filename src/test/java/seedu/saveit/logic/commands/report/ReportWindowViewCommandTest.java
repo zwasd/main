@@ -2,6 +2,7 @@ package seedu.saveit.logic.commands.report;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.logic.commands.CommandTestUtil.INVALID_ORGANISATION;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_GRAPH_BAR_CAPS;
@@ -83,6 +84,7 @@ public class ReportWindowViewCommandTest {
         ReportWindowViewCommand command1 = new ReportWindowViewCommand(rp.build());
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-        assertCommandFailure(command1, model, ReportWindowViewCommand.MESSAGE_FAIL);
+        assertCommandFailure(command1, model,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReportWindowViewCommand.MESSAGE_USAGE));
     }
 }

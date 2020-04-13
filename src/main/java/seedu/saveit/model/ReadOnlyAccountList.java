@@ -24,7 +24,7 @@ public interface ReadOnlyAccountList extends ReadOnlyAccount {
     LocalDate getActiveDate();
 
     /**
-     * Returns the active account in the account list.
+     * Returns the name of the active account in the account list.
      */
-    String getActiveAccount();
+    String getActiveAccountName();
 }

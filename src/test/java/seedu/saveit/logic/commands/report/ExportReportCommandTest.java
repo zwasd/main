@@ -3,6 +3,7 @@ package seedu.saveit.logic.commands.report;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.logic.commands.CommandTestUtil.INVALID_ORGANISATION;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_END_DATE_BUS;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_FILE_NAME;
@@ -86,7 +87,8 @@ public class ExportReportCommandTest {
         ExportReportCommand command1 = new ExportReportCommand(rp.build(), VALID_FILE_NAME);
         Model model = new ModelManager(getTypicalAccountList(), new UserPrefs());
 
-        assertCommandFailure(command1, model, ExportReportCommand.MESSAGE_FAIL);
+        assertCommandFailure(command1, model,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportReportCommand.MESSAGE_USAGE));
     }
 
 }

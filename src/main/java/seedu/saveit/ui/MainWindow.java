@@ -133,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         expenditureListPanelPlaceholder.getChildren().add(expenditureListPanel.getRoot());
         calendarView = new CalendarView(this::executeCommand);
         calendar.getChildren().add(calendarView.getRoot());
-        activeNameAndDateView = new ActiveNameAndDateView(logic.getAddressBook().getActiveAccount(),
+        activeNameAndDateView = new ActiveNameAndDateView(logic.getAddressBook().getActiveAccountName(),
                 logic.getAddressBook().getActiveDate());
         activeAccountNamePlaceHolder.getChildren().add(activeNameAndDateView.getRoot());
         budgetView = new BudgetView();

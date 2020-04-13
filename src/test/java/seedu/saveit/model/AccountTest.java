@@ -2,10 +2,12 @@ package seedu.saveit.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_DATE_MRT;
 import static seedu.saveit.logic.commands.CommandTestUtil.VALID_TAG_BUS;
 import static seedu.saveit.testutil.Assert.assertThrows;
+import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccounts;
 import static seedu.saveit.testutil.TypicalExpenditures.ALICE;
 
 import java.util.Collection;
@@ -33,25 +35,13 @@ public class AccountTest {
         assertThrows(NullPointerException.class, () -> account.resetData(null));
     }
 
-    /* todo sp dk how to fix this
-     @Test
-     public void resetData_withValidReadOnlyAccountList_replacesData() {
-         Account newData = getTypicalAccounts();
-         account.resetData(newData);
-         assertEquals(newData, account);
-     }
-    */
-
-    /*
     @Test
-    public void resetData_withDuplicateExpenditures_throwsDuplicateExpenditureException() {
-        // Two expenditures with the same identity fields
-        Expenditure editedAlice = new ExpenditureBuilder(ALICE).build();
-        List<Expenditure> newExpenditures = Arrays.asList(ALICE, editedAlice);
-        AccountStub newData = new AccountStub(newExpenditures);
-        assertThrows(DuplicateExpenditureException.class, () -> account.resetData(newData));
+    public void resetData_withValidReadOnlyAccount_replacesData() {
+        Account newData = getTypicalAccounts();
+        account.resetData(newData);
+        assertEquals(newData.getExpenditureList(), account.getExpenditureList());
+        assertEquals(newData.getRepeatList(), account.getRepeatList());
     }
-     */
 
     @Test
     public void hasExpenditure_nullExpenditure_throwsNullPointerException() {
@@ -80,6 +70,32 @@ public class AccountTest {
     @Test
     public void getExpenditureList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> account.getExpenditureList().remove(0));
+    }
+
+    @Test
+    public void copyAccountWithNewName_sameData() {
+        Account personal = new Account("personal");
+        Account personal1 = personal.copyAccountWithNewName("personal1");
+
+        assertEquals(personal1.getExpenditureList(), personal.getExpenditureList());
+        assertEquals(personal1.getRepeatList(), personal.getRepeatList());
+    }
+
+    @Test
+    public void copyAccountWithNewName_notEquals() {
+        Account personal = new Account("personal");
+        Account personal1 = personal.copyAccountWithNewName("personal1");
+
+        assertNotEquals(personal, personal1);
+    }
+
+    @Test
+    public void copyAccountWithNewName_oldNameUnchanged() {
+        Account personal = new Account("personal");
+        Account personal1 = personal.copyAccountWithNewName("personal1");
+
+        assertEquals(personal1.getAccountName(), "personal1");
+        assertEquals(personal.getAccountName(), "personal");
     }
 
     /**
