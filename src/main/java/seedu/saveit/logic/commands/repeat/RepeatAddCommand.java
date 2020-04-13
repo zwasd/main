@@ -26,13 +26,14 @@ public class RepeatAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a repeating expenditure to the $AVE IT. "
-            + "Parameters: "
+            + "\n" + "Parameters: "
             + PREFIX_INFO + "INFO "
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_START_DATE + "STARTDATE "
             + PREFIX_END_DATE + "ENDDATE "
-            + PREFIX_PERIOD + "[daily|monthly|weekly|annually] "
+            + PREFIX_PERIOD + "PERIOD "
             + "[" + PREFIX_TAG + "TAG]\n"
+            + "\tPERIOD = daily | weekly | monthly | annually\n"
 
             + "Example: " + RepeatLevelParser.COMMAND_WORD
             + " " + COMMAND_WORD + " "

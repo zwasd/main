@@ -23,12 +23,12 @@ public class SetBudgetCommand extends Command {
     public static final String COMMAND_WORD = "setbudget";
 
     public static final String MESSAGE_SUCCESS = "Budget for %s set to $%.2f.";
-    public static final String MESSAGE_USAGE = ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the budget for a certain month. "
             + "\n" + "Parameters: "
             + PREFIX_AMOUNT + "AMOUNT "
-            + "[" + PREFIX_YEARMONTH + "YEARMONTH] "
-            + "Example: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " "
+            + "[" + PREFIX_YEARMONTH + "YEARMONTH]"
+            + "\nExample: " + ExpLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_AMOUNT + "200.0 "
             + PREFIX_YEARMONTH + "2020-04";
 

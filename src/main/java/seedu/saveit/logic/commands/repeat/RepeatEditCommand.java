@@ -43,8 +43,9 @@ public class RepeatEditCommand extends Command {
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
             + "[" + PREFIX_START_DATE + "STARTDATE] "
             + "[" + PREFIX_END_DATE + "ENDDATE] "
-            + "[" + PREFIX_PERIOD + "[daily|monthly|weekly|annually] ]"
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_PERIOD + "PERIOD] "
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "\tPERIOD = daily | weekly | monthly | annually\n"
             + "Example: " + RepeatLevelParser.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "4.3";
 

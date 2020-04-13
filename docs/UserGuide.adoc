@@ -281,7 +281,7 @@ image::updateViewForGoCommand.png[]
 //tag::autocomplete[]
 === Autocomplete (Lim Feng Yue)
 The _Autocomplete_ feature allows you to complete the basic commands of the
-application. It matches the what you type into the command box and tries to
+application. It matches what you type into the command box and tries to
 complete the command.
 
 .Autocomplete feature
@@ -419,7 +419,7 @@ Format: `acc rename [OLD_NAME] NEW_NAME`
 
 ****
 * `OLD_NAME` is the name of an already existing account.
-* if `OLD_NAME` is not specified, the current account will be renamed.
+* If `OLD_NAME` is not specified, the current account will be renamed.
 * `NEW_NAME` should not be the name of an existing account.
 * See <<acc-add>> for account naming constraints.
 ****
@@ -554,6 +554,7 @@ Use this command after `find` to return back to normal daily view.
 
 Adds an expenditure that can be repeated. +
 Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]` +
+
 *Do note that duplicate `repeat` records are allowed*.
 ****
 * `INFO` is the information of the expenditure.
@@ -636,10 +637,10 @@ Sets the budget of $1000 for this month.
 Sets the budget of $1000 for the month of March in 2020.
 
 [[cmd-find]]
-=== Locating both repeats and normal expenditures by keyword: `find`
+=== Search by keyword or tag: `find`
 
-Find expenditures (both single and repeated) which contain the keyword(s). +
-Format: `find [KEYWORD...]`
+Find expenditures (both single and repeated) which contain the keyword(s) *and* the specified tag (if present). +
+Format: `find [KEYWORD...] [-t TAG]`
 
 ****
 * The search is case insensitive. e.g `chickens` will match `Chickens`
@@ -654,9 +655,13 @@ Use `exp list` to exit from the search results.
 Examples:
 
 * `find rice` +
-Returns `Chicken rice` and `Veg Rice`.
+Returns any expenditures or repeats containing `rice`, e.g. `Chicken rice` and `Veg Rice`.
 * `find Spicy Chicken Rice` +
-Returns any expenditures or repeats having names `Spicy`, `Chicken`, or `Rice`.
+Returns any expenditures or repeats that contains *any one* of the keywords `Spicy`, `Chicken`, or `Rice`.
+* `find -t Food` +
+Returns all expenditures and repeats with the tag `Food`
+* `find rice -t Food` +
+Returns all expenditures and repeats that contains the keyword `rice` *and* has the tag `Food`.
 
 //tag::ReportCommand[]
 [#Report-command]
@@ -881,7 +886,7 @@ Format: `exit`
 * <<cmd-go, *go*>> : `go DATE` +
 e.g `go 2020-04-01`
 
-* <<cmd-find, *find*>> : `find [KEYWORD...]` +
+* <<cmd-find, *find*>> : `find [KEYWORD...] [-t TAG]` +
 e.g. `find chicken rice`
 
 * <<setbudget, *setbudget*>> : `exp setbudget -a AMOUNT [-ym YEAR_MONTH]` +
@@ -895,7 +900,7 @@ e.g. `acc add Personal`
 
 * <<acc-list, *acc list*>> : `acc list` +
 
-* <<acc-rename, *acc rename*>> : `acc rename OLD_NAME NEW_NAME` +
+* <<acc-rename, *acc rename*>> : `acc rename [OLD_NAME] NEW_NAME` +
 e.g. `acc rename Personal non-personal`
 
 * <<acc-checkout, *acc checkout*>> : `acc checkout ACCOUNT` +
@@ -928,6 +933,8 @@ e.g `repeat edit 2 -a 1.20 -ed 2020-04-02`
 * <<repeat-delete, *repeat delete*>> : `repeat delete INDEX` +
 e.g `repeat delete INDEX`
 
+    Note: PERIOD = daily | weekly | monthly | annually
+
 === Report (Main Window) Operations
 
 * <<report-view, *report view*>> : `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION` +
@@ -939,17 +946,24 @@ e.g. `report export -sd 2020-03-01 -ed 2020-03-31 -g pie -o month -f hello`
 * <<report-print, *report print*>> : `report print -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION` +
 e.g. `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag`
 
+    Note:
+    GRAPH_TYPE = pie | bar
+    ORGANISATION = tag | month
+
 === Report (Report Window) Operations
 
 * <<report-cmd-view, *report view _equivalence_*>> : `view START_DATE END_DATE GRAPH_TYPE ORGANISATION` +
 e.g. `view 2020-03-01 2020-03-31 bar tag`
-
 
 * <<report-cmd-export, *report export _equivalence_*>> : `export FILE_NAME` +
 e.g. `export hello`
 
 * <<report-cmd-print, *report print _equivalence_*>> : `print` +
 e.g. `print`
+
+    Note:
+    GRAPH_TYPE = pie | bar
+    ORGANISATION = tag | month
 
 * <<report-cmd-exit, *exit*>> : `exit` +
 e.g. `exit`

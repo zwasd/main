@@ -91,7 +91,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/saveit/ui/Ui.java[`Ui.java`]
 
-The Main UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The Main UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` , `Calendar` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/saveit/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -343,7 +343,7 @@ the `LogicManager`.
 
 The information displayed are:
 
-. The budget amount, e.g `$123.00`
+. The budget amount, e.g. `$123.00`
 . The total spending in `2020-04` (month)
 . The balance, which is the difference between the budget amount and the total
 spending
@@ -441,13 +441,13 @@ _ReportableAccount_ object requested from _Model_ through `getReportableAccount`
 
 
 If a valid `report print` command was input, the _PrintReportCommandParser_  will parse the input and convert the Strings :
-start date, end date, graph into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively. These objects
+start date, end date, graph into _Date_, _Report.GraphType_ and _organisation(String)_ object respectively. These objects
 are used to create _PrintReportCommand_ object which will be executed.
 The result of execution will be sending a print job to your printer, printing out the report.
 
 
 If a valid `report export` command was input, the _ExportReportCommandParser_  will parse the input and convert the Strings :
-tart date, end date, graph into _Date_ , _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
+tart date, end date, graph into _Date_, _Report.GraphType_ , _organisation(String)_ and _file name(String)_ object respectively.
 These objects are used to create _ExportReportCommand_ object which will be executed.
 The result of execution will be exporting a PNG version of the report into your computer with file name.
 
@@ -515,7 +515,7 @@ the days: +
 *2*. Make use of `go YYYY-MM-DD` command. +
 
 The following sequence diagram shows you how the `go YYYY-MM-DD`
-(E.g `go 2020-04-01`) command works.
+(E.g. `go 2020-04-01`) command works.
 
 .`UI` and `LOGIC`  component for the `go 2020-04-01` command
 image::goSequenceDiagram.png[]
@@ -542,7 +542,7 @@ This section contains some of our design considerations for the calendar feature
 |1. Make use of a month list to contain all the expenditure records of the given month.
 |This is able to provide a concise view of expenditure view especially when there are only a small number of records.
 |This looks like excel sheet and users have to scroll all the way up if they want to view a date which is much earlier.
-|2. *[current choice]* Make use of a calender view and only list out a given date's expenditure record.
+|2. *[current choice]* Make use of a calendar view and only list out a given date's expenditure record.
 This automatically helps user to organize the records according to date.
 |User can make use of the calendar view to navigate between the dates,
 this is much more convenient than scrolling through a list. +
@@ -552,9 +552,9 @@ Especially helpful if there is lots of records.
 |===
 
 ==== NOTE
-Dates with negative year are allowed. E.g `-1234-03-21` is allowed. +
+Dates with negative year are allowed. E.g. `-1234-03-21` is allowed. +
 The developer team follows the range which is specified in the
-https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[LocalDate Api, released by Oracle].
+https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html[LocalDate API, released by Oracle].
 //end::calendar[]
 
 //tag::autocomplete[]
@@ -623,14 +623,14 @@ image::AutocompleteActivityDiagram.png[]
 |- Takes up a lot of space.
 |===
 
-The curent choice is chosen as the number of commands is not a lot, so high
+The current choice is chosen as the number of commands is not a lot, so high
 performance is not required.
 //end::autocomplete[]
 
 [[Implementation-Configuration]]
 === Configuration
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+Certain properties of the application can be controlled (e.g. user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 === Logging
 
@@ -919,7 +919,7 @@ Use case ends.
 ** 1b1. `$AVE IT` will request for amount to be a double.
 ** Use case resumes in step 1.
 * 1c. `$AVE IT` detects that date input is invalid.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** 1c1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes in step 1.
 * 1d. `$AVE IT` detects that index provided is invalid.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
@@ -948,7 +948,7 @@ Use case ends.
 ** 1b1. `$AVE IT` will request for amount to be a double.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects that start date or end date input is invalid.
-** 1c1. `$AVE IT` will request an valid and date.
+** 1c1. `$AVE IT` will request a valid end date.
 ** Use case resumes from step 1.
 * 1d. `$AVE IT` detects that period input is invalid.
 ** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
@@ -1003,7 +1003,7 @@ Use case ends.
 ** 1b1. `$AVE IT` will request for amount to be a double.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects that start date or end date input is invalid.
-** 1c1. `$AVE IT` will request an valid and date.
+** 1c1. `$AVE IT` will request a valid end date.
 ** Use case resumes from step 1.
 * 1d. `$AVE IT` detects that period input is invalid.
 ** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
@@ -1018,8 +1018,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to view an report of expenditure record in the account which they are viewing right now. +
-Format: `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
+1.  User requests to view a report of expenditure record in the account which they are viewing right now. +
+Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -1049,8 +1049,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to export an report of expenditure record in the account which they are viewing right now. +
-Format: `report export -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION -f FILE_NAME`
+1.  User requests to export a report of expenditure record in the account which they are viewing right now. +
+Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION -f FILE_NAME`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -1064,7 +1064,7 @@ Use case ends.
 ** 1a2. Back to step 1.
 ** use case end.
 * 1b. Invalid start date or end date.
-** 1b1. `$AVE IT` will request an valid start and end date.
+** 1b1. `$AVE IT` will request a valid start and end date.
 ** 1b2. Back to step 1.
 ** use case end.
 * 1c. `$AVE IT` detects that graph type input is invalid.
@@ -1110,7 +1110,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to set an budget for a given month in the account which they are viewing right now. +
+1.  User requests to set a budget for a given month in the account which they are viewing right now. +
 Format: `setbudget -a AMOUNT [-ym YEAR_MONTH]`
 2.  `$AVE IT` will acknowledge.
 +
@@ -1127,7 +1127,7 @@ Use case ends.
 ** 1b1. `$AVE IT` will request for amount to be a double.
 ** Use case resumes from step 1.
 * 1c. `$AVE IT` detects that date input is invalid.
-** 1c1. `$AVE IT` WILL request an valid and non empty date.
+** 1c1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes from step 1.
 * 2a. `$AVE IT` detects that date is not specified.
 ** 2a1. `$AVE IT` will add this expenditure record to the day which the calendar states.
@@ -1165,7 +1165,7 @@ Use case ends.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
 * 1b. `$AVE IT` detects that date input is invalid.
-** 1b1. `$AVE IT` WILL request an valid and non empty date.
+** 1b1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes from step 1.
 
 
@@ -1269,13 +1269,13 @@ Expected: A response will be given to denote a change in account.
 
 ==== Delete account
 .. Prerequisites: +
-The account which you wanted to delete, must exist in account list. +
+The account which you want to delete, must exist in account list. +
 .. Test case: `acc delete projectABC` +
 Expected: the account will be deleted. +
 
     Note:
     If that is the only account, a new default account will be auto generated.
-    If you deleted the account which you are viewing on, you will be auto checkout to another account after deletion.
+    If you deleted the account which you are viewing on, you will be auto checked-out to another account after deletion.
 
 ==== Clear data of an account
 .. Prerequisites: +
@@ -1290,7 +1290,7 @@ Expected: the current account's data will be all cleared.
 The command input must be in the right format.
 .. Test case: `exp add -i Chicken rice -a 3.50 -t Lunch` +
 Expected: New expenditure added: Chicken rice Amount: 3.50 Date: 2020-04-12 Tag: lunch.
-will be added to current date (For this test case: current date is set to 2020-04-12").
+This will be added to current date (For this test case: current date is set to 2020-04-12").
 .. Test case: `exp add -i Chicken rice -a 3.50 -t Lunch -d 2020-04-01` +
 Expected: New expenditure added: Chicken rice Amount: 3.50 Date: 2020-04-01 Tag: lunch.
 
@@ -1311,7 +1311,7 @@ Expected: Edited Expenditure: Chicken rice Amount: 3.50 Date: 2020-04-01 Tag: me
 Expected: View all the expenditure records.
 
     Note:
-    This is mainly use to exit the find mode.
+    This is mainly used to exit the find mode.
 
 
 === Repeat command test
@@ -1404,11 +1404,15 @@ Expected: We are at : 2020-03-11.
 ==== Find
 .. Test case: 'find rice' +
 Expected: Will enter find mode: Expenditure and repeat records which contain `rice` will be shown. +
+.. Test case: 'find rice -t Food' +
+Expected: Will enter find mode: Expenditure and repeat records which contain `rice` and the tag `Food` will be shown. +
+.. Test case: 'find -t Food' +
+Expected: Will enter find mode: Expenditure and repeat records which contain the tag `Food` will be shown. +
 
     Note:
     Users have to make use of "exp list" to exit find mode.
 
 ==== Exit
-.. Test case: `exit`
+.. Test case: `exit` +
 Expected: `$AVEIT` will terminate.
 
