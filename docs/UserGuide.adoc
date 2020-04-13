@@ -131,11 +131,14 @@ as the start date is `2020-03-31`, the next tentative date should be `2020-04-31
 Hence, this expenditure record will be shown on `2020-04-30` instead. For May, it will be still shown on `2020-05-31`. +
 *This applies to leap year too*
 
-//end::repeat[]
-
 
 Refer to <<Repeat commands, Repeat Commands>> for more details on how to add, edit
 and delete `Repeat` type expenditures.
+
+
+
+//end::repeat[]
+
 
 //tag::budget[]
 === Budget (Lim Feng Yue)
@@ -599,6 +602,8 @@ Edits the information of the repeated expenditure with index `2` to `concession`
 * `repeat edit 3 -p weekly -ed 2020-07-02` +
 Edits the interval for the repeated expenditure with index `3` to weekly and
 ends at 2 July 2020.
+* `repeat edit 3 -ed 2021-07-3"
+Edit the end date for the repeated expenditure, this allows user to extend or shorten the whole duration.
 
 [[repeat-delete]]
 ==== Deleting a repeated expenditure: `repeat delete`
@@ -854,12 +859,6 @@ Format: `exit`
 //end::ReportWindowCommand[]
 
 
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
-
-
 == Command Summary
 
 === Prefix Notation
@@ -956,3 +955,10 @@ e.g. `print`
 
 * <<report-cmd-exit, *exit*>> : `exit` +
 e.g. `exit`
+
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous $AVE IT folder.
+
