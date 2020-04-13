@@ -269,7 +269,7 @@ image::ExpenditureActivityDiagram.png[]
 |More flexibility for the user.
 |More difficult to implement. This also makes it impossible to calculate total spendings for each tag due to possible overlapping.
 |2. *[current choice]* An expenditure has exactly one tag.
-|This makes it possible for the user to see total spendings per tag using the <<Report, Report>> feature.
+|This makes it possible for the user to see total spending per tag using the <<Report, Report>> feature.
 |Less flexibility for the user.
 |===
 
@@ -501,6 +501,7 @@ hence it is recommended to users that Bar Chart should be used in such instances
 3. While it is allowed for users to send multiple print jobs, users are recommended
 to avoid sending multiple print jobs in a short interval.
 4. Only months or tags with total spending of more than 0 dollars will be reported.
+5. The Report folder is located at the directory where you run the jar file.
 
 //end::Report[]
 
@@ -1238,13 +1239,15 @@ E.g. exp add -i chicken rice -a 3.5 -a 4.0. The new expenditure record will have
 
 === Launch and Shutdown
 
-. Initial launch
+==== Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+..  Download the jar file and copy into an empty folder
+.. Double-click the jar file  +
    Expected: Shows the GUI with a set of sample expenditures & repeats in a few accounts. The window size may not be optimum.
+.. If you are running the jar file through cmd, the data, log and .json files will be located at the directory where
+you run the jar file.
 
-. Saving window preferences
+==== Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +

@@ -736,10 +736,9 @@ Possible values are:
 ****
 
 [NOTE]
-
-The exported file will be located at the same directory of the application, under
-the `Report` folder. The file can be identified by `FILE_NAME.png` whereby
-`FILE_NAME` is specified by your input in the command.
+The file can be identified by FILE_NAME.png whereby FILE_NAME is specified by your input in the command.
+The file can be found in the Report folder which will be in the same directory as the jar file if you are running it by double-clicking the jar file.
+If you run the jar file on cmd, the Report folder will be located in the directory where you run the jar file.
 
 Examples:
 
@@ -834,9 +833,9 @@ Format: `export FILE_NAME`
 ****
 
 [NOTE]
-The exported file will be located at the same directory of the application, under
-the `Report` folder. The file can be identified by `FILE_NAME.png` whereby
-`FILE_NAME` is specified by your input in the command.
+The file can be identified by FILE_NAME.png whereby FILE_NAME is specified by your input in the command.
+The file can be found in the Report folder which will be in the same directory as the jar file if you are running it by double-clicking the jar file.
+If you run the jar file on cmd, the Report folder will be located in the directory where you run the jar file.
 
 [[report-cmd-print]]
 === Printing report: `print`
