@@ -4,7 +4,7 @@ title Set Budget Sequence Diagram
 box Logic LOGIC_COLOR_T1
 participant ":TopLevelParser" as TopLevelParser LOGIC_COLOR
 participant ":SetBudgetCommandParser" as SetBudgetCommandParser LOGIC_COLOR
-participant ":SetBudgetCommand" as SetBudgetCommand LOGIC_COLOR
+participant "sbc:SetBudgetCommand" as SetBudgetCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -38,7 +38,7 @@ deactivate SetBudgetCommandParser
 [<-[hidden]- SetBudgetCommandParser
 destroy SetBudgetCommandParser
 
-[<-- TopLevelParser
+[<-- TopLevelParser : sbc
 deactivate TopLevelParser
 
 [<-[hidden]- TopLevelParser
@@ -85,6 +85,5 @@ deactivate CommandResult
 deactivate SetBudgetCommand
 
 [<-[hidden]- SetBudgetCommand
-destroy SetBudgetCommand
 
 @enduml
