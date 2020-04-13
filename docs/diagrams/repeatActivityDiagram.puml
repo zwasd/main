@@ -8,17 +8,17 @@ if () then ([Valid Command Format])
     else ([Else])
     endif
     :Create repeat object;
-        fork
-        if () then ([Budget is\n set for the\n given month]\n)
-            :Update budget view;
-        else ([Else])
-        endif
-        fork again
-        if () then ([Repeat adds\n to active date])
-            :Update expenditure view;
-        else ([Else])
-        endif
-        end fork
+
+    if () then ([Budget is\n set for the\n given month]\n)
+       :Update budget view;
+    else ([Else])
+    endif
+
+
+    if () then ([Repeat adds\n to active date])
+        :Update expenditure view;
+    else ([Else])
+    endif
 else ([Else])
     :Throw ParserException;
 endif
