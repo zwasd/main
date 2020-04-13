@@ -48,6 +48,7 @@ GoCommandParser --> TopLevelParser : GC
 deactivate GoCommandParser
 
 TopLevelParser --> LogicManager : GC
+deactivate TopLevelParser
 destroy GoCommandParser
 
 LogicManager -> GoCommand : execute()
@@ -63,6 +64,7 @@ GoCommand --> LogicManager : CR
 deactivate GoCommand
 
 LogicManager --> MainWindow : CR
+deactivate LogicManager
 
 MainWindow -> MainWindow : isUpdateCalendar()
 activate MainWindow
@@ -83,8 +85,6 @@ MainWindow --> MainWindow
 deactivate MainWindow
 
 user <-- MainWindow
-deactivate LogicManager
-deactivate TopLevelParser
 deactivate MainWindow
 
 @enduml
