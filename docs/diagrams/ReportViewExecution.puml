@@ -1,6 +1,6 @@
 @startuml
 !include style.puml
-title Report View Command Execution Sequence
+title View Report Command Execution Sequence
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "vc:ViewReportCommand" as ViewReportCommand LOGIC_COLOR

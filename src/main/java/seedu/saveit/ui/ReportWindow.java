@@ -1,6 +1,5 @@
 package seedu.saveit.ui;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -155,7 +154,7 @@ public class ReportWindow extends UiPart<Stage> {
         VBox topBox = new VBox(menuBar, box.getRoot());
         VBox vbox = new VBox(topBox, display.getRoot(), graph);
         Scene scene = new Scene(vbox);
-        scene.getStylesheets().addAll(new File("src/main/resources/view/DarkTheme.css").toURI().toString());
+        //scene.getStylesheets().addAll("@DarkTheme.css");
         getRoot().setScene(scene);
         getRoot().show();
     }
