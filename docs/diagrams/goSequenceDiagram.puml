@@ -83,6 +83,8 @@ MainWindow --> MainWindow
 deactivate MainWindow
 
 user <-- MainWindow
+deactivate LogicManager
+deactivate TopLevelParser
 deactivate MainWindow
 
 @enduml

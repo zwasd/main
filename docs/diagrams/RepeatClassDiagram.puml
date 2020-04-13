@@ -8,13 +8,13 @@ skinparam classBackgroundColor MODEL_COLOR
 show method
 show field
 
-abstract class BaseExp <<abstract>>
+abstract class "{abstract}\nBaseExp" as BaseExp
 class Repeat
 class Info
 class Amount
 class Date
 class Tag
-enum Period
+enum Period <<enumeration>>
 
 class Info {
 
