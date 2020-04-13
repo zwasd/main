@@ -1398,6 +1398,12 @@ Expected: Pie chart with months where spending is not zero will be
 printed. If all months have zero dollar
 spending, then an empty Pie Chart will be printed.
 
+[NOTE]
+The window will show "Not Responding" if the default printer is not set up,
+this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
+will be given.
+
+
 ===== Report Window
 .. Prerequisites: +
 There is a report generated and a printer set up.
