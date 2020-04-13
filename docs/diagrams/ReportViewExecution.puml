@@ -21,9 +21,10 @@ activate LogicManager
 [-> LogicManager
 LogicManager -> ViewReportCommand : execute()
 activate ViewReportCommand
-activate Report
 ViewReportCommand -> Report : getOrganise()
+activate Report
 Report --> ViewReportCommand : organise
+deactivate Report
 create GenerateStats
 ViewReportCommand -> GenerateStats
 activate GenerateStats
@@ -38,6 +39,7 @@ GenerateStats -[hidden]-> ViewReportCommand
 destroy GenerateStats
 
 ViewReportCommand -> Report : getFormat()
+activate Report
 Report --> ViewReportCommand : format
 deactivate Report
 Report -[hidden]-> ViewReportCommand
