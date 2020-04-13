@@ -31,10 +31,6 @@ import seedu.saveit.ui.exceptions.PrinterException;
  */
 public class ReportWindow extends UiPart<Stage> {
 
-    //TODO: extract out the change scene code and make it a method
-
-    public static final String REPORT_MESSAGE = "Generating report...";
-
     private static final Logger logger = LogsCenter.getLogger(ReportWindow.class);
     private static final String FXML = "ReportWindow.fxml";
     private static Graph currentGraph;

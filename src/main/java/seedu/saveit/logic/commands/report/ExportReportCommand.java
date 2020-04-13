@@ -133,7 +133,7 @@ public class ExportReportCommand extends Command {
         ExportFile f = new ExportFile(fileName, graph);
         export(f);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName), f, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName), f);
     }
 
     @Override

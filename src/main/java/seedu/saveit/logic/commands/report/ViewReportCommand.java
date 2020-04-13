@@ -76,7 +76,7 @@ public class ViewReportCommand extends Command {
         }
 
 
-        return new CommandResult(MESSAGE_SUCCESS, graph, false, true, false);
+        return new CommandResult(MESSAGE_SUCCESS, graph, true);
     }
 
     @Override

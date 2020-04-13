@@ -154,7 +154,7 @@ public class PrintReportCommand extends Command {
 
         printerJob(graph);
 
-        return new CommandResult(MESSAGE_SUCCESS, graph, false, false, true);
+        return new CommandResult(MESSAGE_SUCCESS, graph, false);
     }
 
     @Override
