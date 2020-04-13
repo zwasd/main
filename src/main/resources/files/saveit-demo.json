@@ -1,0 +1,497 @@
+{
+  "accounts" : [ {
+    "accountName" : "CCA",
+    "expenditures" : [ {
+      "info" : "masking tape x4",
+      "amount" : 2.8,
+      "date" : "2020-04-11",
+      "tag" : "Logs"
+    }, {
+      "info" : "pizza",
+      "amount" : 120.0,
+      "date" : "2020-04-11",
+      "tag" : "Others"
+    } ],
+    "repeats" : [ ],
+    "budgets" : {
+      "2020-04": 200.0,
+      "2020-05": 50.0
+    }
+  }, {
+    "accountName" : "default",
+    "expenditures" : [ {
+      "info" : "chicken rice",
+      "amount" : 3.5,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "milo",
+      "amount" : 1.2,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "notebook",
+      "amount" : 1.5,
+      "date" : "2020-04-11",
+      "tag" : "Stationery"
+    }, {
+      "info" : "rice noodle",
+      "amount" : 2.0,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-01",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-01",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-01",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-02",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-02",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-02",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-03",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-03",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-03",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-04",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-04",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-04",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-05",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-05",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-05",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-06",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-06",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-06",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-07",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-07",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-07",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-08",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-08",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-08",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-09",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-09",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-09",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-10",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-10",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-10",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-11",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-12",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-12",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-12",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 2.0,
+      "date" : "2020-04-13",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 2.0,
+      "date" : "2020-04-13",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 2.0,
+      "date" : "2020-04-13",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-14",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-14",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-14",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-15",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-15",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-15",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-17",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-17",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-17",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-19",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-19",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-19",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-24",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-24",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-24",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-22",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-22",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-22",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-26",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-26",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-26",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-28",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-28",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-28",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-21",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-21",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-21",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 3.0,
+      "date" : "2020-04-29",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 4.0,
+      "date" : "2020-04-29",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 3.5,
+      "date" : "2020-04-29",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 7.0,
+      "date" : "2020-04-23",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 5.0,
+      "date" : "2020-04-23",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 4.5,
+      "date" : "2020-04-23",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 7.0,
+      "date" : "2020-04-25",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 5.0,
+      "date" : "2020-04-25",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 4.5,
+      "date" : "2020-04-25",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 7.0,
+      "date" : "2020-04-27",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 5.0,
+      "date" : "2020-04-27",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 4.5,
+      "date" : "2020-04-27",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 7.0,
+      "date" : "2020-04-16",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 5.0,
+      "date" : "2020-04-16",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 4.5,
+      "date" : "2020-04-16",
+      "tag" : "Food"
+    }, {
+      "info" : "breakfast",
+      "amount" : 7.0,
+      "date" : "2020-04-18",
+      "tag" : "Food"
+    }, {
+      "info" : "lunch",
+      "amount" : 5.0,
+      "date" : "2020-04-18",
+      "tag" : "Food"
+    }, {
+      "info" : "dinner",
+      "amount" : 4.5,
+      "date" : "2020-04-18",
+      "tag" : "Food"
+    }
+
+    ],
+    "repeats" : [ {
+      "info" : "bus",
+      "amount" : 2.1,
+      "startDate" : "2020-04-01",
+      "endDate" : "2020-05-01",
+      "period" : "daily",
+      "tag" : "Others"
+    } ],
+    "budgets" : {
+      "2020-04" : 200.0
+    }
+  }, {
+    "accountName" : "Work",
+    "expenditures" : [ {
+      "info" : "taxi fare to claim",
+      "amount" : 29.0,
+      "date" : "2020-04-11",
+      "tag" : "Others"
+    }, {
+      "info" : "A4 paper",
+      "amount" : 50.0,
+      "date" : "2020-04-11",
+      "tag" : "Stationery"
+    } ],
+    "repeats" : [ ],
+    "budgets" : {
+      "2020-04" : 70.0,
+      "2020-05" : 70.0
+    }
+  } ],
+  "currentAccount" : "default"
+}
+

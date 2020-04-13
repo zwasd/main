@@ -80,14 +80,13 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Account");
             }
-            // initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook); TODO
-            initialData = (AccountList) addressBookOptional.orElseGet(() -> new AccountList(true));
+            initialData = (AccountList) addressBookOptional.orElseGet(storage::readSampleSaveIt);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty Account");
-            initialData = new AccountList(true);
+            logger.warning("Data file not in the correct format. Will be starting with a sample Account");
+            initialData = (AccountList) storage.readSampleSaveIt();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty Account");
-            initialData = new AccountList(true);
+            logger.warning("Problem while reading from the file. Will be starting with an sample account");
+            initialData = (AccountList) storage.readSampleSaveIt();
         }
 
         return new ModelManager(initialData, userPrefs);

@@ -666,12 +666,13 @@ Refer to the guide <<DevOps#, here>>.
 *Target user profile*:
 
 * has a need to manage expenditure
-* prefer desktop apps over other types
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage expenditure faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenditures faster than a typical mouse/GUI driven app +
+& better organise them using disjoint accounts.
 
 [appendix]
 == User Stories
@@ -777,11 +778,11 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that account is non-existent.
+* 1b. `$AVE IT` detects that the account with `OLD_NAME` is non-existent.
 ** 1b1. `$AVE IT` will state that the account with the specified name was not found.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects existence of account with "new name".
-** 1c1. `$AVE IT` will state that duplicate account name detected. Unable to add.
+* 1c. `$AVE IT` detects existence of account with `NEW_NAME`.
+** 1c1. `$AVE IT` will state that a duplicate account was detected. Unable to add.
 ** Use case resumes from step 1.
 
 
@@ -790,7 +791,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to check out to another account. Format: `acc checkout ACCOUNT`
+1.  User requests to check out another account. Format: `acc checkout ACCOUNT`
 2.  `$AVE IT` will acknowledge and state that the target account is checked out.
 +
 
@@ -801,7 +802,7 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that account is non-existent.
+* 1b. `$AVE IT` detects that the account is non-existent.
 ** 1b1. `$AVE IT` will state that the account with the specified name was not found.
 ** Use case resumes from step 1.
 
@@ -831,7 +832,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to clear all data in an account. Format: `acc clear`
-2.  `$AVE IT` will acknowledge and state that the account's data has been cleared'.
+2.  `$AVE IT` will acknowledge and state that the account's data has been cleared.
 +
 
 Use case ends.
@@ -840,9 +841,6 @@ Use case ends.
 [none]
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
-** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that account is non-existent.
-** 1b1. `$AVE IT` will state that the account with the specified name was not found.
 ** Use case resumes in step 1.
 
 [discrete]
@@ -863,10 +861,10 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
+* 1b. `$AVE IT` detects that the amount input is invalid.
+** 1b1. `$AVE IT` will request for the amount to be a double.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that tag is not specified.
+* 1c. `$AVE IT` detects that the tag is not specified.
 ** 1c1.`$AVE IT` will auto assign it to be `Others`
 ** 1c2.`$AVE IT` will acknowledge that a new expenditure has been added and show the details of the added expenditure.
 ** Use case ends.
@@ -892,7 +890,7 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that index provided is invalid.
+* 1b. `$AVE IT` detects that the index provided is invalid.
 ** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes from step 1.
 
@@ -915,13 +913,13 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
+* 1b. `$AVE IT` detects that the amount input is invalid.
+** 1b1. `$AVE IT` will request for the amount to be a double.
 ** Use case resumes in step 1.
-* 1c. `$AVE IT` detects that date input is invalid.
+* 1c. `$AVE IT` detects that the date input is invalid.
 ** 1c1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes in step 1.
-* 1d. `$AVE IT` detects that index provided is invalid.
+* 1d. `$AVE IT` detects that the index provided is invalid.
 ** 1d1. `$AVE IT` will state that the expenditure index provided is invalid.
 ** Use case resumes in step 1.
 
@@ -933,7 +931,7 @@ Use case ends.
 
 1.  User requests to add a repeating expenditure record in the account which they are viewing right now. +
 Format: `repeat add -i INFO -a AMOUNT -sd START_DATE -ed END_DATE -p PERIOD [-t TAG]`
-2.  `$AVE IT` will acknowledge.
+2.  `$AVE IT` will acknowledge that a new repeat has been added and show the details of the added repeat.
 +
 
 Use case ends.
@@ -944,18 +942,18 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
+* 1b. `$AVE IT` detects that the amount input is invalid.
+** 1b1. `$AVE IT` will request for the amount to be a double.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that start date or end date input is invalid.
+* 1c. `$AVE IT` detects that the start date or end date input is invalid.
 ** 1c1. `$AVE IT` will request a valid end date.
 ** Use case resumes from step 1.
-* 1d. `$AVE IT` detects that period input is invalid.
-** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+* 1d. `$AVE IT` detects that the period input is invalid.
+** 1d1. `$AVE IT` will request for the period to be `daily`, `weekly`, `monthly` or `annually`.
 ** Use case resumes from step 1.
-* 1e. `$AVE IT` detects that tag input is unspecified.
+* 1e. `$AVE IT` detects that the tag is not specified.
 ** 1e1. `$AVE IT` will auto assign it to be `Others`
-** 1e2. `$AVE IT` will acknowledge.
+** 1e2. `$AVE IT` will acknowledge that a new repeat has been added and show the details of the added repeat.
 ** Use case ends.
 
 [discrete]
@@ -976,8 +974,8 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format'.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that index input is invalid.
-** 1b1. `$AVE IT` will state that the expenditure index provided is invalid.
+* 1b. `$AVE IT` detects that the index input is invalid.
+** 1b1. `$AVE IT` will state that the repeat index provided is invalid.
 ** Use case resumes from step 1.
 
 
@@ -999,27 +997,27 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
+* 1b. `$AVE IT` detects that the amount input is invalid.
+** 1b1. `$AVE IT` will request for the amount to be a double.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that start date or end date input is invalid.
+* 1c. `$AVE IT` detects that the start date or end date input is invalid.
 ** 1c1. `$AVE IT` will request a valid end date.
 ** Use case resumes from step 1.
-* 1d. `$AVE IT` detects that period input is invalid.
-** 1d1. `$AVE IT` will request period to be `daily`, `weekly`, `monthly` and `annually`.
+* 1d. `$AVE IT` detects that the period input is invalid.
+** 1d1. `$AVE IT` will request for the period to be `daily`, `weekly`, `monthly` and `annually`.
 ** Use case resumes from step 1.
-* 1e. `$AVE IT` detects that index input is invalid.
-** 1e1. `$AVE IT` will state that the expenditure index provided is invalid.
+* 1e. `$AVE IT` detects that the index input is invalid.
+** 1e1. `$AVE IT` will state that the repeat index provided is invalid.
 ** 1e2. Back to step 1.
-** use case end.
+** Use case ends.
 
 [discrete]
 === Use case: Report View
 
 *MSS*
 
-1.  User requests to view a report of expenditure record in the account which they are viewing right now. +
-Format: `report view -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION`
+1.  User requests to view a report of expenditure records in the account which they are viewing right now. +
+Format: `report view -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
 2.  `$AVE IT` will acknowledge and pop up another window to show the relevant report.
 +
 
@@ -1031,13 +1029,13 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that start date or end date input is invalid.
+* 1b. `$AVE IT` detects that the start date or end date input is invalid.
 ** 1b1. `$AVE IT` will request a valid start and end date.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that graph type input is invalid.
+* 1c. `$AVE IT` detects that the graph type input is invalid.
 ** 1c1. `$AVE IT` will request a valid graph type.
 ** Use case resumes from step 1.
-** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d. `$AVE IT` detects that the organisation input is invalid.
 ** 1d1. `$AVE IT` will request a valid organisation.
 ** Use case resumes from step 1.
 
@@ -1049,8 +1047,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to export a report of expenditure record in the account which they are viewing right now. +
-Format: `report export -g GRAPH_TYPE -sd START_DATE -ed END_DATE -o ORGANISATION -f FILE_NAME`
+1.  User requests to export a report of expenditure records in the account which they are viewing right now. +
+Format: `report export -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION -f FILE_NAME`
 2.  `$AVE IT` will acknowledge and export the report to the folder which has same location as `$AVE IT`.
 +
 
@@ -1067,10 +1065,10 @@ Use case ends.
 ** 1b1. `$AVE IT` will request a valid start and end date.
 ** 1b2. Back to step 1.
 ** use case end.
-* 1c. `$AVE IT` detects that graph type input is invalid.
+* 1c. `$AVE IT` detects that the graph type input is invalid.
 ** 1c1. `$AVE IT` will request a valid graph type.
 ** Use case resumes from step 1.
-** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d. `$AVE IT` detects that the organisation input is invalid.
 ** 1d1. `$AVE IT` will request a valid organisation.
 ** Use case resumes from step 1.
 ** 1d. `$AVE IT` detects that file name input is invalid.
@@ -1095,13 +1093,13 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that start date or end date input is invalid.
+* 1b. `$AVE IT` detects that the start date or end date input is invalid.
 ** 1b1. `$AVE IT` will request a valid start and end date.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that graph type input is invalid.
+* 1c. `$AVE IT` detects that the graph type input is invalid.
 ** 1c1. `$AVE IT` will request a valid graph type.
 ** Use case resumes from step 1.
-** 1d. `$AVE IT` detects that organisation input is invalid.
+** 1d. `$AVE IT` detects that the organisation input is invalid.
 ** 1d1. `$AVE IT` will request a valid organisation.
 ** Use case resumes from step 1.
 
@@ -1123,10 +1121,10 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes in step 1.
-* 1b. `$AVE IT` detects that amount input is invalid.
-** 1b1. `$AVE IT` will request for amount to be a double.
+* 1b. `$AVE IT` detects that the amount input is invalid.
+** 1b1. `$AVE IT` will request for the amount to be a double.
 ** Use case resumes from step 1.
-* 1c. `$AVE IT` detects that date input is invalid.
+* 1c. `$AVE IT` detects that the date input is invalid.
 ** 1c1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes from step 1.
 * 2a. `$AVE IT` detects that date is not specified.
@@ -1141,11 +1139,18 @@ Use case ends.
 *MSS*
 
 1.  User requests to find expenditure & repeat records with certain `keyword`(s) in the account which they are viewing right now. +
-Format: `find [KEYWORD...]`
+Format: `find [KEYWORD...] [-t TAG]`
 2.  `$AVE IT` will acknowledge and output a list of relevant records.
 +
 
 Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `$AVE IT` detects that input is in wrong format.
+** 1a1. `$AVE IT` will request for correct input format.
+** Use case resumes from step 1.
 
 [discrete]
 === Use case: Go
@@ -1164,7 +1169,7 @@ Use case ends.
 * 1a. `$AVE IT` detects that input is in wrong format.
 ** 1a1. `$AVE IT` will request for correct input format.
 ** Use case resumes from step 1.
-* 1b. `$AVE IT` detects that date input is invalid.
+* 1b. `$AVE IT` detects that the date input is invalid.
 ** 1b1. `$AVE IT` WILL request a valid and non empty date.
 ** Use case resumes from step 1.
 
@@ -1201,7 +1206,6 @@ Use case ends.
 .  Should be able to hold up to 100 accounts without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1233,7 +1237,7 @@ E.g. exp add -i chicken rice -a 3.5 -a 4.0. The new expenditure record will have
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample expenditures & repeats in a few accounts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1241,39 +1245,38 @@ E.g. exp add -i chicken rice -a 3.5 -a 4.0. The new expenditure record will have
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 
 
 === Account command test
 ==== Add a new account
 .. Prerequisites: +
-The `new account name` must not exist in the system. +
-Name must be a word(contains no space).
+The new `ACCOUNT_NAME` must not exist in the system. +
+Name must be a word (contains no space).
 .. Test case: `acc add project-xyz` +
 Expected: A new account named `project-xyz` is added to the account list.
 
-==== View all account
-Test case: acc list. +
-Expected: All the account which you own, will be displayed.
+==== View all accounts
+Test case: `acc list` +
+Expected: All the accounts in the application will be displayed.
 
 ==== Rename account
 .. Prerequisites: +
-The account whose name you wanted to change, must exist in account list. +
-The new name must not be another account's name.
+The account whose name you want to change, must exist in the system. +
+The new name must not be an existing account's name.
 .. Test case: `acc rename projectXYZ projectABC` +
 Expected: the account's name with project-xyz change to project-abc.
 
-==== Checkout to an account
+==== Checkout an account
 .. Prerequisites: +
-The account which you wanted to checkout to, must exist in account list. +
-.. Test case acc checkout personal. +
+The account which you want to checkout to, must exist in the system. +
+.. Test case `acc checkout personal` +
 Expected: A response will be given to denote a change in account.
 
 
 ==== Delete account
 .. Prerequisites: +
-The account which you want to delete, must exist in account list. +
+The account which you want to delete, must exist in the system. +
 .. Test case: `acc delete projectABC` +
 Expected: the account will be deleted. +
 
@@ -1376,7 +1379,7 @@ an empty Bar chart will be exported.
 .. Prerequisites: +
 There is a report generated and input parameters must be valid.
 
-.. Test case: `export filename`
+.. Test case: `export filename` +
 Expected: Exports the current graph shown in report window to file named filename.
 
 
