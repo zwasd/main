@@ -54,7 +54,7 @@ public class ExportReportCommand extends Command {
             + PREFIX_END_DATE + " 2020-03-25 "
             + PREFIX_GRAPH + " pie "
             + PREFIX_ORGANISE + " tag "
-            + PREFIX_FILENAME + " Report2 \n(will be exported as Report2.png)";
+            + PREFIX_FILENAME + " report2 \n(will be exported as report2.png)";
 
     private final Report toExport;
     private HashMap statsToExport;

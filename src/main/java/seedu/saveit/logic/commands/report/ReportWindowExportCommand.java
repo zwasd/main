@@ -28,7 +28,7 @@ public class ReportWindowExportCommand extends ReportCommand {
     public static final String MESSAGE_SUCCESS = "The report has been exported to Report/%1$s.png";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the report.\nParameters: FILE_NAME" + "\n"
-            + "Example: export Report2 (will be exported as Report2.png)";
+            + "Example: export report2 (will be exported as report2.png)";
 
     private String fileName;
 
