@@ -1,6 +1,7 @@
 package seedu.saveit.logic.commands.report;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashMap;
 
@@ -23,15 +24,15 @@ public class ReportWindowViewCommand extends ReportCommand {
 
     public static final String MESSAGE_SUCCESS = "Report is generated";
 
-    public static final String MESSAGE_FAIL = "Report cannot be generated";
-
-    public static final String MESSAGE_USAGE = "Parameters: \n "
-            + "start date : YYYY-MM-DD  "
-            + " end date :  YYYY-MM-DD  "
-            + " graph type : pie  "
-            + " organise : tag "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows the report. "
+            + "\nParameters: (note: no prefixes required)\n "
+            + "START_DATE: YYYY-MM-DD  "
+            + "END_DATE:  YYYY-MM-DD  "
+            + " GRAPH_TYPE: pie | bar  "
+            + " ORGANISATION : tag | month"
             + "\n"
-            + "eg: " + "view 2020-03-22 " + " 2020-03-25 " + " pie " + " tag ";
+            + "Example: view 2020-03-22 2020-03-25 pie tag ";
 
     private HashMap statsToDisplay;
     private Report.GraphType format;
@@ -51,7 +52,7 @@ public class ReportWindowViewCommand extends ReportCommand {
         } else if (toView.getOrganise().equals("month")) {
             statsToDisplay = new GenerateStats(toView, model).generateStatsByMonth();
         } else {
-            throw new CommandException(MESSAGE_FAIL);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         format = toView.getFormat();
@@ -61,7 +62,7 @@ public class ReportWindowViewCommand extends ReportCommand {
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToDisplay, toView.getOrganise());
         } else {
-            throw new CommandException(MESSAGE_FAIL);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         return new ReportCommandResult(MESSAGE_SUCCESS, graph);

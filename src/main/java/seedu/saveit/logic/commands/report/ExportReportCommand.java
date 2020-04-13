@@ -1,6 +1,7 @@
 package seedu.saveit.logic.commands.report;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.saveit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.saveit.logic.parser.CliSyntax.PREFIX_GRAPH;
@@ -37,8 +38,7 @@ import seedu.saveit.ui.Pie;
 public class ExportReportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-    public static final String MESSAGE_SUCCESS = "Report is exporting.";
-    public static final String MESSAGE_FAIL = "Report cannot be exported";
+    public static final String MESSAGE_SUCCESS = "The report has been exported to Report/%1$s.png";
     public static final String MESSAGE_USAGE = ReportLevelParser.COMMAND_WORD + " " + COMMAND_WORD
             + ": Exports the report. "
             + "\n" + "Parameters: "
@@ -54,7 +54,7 @@ public class ExportReportCommand extends Command {
             + PREFIX_END_DATE + " 2020-03-25 "
             + PREFIX_GRAPH + " pie "
             + PREFIX_ORGANISE + " tag "
-            + PREFIX_FILENAME + " report ";
+            + PREFIX_FILENAME + " Report2 \n(will be exported as Report2.png)";
 
     private final Report toExport;
     private HashMap statsToExport;
@@ -117,7 +117,7 @@ public class ExportReportCommand extends Command {
         } else if (toExport.getOrganise().equals("month")) {
             statsToExport = new GenerateStats(toExport, model).generateStatsByMonth();
         } else {
-            throw new CommandException(MESSAGE_FAIL);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         format = toExport.getFormat();
@@ -127,13 +127,13 @@ public class ExportReportCommand extends Command {
         } else if (format.equals(Report.GraphType.BAR)) {
             graph = new Bar(statsToExport, toExport.getOrganise());
         } else {
-            throw new CommandException(MESSAGE_FAIL);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         ExportFile f = new ExportFile(fileName, graph);
         export(f);
 
-        return new CommandResult(MESSAGE_SUCCESS, f, true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fileName), f, true);
     }
 
     @Override
