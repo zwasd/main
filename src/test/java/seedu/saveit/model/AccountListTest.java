@@ -1,16 +1,17 @@
 package seedu.saveit.model;
 
-import org.junit.jupiter.api.Test;
-import seedu.saveit.logic.commands.exceptions.CommandException;
-
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.saveit.testutil.Assert.assertThrows;
 import static seedu.saveit.testutil.TypicalAccounts.getTypicalAccountList;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.saveit.logic.commands.exceptions.CommandException;
 
 public class AccountListTest {
 

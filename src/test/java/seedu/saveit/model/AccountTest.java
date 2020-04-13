@@ -35,13 +35,13 @@ public class AccountTest {
         assertThrows(NullPointerException.class, () -> account.resetData(null));
     }
 
-     @Test
-     public void resetData_withValidReadOnlyAccount_replacesData() {
-         Account newData = getTypicalAccounts();
-         account.resetData(newData);
-         assertEquals(newData.getExpenditureList(), account.getExpenditureList());
-         assertEquals(newData.getRepeatList(), account.getRepeatList());
-     }
+    @Test
+    public void resetData_withValidReadOnlyAccount_replacesData() {
+        Account newData = getTypicalAccounts();
+        account.resetData(newData);
+        assertEquals(newData.getExpenditureList(), account.getExpenditureList());
+        assertEquals(newData.getRepeatList(), account.getRepeatList());
+    }
 
     @Test
     public void hasExpenditure_nullExpenditure_throwsNullPointerException() {
@@ -98,9 +98,9 @@ public class AccountTest {
         assertEquals(personal.getAccountName(), "personal");
     }
 
-        /**
-         * A stub ReadOnlyAccount whose expenditures list can violate interface constraints.
-         */
+    /**
+     * A stub ReadOnlyAccount whose expenditures list can violate interface constraints.
+     */
     private static class AccountStub implements ReadOnlyAccount {
         private final ObservableList<Expenditure> expenditures = FXCollections.observableArrayList();
         private final ObservableList<Repeat> repeats = FXCollections.observableArrayList();
