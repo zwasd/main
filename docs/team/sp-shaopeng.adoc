@@ -61,15 +61,13 @@ This implementation is much more challenging especially when there is data struc
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-T10-3/main/pull/97[#97], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/148[#148], https://github.com/AY1920S2-CS2103T-T10-3/main/pull/159[#159]
 
 == Contributions to the User Guide
-
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=calendar]
-
 include::../UserGuide.adoc[tag=repeat]
+
+include::../UserGuide.adoc[tag=calendar]
 
 == Contributions to the Developer Guide
 
@@ -80,4 +78,6 @@ include::../UserGuide.adoc[tag=repeat]
 include::../DeveloperGuide.adoc[tag=repeat]
 
 include::../DeveloperGuide.adoc[tag=calendar]
+
+
 
