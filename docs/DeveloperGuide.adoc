@@ -1258,8 +1258,8 @@ E.g. exp add -i chicken rice -a 3.5 -a 4.0. The new expenditure record will have
 .. Prerequisites: +
 The new `ACCOUNT_NAME` must not exist in the system. +
 Name must be a word (contains no space).
-.. Test case: `acc add project-xyz` +
-Expected: A new account named `project-xyz` is added to the account list.
+.. Test case: `acc add projectXYZ` +
+Expected: A new account named `projectXYZ` is added to the account list.
 
 ==== View all accounts
 Test case: `acc list` +
