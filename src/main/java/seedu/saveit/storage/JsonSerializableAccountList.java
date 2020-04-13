@@ -42,7 +42,7 @@ public class JsonSerializableAccountList {
     public JsonSerializableAccountList(ReadOnlyAccountList source) {
         accounts.addAll(source.getAccounts().values().stream()
                 .map(JsonSerializableAccount::new).collect(Collectors.toList()));
-        currentAccount = source.getActiveAccount();
+        currentAccount = source.getActiveAccountName();
     }
 
     /**

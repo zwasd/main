@@ -46,7 +46,7 @@ public class AccountList implements ReadOnlyAccountList {
         if (accounts.size() == 0) {
             createDefaultAccount();
         } else {
-            activeAccount = accounts.get(toBeCopied.getActiveAccount());
+            activeAccount = accounts.get(toBeCopied.getActiveAccountName());
         }
 
         activeDate = LocalDate.now();
@@ -330,7 +330,7 @@ public class AccountList implements ReadOnlyAccountList {
     }
 
     @Override
-    public String getActiveAccount() {
+    public String getActiveAccountName() {
         return activeAccount.getAccountName();
     }
 
