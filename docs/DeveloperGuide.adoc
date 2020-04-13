@@ -107,10 +107,11 @@ image::ReportUIClassDiagram.png[]
 The Report UI consists of a `ReportWindow` that is made up of parts e.g. `ReportCommandBox` and `Result Display` etc.
 The `ReportWindow` and `ReportCommandBox`, inherit from abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu/saveit/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/saveit/ui[`ReportWindow.java`]
-Layout of `ReportCommandBox` is defined in matching `.fxml` file that is in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/saveit/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`]
+The `Report UI` component uses JavaFx UI framework. Layout of `ReportWindow` is defined in `.java` file that is in the `src/main/java/seedu/saveit/ui` folder. For example the layout of `ReportWindow` is specified in link:https://github.com/AY1920S2-CS2103T-T10-3/main/tree/v1.3/src/main/java/seedu/saveit/ui[`ReportWindow.java`].
+Layout of `ReportCommandBox` is defined in the matching `.fxml` file that is in the `src/main/resources/view` folder.
+For example, the layout of the link:https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/java/seedu/saveit/ui/ReportCommandBox.java[`ReportCommandBox`] is specified in link:{repoURL}https://github.com/AY1920S2-CS2103T-T10-3/main/blob/v1.3/src/main/resources/view/ReportCommandBox.fxml[`ReportCommandBox.fxml`].
 
-The `UI` component,
+The `Report UI` component,
 
 * Executes user commands using the `Logic` component.
 //end::ReportUI[]
@@ -330,8 +331,8 @@ displays the budget details when a command is entered.
 image::BudgetActivityDiagram.png[]
 
 The implementation of setting the budget of the month is through the command
-format of `exp setbudget -a AMOUNT -ym YEAR_MONTH`. The process of how the command
-is parsed is shown below using an example, `exp setbudget -a 123 -ym 2020-04`.
+format of `setbudget -a AMOUNT -ym YEAR_MONTH`. The process of how the command
+is parsed is shown below using an example, `setbudget -a 123 -ym 2020-04`.
 
 .Set Budget Sequence Diagram (UI and Logic)
 image::BudgetSequenceDiagram.png[]
@@ -414,7 +415,8 @@ image::ReportViewCreation.png[]
 
 If a valid  `report view` command was input, the _ViewReportCommandParser_ will parse the input and convert the Strings :
 start date, end date, graph type  and organisation into _Date_ , _Report.GraphType_ and _organisation(String)_ object respectively.
-These objects are used to create the  _ViewReportCommand_ object. *Figure 19*  provides a detailed flow for how _ViewReportCommand_ object is created.
+These objects are used to create the  _ViewReportCommand_ object. *Figure 19*  shows how the different objects interact to create
+_ViewReportCommand_ object.
 
 As shown in *Figure 19*, when a user inputs a valid `report  view` command:
 
@@ -426,9 +428,7 @@ image::ReportViewExecution.png[]
 
 The _ViewReportCommand_ object will be executed.
 The result of the execution is popping out of  _ReportWindow_ which will showcase a expenditure breakdown report.
-
-*Figure 20* provides a detailed flow for how _ViewReportCommand_ object is executed.
-
+*Figure 20* shows how the objects interact to execute _ViewReportCommand_ object.
 
 As shown in *Figure 20*,
 

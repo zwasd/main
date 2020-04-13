@@ -1,12 +1,12 @@
 @startuml
 start
-:User types in  command;
+:User types in report command;
 if () then ([command is correct])
     :Executes command;
-     if() then ([report command])
-     :Pops up report window and shows graph;
+     if() then ([view command])
+     :Pops up report window and shows report;
      else ([print/export command])
-     :Prints/export the graph.;
+     :Prints/export the report;
      endif
 else ([else])
     :Throw error message;
