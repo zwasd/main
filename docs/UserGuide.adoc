@@ -761,7 +761,9 @@ Format: `report print -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION`
 [NOTE]
 
 For best usage, avoid sending multiple print jobs in short period of time. This prevents
-the print jobs from getting lost.
+the print jobs from getting lost. The window may be unresponsive if the default printer is not set up,
+this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
+will be given.
 
 Examples:
 
@@ -846,7 +848,9 @@ Format: `print`
 [NOTE]
 
 For best usage, avoid sending multiple print jobs in short period of time. This prevents
-the print jobs from getting lost.
+the print jobs from getting lost. The window may be unresponsive if the default printer is not set up,
+this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
+will be given.
 
 [[report-cmd-help]]
 === Help: `help`
@@ -878,7 +882,7 @@ Format: `exit`
 |`-p`      | period
 |`-g`      | graph type
 |`-f`      | file name
-|`-o`      | organised by
+|`-o`      | organisation
 |===
 
 === General Operations
@@ -948,11 +952,6 @@ e.g. `report export -sd 2020-03-01 -ed 2020-03-31 -g pie -o month -f hello`
 e.g. `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag` +
 *GRAPH_TYPE: either `pie` or `bar`* +
 *ORGANISATION: either `tag` or `month`.
-
-[NOTE]
-The window may be unresponsive if the default printer is not set up,
-this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
-will be given.
 
 === Report (Report Window) Operations
 
