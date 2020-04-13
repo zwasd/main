@@ -24,6 +24,7 @@ activate ViewReportCommand
 activate Report
 ViewReportCommand -> Report : getOrganise()
 Report --> ViewReportCommand : organise
+deactivate Report
 create GenerateStats
 ViewReportCommand -> GenerateStats
 activate GenerateStats
@@ -37,6 +38,7 @@ deactivate GenerateStats
 GenerateStats -[hidden]-> ViewReportCommand
 destroy GenerateStats
 
+activate Report
 ViewReportCommand -> Report : getFormat()
 Report --> ViewReportCommand : format
 deactivate Report
