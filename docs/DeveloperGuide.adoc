@@ -1335,21 +1335,21 @@ Expected: View all the expenditure records.
 .. Prerequisites: +
 The command input must be in the right format. +
 The end date must be equal or after the start date.
-.. Test case: `repeat add -i bus far -a 1.50 -sd 2020-01-01 -ed 2021-01-01 -p daily -t Transport` +
-Expected: New repeat added: bus far Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
+.. Test case: `repeat add -i bus fare -a 1.50 -sd 2020-01-01 -ed 2021-01-01 -p daily -t Transport` +
+Expected: New repeat added: bus fare Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
 will be added to current date (For this test case: current date is set to 2020-04-12").
 
 ==== Delete a repeat
 .. Prerequisites: +
 The index provided must be valid and it is an `repeat` record.
 .. Test case: `repeat delete 1`
-Expected: Deleted Repeat: bus far Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
+Expected: Deleted Repeat: bus fare Amount: 1.50 Start Date: 2020-01-01 End Date: 2021-01-01 Interval: daily Tags: Transport.
 
 ==== Edit a repeat
 .. Prerequisites: +
 The command input must be valid, index provided must be refer to an `repeat` record.
 .. Test case: `repeat edit 2 -sd 2020-04-01 -ed 2020-05-01` +
-Expected: Edited Repeat: bus far Amount: 1.50 Start Date: 2020-04-01 End Date: 2020-05-01 Interval: daily Tags: Transport.
+Expected: Edited Repeat: bus fare Amount: 1.50 Start Date: 2020-04-01 End Date: 2020-05-01 Interval: daily Tags: Transport.
 
 
 === Report command test
@@ -1400,6 +1400,12 @@ There is a printer set up and input parameters must be valid.
 Expected: Pie chart with months where spending is not zero will be
 printed. If all months have zero dollar
 spending, then an empty Pie Chart will be printed.
+
+[NOTE]
+The window may be unresponsive if the default printer is not set up,
+this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
+will be given.
+
 
 ===== Report Window
 .. Prerequisites: +
