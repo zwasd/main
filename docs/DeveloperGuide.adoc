@@ -1431,7 +1431,7 @@ Expected: `$AVEIT` will terminate.
 [appendix]
 == Effort (Ng Xinpei)
 
-To date, our application has 13kLOC combined. This meant that
+To date, our application has about 13000 line of code combined. This meant that
 much coordination was needed between all of the team members.
 The COVID-19 situation has made communication tougher, however we
 managed to do online Skype calls routinely which improved coordination
@@ -1459,7 +1459,8 @@ additional features such as `acc checkout` , `report export` and `go today`.
 
 === Others
 Throughout the whole process, the team has ensured that we maintained
-high level of code quality through the usage of CI.
+high level of code quality through the usage of Continuous Integration(CI) tools such as
+Travis.
 
 
 
