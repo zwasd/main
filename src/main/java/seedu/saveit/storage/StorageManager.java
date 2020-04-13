@@ -64,6 +64,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public ReadOnlyAccountList readSampleSaveIt() {
+        return saveItStorage.readSampleSaveIt();
+    }
+
+    @Override
     public void saveSaveIt(ReadOnlyAccountList addressBook) throws IOException {
         saveSaveIt(addressBook, saveItStorage.getSaveItFilePath());
     }

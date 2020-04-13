@@ -5,12 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.saveit.commons.exceptions.DataConversionException;
-import seedu.saveit.model.Account;
-import seedu.saveit.model.ReadOnlyAccount;
+import seedu.saveit.model.AccountList;
 import seedu.saveit.model.ReadOnlyAccountList;
 
 /**
- * Represents a storage for {@link Account}.
+ * Represents a storage for {@link AccountList}.
  */
 public interface SaveItStorage {
 
@@ -20,7 +19,7 @@ public interface SaveItStorage {
     Path getSaveItFilePath();
 
     /**
-     * Returns Account data as a {@link ReadOnlyAccount}.
+     * Returns Account data as a {@link ReadOnlyAccountList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -31,6 +30,12 @@ public interface SaveItStorage {
      * @see #getSaveItFilePath()
      */
     Optional<ReadOnlyAccountList> readSaveIt(Path filePath) throws DataConversionException, IOException;
+
+    /**
+     * Reads from saveit-demo.json in resources/files/
+     * @return a ReadOnlyAccountList with the sample data
+     */
+    ReadOnlyAccountList readSampleSaveIt();
 
     /**
      * Saves the given {@link ReadOnlyAccountList} to the storage.
