@@ -150,7 +150,8 @@ public class ReportWindow extends UiPart<Stage> {
         VBox topBox = new VBox(menuBar, box.getRoot());
         VBox vbox = new VBox(topBox, display.getRoot(), graph);
         Scene scene = new Scene(vbox);
-        //scene.getStylesheets().addAll("@DarkTheme.css");
+        scene.getStylesheets().addAll(this.getClass()
+                .getResource("/view/DarkTheme.css").toExternalForm());
         getRoot().setScene(scene);
         getRoot().show();
     }
