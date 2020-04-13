@@ -3,6 +3,5 @@
 <?import javafx.stage.Stage?>
 
 
-<fx:root fx:id="ReportWindow" title="Report" type="Stage"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="ReportWindow" minHeight="500.0" minWidth="400.0" title="Report" type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 </fx:root>
