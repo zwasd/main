@@ -945,11 +945,14 @@ e.g. `report view -sd 2020-03-01 -ed 2020-03-31 -g pie -o month`
 e.g. `report export -sd 2020-03-01 -ed 2020-03-31 -g pie -o month -f hello`
 
 * <<report-print, *report print*>> : `report print -sd START_DATE -ed END_DATE -g GRAPH_TYPE -o ORGANISATION` +
-e.g. `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag`
+e.g. `report print -sd 2020-03-01 -ed 2020-03-31 -g bar -o tag` +
+*GRAPH_TYPE: either `pie` or `bar`* +
+*ORGANISATION: either `tag` or `month`.
 
-    Note:
-    GRAPH_TYPE = pie | bar
-    ORGANISATION = tag | month
+[NOTE]
+The window may be unresponsive if the default printer is not set up,
+this will last for a few seconds. Eventually, a response stating "Set available printer as default printer before printing"
+will be given.
 
 === Report (Report Window) Operations
 
