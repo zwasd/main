@@ -9,9 +9,10 @@ import seedu.saveit.model.Model;
  */
 public class ReportWindowHelpCommand extends ReportCommand {
 
-    public static final String SHOWING_HELP_MESSAGE = "view startDate endDate graphtype organise - shows the report\n"
+    public static final String SHOWING_HELP_MESSAGE =
+            "view START_DATE END_DATE GRAPH_TYPE ORGANISATION - shows the report\n"
             + "print - prints the current graph\n"
-            + "export fileName - exports the current graph\n"
+            + "export FILE_NAME - exports the current graph\n"
             + "exit - Exits the report window.";
 
     @Override

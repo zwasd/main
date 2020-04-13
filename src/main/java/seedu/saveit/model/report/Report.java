@@ -9,7 +9,7 @@ import seedu.saveit.model.expenditure.Date;
 public class Report {
 
     public static final String ORGANISE_TYPE_MESSAGE_CONSTRAINT =
-            "Expenditures organisation should be: " + "tag" + " , month";
+            "Expenditures organisation should be: " + "tag | month";
     private final Date startDate;
     private final Date endDate;
     private final GraphType graph;
@@ -23,7 +23,7 @@ public class Report {
         BAR, PIE, NULL;
 
         public static final String GRAPH_TYPE_MESSAGE_CONSTRAINT = "Graph types should only be: "
-                + "bar" + ", " + "pie";
+                + "pie | bar";
 
 
         /**

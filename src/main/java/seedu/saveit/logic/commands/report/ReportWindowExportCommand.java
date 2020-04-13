@@ -25,9 +25,10 @@ import seedu.saveit.ui.ReportWindow;
 public class ReportWindowExportCommand extends ReportCommand {
 
     public static final String COMMAND_WORD = "export";
-    public static final String MESSAGE_EXPORT = "Trying to export.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " filename" + "\n"
-            + "eg export hello";
+    public static final String MESSAGE_SUCCESS = "The report has been exported to Report/%1$s.png";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Exports the report.\nParameters: FILE_NAME" + "\n"
+            + "Example: export report2 (will be exported as report2.png)";
 
     private String fileName;
 
@@ -92,6 +93,6 @@ public class ReportWindowExportCommand extends ReportCommand {
     @Override
     public ReportCommandResult execute(Model model) throws CommandException {
         export(fileName);
-        return new ReportCommandResult(MESSAGE_EXPORT, fileName);
+        return new ReportCommandResult(String.format(MESSAGE_SUCCESS, fileName), fileName);
     }
 }
