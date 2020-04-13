@@ -1447,7 +1447,7 @@ Expected: Will enter find mode: Expenditure and repeat records which contain the
 Expected: `$AVEIT` will terminate.
 
 [appendix]
-== Effort (Ng Xinpei)
+== Effort (Ng Xinpei, Zheng Shaopeng)
 
 To date, our application has about 13kLOC. This meant that
 much coordination was needed between all of the team members.
